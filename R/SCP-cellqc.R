@@ -18,7 +18,7 @@ db_scDblFinder <- function(srt, assay = "RNA", db_rate = ncol(srt) / 1000 * 0.01
   if (!inherits(srt, "Seurat")) {
     stop("'srt' is not a Seurat object.")
   }
-  status <- check_DataType(srt, slot = "counts", assay = assay)
+  status <- check_DataType(srt, layer = "counts", assay = assay)
   if (status != "raw_counts") {
     stop("Data type is not raw counts!")
   }
@@ -51,7 +51,7 @@ db_scds <- function(srt, assay = "RNA", db_rate = ncol(srt) / 1000 * 0.01, metho
   if (!inherits(srt, "Seurat")) {
     stop("'srt' is not a Seurat object.")
   }
-  status <- check_DataType(srt, slot = "counts", assay = assay)
+  status <- check_DataType(srt, layer = "counts", assay = assay)
   if (status != "raw_counts") {
     stop("Data type is not raw counts!")
   }
@@ -90,13 +90,13 @@ db_Scrublet <- function(srt, assay = "RNA", db_rate = ncol(srt) / 1000 * 0.01, .
   if (!inherits(srt, "Seurat")) {
     stop("'srt' is not a Seurat object.")
   }
-  status <- check_DataType(srt, slot = "counts", assay = assay)
+  status <- check_DataType(srt, layer = "counts", assay = assay)
   if (status != "raw_counts") {
     stop("Data type is not raw counts!")
   }
   check_Python("scrublet")
   scr <- import("scrublet")
-  raw_counts <- t(as_matrix(GetAssayData(object = srt, assay = assay, slot = "counts")))
+  raw_counts <- t(as_matrix(GetAssayData(object = srt, assay = assay, layer = "counts")))
   scrub <- scr$Scrublet(raw_counts, expected_doublet_rate = db_rate, ...)
   res <- scrub$scrub_doublets()
   doublet_scores <- res[[1]]
@@ -133,13 +133,13 @@ db_DoubletDetection <- function(srt, assay = "RNA", db_rate = ncol(srt) / 1000 *
   if (!inherits(srt, "Seurat")) {
     stop("'srt' is not a Seurat object.")
   }
-  status <- check_DataType(srt, slot = "counts", assay = assay)
+  status <- check_DataType(srt, layer = "counts", assay = assay)
   if (status != "raw_counts") {
     stop("Data type is not raw counts!")
   }
   check_Python("doubletdetection")
   doubletdetection <- import("doubletdetection")
-  counts <- GetAssayData(object = srt, assay = assay, slot = "counts")
+  counts <- GetAssayData(object = srt, assay = assay, layer = "counts")
   clf <- doubletdetection$BoostClassifier(
     n_iters = as.integer(5),
     standard_scaling = TRUE,
@@ -181,7 +181,7 @@ RunDoubletCalling <- function(srt, assay = "RNA", db_method = "scDblFinder", db_
   if (!inherits(srt, "Seurat")) {
     stop("'srt' is not a Seurat object.")
   }
-  status <- check_DataType(srt, slot = "counts", assay = assay)
+  status <- check_DataType(srt, layer = "counts", assay = assay)
   if (status != "raw_counts") {
     stop("Data type is not raw counts!")
   }
@@ -341,7 +341,7 @@ RunCellQC <- function(srt, assay = "RNA", split.by = NULL, return_filtered = FAL
   if (length(species) == 0) {
     species <- species_gene_prefix <- NULL
   }
-  status <- check_DataType(srt, slot = "counts", assay = assay)
+  status <- check_DataType(srt, layer = "counts", assay = assay)
   if (status != "raw_counts") {
     warning("Data type is not raw counts!", immediate. = TRUE)
   }
@@ -389,8 +389,8 @@ RunCellQC <- function(srt, assay = "RNA", split.by = NULL, return_filtered = FAL
       sp <- species[n]
       prefix <- species_gene_prefix[n]
       sp_genes <- rownames(srt[[assay]])[grep(pattern = paste0("^", prefix), x = rownames(srt[[assay]]))]
-      nCount <- srt[[paste0(c(paste0("nCount_", assay), sp), collapse = ".")]] <- colSums(srt[[assay]]@counts[sp_genes, ])
-      nFeature <- srt[[paste0(c(paste0("nFeature_", assay), sp), collapse = ".")]] <- colSums(srt[[assay]]@counts[sp_genes, ] > 0)
+      nCount <- srt[[paste0(c(paste0("nCount_", assay), sp), collapse = ".")]] <- colSums(srt[[assay]]$counts[sp_genes, ])
+      nFeature <- srt[[paste0(c(paste0("nFeature_", assay), sp), collapse = ".")]] <- colSums(srt[[assay]]$counts[sp_genes, ] > 0)
       percent.mito <- srt[[paste0(c("percent.mito", sp), collapse = ".")]] <- PercentageFeatureSet(object = srt, assay = assay, pattern = paste0("(", paste0("^", prefix, "-*", mito_pattern), ")", collapse = "|"), features = mito_gene)[[1]]
       percent.ribo <- srt[[paste0(c("percent.ribo", sp), collapse = ".")]] <- PercentageFeatureSet(object = srt, assay = assay, pattern = paste0("(", paste0("^", prefix, "-*", ribo_pattern), ")", collapse = "|"), features = ribo_gene)[[1]]
       percent.genome <- srt[[paste0(c("percent.genome", sp), collapse = ".")]] <- PercentageFeatureSet(object = srt, assay = assay, pattern = paste0("^", prefix))[[1]]
@@ -498,3 +498,4 @@ RunCellQC <- function(srt, assay = "RNA", split.by = NULL, return_filtered = FAL
   srt_raw <- AddMetaData(srt_raw, metadata = meta.data)
   return(srt_raw)
 }
+
