@@ -2039,7 +2039,7 @@ CellDimPlot <- function(srt, group.by, reduction = NULL, dims = c(1, 2), split.b
 #' @importFrom methods slot
 #' @importFrom reshape2 melt
 #' @export
-FeatureDimPlot <- function(srt, features, reduction = NULL, dims = c(1, 2), split.by = NULL, cells = NULL, slot = "data", assay = NULL,
+FeatureDimPlot <- function(srt, features, reduction = NULL, dims = c(1, 2), split.by = NULL, cells = NULL, layer = "data", assay = NULL,
                            show_stat = ifelse(identical(theme_use, "theme_blank"), FALSE, TRUE),
                            palette = ifelse(isTRUE(compare_features), "Set1", "Spectral"), palcolor = NULL,
                            pt.size = NULL, pt.alpha = 1, bg_cutoff = 0, bg_color = "grey80",
@@ -2144,12 +2144,12 @@ FeatureDimPlot <- function(srt, features, reduction = NULL, dims = c(1, 2), spli
     if (length(features_meta) > 0) {
       warning(paste(features_meta, collapse = ","), "is not used when calculating co-expression", immediate. = TRUE)
     }
-    status <- check_DataType(srt, slot = slot, assay = assay)
-    message("Data type detected in ", slot, " slot: ", status)
+    status <- check_DataType(srt, layer = layer, assay = assay)
+    message("Data type detected in ", layer, " layer: ", status)
     if (status %in% c("raw_counts", "raw_normalized_counts")) {
-      srt@meta.data[["CoExp"]] <- apply(slot(srt@assays[[assay]], slot)[features_gene, , drop = FALSE], 2, function(x) exp(mean(log(x))))
+      srt@meta.data[["CoExp"]] <- apply(LayerData(srt@assays[[assay]], layer = layer)[features_gene, , drop = FALSE], 2, function(x) exp(mean(log(x))))
     } else if (status == "log_normalized_counts") {
-      srt@meta.data[["CoExp"]] <- apply(expm1(slot(srt@assays[[assay]], slot)[features_gene, , drop = FALSE]), 2, function(x) log1p(exp(mean(log(x)))))
+      srt@meta.data[["CoExp"]] <- apply(expm1(LayerData(srt@assays[[assay]], layer = layer)[features_gene, , drop = FALSE]), 2, function(x) log1p(exp(mean(log(x)))))
     } else {
       stop("Can not determine the data type.")
     }
@@ -2159,9 +2159,9 @@ FeatureDimPlot <- function(srt, features, reduction = NULL, dims = c(1, 2), spli
 
   if (length(features_gene) > 0) {
     if (all(rownames(srt@assays[[assay]]) %in% features_gene)) {
-      dat_gene <- t(as_matrix(slot(srt@assays[[assay]], slot)))
+      dat_gene <- t(as_matrix(LayerData(srt@assays[[assay]], layer = layer)))
     } else {
-      dat_gene <- t(as_matrix(slot(srt@assays[[assay]], slot)[features_gene, , drop = FALSE]))
+      dat_gene <- t(as_matrix(LayerData(srt@assays[[assay]], layer = layer)[features_gene, , drop = FALSE]))
     }
   } else {
     dat_gene <- matrix(nrow = ncol(srt@assays[[1]]), ncol = 0)
@@ -3522,7 +3522,7 @@ FeatureDimPlot3D <- function(srt, features, reduction = NULL, dims = c(1, 2, 3),
 #' @importFrom patchwork wrap_plots
 #' @export
 FeatureStatPlot <- function(srt, stat.by, group.by = NULL, split.by = NULL, bg.by = NULL, plot.by = c("group", "feature"), fill.by = c("group", "feature", "expression"),
-                            cells = NULL, slot = "data", assay = NULL, keep_empty = FALSE, individual = FALSE,
+                            cells = NULL, layer = "data", assay = NULL, keep_empty = FALSE, individual = FALSE,
                             plot_type = c("violin", "box", "bar", "dot", "col"),
                             palette = "Paired", palcolor = NULL, alpha = 1,
                             bg_palette = "Paired", bg_palcolor = NULL, bg_alpha = 0.2,
@@ -3551,7 +3551,7 @@ FeatureStatPlot <- function(srt, stat.by, group.by = NULL, split.by = NULL, bg.b
   meta.data <- srt@meta.data
   meta.data[["cells"]] <- rownames(meta.data)
   assay <- assay %||% DefaultAssay(srt)
-  exp.data <- slot(srt@assays[[assay]], slot)
+  exp.data <- LayerData(srt@assays[[assay]], layer = layer)
   plot.by <- match.arg(plot.by)
 
   if (plot.by == "feature") {
@@ -3563,9 +3563,9 @@ FeatureStatPlot <- function(srt, stat.by, group.by = NULL, split.by = NULL, bg.b
     }
     message("Setting 'group.by' to 'Features' as 'plot.by' is set to 'feature'")
     srt@assays[setdiff(names(srt@assays), assay)] <- NULL
-    meta.reshape <- FetchData(srt, vars = c(stat.by, group.by, split.by), cells = cells %||% rownames(meta.data), slot = slot)
+    meta.reshape <- FetchData(srt, vars = c(stat.by, group.by, split.by), cells = cells %||% rownames(meta.data), layer = layer)
     meta.reshape[["cells"]] <- rownames(meta.reshape)
-    meta.reshape <- melt(meta.reshape, measure.vars = stat.by, variable.name = "Features", value.name = "Stat.by")
+    meta.reshape <- reshape2::melt(meta.reshape, measure.vars = stat.by, variable.name = "Features", value.name = "Stat.by")
     rownames(meta.reshape) <- paste0(meta.reshape[["cells"]], "-", meta.reshape[["Features"]])
     exp.data <- matrix(0, nrow = 1, ncol = nrow(meta.reshape), dimnames = list("Stat.by", rownames(meta.reshape)))
     plist <- list()
@@ -3870,9 +3870,9 @@ ExpressionStatPlot <- function(exp.data, meta.data, stat.by, group.by = NULL, sp
   }
   if (length(features_gene) > 0) {
     if (all(allfeatures %in% features_gene)) {
-      dat_gene <- t(exp.data)
+      dat_gene <- SeuratDisk::Transpose(exp.data)
     } else {
-      dat_gene <- t(exp.data[features_gene, , drop = FALSE])
+      dat_gene <- SeuratDisk::Transpose(exp.data[features_gene, , drop = FALSE])
     }
   } else {
     dat_gene <- matrix(nrow = length(allcells), ncol = 0)
@@ -7910,7 +7910,7 @@ mestimate <- function(data) {
 #' @export
 GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL, within_groups = FALSE, grouping.var = NULL, numerator = NULL, cells = NULL,
                          aggregate_fun = base::mean, exp_cutoff = 0, border = TRUE, flip = FALSE,
-                         slot = "counts", assay = NULL, exp_method = c("zscore", "raw", "fc", "log2fc", "log1p"), exp_legend_title = NULL, limits = NULL, lib_normalize = identical(slot, "counts"), libsize = NULL,
+                         layer = "counts", assay = NULL, exp_method = c("zscore", "raw", "fc", "log2fc", "log1p"), exp_legend_title = NULL, limits = NULL, lib_normalize = identical(slot, "counts"), libsize = NULL,
                          feature_split = NULL, feature_split_by = NULL, n_split = NULL, split_order = NULL,
                          split_method = c("kmeans", "hclust", "mfuzz"), decreasing = FALSE, fuzzification = NULL,
                          cluster_features_by = NULL, cluster_rows = FALSE, cluster_columns = FALSE, cluster_row_slices = FALSE, cluster_column_slices = FALSE,
@@ -7945,7 +7945,7 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
   }
 
   split_method <- match.arg(split_method)
-  data_nm <- c(ifelse(isTRUE(lib_normalize), "normalized", ""), slot)
+  data_nm <- c(ifelse(isTRUE(lib_normalize), "normalized", ""), layer)
   data_nm <- paste(data_nm[data_nm != ""], collapse = " ")
   if (length(exp_method) == 1 && is.function(exp_method)) {
     exp_name <- paste0(as.character(x = formals()$exp_method), "(", data_nm, ")")
@@ -8152,21 +8152,21 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
   gene_unique <- features_unique[features %in% rownames(srt@assays[[assay]])]
   meta <- features[features %in% colnames(srt@meta.data)]
 
-  mat_raw <- as_matrix(rbind(slot(srt@assays[[assay]], slot)[gene, cells, drop = FALSE], t(srt@meta.data[cells, meta, drop = FALSE])))[features, , drop = FALSE]
+  mat_raw <- as_matrix(rbind(LayerData(srt@assays[[assay]], layer = layer)[gene, cells, drop = FALSE], t(srt@meta.data[cells, meta, drop = FALSE])))[features, , drop = FALSE]
   rownames(mat_raw) <- features_unique
   if (isTRUE(lib_normalize) && min(mat_raw, na.rm = TRUE) >= 0) {
     if (!is.null(libsize)) {
       libsize_use <- libsize
     } else {
-      libsize_use <- colSums(slot(srt@assays[[assay]], "counts")[, colnames(mat_raw), drop = FALSE])
+      libsize_use <- colSums(LayerData(srt@assays[[assay]], layer = "counts")[, colnames(mat_raw), drop = FALSE])
       isfloat <- any(libsize_use %% 1 != 0, na.rm = TRUE)
       if (isTRUE(isfloat)) {
         libsize_use <- rep(1, length(libsize_use))
         warning("The values in the 'counts' slot are non-integer. Set the library size to 1.", immediate. = TRUE)
         if (!is.null(grouping.var)) {
-          exp_name <- paste0(numerator, "/", "other\n", exp_method, "(", slot, ")")
+          exp_name <- paste0(numerator, "/", "other\n", exp_method, "(", layer, ")")
         } else {
-          exp_name <- paste0(exp_method, "(", slot, ")")
+          exp_name <- paste0(exp_method, "(", layer, ")")
         }
       }
     }
@@ -8246,12 +8246,12 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
     data.frame(row.names = cells, cells = cells),
     cbind.data.frame(
       srt@meta.data[cells, c(group.by, intersect(cell_annotation, colnames(srt@meta.data))), drop = FALSE],
-      t(srt@assays[[assay]]@data[intersect(cell_annotation, rownames(srt@assays[[assay]])) %||% integer(), cells, drop = FALSE])
+      SeuratDisk::Transpose(srt@assays[[assay]]$data[intersect(cell_annotation, rownames(srt@assays[[assay]])) %||% integer(), cells, drop = FALSE])
     )
   )
   feature_metadata <- cbind.data.frame(
     data.frame(row.names = features_unique, features = features, features_uique = features_unique),
-    srt@assays[[assay]]@meta.features[features, intersect(feature_annotation, colnames(srt@assays[[assay]]@meta.features)), drop = FALSE]
+    srt@assays[[assay]]@meta.data[match(features, rownames(srt)), intersect(feature_annotation, colnames(srt@assays[[assay]]@meta.data)), drop = FALSE]
   )
   feature_metadata[, "duplicated"] <- feature_metadata[["features"]] %in% features[duplicated(features)]
 
@@ -8431,7 +8431,7 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
       } else {
         for (cell_group in group.by) {
           subplots <- FeatureStatPlot(srt,
-            assay = assay, slot = "data", flip = flip,
+            assay = assay, layer = "data", flip = flip,
             stat.by = cellan, cells = names(cell_groups[[cell_group]]),
             group.by = cell_group, split.by = split.by,
             palette = palette, palcolor = palcolor,
@@ -8767,7 +8767,7 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
     }
     if (isTRUE(add_violin)) {
       vlnplots <- FeatureStatPlot(srt,
-        assay = assay, slot = "data", flip = flip,
+        assay = assay, layer = "data", flip = flip,
         stat.by = rownames(mat_list[[cell_group]]),
         cells = names(cell_groups[[cell_group]]),
         group.by = cell_group, split.by = split.by,
@@ -10480,7 +10480,7 @@ CellCorHeatmap <- function(srt_query, srt_ref = NULL, bulk_ref = NULL,
       } else {
         if (isTRUE(query_collapsing)) {
           subplots <- FeatureStatPlot(srt_query,
-            assay = query_assay, slot = "data", flip = !flip,
+            assay = query_assay, layer = "data", flip = !flip,
             stat.by = cellan, cells = gsub("query_", "", names(cell_groups[["query_group"]])),
             group.by = query_group,
             palette = query_group_palette,
@@ -10653,7 +10653,7 @@ CellCorHeatmap <- function(srt_query, srt_ref = NULL, bulk_ref = NULL,
       } else {
         if (isTRUE(ref_collapsing)) {
           subplots <- FeatureStatPlot(srt_ref,
-            assay = ref_assay, slot = "data", flip = flip,
+            assay = ref_assay, layer = "data", flip = flip,
             stat.by = cellan, cells = gsub("ref_", "", names(cell_groups[["ref_group"]])),
             group.by = ref_group,
             palette = ref_group_palette,

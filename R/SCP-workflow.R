@@ -472,7 +472,7 @@ RecoverCounts <- function(srt, assay = NULL, trans = c("expm1", "exp", "none"), 
       return(srt)
     }
     counts@x <- round(counts@x * rep(nCount, diff(counts@p)))
-    srt <- SetAssayData(srt, new.data = counts, assay = assay, slot = "counts")
+    srt <- SetAssayData(srt, new.data = counts, assay = assay, layer = "counts")
     srt[[paste0("nCount_", assay)]] <- nCount
   } else {
     warning("Scale factor is not unique. No changes to be made.", immediate. = TRUE)
@@ -495,7 +495,7 @@ RecoverCounts <- function(srt, assay = NULL, trans = c("expm1", "exp", "none"), 
 #' head(rownames(panc8_rename))
 #'
 #' @importFrom Seurat Assays GetAssay
-#' @importFrom methods slot
+#' @importFrom methods layer
 #' @export
 RenameFeatures <- function(srt, newnames = NULL, assays = NULL) {
   assays <- assays[assays %in% Assays(srt)] %||% Assays(srt)
@@ -609,7 +609,7 @@ RenameClusters <- function(srt, group.by, nameslist = list(), name = "newcluster
 #' @param srt A Seurat object.
 #' @param features Features used to reorder idents.
 #' @param reorder_by Reorder groups instead of idents.
-#' @param slot Specific slot to get data from.
+#' @param layer Specific layer to get data from.
 #' @param assay Specific assay to get data from.
 #' @param log Whether log1p transformation needs to be applied. Default is \code{TRUE}.
 #' @param distance_metric Metric to compute distance. Default is "euclidean".
@@ -620,7 +620,7 @@ RenameClusters <- function(srt, group.by, nameslist = list(), name = "newcluster
 #' @importFrom Matrix t colMeans
 #' @importFrom proxyC simil dist
 #' @export
-SrtReorder <- function(srt, features = NULL, reorder_by = NULL, slot = "data", assay = NULL, log = TRUE,
+SrtReorder <- function(srt, features = NULL, reorder_by = NULL, layer = "data", assay = NULL, log = TRUE,
                        distance_metric = "euclidean") {
   assay <- assay %||% DefaultAssay(srt)
   if (is.null(features)) {
@@ -648,7 +648,7 @@ SrtReorder <- function(srt, features = NULL, reorder_by = NULL, slot = "data", a
     stop(distance_metric, " method is invalid.")
   }
 
-  data.avg <- AverageExpression(object = srt, features = features, slot = slot, assays = assay, group.by = "ident", verbose = FALSE)[[1]][features, , drop = FALSE]
+  data.avg <- AverageExpression(object = srt, features = features, layer = layer, assays = assay, group.by = "ident", verbose = FALSE)[[1]][features, , drop = FALSE]
   if (isTRUE(log)) {
     data.avg <- log1p(data.avg)
   }
@@ -778,7 +778,7 @@ SrtAppend <- function(srt_raw, srt_append,
 #' @importFrom Seurat Embeddings RunPCA RunICA RunTSNE Reductions DefaultAssay DefaultAssay<- Key Key<-
 #' @importFrom Signac RunSVD
 #' @export
-RunDimReduction <- function(srt, prefix = "", features = NULL, assay = NULL, slot = "data",
+RunDimReduction <- function(srt, prefix = "", features = NULL, assay = NULL, layer = "data",
                             linear_reduction = NULL, linear_reduction_dims = 50,
                             linear_reduction_params = list(), force_linear_reduction = FALSE,
                             nonlinear_reduction = NULL, nonlinear_reduction_dims = 2,
@@ -877,14 +877,14 @@ RunDimReduction <- function(srt, prefix = "", features = NULL, assay = NULL, slo
       "glmpca" = "L"
     )
     params <- list(
-      object = srt, assay = assay, slot = slot,
+      object = srt, assay = assay, layer = slot,
       features = features, components_nm = linear_reduction_dims,
       reduction.name = paste0(prefix, linear_reduction),
       reduction.key = paste0(prefix, key_use),
       verbose = verbose, seed.use = seed
     )
     if (fun_use %in% c("RunSVD", "RunICA")) {
-      params <- params[!names(params) %in% "slot"]
+      params <- params[!names(params) %in% "layer"]
     }
     if (fun_use == "RunGLMPCA") {
       params[["slot"]] <- "counts"
