@@ -1674,7 +1674,7 @@ RunDEtest <- function(srt, group_by = NULL, group1 = NULL, group2 = NULL, cells1
                       test.use = "wilcox", only.pos = TRUE, fc.threshold = 1.5, base = 2, pseudocount.use = 1, mean.fxn = NULL,
                       min.pct = 0.1, min.diff.pct = -Inf, max.cells.per.ident = Inf, latent.vars = NULL,
                       min.cells.feature = 3, min.cells.group = 3,
-                      norm.method = "LogNormalize", p.adjust.method = "bonferroni", slot = "data", assay = NULL,
+                      norm.method = "LogNormalize", p.adjust.method = "bonferroni", layer = "data", assay = NULL,
                       BPPARAM = BiocParallel::bpparam(), seed = 11, verbose = TRUE, ...) {
   set.seed(seed)
   markers_type <- match.arg(markers_type)
@@ -1686,7 +1686,7 @@ RunDEtest <- function(srt, group_by = NULL, group1 = NULL, group2 = NULL, cells1
   }
   assay <- assay %||% DefaultAssay(srt)
 
-  status <- check_DataType(srt, slot = slot, assay = assay)
+  status <- check_DataType(srt, layer = layer, assay = assay)
   if (slot == "counts" && status != "raw_counts") {
     stop("Data in the 'counts' slot is not raw counts.")
   }

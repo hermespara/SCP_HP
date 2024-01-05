@@ -7699,7 +7699,7 @@ mestimate <- function(data) {
 #' @param exp_cutoff A numeric value specifying the threshold for cell counting if \code{add_dot} is TRUE. Default is 0.
 #' @param border A logical value indicating whether to add a border to the heatmap. Default is TRUE.
 #' @param flip A logical value indicating whether to flip the heatmap. Default is FALSE.
-#' @param slot A character vector specifying the slot in the Seurat object to use. Default is "counts".
+#' @param layer A character vector specifying the slot in the Seurat object to use. Default is "counts".
 #' @param assay A character vector specifying the assay in the Seurat object to use. Default is NULL.
 #' @param exp_method A character vector specifying the method for calculating expression values. Default is "zscore" with options "zscore", "raw", "fc", "log2fc", "log1p".
 #' @param exp_legend_title A character vector specifying the title for the legend of expression value. Default is NULL.
@@ -8233,13 +8233,13 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
   if (is.null(limits)) {
     if (!is.function(exp_method) && exp_method %in% c("zscore", "log2fc")) {
       b <- ceiling(min(abs(quantile(do.call(cbind, mat_list), c(0.01, 0.99), na.rm = TRUE)), na.rm = TRUE) * 2) / 2
-      colors <- colorRamp2(seq(-b, b, length = 100), palette_scp(palette = heatmap_palette, palcolor = heatmap_palcolor))
+      colors <- circlize::colorRamp2(seq(-b, b, length = 100), palette_scp(palette = heatmap_palette, palcolor = heatmap_palcolor))
     } else {
       b <- quantile(do.call(cbind, mat_list), c(0.01, 0.99), na.rm = TRUE)
-      colors <- colorRamp2(seq(b[1], b[2], length = 100), palette_scp(palette = heatmap_palette, palcolor = heatmap_palcolor))
+      colors <- circlize::colorRamp2(seq(b[1], b[2], length = 100), palette_scp(palette = heatmap_palette, palcolor = heatmap_palcolor))
     }
   } else {
-    colors <- colorRamp2(seq(limits[1], limits[2], length = 100), palette_scp(palette = heatmap_palette, palcolor = heatmap_palcolor))
+    colors <- circlize::colorRamp2(seq(limits[1], limits[2], length = 100), palette_scp(palette = heatmap_palette, palcolor = heatmap_palcolor))
   }
 
   cell_metadata <- cbind.data.frame(
@@ -8256,9 +8256,9 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
   feature_metadata[, "duplicated"] <- feature_metadata[["features"]] %in% features[duplicated(features)]
 
   lgd <- list()
-  lgd[["ht"]] <- Legend(title = exp_name, col_fun = colors, border = TRUE)
+  lgd[["ht"]] <- ComplexHeatmap::Legend(title = exp_name, col_fun = colors, border = TRUE)
   if (isTRUE(add_dot)) {
-    lgd[["point"]] <- Legend(
+    lgd[["point"]] <- ComplexHeatmap::Legend(
       labels = paste0(seq(20, 100, length.out = 5), "%"),
       title = "Percent",
       type = "points",
@@ -8304,7 +8304,7 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
       eval(parse(text = paste("panel_fun <- function(index, nm) {", funbody, "}", sep = "")), envir = environment())
 
       anno <- list()
-      anno[[cell_group]] <- anno_block(
+      anno[[cell_group]] <- ComplexHeatmap::anno_block(
         align_to = split(seq_along(levels(cell_groups[[cell_group]])), gsub(pattern = " : .*", replacement = "", x = levels(cell_groups[[cell_group]]))),
         panel_fun = getFunction("panel_fun", where = environment()),
         which = ifelse(flip, "row", "column"),
@@ -8792,7 +8792,7 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
       # lgd[["ht"]] <- Legend(title = " ", at = names(graphics), graphics = graphics, border = TRUE)
 
       for (nm in names(vlnplots)) {
-        gtable <- as_grob(vlnplots[[nm]] + facet_null() + theme_void() + theme(legend.position = "none"))
+        gtable <- cowplot::as_grob(vlnplots[[nm]] + facet_null() + theme_void() + theme(legend.position = "none"))
         gtable$name <- paste0(cell_group, "-", nm)
         vlnplots[[nm]] <- gtable
       }
@@ -9112,7 +9112,7 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
 #' @importFrom proxyC dist
 #' @export
 FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, split.by = NULL, within_groups = FALSE, max_cells = 100, cell_order = NULL, border = TRUE, flip = FALSE,
-                           slot = "counts", assay = NULL, exp_method = c("zscore", "raw", "fc", "log2fc", "log1p"), exp_legend_title = NULL, limits = NULL,
+                           layer = "counts", assay = NULL, exp_method = c("zscore", "raw", "fc", "log2fc", "log1p"), exp_legend_title = NULL, limits = NULL,
                            lib_normalize = identical(slot, "counts"), libsize = NULL,
                            feature_split = NULL, feature_split_by = NULL, n_split = NULL, split_order = NULL,
                            split_method = c("kmeans", "hclust", "mfuzz"), decreasing = FALSE, fuzzification = NULL,
@@ -10415,7 +10415,7 @@ CellCorHeatmap <- function(srt_query, srt_ref = NULL, bulk_ref = NULL,
           for (nm in names(subplots)) {
             funbody <- paste0(
               "
-              g <- as_grob(query_subplots_list[['", cellan, ":", query_group, "']]", "[['", nm, "']] + theme_void() + theme(plot.title = element_blank(), plot.subtitle = element_blank(), legend.position = 'none'));
+              g <- cowplot::as_grob(query_subplots_list[['", cellan, ":", query_group, "']]", "[['", nm, "']] + theme_void() + theme(plot.title = element_blank(), plot.subtitle = element_blank(), legend.position = 'none'));
               g$name <- '", paste0(cellan, ":", query_group, "-", nm), "';
               grid.draw(g)
               "
@@ -10493,7 +10493,7 @@ CellCorHeatmap <- function(srt_query, srt_ref = NULL, bulk_ref = NULL,
           for (nm in names(subplots)) {
             funbody <- paste0(
               "
-              g <- as_grob(query_subplots_list[['", cellan, ":", query_group, "']]", "[['", nm, "']]  + facet_null() + theme_void() + theme(plot.title = element_blank(), plot.subtitle = element_blank(), legend.position = 'none'));
+              g <- cowplot::as_grob(query_subplots_list[['", cellan, ":", query_group, "']]", "[['", nm, "']]  + facet_null() + theme_void() + theme(plot.title = element_blank(), plot.subtitle = element_blank(), legend.position = 'none'));
               g$name <- '", paste0(cellan, ":", query_group, "-", nm), "';
               grid.draw(g)
               "
@@ -10588,7 +10588,7 @@ CellCorHeatmap <- function(srt_query, srt_ref = NULL, bulk_ref = NULL,
           for (nm in names(subplots)) {
             funbody <- paste0(
               "
-              g <- as_grob(ref_subplots_list[['", cellan, ":", ref_group, "']]", "[['", nm, "']] + theme_void() + theme(plot.title = element_blank(), plot.subtitle = element_blank(), legend.position = 'none'));
+              g <- cowplot::as_grob(ref_subplots_list[['", cellan, ":", ref_group, "']]", "[['", nm, "']] + theme_void() + theme(plot.title = element_blank(), plot.subtitle = element_blank(), legend.position = 'none'));
               g$name <- '", paste0(cellan, ":", ref_group, "-", nm), "';
               grid.draw(g)
               "
@@ -10666,7 +10666,7 @@ CellCorHeatmap <- function(srt_query, srt_ref = NULL, bulk_ref = NULL,
           for (nm in names(subplots)) {
             funbody <- paste0(
               "
-              g <- as_grob(ref_subplots_list[['", cellan, ":", ref_group, "']]", "[['", nm, "']]  + facet_null() + theme_void() + theme(plot.title = element_blank(), plot.subtitle = element_blank(), legend.position = 'none'));
+              g <- cowplot::as_grob(ref_subplots_list[['", cellan, ":", ref_group, "']]", "[['", nm, "']]  + facet_null() + theme_void() + theme(plot.title = element_blank(), plot.subtitle = element_blank(), legend.position = 'none'));
               g$name <- '", paste0(cellan, ":", ref_group, "-", nm), "';
               grid.draw(g)
               "
@@ -11449,7 +11449,7 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
           nm <- paste0(cellan, ":", l)
           funbody <- paste0(
             "
-            g <- as_grob(subplots_list[['", nm, "']] + theme_void() + theme(plot.title = element_blank(), plot.subtitle = element_blank(), legend.position = 'none'));
+            g <- cowplot::as_grob(subplots_list[['", nm, "']] + theme_void() + theme(plot.title = element_blank(), plot.subtitle = element_blank(), legend.position = 'none'));
             g$name <- '", nm, "';
             grid.draw(g);
             grid.rect(gp = gpar(fill = 'transparent', col = 'black'));
@@ -11495,7 +11495,7 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
           nm <- paste0(paste0(cellan, collapse = ","), ":", l)
           funbody <- paste0(
             "
-            g <- as_grob(subplots_list[['", nm, "']] + theme_void() + theme(plot.title = element_blank(), plot.subtitle = element_blank(), legend.position = 'none'));
+            g <- cowplot::as_grob(subplots_list[['", nm, "']] + theme_void() + theme(plot.title = element_blank(), plot.subtitle = element_blank(), legend.position = 'none'));
             g$name <- '", nm, "';
             grid.draw(g);
             grid.rect(gp = gpar(fill = 'transparent', col = 'black'));
@@ -12459,9 +12459,9 @@ DynamicPlot <- function(srt, lineages, features, group.by = NULL, cells = NULL, 
       plot <- plist[[1]]
     }
     if (legend.position != "none") {
-      gtable <- as_grob(plot)
+      gtable <- cowplot::as_grob(plot)
       gtable <- add_grob(gtable, legend, legend.position)
-      plot <- wrap_plots(gtable)
+      plot <- patchwork::wrap_plots(gtable)
     }
     return(plot)
   } else {
@@ -12575,7 +12575,7 @@ ProjectionPlot <- function(srt_query, srt_ref,
   if (is.null(legend)) {
     return(p3)
   } else {
-    gtable <- as_grob(p3)
+    gtable <- cowplot::as_grob(p3)
     gtable <- add_grob(gtable, legend, "right")
     p <- wrap_plots(gtable)
     return(p)
