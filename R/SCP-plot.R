@@ -1880,7 +1880,7 @@ CellDimPlot <- function(srt, group.by, reduction = NULL, dims = c(1, 2), split.b
 #' @param ncol Number of columns in the combined plot.
 #' @param byrow Logical value indicating if the plots should be arrange by row (default) or by column.
 #' @param dims Dimensions to plot, must be a two-length numeric vector specifying x- and y-dimensions.
-#' @param slot Which slot to pull expression data from? Default is \code{data}.
+#' @param layer Which layer to pull expression data from? Default is \code{data}.
 #' @param assay Which assay to pull expression data from. If \code{NULL}, will use the assay returned by \code{\link{DefaultAssay}}.
 #' @param show_stat Whether to show statistical information on the plot.
 #' @param calculate_coexp Whether to calculate the co-expression value (geometric mean) of the features.
@@ -3064,7 +3064,7 @@ CellDimPlot3D <- function(srt, group.by, reduction = NULL, dims = c(1, 2, 3), ax
 #' @importFrom plotly plot_ly add_trace layout as_widget
 #' @export
 FeatureDimPlot3D <- function(srt, features, reduction = NULL, dims = c(1, 2, 3), axis_labs = NULL,
-                             split.by = NULL, slot = "data", assay = NULL,
+                             split.by = NULL, layer = "data", assay = NULL,
                              calculate_coexp = FALSE,
                              pt.size = 1.5, cells.highlight = NULL, cols.highlight = "black", shape.highlight = "circle-open", sizes.highlight = 2,
                              width = NULL, height = NULL, save = NULL, force = FALSE) {
@@ -3153,12 +3153,12 @@ FeatureDimPlot3D <- function(srt, features, reduction = NULL, dims = c(1, 2, 3),
     if (length(features_meta) > 0) {
       warning(paste(features_meta, collapse = ","), "is not used when calculating co-expression", immediate. = TRUE)
     }
-    status <- check_DataType(srt, slot = slot, assay = assay)
-    message("Data type detected in ", slot, " slot: ", status)
+    status <- check_DataType(srt, layer = layer, assay = assay)
+    message("Data type detected in ", layer, " layer: ", status)
     if (status %in% c("raw_counts", "raw_normalized_counts")) {
-      srt@meta.data[["CoExp"]] <- apply(slot(srt@assays[[assay]], slot)[features_gene, , drop = FALSE], 2, function(x) exp(mean(log(x))))
+      srt@meta.data[["CoExp"]] <- apply(LayerData(srt@assays[[assay]], layer = layer)[features_gene, , drop = FALSE], 2, function(x) exp(mean(log(x))))
     } else if (status == "log_normalized_counts") {
-      srt@meta.data[["CoExp"]] <- apply(expm1(slot(srt@assays[[assay]], slot)[features_gene, , drop = FALSE]), 2, function(x) log1p(exp(mean(log(x)))))
+      srt@meta.data[["CoExp"]] <- apply(expm1(LayerData(srt@assays[[assay]], layer = layer)[features_gene, , drop = FALSE]), 2, function(x) log1p(exp(mean(log(x)))))
     } else {
       stop("Can not determine the data type.")
     }
@@ -3168,9 +3168,9 @@ FeatureDimPlot3D <- function(srt, features, reduction = NULL, dims = c(1, 2, 3),
 
   if (length(features_gene) > 0) {
     if (all(rownames(srt@assays[[assay]]) %in% features_gene)) {
-      dat_gene <- t(as_matrix(slot(srt@assays[[assay]], slot)))
+      dat_gene <- t(as_matrix(LayerData(srt@assays[[assay]], layer = layer)))
     } else {
-      dat_gene <- t(as_matrix(slot(srt@assays[[assay]], slot)[features_gene, , drop = FALSE]))
+      dat_gene <- t(as_matrix(LayerData(srt@assays[[assay]], layer = layer)[features_gene, , drop = FALSE]))
     }
   } else {
     dat_gene <- matrix(nrow = ncol(srt@assays[[1]]), ncol = 0)
@@ -3380,7 +3380,7 @@ FeatureDimPlot3D <- function(srt, features, reduction = NULL, dims = c(1, 2, 3),
 #' @param bg.by A character vector specifying the variable to use as the background color. Default is NULL.
 #' @param fill.by A string specifying what to fill the plot by. Possible values are "group", "feature", or "expression". Default is "group".
 #' @param cells A character vector specifying the cells to include in the plot. Default is NULL.
-#' @param slot A string specifying which slot of the Seurat object to use. Default is "data".
+#' @param layer A string specifying which layer of the Seurat object to use. Default is "data".
 #' @param assay A string specifying which assay to use. Default is NULL.
 #' @param keep_empty A logical indicating whether to keep empty levels in the plot. Default is FALSE.
 #' @param individual A logical indicating whether to create individual plots for each group. Default is FALSE.
@@ -5166,7 +5166,7 @@ StatPlot <- function(meta.data, stat.by, group.by = NULL, split.by = NULL, bg.by
 #' @param group.by A character string specifying the column in the metadata to group cells by.
 #' @param split.by A character string specifying the column in the metadata to split the plot by.
 #' @param cells A character vector specifying the cells to include in the plot. If NULL (default), all cells will be included.
-#' @param slot A character string specifying the slot in the Seurat object to use. Defaults to "data".
+#' @param layer A character string specifying the layer in the Seurat object to use. Defaults to "data".
 #' @param assay A character string specifying the assay to use. Defaults to the default assay in the Seurat object.
 #' @param cor_method A character string specifying the correlation method to use. Can be "pearson" (default) or "spearman".
 #' @param adjust A numeric value specifying the adjustment factor for the width of the violin plots. Defaults to 1.
@@ -5229,7 +5229,7 @@ StatPlot <- function(meta.data, stat.by, group.by = NULL, split.by = NULL, bg.by
 #' @importFrom Matrix t
 #' @importFrom methods slot
 #' @export
-FeatureCorPlot <- function(srt, features, group.by = NULL, split.by = NULL, cells = NULL, slot = "data", assay = NULL,
+FeatureCorPlot <- function(srt, features, group.by = NULL, split.by = NULL, cells = NULL, layer = "data", assay = NULL,
                            cor_method = "pearson", adjust = 1, margin = 1, reverse = FALSE,
                            add_equation = FALSE, add_r2 = TRUE, add_pvalue = TRUE, add_smooth = TRUE,
                            palette = "Paired", palcolor = NULL, cor_palette = "RdBu", cor_palcolor = NULL, cor_range = c(-1, 1),
@@ -5296,9 +5296,9 @@ FeatureCorPlot <- function(srt, features, group.by = NULL, split.by = NULL, cell
       warning(paste(features_meta, collapse = ","), "is not used when calculating co-expression", immediate. = TRUE)
     }
     if (status %in% c("raw_counts", "raw_normalized_counts")) {
-      srt@meta.data[["CoExp"]] <- apply(slot(srt@assays[[assay]], slot)[features_gene, , drop = FALSE], 2, function(x) exp(mean(log(x))))
+      srt@meta.data[["CoExp"]] <- apply(LayerData(srt@assays[[assay]], layer = layer)[features_gene, , drop = FALSE], 2, function(x) exp(mean(log(x))))
     } else if (status == "log_normalized_counts") {
-      srt@meta.data[["CoExp"]] <- apply(expm1(slot(srt@assays[[assay]], slot)[features_gene, , drop = FALSE]), 2, function(x) log1p(exp(mean(log(x)))))
+      srt@meta.data[["CoExp"]] <- apply(expm1(LayerData(srt@assays[[assay]], layer = layer)[features_gene, , drop = FALSE]), 2, function(x) log1p(exp(mean(log(x)))))
     } else {
       stop("Can not determine the data type.")
     }
@@ -5306,7 +5306,7 @@ FeatureCorPlot <- function(srt, features, group.by = NULL, split.by = NULL, cell
     features_meta <- c(features_meta, "CoExp")
   }
   if (length(features_gene) > 0) {
-    dat_gene <- t(slot(srt@assays[[assay]], slot)[features_gene, , drop = FALSE])
+    dat_gene <- t(LayerData(srt@assays[[assay]], layer = layer)[features_gene, , drop = FALSE])
   } else {
     dat_gene <- matrix(nrow = ncol(srt@assays[[1]]), ncol = 0)
   }
@@ -5635,7 +5635,7 @@ FeatureCorPlot <- function(srt, features, group.by = NULL, split.by = NULL, cell
 #' Default is NULL, which means no splitting is performed.
 #' @param assay A character specifying the assay to use from the Seurat object.
 #'   Default is NULL, which means the default assay will be used.
-#' @param slot A character specifying the slot to use from the assay. Default is "data".
+#' @param layer A character specifying the layer to use from the assay. Default is "data".
 #' @param flip A logical indicating whether to flip the x-axis. Default is FALSE.
 #' @param reverse A logical indicating whether to reverse the y-axis. Default is FALSE.
 #' @param x_order A character specifying how to order the x-axis. Can be "value" or "rank". Default is "value".
@@ -5676,7 +5676,7 @@ FeatureCorPlot <- function(srt, features, group.by = NULL, split.by = NULL, cell
 #' @importFrom patchwork wrap_plots
 #' @importFrom methods slot
 #' @export
-CellDensityPlot <- function(srt, features, group.by = NULL, split.by = NULL, assay = NULL, slot = "data",
+CellDensityPlot <- function(srt, features, group.by = NULL, split.by = NULL, assay = NULL, layer = "data",
                             flip = FALSE, reverse = FALSE, x_order = c("value", "rank"),
                             decreasing = NULL, palette = "Paired", palcolor = NULL,
                             cells = NULL, keep_empty = FALSE,
@@ -5729,7 +5729,7 @@ CellDensityPlot <- function(srt, features, group.by = NULL, split.by = NULL, ass
   }
 
   if (length(features_gene) > 0) {
-    dat_gene <- t(slot(srt@assays[[assay]], slot)[features_gene, , drop = FALSE])
+    dat_gene <- t(LayerData(srt@assays[[assay]], layer = layer)[features_gene, , drop = FALSE])
   } else {
     dat_gene <- matrix(nrow = ncol(srt@assays[[1]]), ncol = 0)
   }
@@ -7095,16 +7095,16 @@ VolcanoPlot <- function(srt, group_by = NULL, test.use = "wilcox", DE_threshold 
   if (is.null(group_by)) {
     group_by <- "custom"
   }
-  slot <- paste0("DEtest_", group_by)
-  if (!slot %in% names(srt@tools) || length(grep(pattern = "AllMarkers", names(srt@tools[[slot]]))) == 0) {
+  layer <- paste0("DEtest_", group_by)
+  if (!layer %in% names(srt@tools) || length(grep(pattern = "AllMarkers", names(srt@tools[[layer]]))) == 0) {
     stop("Cannot find the DEtest result for the group '", group_by, "'. You may perform RunDEtest first.")
   }
-  index <- grep(pattern = paste0("AllMarkers_", test.use), names(srt@tools[[slot]]))[1]
+  index <- grep(pattern = paste0("AllMarkers_", test.use), names(srt@tools[[layer]]))[1]
   if (is.na(index)) {
     stop("Cannot find the 'AllMarkers_", test.use, "' in the DEtest result.")
   }
-  de <- names(srt@tools[[slot]])[index]
-  de_df <- srt@tools[[slot]][[de]]
+  de <- names(srt@tools[[layer]])[index]
+  de_df <- srt@tools[[layer]][[de]]
   de_df[, "diff_pct"] <- de_df[, "pct.1"] - de_df[, "pct.2"]
   de_df[, "-log10padj"] <- -log10(de_df[, "p_val_adj"])
   de_df[, "DE"] <- FALSE
@@ -7302,7 +7302,7 @@ heatmap_enrichment <- function(geneID, geneID_groups, feature_split_palette = "s
                                IDtype = "symbol", species = "Homo_sapiens", db_update = FALSE, db_combine = FALSE, db_version = "latest", convert_species = FALSE, Ensembl_version = 103, mirror = NULL,
                                db = "GO_BP", TERM2GENE = NULL, TERM2NAME = NULL, minGSSize = 10, maxGSSize = 500,
                                GO_simplify = FALSE, GO_simplify_cutoff = "p.adjust < 0.05", simplify_method = "Wang", simplify_similarityCutoff = 0.7,
-                               pvalueCutoff = NULL, padjustCutoff = 0.05, topTerm = 5, show_termid = FALSE, topWord = 20, words_excluded = NULL) {
+                               pvalueCutoff = NULL, padjustCutoff = 0.05, topTerm = 5, show_termid = FALSE, topWord = 20, words_excluded = NULL, BPPARAM = BiocParallel::bpparam()) {
   res <- NULL
   words_excluded <- words_excluded %||% SCP::words_excluded
 
@@ -7321,7 +7321,7 @@ heatmap_enrichment <- function(geneID, geneID_groups, feature_split_palette = "s
       geneID = geneID, geneID_groups = geneID_groups, IDtype = IDtype, species = species,
       db_update = db_update, db_version = db_version, db_combine = db_combine, convert_species = convert_species, Ensembl_version = Ensembl_version, mirror = mirror,
       db = db, TERM2GENE = TERM2GENE, TERM2NAME = TERM2NAME, minGSSize = minGSSize, maxGSSize = maxGSSize,
-      GO_simplify = GO_simplify, GO_simplify_cutoff = GO_simplify_cutoff, simplify_method = simplify_method, simplify_similarityCutoff = simplify_similarityCutoff
+      GO_simplify = GO_simplify, GO_simplify_cutoff = GO_simplify_cutoff, simplify_method = simplify_method, simplify_similarityCutoff = simplify_similarityCutoff, BPPARAM = BPPARAM
     )
     if (isTRUE(db_combine)) {
       db <- "Combined"
@@ -7699,7 +7699,7 @@ mestimate <- function(data) {
 #' @param exp_cutoff A numeric value specifying the threshold for cell counting if \code{add_dot} is TRUE. Default is 0.
 #' @param border A logical value indicating whether to add a border to the heatmap. Default is TRUE.
 #' @param flip A logical value indicating whether to flip the heatmap. Default is FALSE.
-#' @param layer A character vector specifying the slot in the Seurat object to use. Default is "counts".
+#' @param layer A character vector specifying the layer in the Seurat object to use. Default is "counts".
 #' @param assay A character vector specifying the assay in the Seurat object to use. Default is NULL.
 #' @param exp_method A character vector specifying the method for calculating expression values. Default is "zscore" with options "zscore", "raw", "fc", "log2fc", "log1p".
 #' @param exp_legend_title A character vector specifying the title for the legend of expression value. Default is NULL.
@@ -7910,7 +7910,7 @@ mestimate <- function(data) {
 #' @export
 GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL, within_groups = FALSE, grouping.var = NULL, numerator = NULL, cells = NULL,
                          aggregate_fun = base::mean, exp_cutoff = 0, border = TRUE, flip = FALSE,
-                         layer = "counts", assay = NULL, exp_method = c("zscore", "raw", "fc", "log2fc", "log1p"), exp_legend_title = NULL, limits = NULL, lib_normalize = identical(slot, "counts"), libsize = NULL,
+                         layer = "counts", assay = NULL, exp_method = c("zscore", "raw", "fc", "log2fc", "log1p"), exp_legend_title = NULL, limits = NULL, lib_normalize = identical(layer, "counts"), libsize = NULL,
                          feature_split = NULL, feature_split_by = NULL, n_split = NULL, split_order = NULL,
                          split_method = c("kmeans", "hclust", "mfuzz"), decreasing = FALSE, fuzzification = NULL,
                          cluster_features_by = NULL, cluster_rows = FALSE, cluster_columns = FALSE, cluster_row_slices = FALSE, cluster_column_slices = FALSE,
@@ -8162,7 +8162,7 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
       isfloat <- any(libsize_use %% 1 != 0, na.rm = TRUE)
       if (isTRUE(isfloat)) {
         libsize_use <- rep(1, length(libsize_use))
-        warning("The values in the 'counts' slot are non-integer. Set the library size to 1.", immediate. = TRUE)
+        warning("The values in the 'counts' layer are non-integer. Set the library size to 1.", immediate. = TRUE)
         if (!is.null(grouping.var)) {
           exp_name <- paste0(numerator, "/", "other\n", exp_method, "(", layer, ")")
         } else {
@@ -8241,14 +8241,24 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
   } else {
     colors <- circlize::colorRamp2(seq(limits[1], limits[2], length = 100), palette_scp(palette = heatmap_palette, palcolor = heatmap_palcolor))
   }
+  
+  t_matx <- srt@assays[[assay]]$data[intersect(cell_annotation, rownames(srt@assays[[assay]])) %||% integer(), cells, drop = FALSE]
+  
+  if (nrow(t_matx) != 0) {
+    cell_metadata <- cbind.data.frame(
+      data.frame(row.names = cells, cells = cells),
+      cbind.data.frame(
+        srt@meta.data[cells, c(group.by, intersect(cell_annotation, colnames(srt@meta.data))), drop = FALSE],
+        SeuratDisk::Transpose(srt@assays[[assay]]$data[intersect(cell_annotation, rownames(srt@assays[[assay]])) %||% integer(), cells, drop = FALSE])
+      )
+    )
+  }
 
   cell_metadata <- cbind.data.frame(
     data.frame(row.names = cells, cells = cells),
-    cbind.data.frame(
-      srt@meta.data[cells, c(group.by, intersect(cell_annotation, colnames(srt@meta.data))), drop = FALSE],
-      SeuratDisk::Transpose(srt@assays[[assay]]$data[intersect(cell_annotation, rownames(srt@assays[[assay]])) %||% integer(), cells, drop = FALSE])
-    )
+      srt@meta.data[cells, c(group.by, intersect(cell_annotation, colnames(srt@meta.data))), drop = FALSE]
   )
+  
   feature_metadata <- cbind.data.frame(
     data.frame(row.names = features_unique, features = features, features_uique = features_unique),
     srt@assays[[assay]]@meta.data[match(features, rownames(srt)), intersect(feature_annotation, colnames(srt@assays[[assay]]@meta.data)), drop = FALSE]
@@ -8700,7 +8710,7 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
           legend_gp = gpar(fill = palette_scp(featan_values, palette = palette, palcolor = palcolor)), border = TRUE
         )
       } else {
-        col_fun <- colorRamp2(
+        col_fun <- circlize::colorRamp2(
           breaks = seq(min(featan_values, na.rm = TRUE), max(featan_values, na.rm = TRUE), length = 100),
           colors = palette_scp(palette = palette, palcolor = palcolor)
         )
@@ -9113,7 +9123,7 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
 #' @export
 FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, split.by = NULL, within_groups = FALSE, max_cells = 100, cell_order = NULL, border = TRUE, flip = FALSE,
                            layer = "counts", assay = NULL, exp_method = c("zscore", "raw", "fc", "log2fc", "log1p"), exp_legend_title = NULL, limits = NULL,
-                           lib_normalize = identical(slot, "counts"), libsize = NULL,
+                           lib_normalize = identical(layer, "counts"), libsize = NULL,
                            feature_split = NULL, feature_split_by = NULL, n_split = NULL, split_order = NULL,
                            split_method = c("kmeans", "hclust", "mfuzz"), decreasing = FALSE, fuzzification = NULL,
                            cluster_features_by = NULL, cluster_rows = FALSE, cluster_columns = FALSE, cluster_row_slices = FALSE, cluster_column_slices = FALSE,
@@ -9133,14 +9143,14 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
                            cell_annotation = NULL, cell_annotation_palette = "Paired", cell_annotation_palcolor = NULL, cell_annotation_params = if (flip) list(width = unit(5, "mm")) else list(height = unit(5, "mm")),
                            feature_annotation = NULL, feature_annotation_palette = "Dark2", feature_annotation_palcolor = NULL, feature_annotation_params = if (flip) list(height = unit(5, "mm")) else list(width = unit(5, "mm")),
                            use_raster = NULL, raster_device = "png", raster_by_magick = FALSE, height = NULL, width = NULL, units = "inch",
-                           seed = 11, ht_params = list()) {
+                           seed = 11, ht_params = list(), BPPARAM = BiocParallel::bpparam()) {
   set.seed(seed)
   if (isTRUE(raster_by_magick)) {
     check_R("magick")
   }
 
   split_method <- match.arg(split_method)
-  data_nm <- c(ifelse(isTRUE(lib_normalize), "normalized", ""), slot)
+  data_nm <- c(ifelse(isTRUE(lib_normalize), "normalized", ""), layer)
   data_nm <- paste(data_nm[data_nm != ""], collapse = " ")
   if (length(exp_method) == 1 && is.function(exp_method)) {
     exp_name <- paste0(as.character(x = formals()$exp_method), "(", data_nm, ")")
@@ -9241,8 +9251,8 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
     if (length(npal[npal != 0]) > 1) {
       stop("feature_annotation_palette and feature_annotation_palcolor must be the same length as feature_annotation")
     }
-    if (any(!feature_annotation %in% colnames(srt@assays[[assay]]@meta.features))) {
-      stop("feature_annotation: ", paste0(feature_annotation[!feature_annotation %in% colnames(srt@assays[[assay]]@meta.features)], collapse = ","), " is not in the meta data of the ", assay, " assay in the Seurat object.")
+    if (any(!feature_annotation %in% colnames(srt@assays[[assay]]@meta.data))) {
+      stop("feature_annotation: ", paste0(feature_annotation[!feature_annotation %in% colnames(srt@assays[[assay]]@meta.data)], collapse = ","), " is not in the meta data of the ", assay, " assay in the Seurat object.")
     }
   }
   if (length(width) == 1) {
@@ -9337,17 +9347,17 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
   gene_unique <- features_unique[features %in% rownames(srt@assays[[assay]])]
   meta <- features[features %in% colnames(srt@meta.data)]
   all_cells <- unique(unlist(lapply(cell_groups, names)))
-  mat_raw <- as_matrix(rbind(slot(srt@assays[[assay]], slot)[gene, all_cells, drop = FALSE], t(srt@meta.data[all_cells, meta, drop = FALSE])))[features, , drop = FALSE]
+  mat_raw <- as_matrix(rbind(LayerData(srt@assays[[assay]], layer = layer)[gene, all_cells, drop = FALSE], t(srt@meta.data[all_cells, meta, drop = FALSE])))[features, , drop = FALSE]
   rownames(mat_raw) <- features_unique
   if (isTRUE(lib_normalize) && min(mat_raw, na.rm = TRUE) >= 0) {
     if (!is.null(libsize)) {
       libsize_use <- libsize
     } else {
-      libsize_use <- colSums(slot(srt@assays[[assay]], "counts")[, colnames(mat_raw), drop = FALSE])
+      libsize_use <- colSums(LayerData(srt@assays[[assay]], "counts")[, colnames(mat_raw), drop = FALSE])
       isfloat <- any(libsize_use %% 1 != 0, na.rm = TRUE)
       if (isTRUE(isfloat)) {
         libsize_use <- rep(1, length(libsize_use))
-        warning("The values in the 'counts' slot are non-integer. Set the library size to 1.", immediate. = TRUE)
+        warning("The values in the 'counts' layer are non-integer. Set the library size to 1.", immediate. = TRUE)
       }
     }
     mat_raw[gene_unique, ] <- t(t(mat_raw[gene_unique, , drop = FALSE]) / libsize_use * median(libsize_use))
@@ -9378,25 +9388,37 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
   if (is.null(limits)) {
     if (!is.function(exp_method) && exp_method %in% c("zscore", "log2fc")) {
       b <- ceiling(min(abs(quantile(do.call(cbind, mat_list), c(0.01, 0.99), na.rm = TRUE)), na.rm = TRUE) * 2) / 2
-      colors <- colorRamp2(seq(-b, b, length = 100), palette_scp(palette = heatmap_palette, palcolor = heatmap_palcolor))
+      colors <- circlize::colorRamp2(seq(-b, b, length = 100), palette_scp(palette = heatmap_palette, palcolor = heatmap_palcolor))
     } else {
       b <- quantile(do.call(cbind, mat_list), c(0.01, 0.99), na.rm = TRUE)
-      colors <- colorRamp2(seq(b[1], b[2], length = 100), palette_scp(palette = heatmap_palette, palcolor = heatmap_palcolor))
+      colors <- circlize::colorRamp2(seq(b[1], b[2], length = 100), palette_scp(palette = heatmap_palette, palcolor = heatmap_palcolor))
     }
   } else {
-    colors <- colorRamp2(seq(limits[1], limits[2], length = 100), palette_scp(palette = heatmap_palette, palcolor = heatmap_palcolor))
+    colors <- circlize::colorRamp2(seq(limits[1], limits[2], length = 100), palette_scp(palette = heatmap_palette, palcolor = heatmap_palcolor))
   }
-
+  
+  t_max <- srt@assays[[assay]]$data[intersect(cell_annotation, rownames(srt@assays[[assay]])) %||% integer(), colnames(mat_raw), drop = FALSE]
+  
+  if (nrow(t_max) != 0) {
+    cell_metadata <- cbind.data.frame(
+      data.frame(row.names = colnames(mat_raw), cells = colnames(mat_raw)),
+      cbind.data.frame(
+        srt@meta.data[colnames(mat_raw), c(group.by, intersect(cell_annotation, colnames(srt@meta.data))), drop = FALSE],
+        SeuratDisk::Transpose(t_max)
+      )
+    )
+  }
+  
   cell_metadata <- cbind.data.frame(
     data.frame(row.names = colnames(mat_raw), cells = colnames(mat_raw)),
-    cbind.data.frame(
-      srt@meta.data[colnames(mat_raw), c(group.by, intersect(cell_annotation, colnames(srt@meta.data))), drop = FALSE],
-      t(srt@assays[[assay]]@data[intersect(cell_annotation, rownames(srt@assays[[assay]])) %||% integer(), colnames(mat_raw), drop = FALSE])
-    )
+    srt@meta.data[colnames(mat_raw), c(group.by, intersect(cell_annotation, colnames(srt@meta.data))), drop = FALSE]
   )
+  
+
+  
   feature_metadata <- cbind.data.frame(
     data.frame(row.names = features_unique, features = features, features_uique = features_unique),
-    srt@assays[[assay]]@meta.features[features, c(feature_annotation), drop = FALSE]
+    srt@assays[[assay]]@meta.data[features, c(feature_annotation), drop = FALSE]
   )
   feature_metadata[, "duplicated"] <- feature_metadata[["features"]] %in% features[duplicated(features)]
 
@@ -9524,7 +9546,7 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
           legend_gp = gpar(fill = palette_scp(cell_anno, palette = palette, palcolor = palcolor)), border = TRUE
         )
       } else {
-        col_fun <- colorRamp2(
+        col_fun <- circlize::colorRamp2(
           breaks = seq(min(cell_anno, na.rm = TRUE), max(cell_anno, na.rm = TRUE), length = 100),
           colors = palette_scp(palette = palette, palcolor = palcolor)
         )
@@ -9770,7 +9792,7 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
           legend_gp = gpar(fill = palette_scp(featan_values, palette = palette, palcolor = palcolor)), border = TRUE
         )
       } else {
-        col_fun <- colorRamp2(
+        col_fun <- circlize::colorRamp2(
           breaks = seq(min(featan_values, na.rm = TRUE), max(featan_values, na.rm = TRUE), length = 100),
           colors = palette_scp(palette = palette, palcolor = palcolor)
         )
@@ -9808,7 +9830,7 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
     IDtype = IDtype, species = species, db_update = db_update, db_version = db_version, db_combine = db_combine, convert_species = convert_species, Ensembl_version = Ensembl_version, mirror = mirror,
     db = db, TERM2GENE = TERM2GENE, TERM2NAME = TERM2NAME, minGSSize = minGSSize, maxGSSize = maxGSSize,
     GO_simplify = GO_simplify, GO_simplify_cutoff = GO_simplify_cutoff, simplify_method = simplify_method, simplify_similarityCutoff = simplify_similarityCutoff,
-    pvalueCutoff = pvalueCutoff, padjustCutoff = padjustCutoff, topTerm = topTerm, show_termid = show_termid, topWord = topWord, words_excluded = words_excluded
+    pvalueCutoff = pvalueCutoff, padjustCutoff = padjustCutoff, topTerm = topTerm, show_termid = show_termid, topWord = topWord, words_excluded = words_excluded, BPPARAM = BPPARAM
   )
   res <- enrichment$res
   ha_right <- enrichment$ha_right
@@ -10284,9 +10306,9 @@ CellCorHeatmap <- function(srt_query, srt_ref = NULL, bulk_ref = NULL,
     cluster_columns <- cluster_rows_raw
   }
   if (is.null(limits)) {
-    colors <- colorRamp2(seq(min(simil_matrix, na.rm = TRUE), max(simil_matrix, na.rm = TRUE), length = 100), palette_scp(palette = heatmap_palette, palcolor = heatmap_palcolor))
+    colors <- circlize::colorRamp2(seq(min(simil_matrix, na.rm = TRUE), max(simil_matrix, na.rm = TRUE), length = 100), palette_scp(palette = heatmap_palette, palcolor = heatmap_palcolor))
   } else {
-    colors <- colorRamp2(seq(limits[1], limits[2], length = 100), palette_scp(palette = heatmap_palette, palcolor = heatmap_palcolor))
+    colors <- circlize::colorRamp2(seq(limits[1], limits[2], length = 100), palette_scp(palette = heatmap_palette, palcolor = heatmap_palcolor))
   }
 
   cell_metadata <- data.frame(
@@ -10529,7 +10551,7 @@ CellCorHeatmap <- function(srt_query, srt_ref = NULL, bulk_ref = NULL,
             ha_query_list[[paste0(c("Query", query_group), collapse = ":")]] <- c(ha_query_list[[paste0(c("Query", query_group), collapse = ":")]], ha_query)
           }
         } else {
-          col_fun <- colorRamp2(
+          col_fun <- circlize::colorRamp2(
             breaks = seq(min(cell_anno, na.rm = TRUE), max(cell_anno, na.rm = TRUE), length = 100),
             colors = palette_scp(palette = palette, palcolor = palcolor)
           )
@@ -10702,7 +10724,7 @@ CellCorHeatmap <- function(srt_query, srt_ref = NULL, bulk_ref = NULL,
             ha_ref_list[[paste0(c("Ref", ref_group), collapse = ":")]] <- c(ha_ref_list[[paste0(c("Ref", ref_group), collapse = ":")]], ha_ref)
           }
         } else {
-          col_fun <- colorRamp2(
+          col_fun <- circlize::colorRamp2(
             breaks = seq(min(cell_anno, na.rm = TRUE), max(cell_anno, na.rm = TRUE), length = 100),
             colors = palette_scp(palette = palette, palcolor = palcolor)
           )
@@ -11020,8 +11042,8 @@ CellCorHeatmap <- function(srt_query, srt_ref = NULL, bulk_ref = NULL,
 DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, border = TRUE, flip = FALSE,
                            min_expcells = 20, r.sq = 0.2, dev.expl = 0.2, padjust = 0.05, num_intersections = NULL,
                            cell_density = 1, cell_bins = 100, order_by = c("peaktime", "valleytime"),
-                           slot = "counts", assay = NULL, exp_method = c("zscore", "raw", "fc", "log2fc", "log1p"), exp_legend_title = NULL, limits = NULL,
-                           lib_normalize = identical(slot, "counts"), libsize = NULL, family = NULL,
+                           layer = "counts", assay = NULL, exp_method = c("zscore", "raw", "fc", "log2fc", "log1p"), exp_legend_title = NULL, limits = NULL,
+                           lib_normalize = identical(layer, "counts"), libsize = NULL, family = NULL,
                            cluster_features_by = NULL, cluster_rows = FALSE, cluster_row_slices = FALSE, cluster_columns = FALSE, cluster_column_slices = FALSE,
                            show_row_names = FALSE, show_column_names = FALSE, row_names_side = ifelse(flip, "left", "right"), column_names_side = ifelse(flip, "bottom", "top"), row_names_rot = 0, column_names_rot = 90,
                            row_title = NULL, column_title = NULL, row_title_side = "left", column_title_side = "top", row_title_rot = 0, column_title_rot = ifelse(flip, 90, 0),
@@ -11053,7 +11075,7 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
 
   split_method <- match.arg(split_method)
   order_by <- match.arg(order_by)
-  data_nm <- c(ifelse(isTRUE(lib_normalize), "normalized", ""), slot)
+  data_nm <- c(ifelse(isTRUE(lib_normalize), "normalized", ""), layer)
   data_nm <- paste(data_nm[data_nm != ""], collapse = " ")
   if (length(exp_method) == 1 && is.function(exp_method)) {
     exp_name <- paste0(as.character(x = formals()$exp_method), "(", data_nm, ")")
@@ -11229,11 +11251,11 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
     for (l in lineages) {
       DynamicFeatures <- srt@tools[[paste0("DynamicFeatures_", l)]][["DynamicFeatures"]]
       if (is.null(DynamicFeatures)) {
-        srt <- RunDynamicFeatures(srt, lineages = l, features = features, assay = assay, slot = slot, family = family, libsize = libsize)
+        srt <- RunDynamicFeatures(srt, lineages = l, features = features, assay = assay, layer = layer, family = family, libsize = libsize)
         DynamicFeatures <- srt@tools[[paste0("DynamicFeatures_", l)]][["DynamicFeatures"]]
       }
       if (any(!features %in% rownames(DynamicFeatures))) {
-        srt <- RunDynamicFeatures(srt, lineages = l, features = features[!features %in% rownames(DynamicFeatures)], assay = assay, slot = slot, family = family, libsize = libsize)
+        srt <- RunDynamicFeatures(srt, lineages = l, features = features[!features %in% rownames(DynamicFeatures)], assay = assay, layer = layer, family = family, libsize = libsize)
         DynamicFeatures <- rbind(DynamicFeatures, srt@tools[[paste0("DynamicFeatures_", l)]][["DynamicFeatures"]])
       }
       DynamicFeatures <- DynamicFeatures[features, , drop = FALSE]
@@ -11279,10 +11301,10 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
     mat_raw <- do.call(cbind, mat_list)
   } else {
     mat_list <- list()
-    Y_libsize <- colSums(slot(srt@assays[[assay]], "counts"))
+    Y_libsize <- colSums(LayerData(srt@assays[[assay]], "counts"))
     for (l in lineages) {
       cells <- gsub(pattern = l, replacement = "", x = cell_order_list[[l]])
-      mat_tmp <- as_matrix(rbind(slot(srt@assays[[assay]], slot)[gene, cells, drop = FALSE], t(srt@meta.data[cells, meta, drop = FALSE])))[features, , drop = FALSE]
+      mat_tmp <- as_matrix(rbind(LayerData(srt@assays[[assay]], layer = layer)[gene, cells, drop = FALSE], t(srt@meta.data[cells, meta, drop = FALSE])))[features, , drop = FALSE]
       if (isTRUE(lib_normalize) && min(mat_tmp, na.rm = TRUE) >= 0) {
         if (!is.null(libsize)) {
           libsize_use <- libsize
@@ -11291,7 +11313,7 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
           isfloat <- any(libsize_use %% 1 != 0, na.rm = TRUE)
           if (isTRUE(isfloat)) {
             libsize_use <- rep(1, length(libsize_use))
-            warning("The values in the 'counts' slot are non-integer. Set the library size to 1.", immediate. = TRUE)
+            warning("The values in the 'counts' layer are non-integer. Set the library size to 1.", immediate. = TRUE)
           }
         }
         mat_tmp[gene, ] <- t(t(mat_tmp[gene, , drop = FALSE]) / libsize_use * median(Y_libsize))
@@ -11321,13 +11343,13 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
   if (is.null(limits)) {
     if (!is.function(exp_method) && exp_method %in% c("zscore", "log2fc")) {
       b <- ceiling(min(abs(quantile(mat, c(0.01, 0.99), na.rm = TRUE)), na.rm = TRUE) * 2) / 2
-      colors <- colorRamp2(seq(-b, b, length = 100), palette_scp(palette = heatmap_palette, palcolor = heatmap_palcolor))
+      colors <- circlize::colorRamp2(seq(-b, b, length = 100), palette_scp(palette = heatmap_palette, palcolor = heatmap_palcolor))
     } else {
       b <- quantile(mat, c(0.01, 0.99), na.rm = TRUE)
-      colors <- colorRamp2(seq(b[1], b[2], length = 100), palette_scp(palette = heatmap_palette, palcolor = heatmap_palcolor))
+      colors <- circlize::colorRamp2(seq(b[1], b[2], length = 100), palette_scp(palette = heatmap_palette, palcolor = heatmap_palcolor))
     }
   } else {
-    colors <- colorRamp2(seq(limits[1], limits[2], length = 100), palette_scp(palette = heatmap_palette, palcolor = heatmap_palcolor))
+    colors <- circlize::colorRamp2(seq(limits[1], limits[2], length = 100), palette_scp(palette = heatmap_palette, palcolor = heatmap_palcolor))
   }
 
   lgd <- list()
@@ -11335,7 +11357,7 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
 
   ha_top_list <- list()
   pseudotime <- na.omit(unlist(cell_metadata[, lineages]))
-  pseudotime_col <- colorRamp2(
+  pseudotime_col <- circlize::colorRamp2(
     breaks = seq(min(pseudotime, na.rm = TRUE), max(pseudotime, na.rm = TRUE), length = 100),
     colors = palette_scp(palette = pseudotime_palette, palcolor = pseudotime_palcolor)
   )
@@ -11389,7 +11411,7 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
           legend_gp = gpar(fill = palette_scp(cell_anno, palette = palette, palcolor = palcolor)), border = TRUE
         )
       } else {
-        col_fun <- colorRamp2(
+        col_fun <- circlize::colorRamp2(
           breaks = seq(min(cell_anno, na.rm = TRUE), max(cell_anno, na.rm = TRUE), length = 100),
           colors = palette_scp(palette = palette, palcolor = palcolor)
         )
@@ -11769,7 +11791,7 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
           legend_gp = gpar(fill = palette_scp(featan_values, palette = palette, palcolor = palcolor)), border = TRUE
         )
       } else {
-        col_fun <- colorRamp2(
+        col_fun <- circlize::colorRamp2(
           breaks = seq(min(featan_values, na.rm = TRUE), max(featan_values, na.rm = TRUE), length = 100),
           colors = palette_scp(palette = palette, palcolor = palcolor)
         )
@@ -12030,11 +12052,11 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
 #' @param lineages A character vector specifying the lineages to plot.
 #' @param group.by A character specifying a metadata column to group the cells by. Default is NULL.
 #' @param cells A character vector specifying the cells to include in the plot. Default is NULL.
-#' @param slot A character string specifying the slot to use for the analysis. Default is "counts".
+#' @param layer A character string specifying the layer to use for the analysis. Default is "counts".
 #' @param assay A character string specifying the assay to use for the analysis. Default is NULL.
 #' @param family A character specifying the model used to calculate the dynamic features if needed. By default, this parameter is set to NULL, and the appropriate family will be automatically determined.
 #' @param exp_method A character specifying the method to transform the expression values. Default is "log1p" with options "log1p", "raw", "zscore", "fc", "log2fc".
-#' @param lib_normalize A boolean specifying whether to normalize the expression values using library size. By default, if the \code{slot} is counts, this parameter is set to TRUE. Otherwise, it is set to FALSE.
+#' @param lib_normalize A boolean specifying whether to normalize the expression values using library size. By default, if the \code{layer} is counts, this parameter is set to TRUE. Otherwise, it is set to FALSE.
 #' @param libsize A numeric vector specifying the library size for each cell. Default is NULL.
 #' @param compare_lineages A boolean specifying whether to compare the lineages in the plot. Default is TRUE.
 #' @param compare_features A boolean specifying whether to compare the features in the plot. Default is FALSE.
@@ -12099,8 +12121,8 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
 #' @importFrom stats runif
 #' @importFrom reshape2 melt
 #' @export
-DynamicPlot <- function(srt, lineages, features, group.by = NULL, cells = NULL, slot = "counts", assay = NULL, family = NULL,
-                        exp_method = c("log1p", "raw", "zscore", "fc", "log2fc"), lib_normalize = identical(slot, "counts"), libsize = NULL,
+DynamicPlot <- function(srt, lineages, features, group.by = NULL, cells = NULL, layer = "counts", assay = NULL, family = NULL,
+                        exp_method = c("log1p", "raw", "zscore", "fc", "log2fc"), lib_normalize = identical(layer, "counts"), libsize = NULL,
                         compare_lineages = TRUE, compare_features = FALSE,
                         add_line = TRUE, add_interval = TRUE, line.size = 1, line_palette = "Dark2", line_palcolor = NULL,
                         add_point = TRUE, pt.size = 1, point_palette = "Paired", point_palcolor = NULL,
@@ -12117,7 +12139,7 @@ DynamicPlot <- function(srt, lineages, features, group.by = NULL, cells = NULL, 
     stop(group.by, " is not in the meta.data of srt object.")
   }
 
-  data_nm <- c(ifelse(isTRUE(lib_normalize), "normalized", ""), slot)
+  data_nm <- c(ifelse(isTRUE(lib_normalize), "normalized", ""), layer)
   data_nm <- paste(data_nm[data_nm != ""], collapse = " ")
   if (length(exp_method) == 1 && is.function(exp_method)) {
     exp_name <- paste0(as.character(x = formals()$exp_method), "(", data_nm, ")")
@@ -12151,7 +12173,7 @@ DynamicPlot <- function(srt, lineages, features, group.by = NULL, cells = NULL, 
     }
     feature_calcu <- features[!features %in% features_exist]
     if (length(feature_calcu) > 0) {
-      srt_tmp <- RunDynamicFeatures(srt, lineages = l, features = feature_calcu, assay = assay, slot = slot, family = family, libsize = libsize)
+      srt_tmp <- RunDynamicFeatures(srt, lineages = l, features = feature_calcu, assay = assay, layer = layer, family = family, libsize = libsize)
       if (is.null(raw_matrix)) {
         raw_matrix <- fitted_matrix <- upr_matrix <- lwr_matrix <- matrix(NA, nrow = nrow(srt_tmp@tools[[paste0("DynamicFeatures_", l)]][["raw_matrix"]]), ncol = 0)
       }
@@ -12181,7 +12203,7 @@ DynamicPlot <- function(srt, lineages, features, group.by = NULL, cells = NULL, 
   }
 
   df_list <- list()
-  Y_libsize <- colSums(slot(srt@assays[[assay]], "counts"))
+  Y_libsize <- colSums(LayerData(srt@assays[[assay]], "counts"))
   for (l in lineages) {
     raw_matrix <- raw_matrix_list[[l]]
     fitted_matrix <- fitted_matrix_list[[l]]
@@ -12195,7 +12217,7 @@ DynamicPlot <- function(srt, lineages, features, group.by = NULL, cells = NULL, 
         isfloat <- any(libsize_use %% 1 != 0, na.rm = TRUE)
         if (isTRUE(isfloat)) {
           libsize_use <- rep(1, length(libsize_use))
-          warning("The values in the 'counts' slot are non-integer. Set the library size to 1.", immediate. = TRUE)
+          warning("The values in the 'counts' layer are non-integer. Set the library size to 1.", immediate. = TRUE)
         }
       }
       raw_matrix[, gene] <- raw_matrix[, gene, drop = FALSE] / libsize_use * median(Y_libsize)
@@ -12758,11 +12780,11 @@ EnrichmentPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilco
     if (is.null(group_by)) {
       stop("'group_by' must be provided.")
     }
-    slot <- paste("Enrichment", group_by, test.use, sep = "_")
-    if (!slot %in% names(srt@tools)) {
+    layer <- paste("Enrichment", group_by, test.use, sep = "_")
+    if (!layer %in% names(srt@tools)) {
       stop("No enrichment result found. You may perform RunEnrichment first.")
     }
-    enrichment <- srt@tools[[slot]][["enrichment"]]
+    enrichment <- srt@tools[[layer]][["enrichment"]]
   } else {
     enrichment <- res[["enrichment"]]
   }
@@ -13593,12 +13615,12 @@ GSEAPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilcox", re
     if (is.null(group_by)) {
       stop("'group_by' must be provided.")
     }
-    slot <- paste("GSEA", group_by, test.use, sep = "_")
-    if (!slot %in% names(srt@tools)) {
+    layer <- paste("GSEA", group_by, test.use, sep = "_")
+    if (!layer %in% names(srt@tools)) {
       stop("No enrichment result found. You may perform RunGSEA first.")
     }
-    enrichment <- srt@tools[[slot]][["enrichment"]]
-    res <- srt@tools[[slot]][["results"]]
+    enrichment <- srt@tools[[layer]][["enrichment"]]
+    res <- srt@tools[[layer]][["results"]]
   } else {
     enrichment <- res[["enrichment"]]
     res <- res[["results"]]

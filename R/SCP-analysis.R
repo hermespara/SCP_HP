@@ -515,7 +515,7 @@ LengthCheck <- function(values, cutoff = 0) {
 #' @importFrom stats rnorm
 #' @importFrom Matrix rowMeans colMeans
 #' @importFrom ggplot2 cut_number
-AddModuleScore2 <- function(object, slot = "data", features, pool = NULL, nbin = 24, ctrl = 100,
+AddModuleScore2 <- function(object, layer = "data", features, pool = NULL, nbin = 24, ctrl = 100,
                             k = FALSE, assay = NULL, name = "Cluster", seed = 1, search = FALSE,
                             BPPARAM = BiocParallel::bpparam(), ...) {
   if (!is.null(x = seed)) {
@@ -524,7 +524,7 @@ AddModuleScore2 <- function(object, slot = "data", features, pool = NULL, nbin =
   assay.old <- DefaultAssay(object = object)
   assay <- assay %||% assay.old
   DefaultAssay(object = object) <- assay
-  assay.data <- GetAssayData(object = object, slot = slot)
+  assay.data <- GetAssayData(object = object, layer = layer)
   features.old <- features
   if (k) {
     .NotYetUsed(arg = "k")
@@ -653,7 +653,7 @@ AddModuleScore2 <- function(object, slot = "data", features, pool = NULL, nbin =
 #' @inheritParams RunEnrichment
 #' @param srt A Seurat object
 #' @param features A named list of feature lists for scoring. If NULLL, \code{db} will be used to create features sets.
-#' @param slot The slot of the Seurat object to use for scoring. Defaults to "data".
+#' @param layer The layer of the Seurat object to use for scoring. Defaults to "data".
 #' @param assay The assay of the Seurat object to use for scoring. Defaults to NULL, in which case the default assay of the object is used.
 #' @param split.by A cell metadata variable used for splitting the Seurat object into subsets and performing scoring on each subset. Defaults to NULL.
 #' @param termnames A vector of term names to be used from the database. Defaults to NULL, in which case all features from the database are used.
@@ -728,7 +728,7 @@ AddModuleScore2 <- function(object, slot = "data", features, pool = NULL, nbin =
 #' @importFrom BiocParallel bpprogressbar<- bpRNGseed<- bpworkers
 #' @importFrom Seurat AddModuleScore AddMetaData
 #' @export
-CellScoring <- function(srt, features = NULL, slot = "data", assay = NULL, split.by = NULL,
+CellScoring <- function(srt, features = NULL, layer = "data", assay = NULL, split.by = NULL,
                         IDtype = "symbol", species = "Homo_sapiens",
                         db = "GO_BP", termnames = NULL, db_update = FALSE, db_version = "latest", convert_species = TRUE,
                         Ensembl_version = 103, mirror = NULL, minGSSize = 10, maxGSSize = 500,
@@ -742,14 +742,14 @@ CellScoring <- function(srt, features = NULL, slot = "data", assay = NULL, split
     stop("method must be 'Seurat', 'AUCell'or 'UCell'.")
   }
   assay <- assay %||% DefaultAssay(srt)
-  if (slot == "counts") {
-    status <- check_DataType(srt, slot = "counts", assay = assay)
+  if (layer == "counts") {
+    status <- check_DataType(srt, layer = "counts", assay = assay)
     if (status != "raw_counts") {
       warning("Data is not raw counts", immediate. = TRUE)
     }
   }
-  if (slot == "data") {
-    status <- check_DataType(srt, slot = "data", assay = assay)
+  if (layer == "data") {
+    status <- check_DataType(srt, layer = "data", assay = assay)
     if (status == "raw_counts") {
       message("Data is raw counts. Perform NormalizeData(LogNormalize) on the data ...")
       srt <- NormalizeData(object = srt, assay = assay, normalization.method = "LogNormalize", verbose = FALSE)
@@ -799,7 +799,7 @@ CellScoring <- function(srt, features = NULL, slot = "data", assay = NULL, split
   if (!is.list(features) || length(names(features)) == 0) {
     stop("'features' must be a named list")
   }
-  expressed <- names(which(rowSums(GetAssayData(srt, slot = slot, assay = assay) > 0) > 0))
+  expressed <- names(which(rowSums(GetAssayData(srt, layer = layer, assay = assay) > 0) > 0))
   features <- lapply(setNames(names(features), names(features)), function(x) features[[x]][features[[x]] %in% expressed])
   filtered_none <- names(which(sapply(features, length) == 0))
   if (length(filtered_none) > 0) {
@@ -829,7 +829,7 @@ CellScoring <- function(srt, features = NULL, slot = "data", assay = NULL, split
         srt_sp,
         features = features,
         name = name,
-        slot = slot,
+        layer = layer,
         assay = assay,
         BPPARAM = BPPARAM,
         ...
@@ -847,7 +847,7 @@ CellScoring <- function(srt, features = NULL, slot = "data", assay = NULL, split
         srt_sp,
         features = features,
         name = name,
-        slot = slot,
+        layer = layer,
         assay = assay,
         BPPARAM = BPPARAM,
         ...
@@ -862,7 +862,7 @@ CellScoring <- function(srt, features = NULL, slot = "data", assay = NULL, split
       colnames(scores) <- make.names(paste(name, names(features_nm), sep = "_"))
     } else if (method == "AUCell") {
       check_R("AUCell")
-      CellRank <- AUCell::AUCell_buildRankings(as_matrix(GetAssayData(srt_sp, slot = slot, assay = assay)), BPPARAM = BPPARAM, plotStats = FALSE)
+      CellRank <- AUCell::AUCell_buildRankings(as_matrix(GetAssayData(srt_sp, layer = layer, assay = assay)), BPPARAM = BPPARAM, plotStats = FALSE)
       cells_AUC <- AUCell::AUCell_calcAUC(
         geneSets = features,
         rankings = CellRank,
@@ -1070,7 +1070,7 @@ votep <- function(p, alpha = 0.5) {
 FindConservedMarkers2 <- function(object, grouping.var, ident.1, ident.2 = NULL, cells.1 = NULL, cells.2 = NULL, features = NULL,
                                   test.use = "wilcox", logfc.threshold = 0.25, base = 2, pseudocount.use = 1, mean.fxn = NULL,
                                   min.pct = 0.1, min.diff.pct = -Inf, max.cells.per.ident = Inf, latent.vars = NULL, only.pos = FALSE,
-                                  assay = NULL, slot = "data", min.cells.group = 3, min.cells.feature = 3,
+                                  assay = NULL, layer = "data", min.cells.group = 3, min.cells.feature = 3,
                                   meta.method = c("maximump", "minimump", "wilkinsonp", "meanp", "sump", "votep"),
                                   norm.method = "LogNormalize", verbose = TRUE, ...) {
   meta.method <- match.arg(meta.method)
@@ -1137,7 +1137,7 @@ FindConservedMarkers2 <- function(object, grouping.var, ident.1, ident.2 = NULL,
         next
       }
       marker.test[[level.use]] <- FindMarkers(
-        object = Assays(object, assay), slot = slot, cells.1 = cells.1.use, cells.2 = cells.2.use, features = features,
+        object = Assays(object, assay), layer = layer, cells.1 = cells.1.use, cells.2 = cells.2.use, features = features,
         test.use = test.use, logfc.threshold = logfc.threshold,
         min.pct = min.pct, min.diff.pct = min.diff.pct, max.cells.per.ident = max.cells.per.ident,
         min.cells.group = min.cells.group, min.cells.feature = min.cells.feature,
@@ -1167,7 +1167,7 @@ FindConservedMarkers2 <- function(object, grouping.var, ident.1, ident.2 = NULL,
         message("Testing group ", level.use, ": (", paste("cells.1", collapse = ", "), ") vs (", paste("cells.2", collapse = ", "), ")")
       }
       marker.test[[level.use]] <- FindMarkers(
-        object = Assays(object, assay), slot = slot, cells.1 = cells.1.use, cells.2 = cells.2.use, features = features,
+        object = Assays(object, assay), layer = layer, cells.1 = cells.1.use, cells.2 = cells.2.use, features = features,
         test.use = test.use, logfc.threshold = logfc.threshold,
         min.pct = min.pct, min.diff.pct = min.diff.pct, max.cells.per.ident = max.cells.per.ident,
         min.cells.group = min.cells.group, min.cells.feature = min.cells.feature,
@@ -1191,7 +1191,7 @@ FindConservedMarkers2 <- function(object, grouping.var, ident.1, ident.2 = NULL,
     colnames(x = markers.conserved[[i]]) <- paste(names(x = marker.test)[i], colnames(x = markers.conserved[[i]]), sep = "_")
   }
   markers.combined <- Reduce(cbind, markers.conserved)
-  fc <- FoldChange(Assays(object, assay), slot = slot, cells.1 = cells.1, cells.2 = cells.2, features = genes.conserved, norm.method = norm.method, base = base, pseudocount.use = pseudocount.use, mean.fxn = mean.fxn)
+  fc <- FoldChange(Assays(object, assay), layer = layer, cells.1 = cells.1, cells.2 = cells.2, features = genes.conserved, norm.method = norm.method, base = base, pseudocount.use = pseudocount.use, mean.fxn = mean.fxn)
   markers.combined <- cbind(markers.combined, fc[genes.conserved, , drop = FALSE])
   logFC.codes <- colnames(x = markers.combined)[grepl(pattern = "*avg_log.*FC$", x = colnames(x = markers.combined))]
   if (isTRUE(only.pos)) {
@@ -1227,7 +1227,7 @@ FindConservedMarkers2 <- function(object, grouping.var, ident.1, ident.2 = NULL,
 #' @importFrom pbapply pbsapply
 #' @export
 FindExpressedMarkers <- function(object, ident.1 = NULL, ident.2 = NULL, cells.1 = NULL, cells.2 = NULL,
-                                 features = NULL, assay = NULL, slot = "data", min.expression = 0,
+                                 features = NULL, assay = NULL, layer = "data", min.expression = 0,
                                  test.use = "wilcox", logfc.threshold = 0.25, base = 2, pseudocount.use = 1, mean.fxn = NULL, fc.name = NULL,
                                  min.pct = 0.1, min.diff.pct = -Inf, max.cells.per.ident = Inf, latent.vars = NULL, only.pos = FALSE,
                                  min.cells.group = 3, min.cells.feature = 3,
@@ -1263,21 +1263,21 @@ FindExpressedMarkers <- function(object, ident.1 = NULL, ident.2 = NULL, cells.1
   data.slot <- ifelse(
     test = test.use %in% c("negbinom", "poisson", "DESeq2"),
     yes = "counts",
-    no = slot
+    no = layer
   )
-  data.use <- GetAssayData(object = object, slot = data.slot)
+  data.use <- GetAssayData(object = object, layer = data.slot)
   data.use <- data.use[rowSums(data.use) > 0, ]
   data.use <- as_matrix(data.use)
   data.use[data.use <= min.expression] <- NA
   counts <- switch(
     EXPR = data.slot,
-    "scale.data" = GetAssayData(object = object, slot = "counts"),
+    "scale.data" = GetAssayData(object = object, layer = "counts"),
     numeric()
   )
 
   ########## FoldChange.Assay ##########
   features <- features %||% rownames(x = data.use)
-  slot <- data.slot
+  layer <- data.slot
 
   # By default run as if LogNormalize is done
   log1pdata.mean.fxn <- function(x) {
@@ -1295,7 +1295,7 @@ FindExpressedMarkers <- function(object, ident.1 = NULL, ident.2 = NULL, cells.1
       new.mean.fxn <- counts.mean.fxn
     } else {
       new.mean.fxn <- switch(
-        EXPR = slot,
+        EXPR = layer,
         "data" = log1pdata.mean.fxn,
         "scale.data" = scaledata.mean.fxn,
         "counts" = counts.mean.fxn,
@@ -1303,9 +1303,9 @@ FindExpressedMarkers <- function(object, ident.1 = NULL, ident.2 = NULL, cells.1
       )
     }
   } else {
-    # If no normalization method is passed use slots to decide mean function
+    # If no normalization method is passed use layers to decide mean function
     new.mean.fxn <- switch(
-      EXPR = slot,
+      EXPR = layer,
       "data" = log1pdata.mean.fxn,
       "scale.data" = scaledata.mean.fxn,
       "counts" = counts.mean.fxn,
@@ -1320,7 +1320,7 @@ FindExpressedMarkers <- function(object, ident.1 = NULL, ident.2 = NULL, cells.1
     no = base
   )
   fc.name <- fc.name %||% ifelse(
-    test = slot == "scale.data",
+    test = layer == "scale.data",
     yes = "avg_diff",
     no = paste0("avg_log", base.text, "FC")
   )
@@ -1336,7 +1336,7 @@ FindExpressedMarkers <- function(object, ident.1 = NULL, ident.2 = NULL, cells.1
   ########## FindMarkers.default ##########
 
   object <- data.use
-  slot <- data.slot
+  layer <- data.slot
 
   Seurat:::ValidateCellGroups(
     object = object,
@@ -1352,7 +1352,7 @@ FindExpressedMarkers <- function(object, ident.1 = NULL, ident.2 = NULL, cells.1
     logfc.threshold <- 0
   }
   data <- switch(
-    EXPR = slot,
+    EXPR = layer,
     "scale.data" = counts,
     object
   )
@@ -1373,7 +1373,7 @@ FindExpressedMarkers <- function(object, ident.1 = NULL, ident.2 = NULL, cells.1
     return(fc.results[features, ])
   }
   # feature selection (based on logFC)
-  if (slot != "scale.data") {
+  if (layer != "scale.data") {
     total.diff <- fc.results[, 1] # first column is logFC
     names(total.diff) <- rownames(fc.results)
     features.diff <- if (only.pos) {
@@ -1581,7 +1581,7 @@ WilcoxDETest <- function(data.use, cells.1, cells.2, verbose = TRUE, ...) {
 #' @param grouping.var A character value specifying the grouping variable for finding conserved or disturbed markers. This parameter is only used when markers_type is "conserved" or "disturbed".
 #' @param fc.threshold A numeric value used to filter genes for testing based on their average fold change between/among the two groups. By default, it is set to 1.5
 #' @param meta.method A character value specifying the method to use for combining p-values in the conserved markers test. Possible values are "maximump", "minimump", "wilkinsonp", "meanp", "sump", and "votep".
-#' @param norm.method Normalization method for fold change calculation when slot is 'data'. Default is "LogNormalize".
+#' @param norm.method Normalization method for fold change calculation when layer is 'data'. Default is "LogNormalize".
 #' @param p.adjust.method A character value specifying the method to use for adjusting p-values. Default is "bonferroni".
 #' @param BPPARAM A BiocParallelParam object specifying the parallelization parameters for the differential test. Default is BiocParallel::bpparam().
 #' @param seed An integer value specifying the seed. Default is 11.
@@ -1687,29 +1687,29 @@ RunDEtest <- function(srt, group_by = NULL, group1 = NULL, group2 = NULL, cells1
   assay <- assay %||% DefaultAssay(srt)
 
   status <- check_DataType(srt, layer = layer, assay = assay)
-  if (slot == "counts" && status != "raw_counts") {
-    stop("Data in the 'counts' slot is not raw counts.")
+  if (layer == "counts" && status != "raw_counts") {
+    stop("Data in the 'counts' layer is not raw counts.")
   }
-  if (slot == "data" && status != "log_normalized_counts") {
+  if (layer == "data" && status != "log_normalized_counts") {
     if (status == "raw_counts") {
-      warning("Data in the 'data' slot is raw counts. Perform NormalizeData(LogNormalize) on the data.", immediate. = TRUE)
+      warning("Data in the 'data' layer is raw counts. Perform NormalizeData(LogNormalize) on the data.", immediate. = TRUE)
       srt <- NormalizeData(object = srt, assay = assay, normalization.method = "LogNormalize", verbose = FALSE)
     }
     if (status == "raw_normalized_counts") {
-      warning("Data in the 'data' slot is raw_normalized_counts. Perform NormalizeData(LogNormalize) on the data.", immediate. = TRUE)
+      warning("Data in the 'data' layer is raw_normalized_counts. Perform NormalizeData(LogNormalize) on the data.", immediate. = TRUE)
       srt <- NormalizeData(object = srt, assay = assay, normalization.method = "LogNormalize", verbose = FALSE)
     }
     if (status == "unknown") {
-      warning("Data in the 'data' slot is unknown. Please check the data type.")
+      warning("Data in the 'data' layer is unknown. Please check the data type.")
     }
   }
-  bpprogressbar(BPPARAM) <- TRUE
-  bpRNGseed(BPPARAM) <- seed
+  BiocParallel::bpprogressbar(BPPARAM) <- TRUE
+  BiocParallel::bpRNGseed(BPPARAM) <- seed
 
   time_start <- Sys.time()
   if (verbose) {
     message(paste0("[", time_start, "] ", "Start DEtest"))
-    message("Workers: ", bpworkers(BPPARAM))
+    message("Workers: ", BiocParallel::bpworkers(BPPARAM))
   }
 
   if (fc.threshold < 1) {
@@ -1745,7 +1745,7 @@ RunDEtest <- function(srt, group_by = NULL, group1 = NULL, group2 = NULL, cells1
 
     if (markers_type == "all") {
       markers <- FindMarkers(
-        object = Assays(srt, assay), slot = slot,
+        object = Assays(srt, assay), layer = layer,
         cells.1 = cells1,
         cells.2 = cells2,
         features = features,
@@ -1788,7 +1788,7 @@ RunDEtest <- function(srt, group_by = NULL, group1 = NULL, group2 = NULL, cells1
     }
     if (markers_type == "conserved") {
       markers <- FindConservedMarkers2(
-        object = srt, assay = assay, slot = slot,
+        object = srt, assay = assay, layer = layer,
         cells.1 = cells1,
         cells.2 = cells2,
         features = features,
@@ -1836,7 +1836,7 @@ RunDEtest <- function(srt, group_by = NULL, group1 = NULL, group2 = NULL, cells1
       srt_tmp[[grouping.var, drop = TRUE]][setdiff(colnames(srt_tmp), cells1)] <- NA
       bpprogressbar(BPPARAM) <- FALSE
       srt_tmp <- RunDEtest(
-        srt = srt_tmp, assay = assay, slot = slot,
+        srt = srt_tmp, assay = assay, layer = layer,
         group_by = grouping.var,
         markers_type = "all",
         features = features,
@@ -1888,7 +1888,7 @@ RunDEtest <- function(srt, group_by = NULL, group1 = NULL, group2 = NULL, cells1
 
     args1 <- list(
       object = Assays(srt, assay),
-      slot = slot,
+      layer = layer,
       features = features,
       test.use = test.use,
       logfc.threshold = log(fc.threshold, base = base),
@@ -2048,7 +2048,7 @@ RunDEtest <- function(srt, group_by = NULL, group1 = NULL, group2 = NULL, cells1
           return(NULL)
         } else {
           srt_tmp <- RunDEtest(
-            srt = srt_tmp, assay = assay, slot = slot,
+            srt = srt_tmp, assay = assay, layer = layer,
             group_by = grouping.var,
             markers_type = "all",
             features = features,
@@ -3780,16 +3780,16 @@ RunEnrichment <- function(srt = NULL, group_by = NULL, test.use = "wilcox", DE_t
     if (is.null(group_by)) {
       group_by <- "custom"
     }
-    slot <- paste0("DEtest_", group_by)
-    if (!slot %in% names(srt@tools) || length(grep(pattern = "AllMarkers", names(srt@tools[[slot]]))) == 0) {
+    layer <- paste0("DEtest_", group_by)
+    if (!layer %in% names(srt@tools) || length(grep(pattern = "AllMarkers", names(srt@tools[[layer]]))) == 0) {
       stop("Cannot find the DEtest result for the group '", group_by, "'. You may perform RunDEtest first.")
     }
-    index <- grep(pattern = paste0("AllMarkers_", test.use), names(srt@tools[[slot]]))[1]
+    index <- grep(pattern = paste0("AllMarkers_", test.use), names(srt@tools[[layer]]))[1]
     if (is.na(index)) {
       stop("Cannot find the 'AllMarkers_", test.use, "' in the DEtest result.")
     }
-    de <- names(srt@tools[[slot]])[index]
-    de_df <- srt@tools[[slot]][[de]]
+    de <- names(srt@tools[[layer]])[index]
+    de_df <- srt@tools[[layer]][[de]]
     de_df <- de_df[with(de_df, eval(rlang::parse_expr(DE_threshold))), , drop = FALSE]
     rownames(de_df) <- seq_len(nrow(de_df))
 
@@ -4044,16 +4044,16 @@ RunGSEA <- function(srt = NULL, group_by = NULL, test.use = "wilcox", DE_thresho
     if (is.null(group_by)) {
       group_by <- "custom"
     }
-    slot <- paste0("DEtest_", group_by)
-    if (!slot %in% names(srt@tools) || length(grep(pattern = "AllMarkers", names(srt@tools[[slot]]))) == 0) {
+    layer <- paste0("DEtest_", group_by)
+    if (!layer %in% names(srt@tools) || length(grep(pattern = "AllMarkers", names(srt@tools[[layer]]))) == 0) {
       stop("Cannot find the DEtest result for the group '", group_by, "'. You may perform RunDEtest first.")
     }
-    index <- grep(pattern = paste0("AllMarkers_", test.use), names(srt@tools[[slot]]))[1]
+    index <- grep(pattern = paste0("AllMarkers_", test.use), names(srt@tools[[layer]]))[1]
     if (is.na(index)) {
       stop("Cannot find the 'AllMarkers_", test.use, "' in the DEtest result.")
     }
-    de <- names(srt@tools[[slot]])[index]
-    de_df <- srt@tools[[slot]][[de]]
+    de <- names(srt@tools[[layer]])[index]
+    de_df <- srt@tools[[layer]][[de]]
     de_df <- de_df[with(de_df, eval(rlang::parse_expr(DE_threshold))), , drop = FALSE]
     rownames(de_df) <- seq_len(nrow(de_df))
 
@@ -4366,7 +4366,7 @@ RunSlingshot <- function(srt, group.by, reduction = NULL, dims = NULL, start = N
 #'
 #' @param srt A Seurat object.
 #' @param assay The name of the assay in the Seurat object to use for analysis. Defaults to NULL, in which case the default assay of the object is used.
-#' @param slot The slot in the Seurat object to use for analysis. Default is "counts".
+#' @param layer The slot in the Seurat object to use for analysis. Default is "counts".
 #' @param expressionFamily The distribution family to use for modeling gene expression. Default is "negbinomial.size".
 #' @param features A vector of gene names or indices specifying the features to use in the analysis. Defaults to NULL, in which case features were determined by \code{feature_type}.
 #' @param feature_type The type of features to use in the analysis. Possible values are "HVF" for highly variable features
@@ -4407,7 +4407,7 @@ RunSlingshot <- function(srt, group.by, reduction = NULL, dims = NULL, start = N
 #' @importFrom ggplot2 geom_segment
 #' @importFrom utils select.list
 #' @export
-RunMonocle2 <- function(srt, assay = NULL, slot = "counts", expressionFamily = "negbinomial.size",
+RunMonocle2 <- function(srt, assay = NULL, layer = "counts", expressionFamily = "negbinomial.size",
                         features = NULL, feature_type = "HVF", disp_filter = "mean_expression >= 0.1 & dispersion_empirical >= 1 * dispersion_fit",
                         max_components = 2, reduction_method = "DDRTree", norm_method = "log", residualModelFormulaStr = NULL, pseudo_expr = 1,
                         root_state = NULL, seed = 11) {
@@ -4419,7 +4419,7 @@ RunMonocle2 <- function(srt, assay = NULL, slot = "counts", expressionFamily = "
   }
 
   assay <- assay %||% DefaultAssay(srt)
-  expr_matrix <- as.sparse(GetAssayData(srt, assay = assay, slot = slot))
+  expr_matrix <- as.sparse(GetAssayData(srt, assay = assay, layer = layer))
   p_data <- srt@meta.data
   f_data <- data.frame(gene_short_name = row.names(expr_matrix), row.names = row.names(expr_matrix))
   pd <- new("AnnotatedDataFrame", data = p_data)
@@ -4752,7 +4752,7 @@ RunMonocle3 <- function(srt, assay = NULL, slot = "counts",
     check_R("cole-trapnell-lab/monocle3", force = TRUE)
   }
   assay <- assay %||% DefaultAssay(srt)
-  expr_matrix <- as.sparse(GetAssayData(srt, assay = assay, slot = slot))
+  expr_matrix <- as.sparse(GetAssayData(srt, assay = assay, layer = layer))
   p_data <- srt@meta.data
   f_data <- data.frame(gene_short_name = row.names(expr_matrix), row.names = row.names(expr_matrix))
   cds <- monocle3::new_cell_data_set(
@@ -4948,7 +4948,7 @@ RunMonocle3 <- function(srt, assay = NULL, slot = "counts",
 RunDynamicFeatures <- function(srt, lineages, features = NULL, suffix = lineages,
                                n_candidates = 1000, minfreq = 5,
                                family = NULL,
-                               slot = "counts", assay = NULL, libsize = NULL,
+                               layer = "counts", assay = NULL, libsize = NULL,
                                BPPARAM = BiocParallel::bpparam(), seed = 11) {
   set.seed(seed)
   bpprogressbar(BPPARAM) <- TRUE
@@ -4976,13 +4976,13 @@ RunDynamicFeatures <- function(srt, lineages, features = NULL, suffix = lineages
     }
   }
 
-  Y <- GetAssayData(srt, slot = slot, assay = assay)
+  Y <- GetAssayData(srt, layer = layer, assay = assay)
   if (is.null(libsize)) {
-    status <- check_DataType(srt, assay = assay, slot = "counts")
+    status <- check_DataType(srt, assay = assay, layer = "counts")
     if (status != "raw_counts") {
       Y_libsize <- setNames(rep(1, ncol(srt)), colnames(srt))
     } else {
-      Y_libsize <- colSums(GetAssayData(srt, slot = "counts", assay = assay))
+      Y_libsize <- colSums(GetAssayData(srt, layer = "counts", assay = assay))
     }
   } else {
     if (length(libsize) == 1) {
@@ -5022,10 +5022,10 @@ RunDynamicFeatures <- function(srt, lineages, features = NULL, suffix = lineages
   meta <- features[features %in% colnames(srt@meta.data)]
   message("Number of candidate features(union): ", length(features))
 
-  if (slot == "counts") {
+  if (layer == "counts") {
     gene_status <- status
   }
-  gene_status <- status <- check_DataType(srt, assay = assay, slot = slot)
+  gene_status <- status <- check_DataType(srt, assay = assay, layer = layer)
   meta_status <- sapply(meta, function(x) {
     check_DataType(data = srt[[x]])
   })
@@ -5075,7 +5075,7 @@ RunDynamicFeatures <- function(srt, lineages, features = NULL, suffix = lineages
         } else {
           family_use <- family_current
         }
-        if (slot == "counts" && family_use != "gaussian" && !feature_nm %in% meta) {
+        if (layer == "counts" && family_use != "gaussian" && !feature_nm %in% meta) {
           l_libsize <- l_libsize
         } else {
           l_libsize <- rep(median(Y_libsize), ncol(Y_ordered))
@@ -5217,7 +5217,7 @@ RunDynamicFeatures <- function(srt, lineages, features = NULL, suffix = lineages
 #' @export
 RunDynamicEnrichment <- function(srt, lineages,
                                  score_method = "AUCell",
-                                 slot = "data", assay = NULL,
+                                 layer = "data", assay = NULL,
                                  min_expcells = 20, r.sq = 0.2, dev.expl = 0.2, padjust = 0.05,
                                  IDtype = "symbol", species = "Homo_sapiens",
                                  db = "GO_BP", db_update = FALSE, db_version = "latest", convert_species = TRUE,
@@ -5288,7 +5288,7 @@ RunDynamicEnrichment <- function(srt, lineages,
       features = feature_list,
       method = score_method,
       classification = FALSE,
-      slot = slot,
+      layer = layer,
       assay = assay,
       name = term,
       new_assay = TRUE,
@@ -5396,7 +5396,7 @@ srt_to_adata <- function(srt, features = NULL,
   }
 
   # X <- t(as_matrix(slot(srt@assays[[assay_X]], slot_X)[features, , drop = FALSE]))
-  X <- t(GetAssayData(srt, assay = assay_X, slot = slot_X)[features, , drop = FALSE])
+  X <- t(GetAssayData(srt, assay = assay_X, layer = layer)[features, , drop = FALSE])
   adata <- sc$AnnData(
     X = np_array(X, dtype = np$float32),
     obs = obs,
@@ -5407,7 +5407,7 @@ srt_to_adata <- function(srt, features = NULL,
   layer_list <- list()
   for (assay in names(srt@assays)[names(srt@assays) != assay_X]) {
     if (assay %in% assay_layers) {
-      layer <- t(GetAssayData(srt, assay = assay, slot = slot_layers[assay]))
+      layer <- t(GetAssayData(srt, assay = assay, layer = slot_layers[assay]))
       if (!identical(dim(layer), dim(X))) {
         if (all(colnames(X) %in% colnames(layer))) {
           layer <- layer[, colnames(X)]

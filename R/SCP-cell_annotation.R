@@ -128,9 +128,9 @@ RunKNNPredict <- function(srt_query, srt_ref = NULL, bulk_ref = NULL,
         if (is.null(query_group)) {
           stop("'query_group' must be provided when 'features_type' is 'DE' and 'feature_source' is 'both' or 'query'")
         } else {
-          slot <- paste0("DEtest_", query_group)
+          layer <- paste0("DEtest_", query_group)
           DEtest_param[["force"]] <- TRUE
-          if (!slot %in% names(srt_query@tools) || length(grep(pattern = "AllMarkers", names(srt_query@tools[[slot]]))) == 0) {
+          if (!layer %in% names(srt_query@tools) || length(grep(pattern = "AllMarkers", names(srt_query@tools[[layer]]))) == 0) {
             srt_query <- do.call(RunDEtest, c(list(srt = srt_query, group_by = query_group), DEtest_param))
           }
           if ("test.use" %in% names(DEtest_param)) {
@@ -138,10 +138,10 @@ RunKNNPredict <- function(srt_query, srt_ref = NULL, bulk_ref = NULL,
           } else {
             test.use <- "wilcox"
           }
-          index <- grep(pattern = paste0("AllMarkers_", test.use), names(srt_query@tools[[slot]]))[1]
-          de <- names(srt_query@tools[[slot]])[index]
+          index <- grep(pattern = paste0("AllMarkers_", test.use), names(srt_query@tools[[layer]]))[1]
+          de <- names(srt_query@tools[[layer]])[index]
           message("Use the DE features from ", de, " to calculate distance metric.")
-          de_df <- srt_query@tools[[slot]][[de]]
+          de_df <- srt_query@tools[[layer]][[de]]
           de_df <- de_df[with(de_df, eval(rlang::parse_expr(DE_threshold))), , drop = FALSE]
           rownames(de_df) <- seq_len(nrow(de_df))
           de_df <- de_df[order(de_df[["avg_log2FC"]], decreasing = TRUE), , drop = FALSE]
@@ -219,9 +219,9 @@ RunKNNPredict <- function(srt_query, srt_ref = NULL, bulk_ref = NULL,
           }
           features_ref <- VariableFeatures(srt_ref, assay = ref_assay)
         } else if (features_type == "DE" && feature_source %in% c("both", "ref")) {
-          slot <- paste0("DEtest_", ref_group)
+          layer <- paste0("DEtest_", ref_group)
           DEtest_param[["force"]] <- TRUE
-          if (!slot %in% names(srt_ref@tools) || length(grep(pattern = "AllMarkers", names(srt_ref@tools[[slot]]))) == 0) {
+          if (!layer %in% names(srt_ref@tools) || length(grep(pattern = "AllMarkers", names(srt_ref@tools[[layer]]))) == 0) {
             srt_ref <- do.call(RunDEtest, c(list(srt = srt_ref, group_by = ref_group), DEtest_param))
           }
           if ("test.use" %in% names(DEtest_param)) {
@@ -229,10 +229,10 @@ RunKNNPredict <- function(srt_query, srt_ref = NULL, bulk_ref = NULL,
           } else {
             test.use <- "wilcox"
           }
-          index <- grep(pattern = paste0("AllMarkers_", test.use), names(srt_ref@tools[[slot]]))[1]
-          de <- names(srt_ref@tools[[slot]])[index]
+          index <- grep(pattern = paste0("AllMarkers_", test.use), names(srt_ref@tools[[layer]]))[1]
+          de <- names(srt_ref@tools[[layer]])[index]
           message("Use the DE features from ", de, " to calculate distance metric.")
-          de_df <- srt_ref@tools[[slot]][[de]]
+          de_df <- srt_ref@tools[[layer]][[de]]
           de_df <- de_df[with(de_df, eval(rlang::parse_expr(DE_threshold))), , drop = FALSE]
           rownames(de_df) <- seq_len(nrow(de_df))
           de_df <- de_df[order(de_df[["avg_log2FC"]], decreasing = TRUE), , drop = FALSE]
@@ -265,10 +265,10 @@ RunKNNPredict <- function(srt_query, srt_ref = NULL, bulk_ref = NULL,
       features_common <- Reduce(intersect, list(features, rownames(srt_query[[query_assay]]), rownames(srt_ref[[ref_assay]])))
       message("Use ", length(features_common), " features to calculate distance.")
       if (isTRUE(ref_collapsing)) {
-        ref <- AverageExpression(object = srt_ref, features = features_common, slot = "data", assays = ref_assay, group.by = "ref_group", verbose = FALSE)[[1]]
+        ref <- AverageExpression(object = srt_ref, features = features_common, layer = "data", assays = ref_assay, group.by = "ref_group", verbose = FALSE)[[1]]
         ref <- t(log1p(ref))
       } else {
-        ref <- t(GetAssayData(srt_ref, slot = "data", assay = ref_assay)[features_common, ])
+        ref <- t(GetAssayData(srt_ref, layer = "data", assay = ref_assay)[features_common, ])
       }
     }
   } else {
@@ -299,10 +299,10 @@ RunKNNPredict <- function(srt_query, srt_ref = NULL, bulk_ref = NULL,
       if (is.null(query_group)) {
         stop("query_group must be provided when query_collapsing is TRUE.")
       }
-      query <- AverageExpression(object = srt_query, features = colnames(ref), slot = "data", assays = query_assay, group.by = "query_group", verbose = FALSE)[[1]]
+      query <- AverageExpression(object = srt_query, features = colnames(ref), layer = "data", assays = query_assay, group.by = "query_group", verbose = FALSE)[[1]]
       query <- t(log1p(query))
     } else {
-      query <- t(GetAssayData(srt_query, slot = "data", assay = query_assay)[colnames(ref), , drop = FALSE])
+      query <- t(GetAssayData(srt_query, layer = "data", assay = query_assay)[colnames(ref), , drop = FALSE])
     }
   }
 
@@ -544,17 +544,17 @@ RunScmap <- function(srt_query, srt_ref, ref_group = NULL, query_assay = "RNA", 
     stop("'ref_group' must be provided.")
   }
 
-  status_query <- check_DataType(data = GetAssayData(srt_query, slot = "data", assay = query_assay))
+  status_query <- check_DataType(data = GetAssayData(srt_query, layer = "data", assay = query_assay))
   message("Detected srt_query data type: ", status_query)
-  status_ref <- check_DataType(data = GetAssayData(srt_ref, slot = "data", assay = ref_assay))
+  status_ref <- check_DataType(data = GetAssayData(srt_ref, layer = "data", assay = ref_assay))
   message("Detected srt_ref data type: ", status_ref)
   if (status_ref != status_query || any(status_query == "unknown", status_ref == "unknown")) {
     warning("Data type is unknown or different between query and ref.", immediate. = TRUE)
   }
 
   assays_query <- list(
-    counts = GetAssayData(object = srt_query, assay = query_assay, slot = "counts"),
-    logcounts = GetAssayData(object = srt_query, assay = query_assay, slot = "data")
+    counts = GetAssayData(object = srt_query, assay = query_assay, layer = "counts"),
+    logcounts = GetAssayData(object = srt_query, assay = query_assay, layer = "data")
   )
   sce_query <- as(SummarizedExperiment::SummarizedExperiment(assays = assays_query), Class = "SingleCellExperiment")
   SummarizedExperiment::rowData(sce_query)[["feature_symbol"]] <- rownames(sce_query)
@@ -562,8 +562,8 @@ RunScmap <- function(srt_query, srt_ref, ref_group = NULL, query_assay = "RNA", 
   SummarizedExperiment::colData(x = sce_query) <- S4Vectors::DataFrame(metadata_query)
 
   assays_ref <- list(
-    counts = GetAssayData(object = srt_ref, assay = ref_assay, slot = "counts"),
-    logcounts = GetAssayData(object = srt_ref, assay = ref_assay, slot = "data")
+    counts = GetAssayData(object = srt_ref, assay = ref_assay, layer = "counts"),
+    logcounts = GetAssayData(object = srt_ref, assay = ref_assay, layer = "data")
   )
   sce_ref <- as(SummarizedExperiment::SummarizedExperiment(assays = assays_ref), Class = "SingleCellExperiment")
   SummarizedExperiment::rowData(sce_ref)[["feature_symbol"]] <- rownames(sce_ref)
@@ -693,25 +693,25 @@ RunSingleR <- function(srt_query, srt_ref, query_group = NULL, ref_group = NULL,
     method <- "SingleRCell"
   }
 
-  status_query <- check_DataType(data = GetAssayData(srt_query, slot = "data", assay = query_assay))
+  status_query <- check_DataType(data = GetAssayData(srt_query, layer = "data", assay = query_assay))
   message("Detected srt_query data type: ", status_query)
-  status_ref <- check_DataType(data = GetAssayData(srt_ref, slot = "data", assay = ref_assay))
+  status_ref <- check_DataType(data = GetAssayData(srt_ref, layer = "data", assay = ref_assay))
   message("Detected srt_ref data type: ", status_ref)
   if (status_ref != status_query || any(status_query == "unknown", status_ref == "unknown")) {
     warning("Data type is unknown or different between query and ref.", immediate. = TRUE)
   }
 
   assays_query <- list(
-    counts = GetAssayData(object = srt_query, assay = query_assay, slot = "counts"),
-    logcounts = GetAssayData(object = srt_query, assay = query_assay, slot = "data")
+    counts = GetAssayData(object = srt_query, assay = query_assay, layer = "counts"),
+    logcounts = GetAssayData(object = srt_query, assay = query_assay, layer = "data")
   )
   sce_query <- as(SummarizedExperiment::SummarizedExperiment(assays = assays_query), Class = "SingleCellExperiment")
   metadata_query <- srt_query[[]]
   SummarizedExperiment::colData(x = sce_query) <- S4Vectors::DataFrame(metadata_query)
 
   assays_ref <- list(
-    counts = GetAssayData(object = srt_ref, assay = ref_assay, slot = "counts"),
-    logcounts = GetAssayData(object = srt_ref, assay = ref_assay, slot = "data")
+    counts = GetAssayData(object = srt_ref, assay = ref_assay, layer = "counts"),
+    logcounts = GetAssayData(object = srt_ref, assay = ref_assay, layer = "data")
   )
   sce_ref <- as(SummarizedExperiment::SummarizedExperiment(assays = assays_ref), Class = "SingleCellExperiment")
   metadata_ref <- srt_ref[[]]

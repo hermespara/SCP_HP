@@ -4,7 +4,7 @@
 #'
 #' @param srt An object of class 'Seurat'.
 #' @param data The input data. If not provided, it will be extracted from the the 'srt' object.
-#' @param slot The slot in the 'srt' object from which to extract the data. Default is "data".
+#' @param layer The layer in the 'srt' object from which to extract the data. Default is "data".
 #' @param assay The assay to extract the data from. If not provided, the default assay will be used.
 #'
 #' @return A string indicating the type of data. Possible values are: "raw_counts", "log_normalized_counts", "raw_normalized_counts", or "unknown".
@@ -196,7 +196,7 @@ check_srtList <- function(srtList, batch, assay = NULL,
         srtList[[i]] <- RunTFIDF(object = srtList[[i]], assay = assay, verbose = FALSE)
       }
     } else if (is.null(do_normalization)) {
-      status <- check_DataType(srtList[[i]], slot = "data", assay = assay)
+      status <- check_DataType(srtList[[i]], layer = "data", assay = assay)
       if (status == "log_normalized_counts") {
         cat("Data ", i, "/", length(srtList), " of the srtList has been log-normalized.\n", sep = "")
       }
@@ -292,14 +292,14 @@ check_srtList <- function(srtList, batch, assay = NULL,
     }
   } else {
     cf <- Reduce(intersect, lapply(srtList, function(srt) {
-      rownames(GetAssayData(srt, slot = "counts", assay = DefaultAssay(srt)))
+      rownames(GetAssayData(srt, layer = "counts", assay = DefaultAssay(srt)))
     }))
     HVF <- HVF[HVF %in% cf]
   }
   message("Number of available HVF: ", length(HVF))
 
   hvf_sum <- lapply(srtList, function(srt) {
-    colSums(GetAssayData(srt, slot = "counts", assay = DefaultAssay(srt))[HVF, , drop = FALSE])
+    colSums(GetAssayData(srt, layer = "counts", assay = DefaultAssay(srt))[HVF, , drop = FALSE])
   })
   cell_all <- unlist(unname(hvf_sum))
   cell_abnormal <- names(cell_all)[cell_all == 0]
@@ -419,7 +419,7 @@ check_srtMerge <- function(srtMerge, batch = NULL, assay = NULL,
 #' @export
 RecoverCounts <- function(srt, assay = NULL, trans = c("expm1", "exp", "none"), min_count = c(1, 2, 3), tolerance = 0.1, sf = NULL, verbose = TRUE) {
   assay <- assay %||% DefaultAssay(srt)
-  counts <- GetAssayData(srt, assay = assay, slot = "counts")
+  counts <- GetAssayData(srt, assay = assay, layer = "counts")
   if (!inherits(counts, "dgCMatrix")) {
     counts <- as.sparse(counts[1:nrow(counts), , drop = FALSE])
   }
@@ -982,7 +982,7 @@ RunDimReduction <- function(srt, prefix = "", features = NULL, assay = NULL, lay
     )
     nonlinear_reduction_sim <- toupper(gsub(pattern = "-.*", replacement = "", x = nonlinear_reduction))
     params <- list(
-      object = srt, assay = assay, slot = slot, components_nm = nonlinear_reduction_dims,
+      object = srt, assay = assay, layer = layer, components_nm = nonlinear_reduction_dims,
       features = features, reduction = reduction_use, dims = reduction_dims,
       reduction.name = paste0(prefix, nonlinear_reduction_sim, nonlinear_reduction_dims, "D"),
       reduction.key = paste0(prefix, nonlinear_reduction_sim, nonlinear_reduction_dims, "D_"),
@@ -1214,7 +1214,7 @@ Uncorrected_integrate <- function(srtMerge = NULL, batch = NULL, append = TRUE, 
       cat(paste0("[", Sys.time(), "]", " Perform FindClusters (", cluster_algorithm, ") on the data...\n"))
       srtMerge <- FindClusters(object = srtMerge, resolution = cluster_resolution, algorithm = cluster_algorithm_index, method = "igraph", graph.name = "Uncorrected_SNN", verbose = FALSE)
       cat(paste0("[", Sys.time(), "]", " Reorder clusters...\n"))
-      srtMerge <- SrtReorder(srtMerge, features = HVF, reorder_by = "seurat_clusters", slot = "data")
+      srtMerge <- SrtReorder(srtMerge, features = HVF, reorder_by = "seurat_clusters", layer = "data")
       srtMerge[["seurat_clusters"]] <- NULL
       srtMerge[[paste0("Uncorrected", linear_reduction, "clusters")]] <- Idents(srtMerge)
       srtMerge
@@ -1509,7 +1509,7 @@ Seurat_integrate <- function(srtMerge = NULL, batch = NULL, append = TRUE, srtLi
       cat(paste0("[", Sys.time(), "]", " Perform FindClusters (", cluster_algorithm, ") on the data...\n"))
       srtIntegrated <- FindClusters(object = srtIntegrated, resolution = cluster_resolution, algorithm = cluster_algorithm_index, method = "igraph", graph.name = "Seurat_SNN", verbose = FALSE)
       cat(paste0("[", Sys.time(), "]", " Reorder clusters...\n"))
-      srtIntegrated <- SrtReorder(srtIntegrated, features = HVF, reorder_by = "seurat_clusters", slot = "data")
+      srtIntegrated <- SrtReorder(srtIntegrated, features = HVF, reorder_by = "seurat_clusters", layer = "data")
       srtIntegrated[["seurat_clusters"]] <- NULL
       srtIntegrated[["Seuratclusters"]] <- Idents(srtIntegrated)
       srtIntegrated
@@ -1703,7 +1703,7 @@ scVI_integrate <- function(srtMerge = NULL, batch = NULL, append = TRUE, srtList
       cat(paste0("[", Sys.time(), "]", " Perform FindClusters (", cluster_algorithm, ") on the data...\n"))
       srtIntegrated <- FindClusters(object = srtIntegrated, resolution = cluster_resolution, algorithm = cluster_algorithm_index, method = "igraph", graph.name = "scVI_SNN", verbose = FALSE)
       cat(paste0("[", Sys.time(), "]", " Reorder clusters...\n"))
-      srtIntegrated <- SrtReorder(srtIntegrated, features = HVF, reorder_by = "seurat_clusters", slot = "data")
+      srtIntegrated <- SrtReorder(srtIntegrated, features = HVF, reorder_by = "seurat_clusters", layer = "data")
       srtIntegrated[["seurat_clusters"]] <- NULL
       srtIntegrated[["scVIclusters"]] <- Idents(srtIntegrated)
       srtIntegrated
@@ -1852,7 +1852,7 @@ MNN_integrate <- function(srtMerge = NULL, batch = NULL, append = TRUE, srtList 
   }
 
   sceList <- lapply(srtList, function(srt) {
-    sce <- as.SingleCellExperiment(CreateSeuratObject(counts = GetAssayData(srt, slot = "data", assay = DefaultAssay(srt))[HVF, , drop = FALSE]))
+    sce <- as.SingleCellExperiment(CreateSeuratObject(counts = GetAssayData(srt, layer = "data", assay = DefaultAssay(srt))[HVF, , drop = FALSE]))
     if (inherits(sce@assays@data$logcounts, "dgCMatrix")) {
       sce@assays@data$logcounts <- as_matrix(sce@assays@data$logcounts)
     }
@@ -1908,7 +1908,7 @@ MNN_integrate <- function(srtMerge = NULL, batch = NULL, append = TRUE, srtList 
       cat(paste0("[", Sys.time(), "]", " Perform FindClusters (", cluster_algorithm, ") on the data...\n"))
       srtIntegrated <- FindClusters(object = srtIntegrated, resolution = cluster_resolution, algorithm = cluster_algorithm_index, method = "igraph", graph.name = "MNN_SNN", verbose = FALSE)
       cat(paste0("[", Sys.time(), "]", " Reorder clusters...\n"))
-      srtIntegrated <- SrtReorder(srtIntegrated, features = HVF, reorder_by = "seurat_clusters", slot = "data")
+      srtIntegrated <- SrtReorder(srtIntegrated, features = HVF, reorder_by = "seurat_clusters", layer = "data")
       srtIntegrated[["seurat_clusters"]] <- NULL
       srtIntegrated[["MNNclusters"]] <- Idents(srtIntegrated)
       srtIntegrated
@@ -2037,7 +2037,7 @@ fastMNN_integrate <- function(srtMerge = NULL, batch = NULL, append = TRUE, srtL
   }
 
   sceList <- lapply(srtList, function(srt) {
-    sce <- as.SingleCellExperiment(CreateSeuratObject(counts = GetAssayData(srt, slot = "data", assay = DefaultAssay(srt))[HVF, , drop = FALSE]))
+    sce <- as.SingleCellExperiment(CreateSeuratObject(counts = GetAssayData(srt, layer = "data", assay = DefaultAssay(srt))[HVF, , drop = FALSE]))
     if (inherits(sce@assays@data$logcounts, "dgCMatrix")) {
       sce@assays@data$logcounts <- as_matrix(sce@assays@data$logcounts)
     }
@@ -2080,7 +2080,7 @@ fastMNN_integrate <- function(srtMerge = NULL, batch = NULL, append = TRUE, srtL
       cat(paste0("[", Sys.time(), "]", " Perform FindClusters (", cluster_algorithm, ") on the data...\n"))
       srtIntegrated <- FindClusters(object = srtIntegrated, resolution = cluster_resolution, algorithm = cluster_algorithm_index, method = "igraph", graph.name = "fastMNN_SNN", verbose = FALSE)
       cat(paste0("[", Sys.time(), "]", " Reorder clusters...\n"))
-      srtIntegrated <- SrtReorder(srtIntegrated, features = HVF, reorder_by = "seurat_clusters", slot = "data")
+      srtIntegrated <- SrtReorder(srtIntegrated, features = HVF, reorder_by = "seurat_clusters", layer = "data")
       srtIntegrated[["seurat_clusters"]] <- NULL
       srtIntegrated[["fastMNNclusters"]] <- Idents(srtIntegrated)
       srtIntegrated
@@ -2231,7 +2231,7 @@ Harmony_integrate <- function(srtMerge = NULL, batch = NULL, append = TRUE, srtL
     linear_reduction <- "svd"
   }
 
-  if (isTRUE(do_scaling) || (is.null(do_scaling) && any(!HVF %in% rownames(GetAssayData(srtMerge, slot = "scale.data", assay = DefaultAssay(srtMerge)))))) {
+  if (isTRUE(do_scaling) || (is.null(do_scaling) && any(!HVF %in% rownames(GetAssayData(srtMerge, layer = "scale.data", assay = DefaultAssay(srtMerge)))))) {
     cat(paste0("[", Sys.time(), "]", " Perform ScaleData on the data...\n"))
     srtMerge <- ScaleData(object = srtMerge, split.by = if (isTRUE(scale_within_batch)) batch else NULL, assay = DefaultAssay(srtMerge), features = HVF, vars.to.regress = vars_to_regress, model.use = regression_model, verbose = FALSE)
   }
@@ -2261,7 +2261,7 @@ Harmony_integrate <- function(srtMerge = NULL, batch = NULL, append = TRUE, srtL
     reduction.save = "Harmony",
     verbose = FALSE
   )
-  if (nrow(GetAssayData(srtMerge, slot = "scale.data", assay = DefaultAssay(srtMerge))) == 0) {
+  if (nrow(GetAssayData(srtMerge, layer = "scale.data", assay = DefaultAssay(srtMerge))) == 0) {
     params[["project.dim"]] <- FALSE
   }
   for (nm in names(RunHarmony_params)) {
@@ -2284,7 +2284,7 @@ Harmony_integrate <- function(srtMerge = NULL, batch = NULL, append = TRUE, srtL
       cat(paste0("[", Sys.time(), "]", " Perform FindClusters (", cluster_algorithm, ") on the data...\n"))
       srtIntegrated <- FindClusters(object = srtIntegrated, resolution = cluster_resolution, algorithm = cluster_algorithm_index, method = "igraph", graph.name = "Harmony_SNN", verbose = FALSE)
       cat(paste0("[", Sys.time(), "]", " Reorder clusters...\n"))
-      srtIntegrated <- SrtReorder(srtIntegrated, features = HVF, reorder_by = "seurat_clusters", slot = "data")
+      srtIntegrated <- SrtReorder(srtIntegrated, features = HVF, reorder_by = "seurat_clusters", layer = "data")
       srtIntegrated[["seurat_clusters"]] <- NULL
       srtIntegrated[["Harmonyclusters"]] <- Idents(srtIntegrated)
       srtIntegrated
@@ -2423,7 +2423,7 @@ Scanorama_integrate <- function(srtMerge = NULL, batch = NULL, append = TRUE, sr
   assaylist <- list()
   genelist <- list()
   for (i in seq_along(srtList)) {
-    assaylist[[i]] <- t(as_matrix(GetAssayData(object = srtList[[i]], slot = "data", assay = DefaultAssay(srtList[[i]]))[HVF, , drop = FALSE]))
+    assaylist[[i]] <- t(as_matrix(GetAssayData(object = srtList[[i]], layer = "data", assay = DefaultAssay(srtList[[i]]))[HVF, , drop = FALSE]))
     genelist[[i]] <- HVF
   }
   if (isTRUE(return_corrected)) {
@@ -2480,7 +2480,7 @@ Scanorama_integrate <- function(srtMerge = NULL, batch = NULL, append = TRUE, sr
       cat(paste0("[", Sys.time(), "]", " Perform FindClusters (", cluster_algorithm, ") on the data...\n"))
       srtIntegrated <- FindClusters(object = srtIntegrated, resolution = cluster_resolution, algorithm = cluster_algorithm_index, method = "igraph", graph.name = "Scanorama_SNN", verbose = FALSE)
       cat(paste0("[", Sys.time(), "]", " Reorder clusters...\n"))
-      srtIntegrated <- SrtReorder(srtIntegrated, features = HVF, reorder_by = "seurat_clusters", slot = "data")
+      srtIntegrated <- SrtReorder(srtIntegrated, features = HVF, reorder_by = "seurat_clusters", layer = "data")
       srtIntegrated[["seurat_clusters"]] <- NULL
       srtIntegrated[["Scanoramaclusters"]] <- Idents(srtIntegrated)
       srtIntegrated
@@ -2632,7 +2632,7 @@ BBKNN_integrate <- function(srtMerge = NULL, batch = NULL, append = TRUE, srtLis
     linear_reduction <- "svd"
   }
 
-  if (isTRUE(do_scaling) || (is.null(do_scaling) && any(!HVF %in% rownames(GetAssayData(srtMerge, slot = "scale.data", assay = DefaultAssay(srtMerge)))))) {
+  if (isTRUE(do_scaling) || (is.null(do_scaling) && any(!HVF %in% rownames(GetAssayData(srtMerge, layer = "scale.data", assay = DefaultAssay(srtMerge)))))) {
     cat(paste0("[", Sys.time(), "]", " Perform ScaleData on the data...\n"))
     srtMerge <- ScaleData(object = srtMerge, split.by = if (isTRUE(scale_within_batch)) batch else NULL, assay = DefaultAssay(srtMerge), features = HVF, vars.to.regress = vars_to_regress, model.use = regression_model, verbose = FALSE)
   }
@@ -2701,7 +2701,7 @@ BBKNN_integrate <- function(srtMerge = NULL, batch = NULL, append = TRUE, srtLis
       cat(paste0("[", Sys.time(), "]", " Perform FindClusters (", cluster_algorithm, ") on the data...\n"))
       srtIntegrated <- FindClusters(object = srtIntegrated, graph.name = "BBKNN", resolution = cluster_resolution, algorithm = cluster_algorithm_index, method = "igraph", verbose = FALSE)
       cat(paste0("[", Sys.time(), "]", " Reorder clusters...\n"))
-      srtIntegrated <- SrtReorder(srtIntegrated, features = HVF, reorder_by = "seurat_clusters", slot = "data")
+      srtIntegrated <- SrtReorder(srtIntegrated, features = HVF, reorder_by = "seurat_clusters", layer = "data")
       srtIntegrated[["seurat_clusters"]] <- NULL
       srtIntegrated[["BBKNNclusters"]] <- Idents(srtIntegrated)
       srtIntegrated
@@ -2856,7 +2856,7 @@ CSS_integrate <- function(srtMerge = NULL, batch = NULL, append = TRUE, srtList 
     linear_reduction <- "svd"
   }
 
-  if (isTRUE(do_scaling) || (is.null(do_scaling) && any(!HVF %in% rownames(GetAssayData(srtMerge, slot = "scale.data", assay = DefaultAssay(srtMerge)))))) {
+  if (isTRUE(do_scaling) || (is.null(do_scaling) && any(!HVF %in% rownames(GetAssayData(srtMerge, layer = "scale.data", assay = DefaultAssay(srtMerge)))))) {
     cat(paste0("[", Sys.time(), "]", " Perform ScaleData on the data...\n"))
     srtMerge <- ScaleData(object = srtMerge, split.by = if (isTRUE(scale_within_batch)) batch else NULL, assay = DefaultAssay(srtMerge), features = HVF, vars.to.regress = vars_to_regress, model.use = regression_model, verbose = FALSE)
   }
@@ -2910,7 +2910,7 @@ CSS_integrate <- function(srtMerge = NULL, batch = NULL, append = TRUE, srtList 
       cat(paste0("[", Sys.time(), "]", " Perform FindClusters (", cluster_algorithm, ") on the data...\n"))
       srtIntegrated <- FindClusters(object = srtIntegrated, resolution = cluster_resolution, algorithm = cluster_algorithm_index, method = "igraph", graph.name = "CSS_SNN", verbose = FALSE)
       cat(paste0("[", Sys.time(), "]", " Reorder clusters...\n"))
-      srtIntegrated <- SrtReorder(srtIntegrated, features = HVF, reorder_by = "seurat_clusters", slot = "data")
+      srtIntegrated <- SrtReorder(srtIntegrated, features = HVF, reorder_by = "seurat_clusters", layer = "data")
       srtIntegrated[["seurat_clusters"]] <- NULL
       srtIntegrated[["CSSclusters"]] <- Idents(srtIntegrated)
       srtIntegrated
@@ -3053,11 +3053,11 @@ LIGER_integrate <- function(srtMerge = NULL, batch = NULL, append = TRUE, srtLis
   scale.data <- list()
   for (i in seq_along(srtList)) {
     srt <- srtList[[i]]
-    if (isTRUE(do_scaling) || (is.null(do_scaling) && any(!HVF %in% rownames(GetAssayData(srt, slot = "scale.data", assay = DefaultAssay(srt)))))) {
+    if (isTRUE(do_scaling) || (is.null(do_scaling) && any(!HVF %in% rownames(GetAssayData(srt, layer = "scale.data", assay = DefaultAssay(srt)))))) {
       cat(paste0("[", Sys.time(), "]", " Perform ScaleData on the data ", i, " ...\n"))
       srt <- ScaleData(object = srt, assay = DefaultAssay(srt), features = HVF, do.center = FALSE, vars.to.regress = vars_to_regress, model.use = regression_model, verbose = FALSE)
     }
-    scale.data[[i]] <- t(x = GetAssayData(object = srt, slot = "scale.data", assay = DefaultAssay(srt)))
+    scale.data[[i]] <- t(x = GetAssayData(object = srt, layer = "scale.data", assay = DefaultAssay(srt)))
   }
 
   cat(paste0("[", Sys.time(), "]", " Perform integration(LIGER) on the data...\n"))
@@ -3122,7 +3122,7 @@ LIGER_integrate <- function(srtMerge = NULL, batch = NULL, append = TRUE, srtLis
       cat(paste0("[", Sys.time(), "]", " Perform FindClusters (", cluster_algorithm, ") on the data...\n"))
       srtIntegrated <- FindClusters(object = srtIntegrated, resolution = cluster_resolution, algorithm = cluster_algorithm_index, method = "igraph", graph.name = "LIGER_SNN", verbose = FALSE)
       cat(paste0("[", Sys.time(), "]", " Reorder clusters...\n"))
-      srtIntegrated <- SrtReorder(srtIntegrated, features = HVF, reorder_by = "seurat_clusters", slot = "data")
+      srtIntegrated <- SrtReorder(srtIntegrated, features = HVF, reorder_by = "seurat_clusters", layer = "data")
       srtIntegrated[["seurat_clusters"]] <- NULL
       srtIntegrated[["LIGERclusters"]] <- Idents(srtIntegrated)
       srtIntegrated
@@ -3287,7 +3287,7 @@ Conos_integrate <- function(srtMerge = NULL, batch = NULL, append = TRUE, srtLis
 
   for (i in seq_along(srtList)) {
     srt <- srtList[[i]]
-    if (isTRUE(do_scaling) || (is.null(do_scaling) && any(!HVF %in% rownames(GetAssayData(srt, slot = "scale.data", assay = DefaultAssay(srt)))))) {
+    if (isTRUE(do_scaling) || (is.null(do_scaling) && any(!HVF %in% rownames(GetAssayData(srt, layer = "scale.data", assay = DefaultAssay(srt)))))) {
       cat(paste0("[", Sys.time(), "]", " Perform ScaleData on the data ", i, " ...\n"))
       srt <- ScaleData(object = srt, assay = DefaultAssay(srt), features = HVF, vars.to.regress = vars_to_regress, model.use = regression_model, verbose = FALSE)
     }
@@ -3333,7 +3333,7 @@ Conos_integrate <- function(srtMerge = NULL, batch = NULL, append = TRUE, srtLis
       cat(paste0("[", Sys.time(), "]", " Perform FindClusters (", cluster_algorithm, ") on the data...\n"))
       srtIntegrated <- FindClusters(object = srtIntegrated, graph.name = "Conos", resolution = cluster_resolution, algorithm = cluster_algorithm_index, method = "igraph", verbose = FALSE)
       cat(paste0("[", Sys.time(), "]", " Reorder clusters...\n"))
-      srtIntegrated <- SrtReorder(srtIntegrated, features = HVF, reorder_by = "seurat_clusters", slot = "data")
+      srtIntegrated <- SrtReorder(srtIntegrated, features = HVF, reorder_by = "seurat_clusters", layer = "data")
       srtIntegrated[["seurat_clusters"]] <- NULL
       srtIntegrated[["Conosclusters"]] <- Idents(srtIntegrated)
       srtIntegrated
@@ -3486,7 +3486,7 @@ ComBat_integrate <- function(srtMerge = NULL, batch = NULL, append = TRUE, srtLi
   }
 
   cat(paste0("[", Sys.time(), "]", " Perform integration(Combat) on the data...\n"))
-  dat <- GetAssayData(srtMerge, slot = "data", assay = DefaultAssay(srtMerge))[HVF, , drop = FALSE]
+  dat <- GetAssayData(srtMerge, layer = "data", assay = DefaultAssay(srtMerge))[HVF, , drop = FALSE]
   batch <- srtMerge[[batch, drop = TRUE]]
   params <- list(
     dat = dat,
@@ -3503,7 +3503,7 @@ ComBat_integrate <- function(srtMerge = NULL, batch = NULL, append = TRUE, srtLi
   DefaultAssay(srtIntegrated) <- "ComBatcorrected"
   VariableFeatures(srtIntegrated[["ComBatcorrected"]]) <- HVF
 
-  if (isTRUE(do_scaling) || (is.null(do_scaling) && any(!HVF %in% rownames(GetAssayData(srtIntegrated, slot = "scale.data", assay = DefaultAssay(srtIntegrated)))))) {
+  if (isTRUE(do_scaling) || (is.null(do_scaling) && any(!HVF %in% rownames(GetAssayData(srtIntegrated, layer = "scale.data", assay = DefaultAssay(srtIntegrated)))))) {
     cat(paste0("[", Sys.time(), "]", " Perform ScaleData on the data...\n"))
     srtIntegrated <- ScaleData(srtIntegrated, split.by = if (isTRUE(scale_within_batch)) batch else NULL, assay = DefaultAssay(srtIntegrated), features = HVF, vars.to.regress = vars_to_regress, model.use = regression_model, verbose = FALSE)
   }
@@ -3533,7 +3533,7 @@ ComBat_integrate <- function(srtMerge = NULL, batch = NULL, append = TRUE, srtLi
       cat(paste0("[", Sys.time(), "]", " Perform FindClusters (", cluster_algorithm, ") on the data...\n"))
       srtIntegrated <- FindClusters(object = srtIntegrated, resolution = cluster_resolution, algorithm = cluster_algorithm_index, method = "igraph", graph.name = "ComBat_SNN", verbose = FALSE)
       cat(paste0("[", Sys.time(), "]", " Reorder clusters...\n"))
-      srtIntegrated <- SrtReorder(srtIntegrated, features = HVF, reorder_by = "seurat_clusters", slot = "data")
+      srtIntegrated <- SrtReorder(srtIntegrated, features = HVF, reorder_by = "seurat_clusters", layer = "data")
       srtIntegrated[["seurat_clusters"]] <- NULL
       srtIntegrated[["ComBatclusters"]] <- Idents(srtIntegrated)
       srtIntegrated
@@ -3716,7 +3716,7 @@ Standard_SCP <- function(srt, prefix = "Standard", assay = NULL,
     linear_reduction <- "svd"
   }
 
-  if (isTRUE(do_scaling) || (is.null(do_scaling) && any(!HVF %in% rownames(GetAssayData(srt, slot = "scale.data", assay = DefaultAssay(srt)))))) {
+  if (isTRUE(do_scaling) || (is.null(do_scaling) && any(!HVF %in% rownames(GetAssayData(srt, layer = "scale.data", assay = DefaultAssay(srt)))))) {
     if (normalization_method != "SCT") {
       cat(paste0("[", Sys.time(), "]", " Perform ScaleData on the data...\n"))
       srt <- ScaleData(object = srt, assay = DefaultAssay(srt), features = HVF, vars.to.regress = vars_to_regress, model.use = regression_model, verbose = FALSE)
@@ -3751,7 +3751,7 @@ Standard_SCP <- function(srt, prefix = "Standard", assay = NULL,
         cat(paste0("[", Sys.time(), "]", " Perform FindClusters (", cluster_algorithm, ") on the data...\n"))
         srt <- FindClusters(object = srt, resolution = cluster_resolution, algorithm = cluster_algorithm_index, method = "igraph", graph.name = paste0(prefix, lr, "_SNN"), verbose = FALSE)
         cat(paste0("[", Sys.time(), "]", " Reorder clusters...\n"))
-        srt <- SrtReorder(srt, features = HVF, reorder_by = "seurat_clusters", slot = "data")
+        srt <- SrtReorder(srt, features = HVF, reorder_by = "seurat_clusters", layer = "data")
         srt[["seurat_clusters"]] <- NULL
         srt[[paste0(prefix, lr, "clusters")]] <- Idents(srt)
         srt
