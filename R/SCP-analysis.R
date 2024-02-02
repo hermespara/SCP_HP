@@ -5007,7 +5007,7 @@ RunDynamicFeatures <- function(srt, lineages, features = NULL, suffix = lineages
         stop("'features' or 'n_candidates' must provided at least one.")
       }
       HVF <- VariableFeatures(FindVariableFeatures(srt_sub, nfeatures = n_candidates, assay = assay), assay = assay)
-      HVF_counts <- srt_sub[[assay]]@counts[HVF, , drop = FALSE]
+      HVF_counts <- srt_sub[[assay]]$counts[HVF, , drop = FALSE]
       HVF <- HVF[apply(HVF_counts, 1, function(x) {
         length(unique(x))
       }) >= minfreq]
