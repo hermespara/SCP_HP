@@ -11,7 +11,7 @@ FeatureCorPlot(
   group.by = NULL,
   split.by = NULL,
   cells = NULL,
-  slot = "data",
+  layer = "data",
   assay = NULL,
   cor_method = "pearson",
   adjust = 1,
@@ -62,7 +62,7 @@ FeatureCorPlot(
 
 \item{cells}{A character vector specifying the cells to include in the plot. If NULL (default), all cells will be included.}
 
-\item{slot}{A character string specifying the slot in the Seurat object to use. Defaults to "data".}
+\item{layer}{A character string specifying the layer in the Seurat object to use. Defaults to "data".}
 
 \item{assay}{A character string specifying the assay to use. Defaults to the default assay in the Seurat object.}
 

@@ -19,12 +19,12 @@ DynamicHeatmap(
   cell_density = 1,
   cell_bins = 100,
   order_by = c("peaktime", "valleytime"),
-  slot = "counts",
+  layer = "counts",
   assay = NULL,
   exp_method = c("zscore", "raw", "fc", "log2fc", "log1p"),
   exp_legend_title = NULL,
   limits = NULL,
-  lib_normalize = identical(slot, "counts"),
+  lib_normalize = identical(layer, "counts"),
   libsize = NULL,
   family = NULL,
   cluster_features_by = NULL,
@@ -152,7 +152,7 @@ DynamicHeatmap(
 
 \item{order_by}{A character vector specifying the order of the heatmap. Default is "peaktime".}
 
-\item{slot}{A character vector specifying the slot in the Seurat object to use. Default is "counts".}
+\item{layer}{A character vector specifying the layer in the Seurat object to use. Default is "counts".}
 
 \item{assay}{A character vector specifying the assay in the Seurat object to use. Default is NULL.}
 

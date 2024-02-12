@@ -14,7 +14,7 @@ RunDM(object, ...)
   dims = 1:30,
   features = NULL,
   assay = NULL,
-  slot = "data",
+  layer = "data",
   ndcs = 2,
   sigma = "local",
   k = 30,
@@ -29,7 +29,7 @@ RunDM(object, ...)
 \method{RunDM}{default}(
   object,
   assay = NULL,
-  slot = "data",
+  layer = "data",
   ndcs = 2,
   sigma = "local",
   k = 30,
@@ -53,8 +53,6 @@ RunDM(object, ...)
 
 \item{assay}{A character string specifying the assay to be used. Default is NULL.}
 
-\item{slot}{A character string specifying the slot name to be used. Default is "data".}
-
 \item{ndcs}{An integer specifying the number of diffusion components (dimensions) to be computed. Default is 2.}
 
 \item{sigma}{A character string specifying the diffusion scale parameter of the Gaussian kernel. Currently supported values are "local" (default) and "global".}
@@ -70,6 +68,8 @@ RunDM(object, ...)
 \item{verbose}{A logical value indicating whether to print verbose output. Default is TRUE.}
 
 \item{seed.use}{An integer specifying the random seed to be used. Default is 11.}
+
+\item{slot}{A character string specifying the slot name to be used. Default is "data".}
 }
 \description{
 Run DM (diffusion map)

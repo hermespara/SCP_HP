@@ -57,7 +57,7 @@ RunKNNPredict(
 
 \item{query_collapsing}{A boolean value indicating whether the query data should be collapsed to group-level average expression values. If TRUE, the function will calculate the average expression values for each group in the query data and the annotation will be performed separately for each group. Otherwise it will use the raw expression values for each cell.}
 
-\item{ref_collapsing}{A boolean value indicating whether the reference data should be collapsed to group-level average expression values. If TRUE, the function will calculate the average expression values for each group in the reference data and the annotation will be performed separately for each group. Otherwise it will use the raw expression values for each cell.}
+\item{ref_collapsing}{A boolean value indicating whether the reference data should be collapsed to group-level average expression values. If TRUE, the function will calculate the average expression values for each group in the reference data and the annotation will be performed separately for each group. Otherwise it will use the raw expression values for each cell. # nolint}
 
 \item{return_full_distance_matrix}{A boolean value indicating whether the full distance matrix should be returned. If TRUE, the function will return the distance matrix used for the KNN prediction, otherwise it will only return the annotated cell types.}
 

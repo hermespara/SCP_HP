@@ -7,7 +7,7 @@
 CellScoring(
   srt,
   features = NULL,
-  slot = "data",
+  layer = "data",
   assay = NULL,
   split.by = NULL,
   IDtype = "symbol",
@@ -35,7 +35,7 @@ CellScoring(
 
 \item{features}{A named list of feature lists for scoring. If NULLL, \code{db} will be used to create features sets.}
 
-\item{slot}{The slot of the Seurat object to use for scoring. Defaults to "data".}
+\item{layer}{The layer of the Seurat object to use for scoring. Defaults to "data".}
 
 \item{assay}{The assay of the Seurat object to use for scoring. Defaults to NULL, in which case the default assay of the object is used.}
 

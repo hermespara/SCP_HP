@@ -14,7 +14,7 @@ RunLargeVis(object, ...)
   dims = NULL,
   features = NULL,
   assay = NULL,
-  slot = "data",
+  layer = "data",
   perplexity = 50,
   n_neighbors = perplexity * 3,
   n_components = 2,
@@ -95,8 +95,6 @@ RunLargeVis(object, ...)
 \item{features}{A character vector specifying the features to be used. Default is NULL.}
 
 \item{assay}{A character string specifying the assay to be used. Default is NULL.}
-
-\item{slot}{A character string specifying the slot name to be used. Default is "data".}
 
 \item{perplexity}{Controls the size of the local neighborhood used for
 manifold approximation. This is the analogous to \code{n_neighbors} in
@@ -381,6 +379,8 @@ epoch. Its signature should be: \code{(epoch, n_epochs, coords)}, where:
 \item{verbose}{A logical value indicating whether to print verbose output. Default is TRUE.}
 
 \item{seed.use}{An integer specifying the random seed to be used. Default is 11.}
+
+\item{slot}{A character string specifying the slot name to be used. Default is "data".}
 }
 \description{
 Run LargeVis (Dimensionality Reduction with a LargeVis-like method)

@@ -12,7 +12,7 @@ RunMDS(object, ...)
 \method{RunMDS}{Seurat}(
   object,
   assay = NULL,
-  slot = "data",
+  layer = "data",
   features = NULL,
   nmds = 50,
   dist.method = "euclidean",
@@ -28,7 +28,7 @@ RunMDS(object, ...)
 \method{RunMDS}{Assay}(
   object,
   assay = NULL,
-  slot = "data",
+  layer = "data",
   features = NULL,
   nmds = 50,
   dist.method = "euclidean",
@@ -43,7 +43,7 @@ RunMDS(object, ...)
 \method{RunMDS}{default}(
   object,
   assay = NULL,
-  slot = "data",
+  layer = "data",
   nmds = 50,
   dist.method = "euclidean",
   mds.method = "cmdscale",
@@ -60,8 +60,6 @@ RunMDS(object, ...)
 \item{...}{Additional arguments to be passed to the stats::\link[stats]{cmdscale}, MASS::\link[MASS]{isoMDS} or MASS::\link[MASS]{sammon} function.}
 
 \item{assay}{A character string specifying the assay to be used for the analysis. Default is NULL.}
-
-\item{slot}{A character string specifying the slot name to be used for the analysis. Default is "data".}
 
 \item{features}{A character vector specifying the features to be used for the analysis. Default is NULL, which uses all variable features.}
 
@@ -80,6 +78,8 @@ RunMDS(object, ...)
 \item{verbose}{A logical value indicating whether to print verbose output. Default is TRUE.}
 
 \item{seed.use}{An integer specifying the random seed to be used. Default is 11.}
+
+\item{slot}{A character string specifying the slot name to be used for the analysis. Default is "data".}
 }
 \description{
 Run MDS (multi-dimensional scaling)

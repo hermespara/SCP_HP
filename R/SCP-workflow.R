@@ -495,7 +495,7 @@ RecoverCounts <- function(srt, assay = NULL, trans = c("expm1", "exp", "none"), 
 #' head(rownames(panc8_rename))
 #'
 #' @importFrom Seurat Assays GetAssay
-#' @importFrom methods layer
+#' @importFrom methods slot
 #' @export
 RenameFeatures <- function(srt, newnames = NULL, assays = NULL) {
   assays <- assays[assays %in% Assays(srt)] %||% Assays(srt)

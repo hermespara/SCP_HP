@@ -16,7 +16,7 @@ RunUMAP2(object, ...)
   neighbor = NULL,
   graph = NULL,
   assay = NULL,
-  slot = "data",
+  layer = "data",
   umap.method = "uwot",
   reduction.model = NULL,
   n_threads = NULL,
@@ -84,8 +84,6 @@ RunUMAP2(object, ...)
 
 \item{assay}{A character string specifying the assay to be used. Default is NULL.}
 
-\item{slot}{A character string specifying the slot name to be used. Default is "data".}
-
 \item{umap.method}{A character string specifying the UMAP method to be used. Options are "naive" and uwot". Default is "uwot".}
 
 \item{reduction.model}{A DimReduc object containing a pre-trained UMAP model. Default is NULL.}
@@ -125,6 +123,8 @@ RunUMAP2(object, ...)
 \item{verbose}{A logical value indicating whether to print verbose output. Default is TRUE.}
 
 \item{seed.use}{An integer specifying the random seed to be used. Default is 11.}
+
+\item{slot}{A character string specifying the slot name to be used. Default is "data".}
 }
 \description{
 Run UMAP (Uniform Manifold Approximation and Projection)

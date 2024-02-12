@@ -14,7 +14,7 @@ RunPHATE(object, ...)
   dims = NULL,
   features = NULL,
   assay = NULL,
-  slot = "data",
+  layer = "data",
   n_components = 2,
   knn = 5,
   decay = 40,
@@ -70,8 +70,6 @@ RunPHATE(object, ...)
 
 \item{assay}{A character string specifying the assay to be used. Default is NULL.}
 
-\item{slot}{A character string specifying the slot name to be used. Default is "data".}
-
 \item{n_components}{An integer specifying the number of PHATE components. Default is 2.}
 
 \item{knn}{An integer specifying the number of nearest neighbors on which to build kernel. Default is 5.}
@@ -105,6 +103,8 @@ RunPHATE(object, ...)
 \item{verbose}{A logical value indicating whether to print verbose output. Default is TRUE.}
 
 \item{seed.use}{An integer specifying the random seed to be used. Default is 11.}
+
+\item{slot}{A character string specifying the slot name to be used. Default is "data".}
 }
 \description{
 Run PHATE (Potential of Heat-diffusion for Affinity-based Trajectory Embedding)

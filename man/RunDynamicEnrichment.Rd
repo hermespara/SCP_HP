@@ -8,7 +8,7 @@ RunDynamicEnrichment(
   srt,
   lineages,
   score_method = "AUCell",
-  slot = "data",
+  layer = "data",
   assay = NULL,
   min_expcells = 20,
   r.sq = 0.2,
@@ -39,7 +39,7 @@ If not specified, the \code{geneID} and \code{geneID_groups} arguments must be p
 
 \item{score_method}{The method to use for scoring. Can be "Seurat", "AUCell", or "UCell". Defaults to "Seurat".}
 
-\item{slot}{A character vector specifying the slot in the Seurat object to use. Default is "counts".}
+\item{layer}{A character vector specifying the layer in the Seurat object to use. Default is "counts".}
 
 \item{assay}{A character vector specifying the assay in the Seurat object to use. Default is NULL.}
 

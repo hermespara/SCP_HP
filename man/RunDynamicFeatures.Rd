@@ -12,7 +12,7 @@ RunDynamicFeatures(
   n_candidates = 1000,
   minfreq = 5,
   family = NULL,
-  slot = "counts",
+  layer = "counts",
   assay = NULL,
   libsize = NULL,
   BPPARAM = BiocParallel::bpparam(),
@@ -34,8 +34,6 @@ RunDynamicFeatures(
 
 \item{family}{A character or character vector specifying the family of distributions to use for the generalized additive models (GAMs). If family is set to NULL, the appropriate family will be automatically determined based on the data. If length(family) is 1, the same family will be used for all features. Otherwise, family must have the same length as features.}
 
-\item{slot}{A character vector specifying the slot in the Seurat object to use. Default is "counts".}
-
 \item{assay}{A character vector specifying the assay in the Seurat object to use. Default is NULL.}
 
 \item{libsize}{A numeric or numeric vector specifying the library size correction factors for each cell. If NULL, the library size correction factors will be calculated based on the expression matrix. If length(libsize) is 1, the same value will be used for all cells. Otherwise, libsize must have the same length as the number of cells in srt. Defaults to NULL.}
@@ -43,6 +41,8 @@ RunDynamicFeatures(
 \item{BPPARAM}{A BiocParallelParam object specifying the parallelization parameters for computing dynamic features. Defaults to BiocParallel::bpparam().}
 
 \item{seed}{An integer specifying the seed for random number generation. Defaults to 11.}
+
+\item{slot}{A character vector specifying the slot in the Seurat object to use. Default is "counts".}
 }
 \value{
 Returns the modified Seurat object with the calculated dynamic features stored in the tools slot.

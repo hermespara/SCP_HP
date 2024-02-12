@@ -9,7 +9,7 @@ RunDimReduction(
   prefix = "",
   features = NULL,
   assay = NULL,
-  slot = "data",
+  layer = "data",
   linear_reduction = NULL,
   linear_reduction_dims = 50,
   linear_reduction_params = list(),
@@ -34,8 +34,6 @@ RunDimReduction(
 \item{features}{Use features expression data to run linear or nonlinear dimensionality reduction.}
 
 \item{assay}{Specific assay to get data from.}
-
-\item{slot}{Specific slot to get data from.}
 
 \item{linear_reduction}{Method of linear dimensionality reduction. Options are "pca", "ica", "nmf", "mds", "glmpca".}
 
@@ -64,6 +62,8 @@ RunDimReduction(
 \item{verbose}{Show messages.}
 
 \item{seed}{Set a seed.}
+
+\item{slot}{Specific slot to get data from.}
 }
 \description{
 Run dimensionality reduction

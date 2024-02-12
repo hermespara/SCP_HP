@@ -14,7 +14,7 @@ RunPaCMAP(object, ...)
   dims = NULL,
   features = NULL,
   assay = NULL,
-  slot = "data",
+  layer = "data",
   n_components = 2,
   n.neighbors = NULL,
   MN_ratio = 0.5,
@@ -62,8 +62,6 @@ RunPaCMAP(object, ...)
 
 \item{assay}{A character string specifying the assay to be used. Default is NULL.}
 
-\item{slot}{A character string specifying the slot name to be used. Default is "data".}
-
 \item{n_components}{An integer specifying the number of PaCMAP components. Default is 2.}
 
 \item{n.neighbors}{An integer specifying the number of neighbors considered in the k-Nearest Neighbor graph. Default to 10 for dataset whose sample size is smaller than 10000. For large dataset whose sample size (n) is larger than 10000, the default value is: 10 + 15 * (log10(n) - 4).}
@@ -89,6 +87,8 @@ RunPaCMAP(object, ...)
 \item{verbose}{A logical value indicating whether to print verbose output. Default is TRUE.}
 
 \item{seed.use}{An integer specifying the random seed to be used. Default is 11.}
+
+\item{slot}{A character string specifying the slot name to be used. Default is "data".}
 }
 \description{
 Run PaCMAP (Pairwise Controlled Manifold Approximation)

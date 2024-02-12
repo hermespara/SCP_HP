@@ -12,7 +12,7 @@ RunNMF(object, ...)
 \method{RunNMF}{Seurat}(
   object,
   assay = NULL,
-  slot = "data",
+  layer = "data",
   features = NULL,
   nbes = 50,
   nmf.method = "RcppML",
@@ -31,7 +31,7 @@ RunNMF(object, ...)
 \method{RunNMF}{Assay}(
   object,
   assay = NULL,
-  slot = "data",
+  layer = "data",
   features = NULL,
   nbes = 50,
   nmf.method = "RcppML",
@@ -49,7 +49,7 @@ RunNMF(object, ...)
 \method{RunNMF}{default}(
   object,
   assay = NULL,
-  slot = "data",
+  layer = "data",
   nbes = 50,
   nmf.method = "RcppML",
   tol = 1e-05,
@@ -69,8 +69,6 @@ RunNMF(object, ...)
 \item{...}{Additional arguments passed to RcppML::\link[RcppML]{nmf} or NMF::\link[NMF]{nmf} function.}
 
 \item{assay}{A character string specifying the assay to be used for the analysis. Default is NULL.}
-
-\item{slot}{A character string specifying the slot name to be used for the analysis. Default is "data".}
 
 \item{features}{A character vector specifying the features to be used for the analysis. Default is NULL, which uses all variable features.}
 
@@ -95,6 +93,8 @@ RunNMF(object, ...)
 \item{verbose}{A logical value indicating whether to print verbose output. Default is TRUE.}
 
 \item{seed.use}{An integer specifying the random seed to be used. Default is 11.}
+
+\item{slot}{A character string specifying the slot name to be used for the analysis. Default is "data".}
 }
 \description{
 Run NMF (non-negative matrix factorization)

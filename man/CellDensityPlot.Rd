@@ -10,7 +10,7 @@ CellDensityPlot(
   group.by = NULL,
   split.by = NULL,
   assay = NULL,
-  slot = "data",
+  layer = "data",
   flip = FALSE,
   reverse = FALSE,
   x_order = c("value", "rank"),
@@ -50,7 +50,7 @@ Default is NULL, which means no splitting is performed.}
 \item{assay}{A character specifying the assay to use from the Seurat object.
 Default is NULL, which means the default assay will be used.}
 
-\item{slot}{A character specifying the slot to use from the assay. Default is "data".}
+\item{layer}{A character specifying the layer to use from the assay. Default is "data".}
 
 \item{flip}{A logical indicating whether to flip the x-axis. Default is FALSE.}
 

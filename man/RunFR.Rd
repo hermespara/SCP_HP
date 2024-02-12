@@ -14,7 +14,7 @@ RunFR(object, ...)
   dims = NULL,
   features = NULL,
   assay = NULL,
-  slot = "data",
+  layer = "data",
   graph = NULL,
   neighbor = NULL,
   k.param = 20,
@@ -50,8 +50,6 @@ RunFR(object, ...)
 
 \item{assay}{A character string specifying the assay to be used. Default is NULL.}
 
-\item{slot}{A character string specifying the slot name to be used. Default is "data".}
-
 \item{graph}{A character string specifying the name of the Graph object to be used. Default is NULL.}
 
 \item{neighbor}{A character string specifying the name of the Neighbor object to be used. Default is NULL.}
@@ -69,6 +67,8 @@ RunFR(object, ...)
 \item{verbose}{A logical value indicating whether to print verbose output. Default is TRUE.}
 
 \item{seed.use}{An integer specifying the random seed to be used. Default is 11.}
+
+\item{slot}{A character string specifying the slot name to be used. Default is "data".}
 }
 \description{
 Run Force-Directed Layout (Fruchterman-Reingold algorithm)

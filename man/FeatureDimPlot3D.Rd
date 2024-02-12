@@ -11,7 +11,7 @@ FeatureDimPlot3D(
   dims = c(1, 2, 3),
   axis_labs = NULL,
   split.by = NULL,
-  slot = "data",
+  layer = "data",
   assay = NULL,
   calculate_coexp = FALSE,
   pt.size = 1.5,
@@ -38,7 +38,7 @@ FeatureDimPlot3D(
 
 \item{split.by}{Name of a column in meta.data to split plot by.}
 
-\item{slot}{Which slot to pull expression data from? Default is \code{data}.}
+\item{layer}{Which layer to pull expression data from? Default is \code{data}.}
 
 \item{assay}{Which assay to pull expression data from. If \code{NULL}, will use the assay returned by \code{\link{DefaultAssay}}.}
 

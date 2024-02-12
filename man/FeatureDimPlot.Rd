@@ -11,7 +11,7 @@ FeatureDimPlot(
   dims = c(1, 2),
   split.by = NULL,
   cells = NULL,
-  slot = "data",
+  layer = "data",
   assay = NULL,
   show_stat = ifelse(identical(theme_use, "theme_blank"), FALSE, TRUE),
   palette = ifelse(isTRUE(compare_features), "Set1", "Spectral"),
@@ -102,7 +102,7 @@ FeatureDimPlot(
 
 \item{cells}{Subset cells to plot.}
 
-\item{slot}{Which slot to pull expression data from? Default is \code{data}.}
+\item{layer}{Which layer to pull expression data from? Default is \code{data}.}
 
 \item{assay}{Which assay to pull expression data from. If \code{NULL}, will use the assay returned by \code{\link{DefaultAssay}}.}
 

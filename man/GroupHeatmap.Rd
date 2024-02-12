@@ -17,12 +17,12 @@ GroupHeatmap(
   exp_cutoff = 0,
   border = TRUE,
   flip = FALSE,
-  slot = "counts",
+  layer = "counts",
   assay = NULL,
   exp_method = c("zscore", "raw", "fc", "log2fc", "log1p"),
   exp_legend_title = NULL,
   limits = NULL,
-  lib_normalize = identical(slot, "counts"),
+  lib_normalize = identical(layer, "counts"),
   libsize = NULL,
   feature_split = NULL,
   feature_split_by = NULL,
@@ -147,7 +147,7 @@ GroupHeatmap(
 
 \item{flip}{A logical value indicating whether to flip the heatmap. Default is FALSE.}
 
-\item{slot}{A character vector specifying the slot in the Seurat object to use. Default is "counts".}
+\item{layer}{A character vector specifying the layer in the Seurat object to use. Default is "counts".}
 
 \item{assay}{A character vector specifying the assay in the Seurat object to use. Default is NULL.}
 

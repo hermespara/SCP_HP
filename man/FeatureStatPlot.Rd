@@ -13,7 +13,7 @@ FeatureStatPlot(
   plot.by = c("group", "feature"),
   fill.by = c("group", "feature", "expression"),
   cells = NULL,
-  slot = "data",
+  layer = "data",
   assay = NULL,
   keep_empty = FALSE,
   individual = FALSE,
@@ -101,7 +101,7 @@ FeatureStatPlot(
 
 \item{cells}{A character vector specifying the cells to include in the plot. Default is NULL.}
 
-\item{slot}{A string specifying which slot of the Seurat object to use. Default is "data".}
+\item{layer}{A string specifying which layer of the Seurat object to use. Default is "data".}
 
 \item{assay}{A string specifying which assay to use. Default is NULL.}
 

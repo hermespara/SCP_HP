@@ -12,7 +12,7 @@ RunGLMPCA(object, ...)
 \method{RunGLMPCA}{Seurat}(
   object,
   assay = NULL,
-  slot = "counts",
+  layer = "counts",
   features = NULL,
   L = 5,
   fam = c("poi", "nb", "nb2", "binom", "mult", "bern"),
@@ -29,7 +29,7 @@ RunGLMPCA(object, ...)
 \method{RunGLMPCA}{Assay}(
   object,
   assay = NULL,
-  slot = "counts",
+  layer = "counts",
   features = NULL,
   L = 5,
   fam = c("poi", "nb", "nb2", "binom", "mult", "bern"),
@@ -65,8 +65,6 @@ RunGLMPCA(object, ...)
 
 \item{assay}{A character string specifying the assay to be used for the analysis. Default is NULL.}
 
-\item{slot}{A character string specifying the slot name to be used for the analysis. Default is "counts".}
-
 \item{features}{A character vector specifying the features to be used for the analysis. Default is NULL, which uses all variable features.}
 
 \item{L}{An integer specifying the number of components to be computed. Default is 5.}
@@ -86,6 +84,8 @@ RunGLMPCA(object, ...)
 \item{verbose}{A logical value indicating whether to print verbose output. Default is TRUE.}
 
 \item{seed.use}{An integer specifying the random seed to be used. Default is 11.}
+
+\item{slot}{A character string specifying the slot name to be used for the analysis. Default is "counts".}
 }
 \description{
 Run GLMPCA (generalized version of principal components analysis)

@@ -10,11 +10,11 @@ DynamicPlot(
   features,
   group.by = NULL,
   cells = NULL,
-  slot = "counts",
+  layer = "counts",
   assay = NULL,
   family = NULL,
   exp_method = c("log1p", "raw", "zscore", "fc", "log2fc"),
-  lib_normalize = identical(slot, "counts"),
+  lib_normalize = identical(layer, "counts"),
   libsize = NULL,
   compare_lineages = TRUE,
   compare_features = FALSE,
@@ -54,7 +54,7 @@ DynamicPlot(
 
 \item{cells}{A character vector specifying the cells to include in the plot. Default is NULL.}
 
-\item{slot}{A character string specifying the slot to use for the analysis. Default is "counts".}
+\item{layer}{A character string specifying the layer to use for the analysis. Default is "counts".}
 
 \item{assay}{A character string specifying the assay to use for the analysis. Default is NULL.}
 
@@ -62,7 +62,7 @@ DynamicPlot(
 
 \item{exp_method}{A character specifying the method to transform the expression values. Default is "log1p" with options "log1p", "raw", "zscore", "fc", "log2fc".}
 
-\item{lib_normalize}{A boolean specifying whether to normalize the expression values using library size. By default, if the \code{slot} is counts, this parameter is set to TRUE. Otherwise, it is set to FALSE.}
+\item{lib_normalize}{A boolean specifying whether to normalize the expression values using library size. By default, if the \code{layer} is counts, this parameter is set to TRUE. Otherwise, it is set to FALSE.}
 
 \item{libsize}{A numeric vector specifying the library size for each cell. Default is NULL.}
 

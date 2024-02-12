@@ -14,7 +14,7 @@ RunTriMap(object, ...)
   dims = NULL,
   features = NULL,
   assay = NULL,
-  slot = "data",
+  layer = "data",
   n_components = 2,
   n_inliers = 12,
   n_outliers = 4,
@@ -62,8 +62,6 @@ RunTriMap(object, ...)
 
 \item{assay}{A character string specifying the assay to be used. Default is NULL.}
 
-\item{slot}{A character string specifying the slot name to be used. Default is "data".}
-
 \item{n_components}{An integer specifying the number of TriMap components. Default is 2.}
 
 \item{n_inliers}{An integer specifying the number of nearest neighbors for forming the nearest neighbor triplets. Default is 12.}
@@ -89,6 +87,8 @@ RunTriMap(object, ...)
 \item{verbose}{A logical value indicating whether to print verbose output. Default is TRUE.}
 
 \item{seed.use}{An integer specifying the random seed to be used. Default is 11.}
+
+\item{slot}{A character string specifying the slot name to be used. Default is "data".}
 }
 \description{
 Run TriMap (Large-scale Dimensionality Reduction Using Triplets)
