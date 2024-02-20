@@ -11225,15 +11225,25 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
     }
     cell_order_list[[l]] <- paste0(rownames(cell_metadata_sub), l)
   }
-  if (!is.null(cell_annotation)) {
-    cell_metadata <- cbind.data.frame(
-      cell_metadata,
-      cbind.data.frame(
-        srt@meta.data[rownames(cell_metadata), c(intersect(cell_annotation, colnames(srt@meta.data))), drop = FALSE],
-        t(srt@assays[[assay]]@data[intersect(cell_annotation, rownames(srt@assays[[assay]])) %||% integer(), rownames(cell_metadata), drop = FALSE])
+  
+  t_matx <- srt@assays[[assay]]$data[intersect(cell_annotation, rownames(srt@assays[[assay]])) %||% integer(), rownames(cell_metadata), drop = FALSE]
+  if (nrow(t_matx) != 0) {
+    if (!is.null(cell_annotation)) {
+      cell_metadata <- cbind.data.frame(
+        cell_metadata,
+        cbind.data.frame(
+          srt@meta.data[rownames(cell_metadata), c(intersect(cell_annotation, colnames(srt@meta.data))), drop = FALSE],
+          SeuratDisk::Transpose(srt@assays[[assay]]$data[intersect(cell_annotation, rownames(srt@assays[[assay]])) %||% integer(), rownames(cell_metadata), drop = FALSE])
+        )
       )
-    )
+    }
   }
+  
+  cell_metadata <- cbind.data.frame(
+    cell_metadata,
+    srt@meta.data[rownames(cell_metadata), c(intersect(cell_annotation, colnames(srt@meta.data))), drop = FALSE]
+  )
+  
 
   dynamic <- list()
   if (is.null(features)) {
