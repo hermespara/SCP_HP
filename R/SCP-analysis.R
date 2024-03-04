@@ -4678,7 +4678,7 @@ extract_ddrtree_ordering <- function(cds, root_cell, verbose = TRUE) {
 #'
 #' @param srt A Seurat object.
 #' @param assay The name of the assay in the Seurat object to use for analysis. Defaults to NULL, in which case the default assay of the object is used.
-#' @param slot The slot in the Seurat object to use for analysis. Default is "counts".
+#' @param layer The layer in the Seurat object to use for analysis. Default is "counts".
 #' @param reduction The reduction used. Defaults to NULL, in which case the default reduction of the Seurat object is used.
 #' @param clusters The cluster variable in the Seurat object to use for analysis. Defaults to NULL, in which case use Monocle clusters is used.
 #' @param graph The name of the graph slot in the Seurat object to use for analysis. Defaults to NULL, in which case Monocle graph is used.
@@ -4742,13 +4742,13 @@ extract_ddrtree_ordering <- function(cds, root_cell, verbose = TRUE) {
 #' @importFrom ggnewscale new_scale_color
 #' @importFrom utils packageVersion select.list
 #' @export
-RunMonocle3 <- function(srt, assay = NULL, slot = "counts",
+RunMonocle3 <- function(srt, assay = NULL, layer = "counts",
                         reduction = DefaultReduction(srt), clusters = NULL, graph = NULL, partition_qval = 0.05,
                         k = 50, cluster_method = "louvain", num_iter = 2, resolution = NULL,
                         use_partition = NULL, close_loop = TRUE,
                         root_pr_nodes = NULL, root_cells = NULL, seed = 11) {
   set.seed(seed)
-  if (!requireNamespace("monocle3", quietly = TRUE) || packageVersion("monocle3") < package_version("1.2.0")) {
+  if (!requireNamespace("monocle3", quietly = TRUE)) { # || packageVersion("monocle3") < package_version("1.2.0")
     check_R("cole-trapnell-lab/monocle3", force = TRUE)
   }
   assay <- assay %||% DefaultAssay(srt)
@@ -5063,7 +5063,7 @@ RunDynamicFeatures <- function(srt, lineages, features = NULL, suffix = lineages
     #   labs(title = l, subtitle = "Var VS Mean") +
     #   theme_scp()
     # print(p)
-
+    
     message("Calculate dynamic features for ", l, "...")
     system.time({
       gam_out <- bplapply(seq_len(nrow(Y_ordered)), function(n, Y_ordered, t_ordered, l_libsize, family) {
@@ -5092,7 +5092,7 @@ RunDynamicFeatures <- function(srt, lineages, features = NULL, suffix = lineages
         lwr <- mod$family$linkinv(lwr)
         res <- summary(mod)
         fitted <- fitted(mod)
-        pvalue <- res$s.table[[4]]
+        pvalue <- res$s.table[,"p-value"]
         dev.expl <- res$dev.expl
         r.sq <- res$r.sq
         fitted.values <- fitted * sizefactror
@@ -5324,7 +5324,7 @@ py_to_r_auto <- function(x) {
 #'
 #' @param srt A Seurat object.
 #' @param assay_X Assay to convert as the main data matrix (X) in the anndata object.
-#' @param slot_X Slot name for assay_X in the Seurat object.
+#' @param layer_X Slot name for assay_X in the Seurat object.
 #' @param assay_layers Assays to convert as layers in the anndata object.
 #' @param slot_layers Slot names for the assay_layers in the Seurat object.
 #' @param convert_tools Logical indicating whether to convert the tool-specific data.
@@ -5349,7 +5349,7 @@ py_to_r_auto <- function(x) {
 #' @importFrom Matrix t
 #' @export
 srt_to_adata <- function(srt, features = NULL,
-                         assay_X = "RNA", slot_X = "counts",
+                         assay_X = "RNA", layer_X = "counts",
                          assay_layers = c("spliced", "unspliced"), slot_layers = "counts",
                          convert_tools = FALSE, convert_misc = FALSE, verbose = TRUE) {
   check_Python(c("scanpy", "numpy"))
@@ -5380,7 +5380,7 @@ srt_to_adata <- function(srt, features = NULL,
     }
   }
 
-  var <- srt[[assay_X]]@meta.features[features, , drop = FALSE]
+  var <- srt[[assay_X]]@meta.data[match(features, srt[[assay_X]]@meta.data$var.features), , drop = FALSE]
   if (ncol(var) > 0) {
     for (i in seq_len(ncol(var))) {
       if (is.logical(var[, i]) && !identical(colnames(var)[i], "highly_variable")) {
@@ -5395,8 +5395,8 @@ srt_to_adata <- function(srt, features = NULL,
     var[["highly_variable"]] <- features %in% VariableFeatures(srt, assay = assay_X)
   }
 
-  # X <- t(as_matrix(slot(srt@assays[[assay_X]], slot_X)[features, , drop = FALSE]))
-  X <- t(GetAssayData(srt, assay = assay_X, layer = layer)[features, , drop = FALSE])
+  # X <- t(as_matrix(slot(srt@assays[[assay_X]], layer_X)[features, , drop = FALSE]))
+  X <- t(GetAssayData(srt, assay = assay_X, layer = layer_X)[features, , drop = FALSE])
   adata <- sc$AnnData(
     X = np_array(X, dtype = np$float32),
     obs = obs,
@@ -5731,7 +5731,7 @@ check_python_element <- function(x, depth = maxDepth(x)) {
 #'
 #' @param srt A Seurat object.
 #' @param assay_X Assay to convert as the main data matrix (X) in the anndata object.
-#' @param slot_X Slot name for assay_X in the Seurat object.
+#' @param layer_X Slot name for assay_X in the Seurat object.
 #' @param assay_layers Assays to convert as layers in the anndata object.
 #' @param slot_layers Slot names for the assay_layers in the Seurat object.
 #' @param adata An anndata object.
@@ -5782,7 +5782,7 @@ check_python_element <- function(x, depth = maxDepth(x)) {
 #' CellDimPlot(pancreas_sub, group.by = "SubCellType", reduction = "PAGAUMAP2D", paga = pancreas_sub@misc$paga)
 #'
 #' @export
-RunPAGA <- function(srt = NULL, assay_X = "RNA", slot_X = "counts", assay_layers = c("spliced", "unspliced"), slot_layers = "counts",
+RunPAGA <- function(srt = NULL, assay_X = "RNA", layer_X = "counts", assay_layers = c("spliced", "unspliced"), slot_layers = "counts",
                     adata = NULL, group_by = NULL,
                     linear_reduction = NULL, nonlinear_reduction = NULL, basis = NULL,
                     n_pcs = 30, n_neighbors = 30, use_rna_velocity = FALSE, vkey = "stochastic",
@@ -5820,12 +5820,12 @@ RunPAGA <- function(srt = NULL, assay_X = "RNA", slot_X = "counts", assay_layers
       arg
     }
   })
-  args <- args[!names(args) %in% c("srt", "assay_X", "slot_X", "assay_layers", "slot_layers", "return_seurat", "palette", "palcolor")]
+  args <- args[!names(args) %in% c("srt", "assay_X", "layer_X", "assay_layers", "slot_layers", "return_seurat", "palette", "palcolor")]
 
   if (!is.null(srt)) {
     args[["adata"]] <- srt_to_adata(
       srt = srt,
-      assay_X = assay_X, slot_X = slot_X,
+      assay_X = assay_X, layer_X = layer_X,
       assay_layers = assay_layers, slot_layers = slot_layers
     )
   }
@@ -5892,7 +5892,7 @@ RunPAGA <- function(srt = NULL, assay_X = "RNA", slot_X = "counts", assay_layers
 #' pancreas_sub <- RunSCVELO(srt = pancreas_sub, assay_X = "SCT", group_by = "SubCellType", linear_reduction = "Standardpca", nonlinear_reduction = "StandardTSNE2D")
 #'
 #' @export
-RunSCVELO <- function(srt = NULL, assay_X = "RNA", slot_X = "counts", assay_layers = c("spliced", "unspliced"), slot_layers = "counts",
+RunSCVELO <- function(srt = NULL, assay_X = "RNA", layer_X = "counts", assay_layers = c("spliced", "unspliced"), slot_layers = "counts",
                       adata = NULL, group_by = NULL,
                       linear_reduction = NULL, nonlinear_reduction = NULL, basis = NULL,
                       mode = "stochastic", fitting_by = "stochastic",
@@ -5937,12 +5937,12 @@ RunSCVELO <- function(srt = NULL, assay_X = "RNA", slot_X = "counts", assay_laye
       arg
     }
   })
-  args <- args[!names(args) %in% c("srt", "assay_X", "slot_X", "assay_layers", "slot_layers", "return_seurat", "palette", "palcolor")]
+  args <- args[!names(args) %in% c("srt", "assay_X", "layer_X", "assay_layers", "slot_layers", "return_seurat", "palette", "palcolor")]
 
   if (!is.null(srt)) {
     args[["adata"]] <- srt_to_adata(
       srt = srt,
-      assay_X = assay_X, slot_X = slot_X,
+      assay_X = assay_X, layer_X = layer_X,
       assay_layers = assay_layers, slot_layers = slot_layers
     )
   }
@@ -5967,7 +5967,12 @@ RunSCVELO <- function(srt = NULL, assay_X = "RNA", slot_X = "counts", assay_laye
 }
 
 #' Run Palantir analysis
+#' Palantir is an algorithm to align cells along differentiation trajectories. 
+#' Palantir models differentiation as a stochastic process where stem cells differentiate to terminally differentiated cells by a series of steps through a low dimensional phenotypic manifold. 
+#' Palantir effectively captures the continuity in cell states and the stochasticity in cell fate determination. 
+#' Palantir has been designed to work with multidimensional single cell data from diverse technologies such as Mass cytometry and single cell RNA-seq.
 #'
+#' @description Run palantir analysis
 #' @inheritParams RunPAGA
 #' @param dm_n_components The number of diffusion components to calculate.
 #' @param dm_alpha Normalization parameter for the diffusion operator.
@@ -5998,7 +6003,7 @@ RunSCVELO <- function(srt = NULL, assay_X = "RNA", slot_X = "counts", assay_laye
 #' FeatureDimPlot(pancreas_sub, paste0(c("Alpha", "Beta", "Delta", "Epsilon"), "_diff_potential"))
 #'
 #' @export
-RunPalantir <- function(srt = NULL, assay_X = "RNA", slot_X = "counts", assay_layers = c("spliced", "unspliced"), slot_layers = "counts",
+RunPalantir <- function(srt = NULL, assay_X = "RNA", layer_X = "counts", assay_layers = c("spliced", "unspliced"), slot_layers = "counts",
                         adata = NULL, group_by = NULL,
                         linear_reduction = NULL, nonlinear_reduction = NULL, basis = NULL,
                         n_pcs = 30, n_neighbors = 30, dm_n_components = 10, dm_alpha = 0, dm_n_eigs = NULL,
@@ -6041,12 +6046,12 @@ RunPalantir <- function(srt = NULL, assay_X = "RNA", slot_X = "counts", assay_la
       arg
     }
   })
-  args <- args[!names(args) %in% c("srt", "assay_X", "slot_X", "assay_layers", "slot_layers", "return_seurat", "palette", "palcolor")]
+  args <- args[!names(args) %in% c("srt", "assay_X", "layer_X", "assay_layers", "slot_layers", "return_seurat", "palette", "palcolor")]
 
   if (!is.null(srt)) {
     args[["adata"]] <- srt_to_adata(
       srt = srt,
-      assay_X = assay_X, slot_X = slot_X,
+      assay_X = assay_X, layer_X = layer_X,
       assay_layers = assay_layers, slot_layers = slot_layers
     )
   }
@@ -6083,7 +6088,7 @@ RunPalantir <- function(srt = NULL, assay_X = "RNA", slot_X = "counts", assay_la
 #'
 #' @seealso \code{\link{srt_to_adata}}
 #' @export
-RunWOT <- function(srt = NULL, assay_X = "RNA", slot_X = "counts", assay_layers = c("spliced", "unspliced"), slot_layers = "counts",
+RunWOT <- function(srt = NULL, assay_X = "RNA", layer_X = "counts", assay_layers = c("spliced", "unspliced"), slot_layers = "counts",
                    adata = NULL, group_by = NULL,
                    time_field = "Time", growth_iters = 3L, tmap_out = "tmaps/tmap_out",
                    time_from = NULL, time_to = NULL, get_coupling = FALSE, recalculate = FALSE,
@@ -6126,12 +6131,12 @@ RunWOT <- function(srt = NULL, assay_X = "RNA", slot_X = "counts", assay_layers 
       arg
     }
   })
-  args <- args[!names(args) %in% c("srt", "assay_X", "slot_X", "assay_layers", "slot_layers", "return_seurat", "palette", "palcolor")]
+  args <- args[!names(args) %in% c("srt", "assay_X", "layer_X", "assay_layers", "slot_layers", "return_seurat", "palette", "palcolor")]
 
   if (!is.null(srt)) {
     args[["adata"]] <- srt_to_adata(
       srt = srt,
-      assay_X = assay_X, slot_X = slot_X,
+      assay_X = assay_X, layer_X = layer_X,
       assay_layers = assay_layers, slot_layers = slot_layers
     )
   }
@@ -6155,7 +6160,7 @@ RunWOT <- function(srt = NULL, assay_X = "RNA", slot_X = "counts", assay_layers 
   }
 }
 
-RunCellRank <- function(srt = NULL, assay_X = "RNA", slot_X = "counts", assay_layers = c("spliced", "unspliced"), slot_layers = "counts",
+RunCellRank <- function(srt = NULL, assay_X = "RNA", layer_X = "counts", assay_layers = c("spliced", "unspliced"), slot_layers = "counts",
                         adata = NULL, group_by = NULL, n_jobs = 1,
                         linear_reduction = NULL, nonlinear_reduction = NULL, basis = NULL,
                         mode = "stochastic", fitting_by = "stochastic",
@@ -6200,12 +6205,12 @@ RunCellRank <- function(srt = NULL, assay_X = "RNA", slot_X = "counts", assay_la
       arg
     }
   })
-  args <- args[!names(args) %in% c("srt", "assay_X", "slot_X", "assay_layers", "slot_layers", "return_seurat", "palette", "palcolor")]
+  args <- args[!names(args) %in% c("srt", "assay_X", "layer_X", "assay_layers", "slot_layers", "return_seurat", "palette", "palcolor")]
 
   if (!is.null(srt)) {
     args[["adata"]] <- srt_to_adata(
       srt = srt,
-      assay_X = assay_X, slot_X = slot_X,
+      assay_X = assay_X, layer_X = layer_X,
       assay_layers = assay_layers, slot_layers = slot_layers
     )
   }
