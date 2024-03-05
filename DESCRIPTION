@@ -55,8 +55,7 @@ Imports:
     Signac,
     Seurat (>= 4.2.0),
     SeuratObject,
-    uwot,
-    Rcpp
+    uwot
 Suggests:
     AUCell,
     batchelor,
@@ -119,6 +118,7 @@ Suggests:
     umap,
     UCell,
     withr
+LinkingTo: Rcpp
 RoxygenNote: 7.3.1
 Config/testthat/edition: 3
 URL: https://github.com/zhanghao-njmu/SCP
