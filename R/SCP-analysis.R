@@ -5537,8 +5537,8 @@ adata_to_srt <- function(adata) {
     metadata <- as.data.frame(py_to_r_auto(adata$obs))
     colnames(metadata) <- make.names(colnames(metadata))
   }
-
-  srt <- CreateSeuratObject(counts = x, meta.data = metadata)
+  dat = SeuratObject::CreateAssayObject(counts = x)
+  srt <- CreateSeuratObject(counts = dat, meta.data = metadata)
 
   if (inherits(adata$layers, "python.builtin.object")) {
     keys <- iterate(adata$layers$keys())
@@ -5557,7 +5557,7 @@ adata_to_srt <- function(adata) {
       }
       rownames(layer) <- py_to_r_auto(adata$var_names$values)
       colnames(layer) <- py_to_r_auto(adata$obs_names$values)
-      srt[[py_to_r_auto(k)]] <- CreateAssayObject(counts = layer)
+      srt[[py_to_r_auto(k)]] <- SeuratObject::CreateAssayObject(counts = layer)
     }
   }
 
