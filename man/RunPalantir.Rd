@@ -2,12 +2,16 @@
 % Please edit documentation in R/SCP-analysis.R
 \name{RunPalantir}
 \alias{RunPalantir}
-\title{Run Palantir analysis}
+\title{Run Palantir analysis
+Palantir is an algorithm to align cells along differentiation trajectories. 
+Palantir models differentiation as a stochastic process where stem cells differentiate to terminally differentiated cells by a series of steps through a low dimensional phenotypic manifold. 
+Palantir effectively captures the continuity in cell states and the stochasticity in cell fate determination. 
+Palantir has been designed to work with multidimensional single cell data from diverse technologies such as Mass cytometry and single cell RNA-seq.}
 \usage{
 RunPalantir(
   srt = NULL,
   assay_X = "RNA",
-  slot_X = "counts",
+  layer_X = "counts",
   assay_layers = c("spliced", "unspliced"),
   slot_layers = "counts",
   adata = NULL,
@@ -47,7 +51,7 @@ RunPalantir(
 
 \item{assay_X}{Assay to convert as the main data matrix (X) in the anndata object.}
 
-\item{slot_X}{Slot name for assay_X in the Seurat object.}
+\item{layer_X}{Slot name for assay_X in the Seurat object.}
 
 \item{assay_layers}{Assays to convert as layers in the anndata object.}
 
@@ -114,7 +118,7 @@ RunPalantir(
 \item{return_seurat}{Whether to return a Seurat object instead of an anndata object. Default is TRUE.}
 }
 \description{
-Run Palantir analysis
+Run palantir analysis
 }
 \examples{
 data("pancreas_sub")

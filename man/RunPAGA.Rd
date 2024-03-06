@@ -7,7 +7,7 @@
 RunPAGA(
   srt = NULL,
   assay_X = "RNA",
-  slot_X = "counts",
+  layer_X = "counts",
   assay_layers = c("spliced", "unspliced"),
   slot_layers = "counts",
   adata = NULL,
@@ -44,7 +44,7 @@ RunPAGA(
 
 \item{assay_X}{Assay to convert as the main data matrix (X) in the anndata object.}
 
-\item{slot_X}{Slot name for assay_X in the Seurat object.}
+\item{layer_X}{Slot name for assay_X in the Seurat object.}
 
 \item{assay_layers}{Assays to convert as layers in the anndata object.}
 

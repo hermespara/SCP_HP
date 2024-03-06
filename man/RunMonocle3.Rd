@@ -28,6 +28,8 @@ RunMonocle3(
 
 \item{assay}{The name of the assay in the Seurat object to use for analysis. Defaults to NULL, in which case the default assay of the object is used.}
 
+\item{layer}{The layer in the Seurat object to use for analysis. Default is "counts".}
+
 \item{reduction}{The reduction used. Defaults to NULL, in which case the default reduction of the Seurat object is used.}
 
 \item{clusters}{The cluster variable in the Seurat object to use for analysis. Defaults to NULL, in which case use Monocle clusters is used.}
@@ -53,8 +55,6 @@ RunMonocle3(
 \item{root_cells}{The root cells to order cells. If not specified, user will be prompted for input. Defaults to NULL.}
 
 \item{seed}{The random seed to use for reproducibility. Defaults to 11.}
-
-\item{slot}{The slot in the Seurat object to use for analysis. Default is "counts".}
 }
 \description{
 Runs the Monocle3 algorithm on a Seurat object.

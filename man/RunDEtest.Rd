@@ -113,7 +113,14 @@ RunDEtest(
 calculating logFC. 1 by default.}
 
 \item{mean.fxn}{Function to use for fold change or average difference calculation.
-If NULL, the appropriate function will be chose according to the slot used}
+The default depends on the the value of \code{fc.slot}:
+\itemize{
+ \item{"counts"} : difference in the log of the mean counts, with pseudocount.
+ \item{"data"} : difference in the log of the average exponentiated data, with pseudocount.
+ This adjusts for differences in sequencing depth between cells, and assumes that "data"
+ has been log-normalized.
+ \item{"scale.data"} : difference in the means of scale.data.
+}}
 
 \item{min.pct}{only test genes that are detected in a minimum fraction of
 min.pct cells in either of the two populations. Meant to speed up the function
