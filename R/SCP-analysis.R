@@ -5539,6 +5539,10 @@ adata_to_srt <- function(adata) {
   }
   dat = SeuratObject::CreateAssayObject(counts = x)
   srt <- CreateSeuratObject(counts = dat, meta.data = metadata)
+  # update to seurat V5 using scCustomize
+  srt <- scCustomize::Convert_Assay(seurat_object = srt, 
+                                    assay = Assays(srt), 
+                                    convert_to = "V5")
 
   if (inherits(adata$layers, "python.builtin.object")) {
     keys <- iterate(adata$layers$keys())
