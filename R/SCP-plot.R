@@ -1670,7 +1670,7 @@ CellDimPlot <- function(srt, group.by, reduction = NULL, dims = c(1, 2), split.b
       }
     } else {
       p <- p + geom_point(
-        mapping = aes(x = .data[["x"]], y = .data[["y"]], color = .data[["group.by"]]),
+        mapping = aes(x = .data[["x"]], y = .data[["y"]], color = .data[["group.by"]], fill = .data[["group.by"]]),
         size = pt.size, alpha = pt.alpha
       )
     }
