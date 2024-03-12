@@ -1737,12 +1737,12 @@ CellDimPlot <- function(srt, group.by, reduction = NULL, dims = c(1, 2), split.b
         )
       }
       p <- p + stat_plot_list
-      legend_list[["stat.by"]] <- get_legend(stat_plot[[coor_df[i, "group"]]] + theme(legend.position = "bottom"))
+      legend_list[["stat.by"]] <- ggpubr::get_legend(stat_plot[[coor_df[i, "group"]]] + theme(legend.position = "bottom"))
     }
     if (!is.null(lineages)) {
       lineages_layers <- c(list(new_scale_color()), lineages_layers)
       suppressMessages({
-        legend_list[["lineages"]] <- get_legend(ggplot() +
+        legend_list[["lineages"]] <- ggpubr::get_legend(ggplot() +
           lineages_layers +
           theme_scp(
             legend.position = "bottom",
@@ -1760,7 +1760,7 @@ CellDimPlot <- function(srt, group.by, reduction = NULL, dims = c(1, 2), split.b
       paga_layers <- c(list(new_scale_color()), paga_layers)
       if (g != paga$groups) {
         suppressMessages({
-          legend_list[["paga"]] <- get_legend(ggplot() +
+          legend_list[["paga"]] <- ggpubr::get_legend(ggplot() +
             paga_layers +
             theme_scp(
               legend.position = "bottom",
@@ -1779,7 +1779,7 @@ CellDimPlot <- function(srt, group.by, reduction = NULL, dims = c(1, 2), split.b
       velocity_layers <- c(list(new_scale_color()), list(new_scale("size")), velocity_layers)
       if (velocity_plot_type != "raw") {
         suppressMessages({
-          legend_list[["velocity"]] <- get_legend(ggplot() +
+          legend_list[["velocity"]] <- ggpubr::get_legend(ggplot() +
             velocity_layers +
             theme_scp(
               legend.position = "bottom",
@@ -1822,7 +1822,7 @@ CellDimPlot <- function(srt, group.by, reduction = NULL, dims = c(1, 2), split.b
     }
     if (length(legend_list) > 0) {
       legend_list <- legend_list[!sapply(legend_list, is.null)]
-      legend_base <- get_legend(p_base + theme_scp(
+      legend_base <- ggpubr::get_legend(p_base + theme_scp(
         legend.position = "bottom",
         legend.direction = legend.direction
       ))
@@ -2298,7 +2298,7 @@ FeatureDimPlot <- function(srt, features, reduction = NULL, dims = c(1, 2), spli
             guide = guide_colorbar(frame.colour = "black", ticks.colour = "black", title.hjust = 0)
           ))
         }
-        legend_list[[i]] <- get_legend(
+        legend_list[[i]] <- ggpubr::get_legend(
           ggplot(dat, aes(x = .data[["x"]], y = .data[["y"]])) +
             temp_geom[[i]] +
             do.call(theme_use, theme_args) +
@@ -2495,7 +2495,7 @@ FeatureDimPlot <- function(srt, features, reduction = NULL, dims = c(1, 2), spli
           ) +
             guides(colour = guide_legend(override.aes = list(color = colors[label_df$label]), order = 1)) +
             theme(legend.position = "none")
-          legend2 <- get_legend(p +
+          legend2 <- ggpubr::get_legend(p +
             do.call(theme_use, theme_args) +
             theme(
               aspect.ratio = aspect.ratio,
@@ -2532,7 +2532,7 @@ FeatureDimPlot <- function(srt, features, reduction = NULL, dims = c(1, 2), spli
       if (!is.null(lineages)) {
         lineages_layers <- c(list(new_scale_color()), lineages_layers)
         suppressMessages({
-          legend_curve <- get_legend(ggplot() +
+          legend_curve <- ggpubr::get_legend(ggplot() +
             lineages_layers +
             theme_scp())
         })
@@ -2746,7 +2746,7 @@ FeatureDimPlot <- function(srt, features, reduction = NULL, dims = c(1, 2), spli
       if (!is.null(lineages)) {
         lineages_layers <- c(list(new_scale_color()), lineages_layers)
         suppressMessages({
-          legend_list[["lineages"]] <- get_legend(ggplot() +
+          legend_list[["lineages"]] <- ggpubr::get_legend(ggplot() +
             lineages_layers +
             theme_scp(
               legend.position = "bottom",
@@ -2788,7 +2788,7 @@ FeatureDimPlot <- function(srt, features, reduction = NULL, dims = c(1, 2), spli
       }
       if (length(legend_list) > 0) {
         legend_list <- legend_list[!sapply(legend_list, is.null)]
-        legend_base <- get_legend(p_base)
+        legend_base <- ggpubr::get_legend(p_base)
         if (legend.direction == "vertical") {
           legend <- do.call(cbind, c(list(base = legend_base), legend_list))
         } else {
@@ -3631,7 +3631,7 @@ FeatureStatPlot <- function(srt, stat.by, group.by = NULL, split.by = NULL, bg.b
   if (isTRUE(stack) && length(stat.by) > 1 && isFALSE(individual)) {
     for (g in group.by) {
       plist_g <- plist[sapply(strsplit(names(plist), ":"), function(x) x[2]) == g]
-      legend <- get_legend(plist_g[[1]])
+      legend <- ggpubr::get_legend(plist_g[[1]])
       if (isTRUE(flip)) {
         lab <- textGrob(label = ifelse(is.null(ylab), "Expression level", ylab), hjust = 0.5)
         plist_g <- lapply(seq_along(plist_g), FUN = function(i) {
@@ -5075,7 +5075,7 @@ StatPlot <- function(meta.data, stat.by, group.by = NULL, split.by = NULL, bg.by
         for (l in stat.by) {
           df <- data.frame(factor(levels(dat_use[[l]]), levels = levels(dat_use[[l]])))
           colnames(df) <- l
-          legend_list[[l]] <- get_legend(ggplot(data = df) +
+          legend_list[[l]] <- ggpubr::get_legend(ggplot(data = df) +
             geom_col(aes(x = 1, y = 1, fill = .data[[l]]), color = "black") +
             scale_fill_manual(values = colors[levels(dat_use[[l]])]) +
             guides(fill = guide_legend(
@@ -5550,7 +5550,7 @@ FeatureCorPlot <- function(srt, features, group.by = NULL, split.by = NULL, cell
 
     legend_list <- NULL
     if (length(features) > 1) {
-      legend_list[["correlation"]] <- get_legend(ggplot(data.frame(range = cor_range, x = 1, y = 1), aes(x = x, y = y, fill = range)) +
+      legend_list[["correlation"]] <- ggpubr::get_legend(ggplot(data.frame(range = cor_range, x = 1, y = 1), aes(x = x, y = y, fill = range)) +
         geom_point() +
         scale_fill_gradientn(
           name = paste0("Correlation"),
@@ -5567,7 +5567,7 @@ FeatureCorPlot <- function(srt, features, group.by = NULL, split.by = NULL, cell
         ))
     }
     if (nlevels(dat[[group.by]]) > 1) {
-      legend_list[["group.by"]] <- suppressWarnings(get_legend(plotlist[[1]] +
+      legend_list[["group.by"]] <- suppressWarnings(ggpubr::get_legend(plotlist[[1]] +
         guides(fill = guide_legend(
           title.hjust = 0,
           order = 1,
@@ -8786,7 +8786,7 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
         individual = TRUE, combine = FALSE
       )
       lgd[["ht"]] <- NULL
-      # legend <- get_legend(vlnplots[[1]])
+      # legend <- ggpubr::get_legend(vlnplots[[1]])
       # funbody <- paste0(
       #   "
       #         g <- as_grob(subplots_list[['", cellan, ":", cell_group, "']]", "[['", nm, "']] + theme_void() + theme(plot.title = element_blank(), plot.subtitle = element_blank(), legend.position = 'none'));
@@ -12478,7 +12478,7 @@ DynamicPlot <- function(srt, lineages, features, group.by = NULL, cells = NULL, 
         p <- p + coord_flip()
       }
       if (is.null(legend)) {
-        legend <- get_legend(p + theme(legend.position = "bottom"))
+        legend <- ggpubr::get_legend(p + theme(legend.position = "bottom"))
       }
       plist[[paste(paste0(l, collapse = "_"), paste0(f, collapse = "_"), sep = ".")]] <- p + theme(legend.position = "none")
     }
@@ -12567,7 +12567,7 @@ ProjectionPlot <- function(srt_query, srt_ref,
     ref_param
   )) +
     guides(color = guide_legend(title = paste0("Ref: ", ref_group), override.aes = list(size = 4)))
-  p1legend <- get_legend(p1)
+  p1legend <- ggpubr::get_legend(p1)
   # p1legend <- gtable_filter(ggplot_gtable(ggplot_build(p1)), "guide-box")
 
 
@@ -12584,7 +12584,7 @@ ProjectionPlot <- function(srt_query, srt_ref,
     title = paste0("Query: ", query_group),
     override.aes = list(size = 4, shape = 21, color = "black", fill = na.omit(color[levels(p2$data$group.by)]))
   ))
-  p2legend <- get_legend(p2)
+  p2legend <- ggpubr::get_legend(p2)
   # p2legend <- gtable_filter(ggplot_gtable(ggplot_build(p2)), "guide-box")
 
   if (!is.null(p1legend) && !is.null(p2legend)) {
@@ -14004,7 +14004,7 @@ GSEAPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilcox", re
       } else {
         p2 <- p2 + scale_color_manual(values = color_use)
       }
-      legend <- get_legend(
+      legend <- ggpubr::get_legend(
         p1 +
           guides(color = guide_legend(title = "Term:", byrow = TRUE)) +
           do.call(theme_use, theme_args) +
