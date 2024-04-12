@@ -1815,7 +1815,7 @@ server <- function(input, output, session) {
         # print(">>> plot:")
         # print(system.time(
         p2_dim <- SCP::FeatureDimPlot(
-          srt = srt_tmp, features = features2, split.by = split2, reduction = reduction2, slot = "data", raster = raster2, pt.size = pt_size2,
+          srt = srt_tmp, features = features2, split.by = split2, reduction = reduction2, layer = "data", raster = raster2, pt.size = pt_size2,
           calculate_coexp = coExp2, keep_scale = scale2, palette = palette2, theme_use = theme2,
           ncol = ncol2, byrow = byrow2, force = TRUE
         )
@@ -2147,7 +2147,7 @@ server <- function(input, output, session) {
         # print(">>> plot:")
         # print(system.time(
         p4 <- SCP::FeatureStatPlot(
-          srt = srt_tmp, stat.by = features4, group.by = group4, split.by = split4, cells = cells, slot = "data", plot_type = plottype4,
+          srt = srt_tmp, stat.by = features4, group.by = group4, split.by = split4, cells = cells, layer = "data", plot_type = plottype4,
           calculate_coexp = coExp4, stack = stack4, flip = flip4,
           add_box = addbox4, add_point = addpoint4, add_trend = addtrend4,
           plot.by = plotby4, fill.by = fillby4, palette = palette4, theme_use = theme4, same.y.lims = sameylims4,

@@ -55,7 +55,8 @@ Imports:
     Signac,
     Seurat (>= 4.2.0),
     SeuratObject,
-    uwot
+    uwot,
+    Rcpp
 Suggests:
     AUCell,
     batchelor,
