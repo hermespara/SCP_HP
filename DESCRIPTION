@@ -122,4 +122,4 @@ Suggests:
 LinkingTo: Rcpp
 RoxygenNote: 7.3.1
 Config/testthat/edition: 3
-URL: https://github.com/zhanghao-njmu/SCP
+URL: https://github.com/hermespara/SCP_HP
