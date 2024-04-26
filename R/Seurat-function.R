@@ -436,7 +436,7 @@ RunGLMPCA.default <- function(object, assay = NULL, slot = "counts",
 #' @param dims An integer vector specifying the dimensions to be used. Default is 1:30.
 #' @param features A character vector specifying the features to be used. Default is NULL.
 #' @param assay A character string specifying the assay to be used. Default is NULL.
-#' @param slot A character string specifying the slot name to be used. Default is "data".
+#' @param layer A character string specifying the slot name to be used. Default is "data".
 #' @param ndcs An integer specifying the number of diffusion components (dimensions) to be computed. Default is 2.
 #' @param sigma A character string specifying the diffusion scale parameter of the Gaussian kernel. Currently supported values are "local" (default) and "global".
 #' @param k An integer specifying the number of nearest neighbors to be used for the construction of the graph. Default is 30.
