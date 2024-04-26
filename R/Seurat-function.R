@@ -471,7 +471,7 @@ RunDM.Seurat <- function(object,
                          verbose = TRUE, seed.use = 11, ...) {
   if (!is.null(x = features)) {
     assay <- assay %||% DefaultAssay(object = object)
-    data.use <- as_matrix(t(x = GetAssayData(object = object, layer = slot, assay = assay)[features, , drop = FALSE]))
+    data.use <- t(as_matrix(x = GetAssayData(object = object, layer = slot, assay = assay)[features, , drop = FALSE]))
     if (ncol(x = data.use) < ndcs) {
       stop("Please provide as many or more features than ndcs: ",
         length(x = features), " features provided, ",
