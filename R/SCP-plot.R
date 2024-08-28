@@ -5438,6 +5438,8 @@ FeatureCorPlot <- function(srt, features, group.by = NULL, split.by = NULL, cell
         }
         if (any(isTRUE(add_equation), isTRUE(add_r2), isTRUE(add_pvalue))) {
           m <- lm(dat[[f2]] ~ dat[[f1]])
+          min_x <- min(dat[[f1]])
+          max_y <- max(dat[[f2]])
           if (coef(m)[2] >= 0) {
             eq1 <- substitute(
               italic(y) == a + b %.% italic(x),
@@ -5474,7 +5476,7 @@ FeatureCorPlot <- function(srt, features, group.by = NULL, split.by = NULL, cell
           vjusts <- c(1.3, 1.3 * 2, 1.3 * 2^2)
           i <- c(isTRUE(add_equation), isTRUE(add_r2), isTRUE(add_pvalue))
           p <- p + annotate(
-            geom = GeomTextRepel, x = -Inf, y = Inf, label = eqs[i],
+            geom = GeomTextRepel, x = min_x * 1.05, y = max_y * 0.95, label = eqs[i],
             color = "black", bg.color = "white", bg.r = 0.1, size = 3.5, point.size = NA,
             max.overlaps = 100, force = 0, min.segment.length = Inf,
             hjust = -0.05, vjust = vjusts[1:sum(i)], parse = TRUE
