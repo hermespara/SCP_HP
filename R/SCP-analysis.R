@@ -927,7 +927,7 @@ AddModuleScore2 <- function(
   )
   names(x = data.cut) <- names(x = data.avg)
 
-  scores <- bplapply(
+  scores <- future.apply::future_lapply(
     1:cluster.length,
     function(i) {
       features.use <- features[[i]]
@@ -946,8 +946,8 @@ AddModuleScore2 <- function(
         x = assay.data[features.use, , drop = FALSE]
       )
       return(list(ctrl.scores_i, features.scores_i))
-    },
-    BPPARAM = BPPARAM
+    } #,
+    #BPPARAM = BPPARAM
   )
   ctrl.scores <- do.call(rbind, lapply(scores, function(x) x[[1]]))
   features.scores <- do.call(rbind, lapply(scores, function(x) x[[2]]))
@@ -2478,8 +2478,8 @@ RunDEtest <- function(
       )
     }
   }
-  BiocParallel::bpprogressbar(BPPARAM) <- TRUE
-  BiocParallel::bpRNGseed(BPPARAM) <- seed
+  #BiocParallel::bpprogressbar(BPPARAM) <- TRUE
+  #BiocParallel::bpRNGseed(BPPARAM) <- seed
 
   time_start <- Sys.time()
   if (verbose) {
@@ -2526,8 +2526,7 @@ RunDEtest <- function(
 
     if (markers_type == "all") {
       markers <- FindMarkers(
-        object = srt,
-        assay = assay,
+        object = Seurat::GetAssay(srt, assay),
         layer = layer,
         cells.1 = cells1,
         cells.2 = cells2,
@@ -2650,7 +2649,7 @@ RunDEtest <- function(
         colnames(srt_tmp),
         cells1
       )] <- NA
-      bpprogressbar(BPPARAM) <- FALSE
+      #bpprogressbar(BPPARAM) <- FALSE
       srt_tmp <- RunDEtest(
         srt = srt_tmp,
         assay = assay,
@@ -2718,8 +2717,8 @@ RunDEtest <- function(
     )
 
     args1 <- list(
-      object = srt,
-      assay = assay,
+      object = Seurat::GetAssay(srt, assay),
+      #assay = assay,
       layer = layer,
       features = features,
       test.use = test.use,
@@ -2751,7 +2750,7 @@ RunDEtest <- function(
       )
     }
     if (markers_type == "all") {
-      AllMarkers <- BiocParallel::bplapply(
+      AllMarkers <- future.apply::future_lapply(
         levels(cell_group),
         FUN = function(group) {
           cells.1 <- names(cell_group)[which(cell_group == group)]
@@ -2778,8 +2777,8 @@ RunDEtest <- function(
               return(NULL)
             }
           }
-        },
-        BPPARAM = BPPARAM
+        } #,
+        #BPPARAM = BPPARAM
       )
       AllMarkers <- do.call(rbind.data.frame, AllMarkers)
       if (!is.null(AllMarkers) && nrow(AllMarkers) > 0) {
@@ -2813,7 +2812,7 @@ RunDEtest <- function(
     if (markers_type == "paired") {
       pair <- expand.grid(x = levels(cell_group), y = levels(cell_group))
       pair <- pair[pair[, 1] != pair[, 2], , drop = FALSE]
-      PairedMarkers <- bplapply(
+      PairedMarkers <- future.apply::future_lapply(
         seq_len(nrow(pair)),
         function(i) {
           cells.1 <- names(cell_group)[which(cell_group == pair[i, 1])]
@@ -2839,8 +2838,8 @@ RunDEtest <- function(
               return(NULL)
             }
           }
-        },
-        BPPARAM = BPPARAM
+        } #,
+        #BPPARAM = BPPARAM
       )
       PairedMarkers <- do.call(rbind.data.frame, PairedMarkers)
       if (!is.null(PairedMarkers) && nrow(PairedMarkers) > 0) {
@@ -2885,7 +2884,7 @@ RunDEtest <- function(
     }
 
     if (markers_type == "conserved") {
-      ConservedMarkers <- bplapply(
+      ConservedMarkers <- future.apply::future_lapply(
         levels(cell_group),
         FUN = function(group) {
           cells.1 <- names(cell_group)[which(cell_group == group)]
@@ -2916,8 +2915,8 @@ RunDEtest <- function(
               return(NULL)
             }
           }
-        },
-        BPPARAM = BPPARAM
+        } #,
+        #BPPARAM = BPPARAM
       )
       ConservedMarkers <- do.call(
         rbind.data.frame,
@@ -2984,9 +2983,9 @@ RunDEtest <- function(
     }
 
     if (markers_type == "disturbed") {
-      sub_BPPARAM <- SerialParam()
-      bpprogressbar(sub_BPPARAM) <- FALSE
-      DisturbedMarkers <- bplapply(
+      #sub_BPPARAM <- SerialParam()
+      #bpprogressbar(sub_BPPARAM) <- FALSE
+      DisturbedMarkers <- future.apply::future_lapply(
         levels(cell_group),
         FUN = function(group) {
           cells.1 <- names(cell_group)[which(cell_group == group)]
@@ -3038,8 +3037,8 @@ RunDEtest <- function(
               return(NULL)
             }
           }
-        },
-        BPPARAM = BPPARAM
+        } #,
+        #BPPARAM = BPPARAM
       )
       DisturbedMarkers <- do.call(rbind.data.frame, DisturbedMarkers)
       if (!is.null(DisturbedMarkers) && nrow(DisturbedMarkers) > 0) {
@@ -6235,7 +6234,7 @@ RunEnrichment <- function(
     stringsAsFactors = FALSE
   )
 
-  res_list <- bplapply(
+  res_list <- future.apply::future_lapply(
     seq_len(nrow(comb)),
     function(i, id) {
       group <- comb[i, "group"]
@@ -6356,9 +6355,9 @@ RunEnrichment <- function(
         enrich_res <- NULL
       }
       return(enrich_res)
-    },
-    BPPARAM = BPPARAM,
-    id = ipcid()
+    } #,
+    #BPPARAM = BPPARAM,
+    #id = ipcid()
   )
 
   nm <- paste(comb$group, comb$term, sep = "-")
@@ -6669,7 +6668,7 @@ RunGSEA <- function(
     stringsAsFactors = FALSE
   )
 
-  res_list <- bplapply(
+  res_list <- future.apply::future_lapply(
     seq_len(nrow(comb)),
     function(i, id) {
       group <- comb[i, "group"]
@@ -6793,9 +6792,9 @@ RunGSEA <- function(
         enrich_res <- NULL
       }
       return(enrich_res)
-    },
-    BPPARAM = BPPARAM,
-    id = ipcid()
+    } #,
+    #BPPARAM = BPPARAM,
+    #id = ipcid()
   )
 
   nm <- paste(comb$group, comb$term, sep = "-")
@@ -7927,7 +7926,7 @@ RunDynamicFeatures <- function(
 
     message("Calculate dynamic features for ", l, "...")
     system.time({
-      gam_out <- bplapply(
+      gam_out <- future.apply::future_lapply(
         seq_len(nrow(Y_ordered)),
         function(n, Y_ordered, t_ordered, l_libsize, family) {
           feature_nm <- rownames(Y_ordered)[n]
@@ -8020,7 +8019,7 @@ RunDynamicFeatures <- function(
             lwr.values = lwr.values
           ))
         },
-        BPPARAM = BPPARAM,
+        #BPPARAM = BPPARAM,
         Y_ordered = Y_ordered,
         t_ordered = t_ordered,
         l_libsize = l_libsize,
