@@ -18,24 +18,45 @@ theme_scp <- function(aspect.ratio = NULL, base_size = 12, ...) {
   args1 <- list(
     aspect.ratio = aspect.ratio,
     text = element_text(size = 12 * text_size_scale, color = "black"),
-    plot.title = element_text(size = 14 * text_size_scale, colour = "black", vjust = 1),
-    plot.subtitle = element_text(size = 13 * text_size_scale, hjust = 0, margin = margin(b = 3)),
+    plot.title = element_text(
+      size = 14 * text_size_scale,
+      colour = "black",
+      vjust = 1
+    ),
+    plot.subtitle = element_text(
+      size = 13 * text_size_scale,
+      hjust = 0,
+      margin = margin(b = 3)
+    ),
     plot.background = element_rect(fill = "white", color = "white"),
     axis.line = element_blank(),
     axis.title = element_text(size = 13 * text_size_scale, colour = "black"),
     axis.text = element_text(size = 12 * text_size_scale, colour = "black"),
-    strip.text = element_text(size = 12.5 * text_size_scale, colour = "black", hjust = 0.5, margin = margin(3, 3, 3, 3)),
+    strip.text = element_text(
+      size = 12.5 * text_size_scale,
+      colour = "black",
+      hjust = 0.5,
+      margin = margin(3, 3, 3, 3)
+    ),
     strip.background = element_rect(fill = "transparent", linetype = 0),
     strip.switch.pad.grid = unit(-1, "pt"),
     strip.switch.pad.wrap = unit(-1, "pt"),
     strip.placement = "outside",
-    legend.title = element_text(size = 12 * text_size_scale, colour = "black", hjust = 0),
+    legend.title = element_text(
+      size = 12 * text_size_scale,
+      colour = "black",
+      hjust = 0
+    ),
     legend.text = element_text(size = 11 * text_size_scale, colour = "black"),
     legend.key = element_rect(fill = "transparent", color = "transparent"),
     legend.key.size = unit(10, "pt"),
     legend.background = element_blank(),
     panel.background = element_rect(fill = "white", color = "white"),
-    panel.border = element_rect(fill = "transparent", colour = "black", linewidth = 1)
+    panel.border = element_rect(
+      fill = "transparent",
+      colour = "black",
+      linewidth = 1
+    )
   )
   args2 <- as.list(match.call())[-1]
   call.envir <- parent.frame(1)
@@ -81,7 +102,15 @@ theme_scp <- function(aspect.ratio = NULL, base_size = 12, ...) {
 #' @importFrom ggplot2 theme element_blank margin annotation_custom coord_cartesian
 #' @importFrom grid grobTree gList linesGrob textGrob arrow gpar
 #' @export
-theme_blank <- function(add_coord = TRUE, xlen_npc = 0.15, ylen_npc = 0.15, xlab = "", ylab = "", lab_size = 12, ...) {
+theme_blank <- function(
+  add_coord = TRUE,
+  xlen_npc = 0.15,
+  ylen_npc = 0.15,
+  xlab = "",
+  ylab = "",
+  lab_size = 12,
+  ...
+) {
   args1 <- list(
     panel.border = element_blank(),
     panel.grid = element_blank(),
@@ -93,7 +122,13 @@ theme_blank <- function(add_coord = TRUE, xlen_npc = 0.15, ylen_npc = 0.15, xlab
     legend.box.margin = margin(0, 0, 0, 0),
     legend.margin = margin(0, 0, 0, 0),
     legend.key.size = unit(10, "pt"),
-    plot.margin = margin(lab_size + 2, lab_size + 2, lab_size + 2, lab_size + 2, unit = "points")
+    plot.margin = margin(
+      lab_size + 2,
+      lab_size + 2,
+      lab_size + 2,
+      lab_size + 2,
+      unit = "points"
+    )
   )
   args2 <- as.list(match.call())[-1]
   call.envir <- parent.frame(1)
@@ -116,10 +151,35 @@ theme_blank <- function(add_coord = TRUE, xlen_npc = 0.15, ylen_npc = 0.15, xlab
   )
   if (isTRUE(add_coord)) {
     g <- grobTree(gList(
-      linesGrob(x = unit(c(0, xlen_npc), "npc"), y = unit(c(0, 0), "npc"), arrow = arrow(length = unit(0.02, "npc")), gp = gpar(lwd = 2)),
-      textGrob(label = xlab, x = unit(0, "npc"), y = unit(0, "npc"), vjust = 4 / 3, hjust = 0, gp = gpar(fontsize = lab_size)),
-      linesGrob(x = unit(c(0, 0), "npc"), y = unit(c(0, ylen_npc), "npc"), arrow = arrow(length = unit(0.02, "npc")), gp = gpar(lwd = 2)),
-      textGrob(label = ylab, x = unit(0, "npc"), y = unit(0, "npc"), vjust = -2 / 3, hjust = 0, rot = 90, gp = gpar(fontsize = lab_size))
+      linesGrob(
+        x = unit(c(0, xlen_npc), "npc"),
+        y = unit(c(0, 0), "npc"),
+        arrow = arrow(length = unit(0.02, "npc")),
+        gp = gpar(lwd = 2)
+      ),
+      textGrob(
+        label = xlab,
+        x = unit(0, "npc"),
+        y = unit(0, "npc"),
+        vjust = 4 / 3,
+        hjust = 0,
+        gp = gpar(fontsize = lab_size)
+      ),
+      linesGrob(
+        x = unit(c(0, 0), "npc"),
+        y = unit(c(0, ylen_npc), "npc"),
+        arrow = arrow(length = unit(0.02, "npc")),
+        gp = gpar(lwd = 2)
+      ),
+      textGrob(
+        label = ylab,
+        x = unit(0, "npc"),
+        y = unit(0, "npc"),
+        vjust = -2 / 3,
+        hjust = 0,
+        rot = 90,
+        gp = gpar(fontsize = lab_size)
+      )
     ))
     return(list(
       list(annotation_custom(g)),
@@ -165,15 +225,28 @@ theme_blank <- function(add_coord = TRUE, xlen_npc = 0.15, ylen_npc = 0.15, xlab
 #' @importFrom stats setNames
 #' @export
 #'
-palette_scp <- function(x, n = 100, palette = "Paired", palcolor = NULL, type = "auto",
-                        matched = FALSE, reverse = FALSE, NA_keep = FALSE, NA_color = "grey80") {
+palette_scp <- function(
+  x,
+  n = 100,
+  palette = "Paired",
+  palcolor = NULL,
+  type = "auto",
+  matched = FALSE,
+  reverse = FALSE,
+  NA_keep = FALSE,
+  NA_color = "grey80"
+) {
   palette_list <- SCP::palette_list
   if (missing(x)) {
     x <- 1:n
     type <- "continuous"
   }
   if (!palette %in% names(palette_list)) {
-    stop("The palette name (", palette, ") is invalid! You can check the available palette names with 'show_palettes()'. Or pass palette colors via the 'palcolor' parameter.")
+    stop(
+      "The palette name (",
+      palette,
+      ") is invalid! You can check the available palette names with 'show_palettes()'. Or pass palette colors via the 'palcolor' parameter."
+    )
   }
   if (is.list(palcolor)) {
     palcolor <- unlist(palcolor)
@@ -210,7 +283,8 @@ palette_scp <- function(x, n = 100, palette = "Paired", palcolor = NULL, type = 
     if (isTRUE(attr(palcolor, "type") == "continuous")) {
       color <- colorRampPalette(palcolor)(n_x)
     } else {
-      color <- ifelse(rep(n_x, n_x) <= pal_n,
+      color <- ifelse(
+        rep(n_x, n_x) <= pal_n,
         palcolor[1:n_x],
         colorRampPalette(palcolor)(n_x)
       )
@@ -233,14 +307,31 @@ palette_scp <- function(x, n = 100, palette = "Paired", palcolor = NULL, type = 
       values <- as.factor(rep(unique(na.omit(as.numeric(x))), n))
     } else {
       if (isTRUE(matched)) {
-        values <- cut(x, breaks = seq(min(x, na.rm = TRUE), max(x, na.rm = TRUE), length.out = n + 1), include.lowest = TRUE)
+        values <- cut(
+          x,
+          breaks = seq(
+            min(x, na.rm = TRUE),
+            max(x, na.rm = TRUE),
+            length.out = n + 1
+          ),
+          include.lowest = TRUE
+        )
       } else {
-        values <- cut(1:100, breaks = seq(min(x, na.rm = TRUE), max(x, na.rm = TRUE), length.out = n + 1), include.lowest = TRUE)
+        values <- cut(
+          1:100,
+          breaks = seq(
+            min(x, na.rm = TRUE),
+            max(x, na.rm = TRUE),
+            length.out = n + 1
+          ),
+          include.lowest = TRUE
+        )
       }
     }
 
     n_x <- nlevels(values)
-    color <- ifelse(rep(n_x, n_x) <= pal_n,
+    color <- ifelse(
+      rep(n_x, n_x) <= pal_n,
       palcolor[1:n_x],
       colorRampPalette(palcolor)(n_x)
     )
@@ -295,12 +386,21 @@ palette_scp <- function(x, n = 100, palette = "Paired", palcolor = NULL, type = 
 #'
 #' @importFrom ggplot2 ggplot geom_col scale_fill_manual scale_x_continuous element_blank
 #' @export
-show_palettes <- function(palettes = NULL, type = c("discrete", "continuous"), index = NULL, palette_names = NULL, return_names = TRUE, return_palettes = FALSE) {
+show_palettes <- function(
+  palettes = NULL,
+  type = c("discrete", "continuous"),
+  index = NULL,
+  palette_names = NULL,
+  return_names = TRUE,
+  return_palettes = FALSE
+) {
   palette_list <- SCP::palette_list
   if (!is.null(palettes)) {
     palette_list <- palettes
   } else {
-    palette_list <- palette_list[unlist(lapply(palette_list, function(x) isTRUE(attr(x, "type") %in% type)))]
+    palette_list <- palette_list[unlist(lapply(palette_list, function(x) {
+      isTRUE(attr(x, "type") %in% type)
+    }))]
   }
   index <- index[index %in% seq_along(palette_list)]
   if (!is.null(index)) {
@@ -313,16 +413,35 @@ show_palettes <- function(palettes = NULL, type = c("discrete", "continuous"), i
     palette_names <- palette_names %||% names(palette_list)
   }
   if (any(!palette_names %in% names(palette_list))) {
-    stop(paste("Can not find the palettes: ", paste0(palette_names[!palette_names %in% names(palette_list)], collapse = ",")))
+    stop(paste(
+      "Can not find the palettes: ",
+      paste0(
+        palette_names[!palette_names %in% names(palette_list)],
+        collapse = ","
+      )
+    ))
   }
   palette_list <- palette_list[palette_names]
 
-  df <- data.frame(palette = rep(names(palette_list), sapply(palette_list, length)), color = unlist(palette_list))
-  df[["palette"]] <- factor(df[["palette"]], levels = rev(unique(df[["palette"]])))
+  df <- data.frame(
+    palette = rep(names(palette_list), sapply(palette_list, length)),
+    color = unlist(palette_list)
+  )
+  df[["palette"]] <- factor(
+    df[["palette"]],
+    levels = rev(unique(df[["palette"]]))
+  )
   df[["color_order"]] <- factor(seq_len(nrow(df)), levels = seq_len(nrow(df)))
   df[["proportion"]] <- as.numeric(1 / table(df$palette)[df$palette])
 
-  p <- ggplot(data = df, aes(y = .data[["palette"]], x = .data[["proportion"]], fill = .data[["color_order"]])) +
+  p <- ggplot(
+    data = df,
+    aes(
+      y = .data[["palette"]],
+      x = .data[["proportion"]],
+      fill = .data[["color_order"]]
+    )
+  ) +
     geom_col(show.legend = FALSE) +
     scale_fill_manual(values = df[["color"]]) +
     scale_x_continuous(expand = c(0, 0), trans = "reverse") +
@@ -450,10 +569,24 @@ show_palettes <- function(palettes = NULL, type = c("discrete", "continuous"), i
 #' @importFrom grid grob unit convertWidth convertHeight convertUnit is.unit unitType
 #' @export
 #'
-panel_fix <- function(x = NULL, panel_index = NULL, respect = NULL,
-                      width = NULL, height = NULL, margin = 1, padding = 0, units = "in",
-                      raster = FALSE, dpi = 300, BPPARAM = BiocParallel::SerialParam(),
-                      return_grob = FALSE, bg_color = "white", save = NULL, verbose = FALSE, ...) {
+panel_fix <- function(
+  x = NULL,
+  panel_index = NULL,
+  respect = NULL,
+  width = NULL,
+  height = NULL,
+  margin = 1,
+  padding = 0,
+  units = "in",
+  raster = FALSE,
+  dpi = 300,
+  BPPARAM = BiocParallel::SerialParam(),
+  return_grob = FALSE,
+  bg_color = "white",
+  save = NULL,
+  verbose = FALSE,
+  ...
+) {
   if (!inherits(x, "gtable")) {
     tryCatch(
       {
@@ -473,7 +606,11 @@ panel_fix <- function(x = NULL, panel_index = NULL, respect = NULL,
   }
 
   if (is.null(panel_index)) {
-    non_zero <- grep(pattern = "zeroGrob", vapply(gtable$grobs, as.character, character(1)), invert = TRUE)
+    non_zero <- grep(
+      pattern = "zeroGrob",
+      vapply(gtable$grobs, as.character, character(1)),
+      invert = TRUE
+    )
     panel_index <- grep("panel|full", gtable[["layout"]][["name"]])
     panel_index <- intersect(panel_index, non_zero)
   }
@@ -488,19 +625,67 @@ panel_fix <- function(x = NULL, panel_index = NULL, respect = NULL,
         message("panel ", i, " is detected as generated by plot_grid.")
       }
       for (j in geom_index) {
-        subgrob <- gtable$grobs[[i]][["children"]][[j]][["children"]][[1]][["children"]][[1]]
+        subgrob <- gtable$grobs[[i]][["children"]][[j]][["children"]][[1]][[
+          "children"
+        ]][[1]]
         # print(subgrob$grobs[[1]][["children"]])
-        if (length(subgrob$grobs[[1]][["children"]]) > 0 && all(sapply(subgrob$grobs[[1]][["children"]], function(x) inherits(x, "recordedGrob")))) {
-          subgrob <- panel_fix_overall(subgrob$grobs[[1]][["children"]], width = width, height = height, margin = padding, units = units, raster = raster, dpi = dpi, return_grob = TRUE)
+        if (
+          length(subgrob$grobs[[1]][["children"]]) > 0 &&
+            all(sapply(subgrob$grobs[[1]][["children"]], function(x) {
+              inherits(x, "recordedGrob")
+            }))
+        ) {
+          subgrob <- panel_fix_overall(
+            subgrob$grobs[[1]][["children"]],
+            width = width,
+            height = height,
+            margin = padding,
+            units = units,
+            raster = raster,
+            dpi = dpi,
+            return_grob = TRUE
+          )
         } else {
-          subgrob <- panel_fix(subgrob, width = width, height = height, margin = padding, units = units, raster = raster, dpi = dpi, return_grob = TRUE, verbose = verbose, depth = depth + 1)
+          subgrob <- panel_fix(
+            subgrob,
+            width = width,
+            height = height,
+            margin = padding,
+            units = units,
+            raster = raster,
+            dpi = dpi,
+            return_grob = TRUE,
+            verbose = verbose,
+            depth = depth + 1
+          )
         }
-        gtable$grobs[[i]][["children"]][[j]][["children"]][[1]][["children"]][[1]] <- subgrob
+        gtable$grobs[[i]][["children"]][[j]][["children"]][[1]][["children"]][[
+          1
+        ]] <- subgrob
         # print(paste0("plot_width:",plot_width," plot_height:",plot_height))
       }
-      sum_width <- convertWidth(sum(subgrob[["widths"]]), unitTo = units, valueOnly = TRUE) / as.numeric(gtable$grobs[[i]][["children"]][[j]]$vp$width)
-      sum_height <- convertHeight(sum(subgrob[["heights"]]), unitTo = units, valueOnly = TRUE) / as.numeric(gtable$grobs[[i]][["children"]][[j]]$vp$height)
-      gtable <- panel_fix_overall(gtable, panel_index = i, width = sum_width, height = sum_height, margin = ifelse(depth == 1, margin, 0), units = units, raster = FALSE, return_grob = TRUE)
+      sum_width <- convertWidth(
+        sum(subgrob[["widths"]]),
+        unitTo = units,
+        valueOnly = TRUE
+      ) /
+        as.numeric(gtable$grobs[[i]][["children"]][[j]]$vp$width)
+      sum_height <- convertHeight(
+        sum(subgrob[["heights"]]),
+        unitTo = units,
+        valueOnly = TRUE
+      ) /
+        as.numeric(gtable$grobs[[i]][["children"]][[j]]$vp$height)
+      gtable <- panel_fix_overall(
+        gtable,
+        panel_index = i,
+        width = sum_width,
+        height = sum_height,
+        margin = ifelse(depth == 1, margin, 0),
+        units = units,
+        raster = FALSE,
+        return_grob = TRUE
+      )
     } else if (gtable$grobs[[i]]$name == "layout" || inherits(x, "patchwork")) {
       if (isTRUE(verbose)) {
         message("panel ", i, " is detected as generated by patchwork.")
@@ -509,39 +694,118 @@ panel_fix <- function(x = NULL, panel_index = NULL, respect = NULL,
       #   message("More than 2 panels detected. panel_fix may not work as expected.")
       # }
       subgrob <- gtable$grobs[[i]]
-      if (length(subgrob[["children"]]) > 0 && all(sapply(subgrob[["children"]], function(x) inherits(x, "recordedGrob")))) {
-        subgrob <- panel_fix_overall(subgrob[["children"]], width = width, height = height, margin = 0, units = units, raster = raster, dpi = dpi, return_grob = TRUE)
+      if (
+        length(subgrob[["children"]]) > 0 &&
+          all(sapply(subgrob[["children"]], function(x) {
+            inherits(x, "recordedGrob")
+          }))
+      ) {
+        subgrob <- panel_fix_overall(
+          subgrob[["children"]],
+          width = width,
+          height = height,
+          margin = 0,
+          units = units,
+          raster = raster,
+          dpi = dpi,
+          return_grob = TRUE
+        )
       } else {
-        subgrob <- panel_fix(subgrob, width = width, height = height, margin = 0, units = units, raster = raster, dpi = dpi, return_grob = TRUE, verbose = verbose, depth = depth + 1)
+        subgrob <- panel_fix(
+          subgrob,
+          width = width,
+          height = height,
+          margin = 0,
+          units = units,
+          raster = raster,
+          dpi = dpi,
+          return_grob = TRUE,
+          verbose = verbose,
+          depth = depth + 1
+        )
       }
       gtable$grobs[[i]] <- subgrob
       layout <- gtable$layout
-      layout[["rowranges"]] <- lapply(seq_len(nrow(layout)), function(n) layout$t[n]:layout$b[n])
-      layout[["colranges"]] <- lapply(seq_len(nrow(layout)), function(n) layout$l[n]:layout$r[n])
+      layout[["rowranges"]] <- lapply(seq_len(nrow(layout)), function(n) {
+        layout$t[n]:layout$b[n]
+      })
+      layout[["colranges"]] <- lapply(seq_len(nrow(layout)), function(n) {
+        layout$l[n]:layout$r[n]
+      })
       p_row <- c(layout$t[i], layout$b[i])
       p_col <- c(layout$l[i], layout$r[i])
       background_index <- grep("background", layout$name)
-      background_index <- background_index[order(layout$z[background_index], decreasing = TRUE)]
+      background_index <- background_index[order(
+        layout$z[background_index],
+        decreasing = TRUE
+      )]
       for (bgi in background_index) {
-        if (all(p_row %in% layout[["rowranges"]][[bgi]]) && all(p_col %in% layout[["colranges"]][[bgi]])) {
+        if (
+          all(p_row %in% layout[["rowranges"]][[bgi]]) &&
+            all(p_col %in% layout[["colranges"]][[bgi]])
+        ) {
           p_background_index <- bgi
           break
         }
       }
-      gtable <- gtable_add_rows(gtable, heights = unit(padding, units), pos = layout$t[p_background_index] - 1)
-      gtable <- gtable_add_rows(gtable, heights = unit(padding, units), pos = layout$b[p_background_index])
-      gtable <- gtable_add_cols(gtable, widths = unit(padding, units), pos = layout$l[p_background_index] - 1)
-      gtable <- gtable_add_cols(gtable, widths = unit(padding, units), pos = layout$r[p_background_index])
-      sum_width <- convertWidth(sum(subgrob[["widths"]]), unitTo = units, valueOnly = TRUE)
-      sum_height <- convertHeight(sum(subgrob[["heights"]]), unitTo = units, valueOnly = TRUE)
+      gtable <- gtable_add_rows(
+        gtable,
+        heights = unit(padding, units),
+        pos = layout$t[p_background_index] - 1
+      )
+      gtable <- gtable_add_rows(
+        gtable,
+        heights = unit(padding, units),
+        pos = layout$b[p_background_index]
+      )
+      gtable <- gtable_add_cols(
+        gtable,
+        widths = unit(padding, units),
+        pos = layout$l[p_background_index] - 1
+      )
+      gtable <- gtable_add_cols(
+        gtable,
+        widths = unit(padding, units),
+        pos = layout$r[p_background_index]
+      )
+      sum_width <- convertWidth(
+        sum(subgrob[["widths"]]),
+        unitTo = units,
+        valueOnly = TRUE
+      )
+      sum_height <- convertHeight(
+        sum(subgrob[["heights"]]),
+        unitTo = units,
+        valueOnly = TRUE
+      )
 
-      gtable <- panel_fix_overall(gtable, panel_index = i, width = sum_width, height = sum_height, margin = ifelse(depth == 1 & add_margin, margin, 0), units = units, raster = FALSE, respect = TRUE, return_grob = TRUE)
+      gtable <- panel_fix_overall(
+        gtable,
+        panel_index = i,
+        width = sum_width,
+        height = sum_height,
+        margin = ifelse(depth == 1 & add_margin, margin, 0),
+        units = units,
+        raster = FALSE,
+        respect = TRUE,
+        return_grob = TRUE
+      )
       if (depth == 1 & add_margin) {
         add_margin <- FALSE
       }
     } else {
       # print("fix the gtable")
-      gtable <- panel_fix_overall(gtable, panel_index = i, width = width, height = height, margin = margin, units = units, raster = raster, dpi = dpi, return_grob = TRUE)
+      gtable <- panel_fix_overall(
+        gtable,
+        panel_index = i,
+        width = width,
+        height = height,
+        margin = margin,
+        units = units,
+        raster = raster,
+        dpi = dpi,
+        return_grob = TRUE
+      )
     }
   }
 
@@ -552,11 +816,24 @@ panel_fix <- function(x = NULL, panel_index = NULL, respect = NULL,
   if (isTRUE(return_grob)) {
     return(gtable)
   } else {
-    p <- wrap_plots(gtable) + theme(plot.background = element_rect(fill = bg_color, color = bg_color))
+    p <- wrap_plots(gtable) +
+      theme(plot.background = element_rect(fill = bg_color, color = bg_color))
     if (units != "null") {
-      plot_width <- convertWidth(sum(gtable[["widths"]]), unitTo = units, valueOnly = TRUE)
-      plot_height <- convertHeight(sum(gtable[["heights"]]), unitTo = units, valueOnly = TRUE)
-      attr(p, "size") <- list(width = plot_width, height = plot_height, units = units)
+      plot_width <- convertWidth(
+        sum(gtable[["widths"]]),
+        unitTo = units,
+        valueOnly = TRUE
+      )
+      plot_height <- convertHeight(
+        sum(gtable[["heights"]]),
+        unitTo = units,
+        valueOnly = TRUE
+      )
+      attr(p, "size") <- list(
+        width = plot_width,
+        height = plot_height,
+        units = units
+      )
     }
 
     if (!is.null(save) && is.character(save) && nchar(save) > 0) {
@@ -571,7 +848,13 @@ panel_fix <- function(x = NULL, panel_index = NULL, respect = NULL,
         dir.create(dirname(filename), recursive = TRUE, showWarnings = FALSE)
       }
       ggsave(
-        plot = p, filename = filename, width = plot_width, height = plot_height, units = units, dpi = dpi, limitsize = FALSE
+        plot = p,
+        filename = filename,
+        width = plot_width,
+        height = plot_height,
+        units = units,
+        dpi = dpi,
+        limitsize = FALSE
       )
     }
     return(p)
@@ -585,10 +868,22 @@ panel_fix <- function(x = NULL, panel_index = NULL, respect = NULL,
 #' @importFrom patchwork wrap_plots
 #' @importFrom grDevices dev.off
 #' @export
-panel_fix_overall <- function(x, panel_index = NULL, respect = NULL,
-                              width = NULL, height = NULL, margin = 1, units = "in",
-                              raster = FALSE, dpi = 300, BPPARAM = BiocParallel::SerialParam(),
-                              return_grob = FALSE, bg_color = "white", save = NULL, verbose = TRUE) {
+panel_fix_overall <- function(
+  x,
+  panel_index = NULL,
+  respect = NULL,
+  width = NULL,
+  height = NULL,
+  margin = 1,
+  units = "in",
+  raster = FALSE,
+  dpi = 300,
+  BPPARAM = BiocParallel::SerialParam(),
+  return_grob = FALSE,
+  bg_color = "white",
+  save = NULL,
+  verbose = TRUE
+) {
   if (!inherits(x, "gtable")) {
     if (inherits(x, "gTree")) {
       x <- x[["children"]]
@@ -606,15 +901,24 @@ panel_fix_overall <- function(x, panel_index = NULL, respect = NULL,
   }
 
   if (is.null(panel_index)) {
-    non_zero <- grep(pattern = "zeroGrob", vapply(gtable$grobs, as.character, character(1)), invert = TRUE)
+    non_zero <- grep(
+      pattern = "zeroGrob",
+      vapply(gtable$grobs, as.character, character(1)),
+      invert = TRUE
+    )
     panel_index <- grep("panel|full", gtable[["layout"]][["name"]])
     panel_index <- intersect(panel_index, non_zero)
   }
   if (length(panel_index) == 0 && length(gtable$grobs) == 1) {
     panel_index <- 1
   }
-  if (!length(width) %in% c(0, 1, length(panel_index)) || !length(height) %in% c(0, 1, length(panel_index))) {
-    stop("The length of 'width' and 'height' must be 1 or the length of panels.")
+  if (
+    !length(width) %in% c(0, 1, length(panel_index)) ||
+      !length(height) %in% c(0, 1, length(panel_index))
+  ) {
+    stop(
+      "The length of 'width' and 'height' must be 1 or the length of panels."
+    )
   }
 
   if (inherits(x, "gList")) {
@@ -628,21 +932,37 @@ panel_fix_overall <- function(x, panel_index = NULL, respect = NULL,
     w <- h <- list()
     for (i in seq_along(panel_index)) {
       index <- panel_index[i]
-      panel_index_h[[i]] <- sort(unique(c(gtable[["layout"]][["t"]][index], gtable[["layout"]][["b"]][index])))
-      panel_index_w[[i]] <- sort(unique(c(gtable[["layout"]][["l"]][index], gtable[["layout"]][["r"]][index])))
-      w_comp[[i]] <- gtable[["widths"]][seq(min(panel_index_w[[i]]), max(panel_index_w[[i]]))]
-      h_comp[[i]] <- gtable[["heights"]][seq(min(panel_index_h[[i]]), max(panel_index_h[[i]]))]
+      panel_index_h[[i]] <- sort(unique(c(
+        gtable[["layout"]][["t"]][index],
+        gtable[["layout"]][["b"]][index]
+      )))
+      panel_index_w[[i]] <- sort(unique(c(
+        gtable[["layout"]][["l"]][index],
+        gtable[["layout"]][["r"]][index]
+      )))
+      w_comp[[i]] <- gtable[["widths"]][seq(
+        min(panel_index_w[[i]]),
+        max(panel_index_w[[i]])
+      )]
+      h_comp[[i]] <- gtable[["heights"]][seq(
+        min(panel_index_h[[i]]),
+        max(panel_index_h[[i]])
+      )]
 
       if (length(w_comp[[i]]) == 1) {
         w[[i]] <- w_comp[[i]]
-      } else if (length(w_comp[[i]]) > 1 && any(unitType(w_comp[[i]]) == "null")) {
+      } else if (
+        length(w_comp[[i]]) > 1 && any(unitType(w_comp[[i]]) == "null")
+      ) {
         w[[i]] <- unit(1, units = "null")
       } else {
         w[[i]] <- sum(w_comp[[i]])
       }
       if (length(h_comp[[i]]) == 1) {
         h[[i]] <- h_comp[[i]]
-      } else if (length(h_comp[[i]]) > 1 && any(unitType(h_comp[[i]]) == "null")) {
+      } else if (
+        length(h_comp[[i]]) > 1 && any(unitType(h_comp[[i]]) == "null")
+      ) {
         h[[i]] <- unit(1, units = "null")
       } else {
         h[[i]] <- sum(h_comp[[i]])
@@ -653,15 +973,25 @@ panel_fix_overall <- function(x, panel_index = NULL, respect = NULL,
   }
 
   if (units != "null") {
-    raw_w <- sapply(w, function(x) convertWidth(x, unitTo = units, valueOnly = TRUE))
-    raw_h <- sapply(h, function(x) convertHeight(x, unitTo = units, valueOnly = TRUE))
+    raw_w <- sapply(w, function(x) {
+      convertWidth(x, unitTo = units, valueOnly = TRUE)
+    })
+    raw_h <- sapply(h, function(x) {
+      convertHeight(x, unitTo = units, valueOnly = TRUE)
+    })
     for (i in seq_along(w)) {
-      if (unitType(w[[i]]) == "null" || convertUnit(w[[i]], unitTo = "cm", valueOnly = TRUE) < 1e-10) {
+      if (
+        unitType(w[[i]]) == "null" ||
+          convertUnit(w[[i]], unitTo = "cm", valueOnly = TRUE) < 1e-10
+      ) {
         raw_w[i] <- 0
       }
     }
     for (i in seq_along(h)) {
-      if (unitType(h[[i]]) == "null" || convertUnit(h[[i]], unitTo = "cm", valueOnly = TRUE) < 1e-10) {
+      if (
+        unitType(h[[i]]) == "null" ||
+          convertUnit(h[[i]], unitTo = "cm", valueOnly = TRUE) < 1e-10
+      ) {
         raw_h[i] <- 0
       }
     }
@@ -671,7 +1001,8 @@ panel_fix_overall <- function(x, panel_index = NULL, respect = NULL,
       if (all(raw_w != 0) && all(raw_h != 0)) {
         raw_aspect <- raw_h / raw_w
       } else {
-        raw_aspect <- convertHeight(unit(1, "npc"), "cm", valueOnly = TRUE) / convertWidth(unit(1, "npc"), "cm", valueOnly = TRUE)
+        raw_aspect <- convertHeight(unit(1, "npc"), "cm", valueOnly = TRUE) /
+          convertWidth(unit(1, "npc"), "cm", valueOnly = TRUE)
       }
     }
 
@@ -723,11 +1054,17 @@ panel_fix_overall <- function(x, panel_index = NULL, respect = NULL,
   for (i in seq_along(panel_index)) {
     if (!is.null(width)) {
       width_unit <- width[i] / length(w_comp[[i]])
-      gtable[["widths"]][seq(min(panel_index_w[[i]]), max(panel_index_w[[i]]))] <- rep(unit(width_unit, units = units), length(w_comp[[i]]))
+      gtable[["widths"]][seq(
+        min(panel_index_w[[i]]),
+        max(panel_index_w[[i]])
+      )] <- rep(unit(width_unit, units = units), length(w_comp[[i]]))
     }
     if (!is.null(height)) {
       height_unit <- height[i] / length(h_comp[[i]])
-      gtable[["heights"]][seq(min(panel_index_h[[i]]), max(panel_index_h[[i]]))] <- rep(unit(height_unit, units = units), length(h_comp[[i]]))
+      gtable[["heights"]][seq(
+        min(panel_index_h[[i]]),
+        max(panel_index_h[[i]])
+      )] <- rep(unit(height_unit, units = units), length(h_comp[[i]]))
     }
   }
   gtable <- gtable_add_padding(gtable, padding = unit(margin, units = units))
@@ -749,21 +1086,32 @@ panel_fix_overall <- function(x, panel_index = NULL, respect = NULL,
       for (j in seq_along(g[["children"]])) {
         child <- g[["children"]][[j]]
         child_nm <- names(g[["children"]])[j]
-        if (!is.null(child$vp) ||
-          any(grepl("(text)|(label)", child_nm)) ||
-          any(grepl("(text)|(segments)|(legend)", class(child$list[[1]])))) {
+        if (
+          !is.null(child$vp) ||
+            any(grepl("(text)|(label)", child_nm)) ||
+            any(grepl("(text)|(segments)|(legend)", class(child$list[[1]])))
+        ) {
           zero <- zeroGrob()
           zero$name <- g[["children"]][[j]]$name
           g[["children"]][[j]] <- zero
           # child_list[[child_nm]] <- child
           # print(j)
-        } else if (inherits(child$list[[1]], "grob") || is.null(child$list[[1]])) {
+        } else if (
+          inherits(child$list[[1]], "grob") || is.null(child$list[[1]])
+        ) {
           g_new[["children"]][[j]] <- zeroGrob()
           # print(j)
         }
       }
       temp <- tempfile(fileext = "png")
-      ragg::agg_png(temp, width = width[i], height = height[i], bg = "transparent", res = dpi, units = units)
+      ragg::agg_png(
+        temp,
+        width = width[i],
+        height = height[i],
+        bg = "transparent",
+        res = dpi,
+        units = units
+      )
       grid.draw(g)
       dev.off()
       g_ras <- rasterGrob(png::readPNG(temp, native = TRUE))
@@ -785,11 +1133,24 @@ panel_fix_overall <- function(x, panel_index = NULL, respect = NULL,
   if (isTRUE(return_grob)) {
     return(gtable)
   } else {
-    p <- wrap_plots(gtable) + theme(plot.background = element_rect(fill = bg_color, color = bg_color))
+    p <- wrap_plots(gtable) +
+      theme(plot.background = element_rect(fill = bg_color, color = bg_color))
     if (units != "null") {
-      plot_width <- convertWidth(sum(gtable[["widths"]]), unitTo = units, valueOnly = TRUE)
-      plot_height <- convertHeight(sum(gtable[["heights"]]), unitTo = units, valueOnly = TRUE)
-      attr(p, "size") <- list(width = plot_width, height = plot_height, units = units)
+      plot_width <- convertWidth(
+        sum(gtable[["widths"]]),
+        unitTo = units,
+        valueOnly = TRUE
+      )
+      plot_height <- convertHeight(
+        sum(gtable[["heights"]]),
+        unitTo = units,
+        valueOnly = TRUE
+      )
+      attr(p, "size") <- list(
+        width = plot_width,
+        height = plot_height,
+        units = units
+      )
     }
 
     if (!is.null(save) && is.character(save) && nchar(save) > 0) {
@@ -804,8 +1165,13 @@ panel_fix_overall <- function(x, panel_index = NULL, respect = NULL,
         dir.create(dirname(filename), recursive = TRUE, showWarnings = FALSE)
       }
       ggsave(
-        plot = p, filename = filename, width = plot_width, height = plot_height, units = units,
-        dpi = dpi, limitsize = FALSE
+        plot = p,
+        filename = filename,
+        width = plot_width,
+        height = plot_height,
+        units = units,
+        dpi = dpi,
+        limitsize = FALSE
       )
     }
     return(p)
@@ -860,7 +1226,13 @@ drop_data.ggplot <- function(p) {
   vars <- get_vars(p)
   # drop main data
   if (length(p$data) > 0) {
-    vars_modified <- names(which(sapply(p$data[, intersect(colnames(p$data), vars), drop = FALSE], class) == "character"))
+    vars_modified <- names(which(
+      sapply(
+        p$data[, intersect(colnames(p$data), vars), drop = FALSE],
+        class
+      ) ==
+        "character"
+    ))
     for (v in vars_modified) {
       p$data[[v]] <- as.factor(p$data[[v]])
     }
@@ -870,7 +1242,16 @@ drop_data.ggplot <- function(p) {
   # drop layer data
   for (i in seq_along(p$layers)) {
     if (length(p$layers[[i]]$data) > 0) {
-      vars_modified <- names(which(sapply(p$layers[[i]]$data[, intersect(colnames(p$layers[[i]]$data), vars), drop = FALSE], class) == "character"))
+      vars_modified <- names(which(
+        sapply(
+          p$layers[[i]]$data[,
+            intersect(colnames(p$layers[[i]]$data), vars),
+            drop = FALSE
+          ],
+          class
+        ) ==
+          "character"
+      ))
       for (v in vars_modified) {
         p$layers[[i]]$data[[v]] <- as.factor(p$layers[[i]]$data[[v]])
       }
@@ -929,7 +1310,10 @@ slim_data.ggplot <- function(p) {
     p$data <- p$data[, intersect(colnames(p$data), vars), drop = FALSE]
     for (i in seq_along(p$layers)) {
       if (length(p$layers[[i]]$data) > 0) {
-        p$layers[[i]]$data <- p$layers[[i]]$data[, intersect(colnames(p$layers[[i]]$data), vars), drop = FALSE]
+        p$layers[[i]]$data <- p$layers[[i]]$data[,
+          intersect(colnames(p$layers[[i]]$data), vars),
+          drop = FALSE
+        ]
       }
     }
   }
@@ -965,14 +1349,28 @@ get_vars <- function(p, reverse, verbose = FALSE) {
     as.character(p$mapping),
     unlist(lapply(p$layers, function(x) as.character(x$mapping))),
     unlist(lapply(p$layers, function(x) names(p$layers[[1]]$aes_params))),
-    names(p$facet$params$facets), names(p$facet$params$rows), names(p$facet$params$cols)
+    names(p$facet$params$facets),
+    names(p$facet$params$rows),
+    names(p$facet$params$cols)
   )
-  vars <- unique(unlist(strsplit(gsub("[~\\[\\]\\\"\\(\\)]", " ", unique(mappings), perl = TRUE), " ")))
-  vars_used <- intersect(unique(c(colnames(p$data), unlist(lapply(p$layers, function(x) colnames(x$data))))), vars)
+  vars <- unique(unlist(strsplit(
+    gsub("[~\\[\\]\\\"\\(\\)]", " ", unique(mappings), perl = TRUE),
+    " "
+  )))
+  vars_used <- intersect(
+    unique(c(
+      colnames(p$data),
+      unlist(lapply(p$layers, function(x) colnames(x$data)))
+    )),
+    vars
+  )
   if (verbose) {
     message(
-      "vars_used: ", paste0(vars_used, collapse = ","), "\n",
-      "vars_notused: ", paste0(setdiff(names(p$data), vars), collapse = ",")
+      "vars_used: ",
+      paste0(vars_used, collapse = ","),
+      "\n",
+      "vars_notused: ",
+      paste0(setdiff(names(p$data), vars), collapse = ",")
     )
   }
   return(vars_used)
@@ -1023,7 +1421,10 @@ adjcolors <- function(colors, alpha) {
 #' show_palettes(list("blend" = blend, "average" = average, "screen" = screen, "multiply" = multiply))
 #'
 #' @export
-blendcolors <- function(colors, mode = c("blend", "average", "screen", "multiply")) {
+blendcolors <- function(
+  colors,
+  mode = c("blend", "average", "screen", "multiply")
+) {
   mode <- match.arg(mode)
   colors <- colors[!is.na(colors)]
   if (length(colors) == 0) {
@@ -1084,7 +1485,14 @@ BlendRGBList <- function(Clist, mode = "blend", RGB_BackGround = c(1, 1, 1)) {
       a1 <- C[[2]]
       c2 <- temp[[length(temp)]][[1]]
       a2 <- temp[[length(temp)]][[2]]
-      ClistUse <- append(ClistUse, list(Blend2Color(C1 = list(c1, a1 * (1 - 1 / N)), C2 = list(c2, a2 * 1 / N), mode = mode)))
+      ClistUse <- append(
+        ClistUse,
+        list(Blend2Color(
+          C1 = list(c1, a1 * (1 - 1 / N)),
+          C2 = list(c2, a2 * 1 / N),
+          mode = mode
+        ))
+      )
     }
     N <- length(ClistUse)
   }
@@ -1325,37 +1733,128 @@ BlendRGBList <- function(Clist, mode = "blend", RGB_BackGround = c(1, 1, 1)) {
 #' @importFrom utils askYesNo
 #' @export
 #'
-CellDimPlot <- function(srt, group.by, reduction = NULL, dims = c(1, 2), split.by = NULL, cells = NULL,
-                        show_na = FALSE, show_stat = ifelse(identical(theme_use, "theme_blank"), FALSE, TRUE),
-                        pt.size = NULL, pt.alpha = 1, palette = "Paired", palcolor = NULL, bg_color = "grey80",
-                        label = FALSE, label.size = 4, label.fg = "white", label.bg = "black", label.bg.r = 0.1,
-                        label_insitu = FALSE, label_repel = FALSE, label_repulsion = 20,
-                        label_point_size = 1, label_point_color = "black", label_segment_color = "black",
-                        cells.highlight = NULL, cols.highlight = "black", sizes.highlight = 1, alpha.highlight = 1, stroke.highlight = 0.5,
-                        add_density = FALSE, density_color = "grey80", density_filled = FALSE, density_filled_palette = "Greys", density_filled_palcolor = NULL,
-                        add_mark = FALSE, mark_type = c("hull", "ellipse", "rect", "circle"), mark_expand = unit(3, "mm"), mark_alpha = 0.1, mark_linetype = 1,
-                        lineages = NULL, lineages_trim = c(0.01, 0.99), lineages_span = 0.75,
-                        lineages_palette = "Dark2", lineages_palcolor = NULL, lineages_arrow = arrow(length = unit(0.1, "inches")),
-                        lineages_linewidth = 1, lineages_line_bg = "white", lineages_line_bg_stroke = 0.5,
-                        lineages_whiskers = FALSE, lineages_whiskers_linewidth = 0.5, lineages_whiskers_alpha = 0.5,
-                        stat.by = NULL, stat_type = "percent", stat_plot_type = "pie", stat_plot_position = c("stack", "dodge"), stat_plot_size = 0.15,
-                        stat_plot_palette = "Set1", stat_palcolor = NULL, stat_plot_alpha = 1, stat_plot_label = FALSE, stat_plot_label_size = 3,
-                        graph = NULL, edge_size = c(0.05, 0.5), edge_alpha = 0.1, edge_color = "grey40",
-                        paga = NULL, paga_type = "connectivities", paga_node_size = 4,
-                        paga_edge_threshold = 0.01, paga_edge_size = c(0.2, 1), paga_edge_color = "grey40", paga_edge_alpha = 0.5,
-                        paga_transition_threshold = 0.01, paga_transition_size = c(0.2, 1), paga_transition_color = "black", paga_transition_alpha = 1, paga_show_transition = FALSE,
-                        velocity = NULL, velocity_plot_type = "raw", velocity_n_neighbors = ceiling(ncol(srt@assays[[1]]) / 50),
-                        velocity_density = 1, velocity_smooth = 0.5, velocity_scale = 1, velocity_min_mass = 1, velocity_cutoff_perc = 5,
-                        velocity_arrow_color = "black", velocity_arrow_angle = 20,
-                        streamline_L = 5, streamline_minL = 1, streamline_res = 1, streamline_n = 15,
-                        streamline_width = c(0, 0.8), streamline_alpha = 1, streamline_color = NULL, streamline_palette = "RdYlBu", streamline_palcolor = NULL,
-                        streamline_bg_color = "white", streamline_bg_stroke = 0.5,
-                        hex = FALSE, hex.linewidth = 0.5, hex.count = TRUE, hex.bins = 50, hex.binwidth = NULL,
-                        raster = NULL, raster.dpi = c(512, 512),
-                        aspect.ratio = 1, title = NULL, subtitle = NULL, xlab = NULL, ylab = NULL,
-                        legend.position = "right", legend.direction = "vertical",
-                        theme_use = "theme_scp", theme_args = list(),
-                        combine = TRUE, nrow = NULL, ncol = NULL, byrow = TRUE, force = FALSE, seed = 11) {
+CellDimPlot <- function(
+  srt,
+  group.by,
+  reduction = NULL,
+  dims = c(1, 2),
+  split.by = NULL,
+  cells = NULL,
+  show_na = FALSE,
+  show_stat = ifelse(identical(theme_use, "theme_blank"), FALSE, TRUE),
+  pt.size = NULL,
+  pt.alpha = 1,
+  palette = "Paired",
+  palcolor = NULL,
+  bg_color = "grey80",
+  label = FALSE,
+  label.size = 4,
+  label.fg = "white",
+  label.bg = "black",
+  label.bg.r = 0.1,
+  label_insitu = FALSE,
+  label_repel = FALSE,
+  label_repulsion = 20,
+  label_point_size = 1,
+  label_point_color = "black",
+  label_segment_color = "black",
+  cells.highlight = NULL,
+  cols.highlight = "black",
+  sizes.highlight = 1,
+  alpha.highlight = 1,
+  stroke.highlight = 0.5,
+  add_density = FALSE,
+  density_color = "grey80",
+  density_filled = FALSE,
+  density_filled_palette = "Greys",
+  density_filled_palcolor = NULL,
+  add_mark = FALSE,
+  mark_type = c("hull", "ellipse", "rect", "circle"),
+  mark_expand = unit(3, "mm"),
+  mark_alpha = 0.1,
+  mark_linetype = 1,
+  lineages = NULL,
+  lineages_trim = c(0.01, 0.99),
+  lineages_span = 0.75,
+  lineages_palette = "Dark2",
+  lineages_palcolor = NULL,
+  lineages_arrow = arrow(length = unit(0.1, "inches")),
+  lineages_linewidth = 1,
+  lineages_line_bg = "white",
+  lineages_line_bg_stroke = 0.5,
+  lineages_whiskers = FALSE,
+  lineages_whiskers_linewidth = 0.5,
+  lineages_whiskers_alpha = 0.5,
+  stat.by = NULL,
+  stat_type = "percent",
+  stat_plot_type = "pie",
+  stat_plot_position = c("stack", "dodge"),
+  stat_plot_size = 0.15,
+  stat_plot_palette = "Set1",
+  stat_palcolor = NULL,
+  stat_plot_alpha = 1,
+  stat_plot_label = FALSE,
+  stat_plot_label_size = 3,
+  graph = NULL,
+  edge_size = c(0.05, 0.5),
+  edge_alpha = 0.1,
+  edge_color = "grey40",
+  paga = NULL,
+  paga_type = "connectivities",
+  paga_node_size = 4,
+  paga_edge_threshold = 0.01,
+  paga_edge_size = c(0.2, 1),
+  paga_edge_color = "grey40",
+  paga_edge_alpha = 0.5,
+  paga_transition_threshold = 0.01,
+  paga_transition_size = c(0.2, 1),
+  paga_transition_color = "black",
+  paga_transition_alpha = 1,
+  paga_show_transition = FALSE,
+  velocity = NULL,
+  velocity_plot_type = "raw",
+  velocity_n_neighbors = ceiling(ncol(srt@assays[[1]]) / 50),
+  velocity_density = 1,
+  velocity_smooth = 0.5,
+  velocity_scale = 1,
+  velocity_min_mass = 1,
+  velocity_cutoff_perc = 5,
+  velocity_arrow_color = "black",
+  velocity_arrow_angle = 20,
+  streamline_L = 5,
+  streamline_minL = 1,
+  streamline_res = 1,
+  streamline_n = 15,
+  streamline_width = c(0, 0.8),
+  streamline_alpha = 1,
+  streamline_color = NULL,
+  streamline_palette = "RdYlBu",
+  streamline_palcolor = NULL,
+  streamline_bg_color = "white",
+  streamline_bg_stroke = 0.5,
+  hex = FALSE,
+  hex.linewidth = 0.5,
+  hex.count = TRUE,
+  hex.bins = 50,
+  hex.binwidth = NULL,
+  raster = NULL,
+  raster.dpi = c(512, 512),
+  aspect.ratio = 1,
+  title = NULL,
+  subtitle = NULL,
+  xlab = NULL,
+  ylab = NULL,
+  legend.position = "right",
+  legend.direction = "vertical",
+  theme_use = "theme_scp",
+  theme_args = list(),
+  combine = TRUE,
+  nrow = NULL,
+  ncol = NULL,
+  byrow = TRUE,
+  force = FALSE,
+  seed = 11
+) {
   set.seed(seed)
   mark_type <- match.arg(mark_type)
 
@@ -1368,7 +1867,10 @@ CellDimPlot <- function(srt, group.by, reduction = NULL, dims = c(1, 2), split.b
       stop(paste0(i, " is not in the meta.data of srt object."))
     }
     if (!is.factor(srt@meta.data[[i]])) {
-      srt@meta.data[[i]] <- factor(srt@meta.data[[i]], levels = unique(srt@meta.data[[i]]))
+      srt@meta.data[[i]] <- factor(
+        srt@meta.data[[i]],
+        levels = unique(srt@meta.data[[i]])
+      )
     }
     if (isTRUE(show_na) && any(is.na(srt@meta.data[[i]]))) {
       raw_levels <- unique(c(levels(srt@meta.data[[i]]), "NA"))
@@ -1401,7 +1903,10 @@ CellDimPlot <- function(srt, group.by, reduction = NULL, dims = c(1, 2), split.b
       stop("No cells in 'cells.highlight' found in srt.")
     }
     if (!all(cells.highlight %in% colnames(srt@assays[[1]]))) {
-      warning("Some cells in 'cells.highlight' not found in srt.", immediate. = TRUE)
+      warning(
+        "Some cells in 'cells.highlight' not found in srt.",
+        immediate. = TRUE
+      )
     }
     cells.highlight <- intersect(cells.highlight, colnames(srt@assays[[1]]))
   }
@@ -1410,7 +1915,11 @@ CellDimPlot <- function(srt, group.by, reduction = NULL, dims = c(1, 2), split.b
   nlev <- sapply(dat_meta, nlevels)
   nlev <- nlev[nlev > 100]
   if (length(nlev) > 0 && !isTRUE(force)) {
-    warning(paste(names(nlev), sep = ","), " have more than 100 levels.", immediate. = TRUE)
+    warning(
+      paste(names(nlev), sep = ","),
+      " have more than 100 levels.",
+      immediate. = TRUE
+    )
     answer <- askYesNo("Are you sure to continue?", default = FALSE)
     if (!isTRUE(answer)) {
       return(invisible(NULL))
@@ -1438,67 +1947,146 @@ CellDimPlot <- function(srt, group.by, reduction = NULL, dims = c(1, 2), split.b
     }
   }
   if (!is.null(stat.by)) {
-    subplots <- CellStatPlot(srt,
+    subplots <- CellStatPlot(
+      srt,
       cells = cells,
-      stat.by = stat.by, group.by = group.by, split.by = split.by,
-      stat_type = stat_type, plot_type = stat_plot_type, position = stat_plot_position,
-      palette = stat_plot_palette, palcolor = stat_palcolor, alpha = stat_plot_alpha,
-      label = stat_plot_label, label.size = stat_plot_label_size,
-      legend.position = "bottom", legend.direction = legend.direction,
-      theme_use = theme_use, theme_args = theme_args,
-      individual = TRUE, combine = FALSE
+      stat.by = stat.by,
+      group.by = group.by,
+      split.by = split.by,
+      stat_type = stat_type,
+      plot_type = stat_plot_type,
+      position = stat_plot_position,
+      palette = stat_plot_palette,
+      palcolor = stat_palcolor,
+      alpha = stat_plot_alpha,
+      label = stat_plot_label,
+      label.size = stat_plot_label_size,
+      legend.position = "bottom",
+      legend.direction = legend.direction,
+      theme_use = theme_use,
+      theme_args = theme_args,
+      individual = TRUE,
+      combine = FALSE
     )
   }
   if (!is.null(lineages)) {
-    lineages_layers <- LineagePlot(srt,
+    lineages_layers <- LineagePlot(
+      srt,
       cells = cells,
-      lineages = lineages, reduction = reduction, dims = dims,
-      trim = lineages_trim, span = lineages_span,
-      palette = lineages_palette, palcolor = lineages_palcolor, lineages_arrow = lineages_arrow,
-      linewidth = lineages_linewidth, line_bg = lineages_line_bg, line_bg_stroke = lineages_line_bg_stroke,
-      whiskers = lineages_whiskers, whiskers_linewidth = lineages_whiskers_linewidth, whiskers_alpha = lineages_whiskers_alpha,
-      aspect.ratio = aspect.ratio, title = title, subtitle = subtitle, xlab = xlab, ylab = ylab,
-      legend.position = "bottom", legend.direction = legend.direction,
-      theme_use = theme_use, theme_args = theme_args,
+      lineages = lineages,
+      reduction = reduction,
+      dims = dims,
+      trim = lineages_trim,
+      span = lineages_span,
+      palette = lineages_palette,
+      palcolor = lineages_palcolor,
+      lineages_arrow = lineages_arrow,
+      linewidth = lineages_linewidth,
+      line_bg = lineages_line_bg,
+      line_bg_stroke = lineages_line_bg_stroke,
+      whiskers = lineages_whiskers,
+      whiskers_linewidth = lineages_whiskers_linewidth,
+      whiskers_alpha = lineages_whiskers_alpha,
+      aspect.ratio = aspect.ratio,
+      title = title,
+      subtitle = subtitle,
+      xlab = xlab,
+      ylab = ylab,
+      legend.position = "bottom",
+      legend.direction = legend.direction,
+      theme_use = theme_use,
+      theme_args = theme_args,
       return_layer = TRUE
     )
-    lineages_layers <- lineages_layers[!names(lineages_layers) %in% c("lab_layer", "theme_layer")]
+    lineages_layers <- lineages_layers[
+      !names(lineages_layers) %in% c("lab_layer", "theme_layer")
+    ]
   }
   if (!is.null(paga)) {
     if (split.by != "All.groups") {
       stop("paga can only plot on the non-split data")
     }
-    paga_layers <- PAGAPlot(srt,
+    paga_layers <- PAGAPlot(
+      srt,
       cells = cells,
-      paga = paga, type = paga_type, reduction = reduction, dims = dims,
-      node_palette = palette, node_palcolor = palcolor, node_size = paga_node_size,
-      edge_threshold = paga_edge_threshold, edge_size = paga_edge_size, edge_color = paga_edge_color, edge_alpha = paga_edge_alpha,
-      transition_threshold = paga_transition_threshold, transition_size = paga_transition_size, transition_color = paga_transition_color, transition_alpha = paga_transition_alpha, show_transition = paga_show_transition,
-      aspect.ratio = aspect.ratio, title = title, subtitle = subtitle, xlab = xlab, ylab = ylab,
-      legend.position = "bottom", legend.direction = legend.direction,
-      theme_use = theme_use, theme_args = theme_args,
+      paga = paga,
+      type = paga_type,
+      reduction = reduction,
+      dims = dims,
+      node_palette = palette,
+      node_palcolor = palcolor,
+      node_size = paga_node_size,
+      edge_threshold = paga_edge_threshold,
+      edge_size = paga_edge_size,
+      edge_color = paga_edge_color,
+      edge_alpha = paga_edge_alpha,
+      transition_threshold = paga_transition_threshold,
+      transition_size = paga_transition_size,
+      transition_color = paga_transition_color,
+      transition_alpha = paga_transition_alpha,
+      show_transition = paga_show_transition,
+      aspect.ratio = aspect.ratio,
+      title = title,
+      subtitle = subtitle,
+      xlab = xlab,
+      ylab = ylab,
+      legend.position = "bottom",
+      legend.direction = legend.direction,
+      theme_use = theme_use,
+      theme_args = theme_args,
       return_layer = TRUE
     )
-    paga_layers <- paga_layers[!names(paga_layers) %in% c("lab_layer", "theme_layer")]
+    paga_layers <- paga_layers[
+      !names(paga_layers) %in% c("lab_layer", "theme_layer")
+    ]
   }
   if (!is.null(velocity)) {
     if (split.by != "All.groups") {
       stop("velocity can only plot on the non-split data")
     }
-    velocity_layers <- VelocityPlot(srt,
+    velocity_layers <- VelocityPlot(
+      srt,
       cells = cells,
-      reduction = reduction, dims = dims, velocity = velocity, plot_type = velocity_plot_type, group_by = group.by, group_palette = palette, group_palcolor = palcolor,
-      n_neighbors = velocity_n_neighbors, density = velocity_density, smooth = velocity_smooth, scale = velocity_scale, min_mass = velocity_min_mass, cutoff_perc = velocity_cutoff_perc,
-      arrow_color = velocity_arrow_color, arrow_angle = velocity_arrow_angle,
-      streamline_L = streamline_L, streamline_minL = streamline_minL, streamline_res = streamline_res, streamline_n = streamline_n,
-      streamline_width = streamline_width, streamline_alpha = streamline_alpha, streamline_color = streamline_color, streamline_palette = streamline_palette, streamline_palcolor = streamline_palcolor,
-      streamline_bg_color = streamline_bg_color, streamline_bg_stroke = streamline_bg_stroke,
-      aspect.ratio = aspect.ratio, title = title, subtitle = subtitle, xlab = xlab, ylab = ylab,
-      legend.position = "bottom", legend.direction = legend.direction,
-      theme_use = theme_void, theme_args = theme_args,
+      reduction = reduction,
+      dims = dims,
+      velocity = velocity,
+      plot_type = velocity_plot_type,
+      group_by = group.by,
+      group_palette = palette,
+      group_palcolor = palcolor,
+      n_neighbors = velocity_n_neighbors,
+      density = velocity_density,
+      smooth = velocity_smooth,
+      scale = velocity_scale,
+      min_mass = velocity_min_mass,
+      cutoff_perc = velocity_cutoff_perc,
+      arrow_color = velocity_arrow_color,
+      arrow_angle = velocity_arrow_angle,
+      streamline_L = streamline_L,
+      streamline_minL = streamline_minL,
+      streamline_res = streamline_res,
+      streamline_n = streamline_n,
+      streamline_width = streamline_width,
+      streamline_alpha = streamline_alpha,
+      streamline_color = streamline_color,
+      streamline_palette = streamline_palette,
+      streamline_palcolor = streamline_palcolor,
+      streamline_bg_color = streamline_bg_color,
+      streamline_bg_stroke = streamline_bg_stroke,
+      aspect.ratio = aspect.ratio,
+      title = title,
+      subtitle = subtitle,
+      xlab = xlab,
+      ylab = ylab,
+      legend.position = "bottom",
+      legend.direction = legend.direction,
+      theme_use = theme_void,
+      theme_args = theme_args,
       return_layer = TRUE
     )
-    velocity_layers <- velocity_layers[!names(velocity_layers) %in% c("lab_layer", "theme_layer")]
+    velocity_layers <- velocity_layers[
+      !names(velocity_layers) %in% c("lab_layer", "theme_layer")
+    ]
   }
   plist <- list()
   xlab <- xlab %||% paste0(reduction_key, dims[1])
@@ -1508,12 +2096,21 @@ CellDimPlot <- function(srt, group.by, reduction = NULL, dims = c(1, 2), split.b
     theme_args[["ylab"]] <- ylab
   }
 
-  comb <- expand.grid(split = levels(dat_use[[split.by]]), group = group.by, stringsAsFactors = FALSE)
+  comb <- expand.grid(
+    split = levels(dat_use[[split.by]]),
+    group = group.by,
+    stringsAsFactors = FALSE
+  )
   rownames(comb) <- paste0(comb[["split"]], ":", comb[["group"]])
   plist <- lapply(setNames(rownames(comb), rownames(comb)), function(i) {
     g <- comb[i, "group"]
     s <- comb[i, "split"]
-    colors <- palette_scp(levels(dat_use[[g]]), palette = palette, palcolor = palcolor, NA_keep = TRUE)
+    colors <- palette_scp(
+      levels(dat_use[[g]]),
+      palette = palette,
+      palcolor = palcolor,
+      NA_keep = TRUE
+    )
     dat <- dat_use
     cells_mask <- dat[[split.by]] != s
     # dat[[split.by]] <- NULL
@@ -1534,7 +2131,14 @@ CellDimPlot <- function(srt, group.by, reduction = NULL, dims = c(1, 2), split.b
     } else {
       if (isTRUE(label)) {
         if (isTRUE(show_stat)) {
-          label_use <- paste0(seq_along(labels_tb), ": ", names(labels_tb), "(", labels_tb, ")")
+          label_use <- paste0(
+            seq_along(labels_tb),
+            ": ",
+            names(labels_tb),
+            "(",
+            labels_tb,
+            ")"
+          )
         } else {
           label_use <- paste0(seq_along(labels_tb), ": ", names(labels_tb))
         }
@@ -1550,18 +2154,28 @@ CellDimPlot <- function(srt, group.by, reduction = NULL, dims = c(1, 2), split.b
     dat[["y"]] <- dat[[paste0(reduction_key, dims[2])]]
     dat[["group.by"]] <- dat[[g]]
     dat[, "split.by"] <- s
-    dat <- dat[order(dat[, "group.by"], decreasing = FALSE, na.last = FALSE), , drop = FALSE]
+    dat <- dat[
+      order(dat[, "group.by"], decreasing = FALSE, na.last = FALSE),
+      ,
+      drop = FALSE
+    ]
     naindex <- which(is.na(dat[, "group.by"]))
     naindex <- ifelse(length(naindex) > 0, max(naindex), 1)
-    dat <- dat[c(1:naindex, sample((min(naindex + 1, nrow(dat))):nrow(dat))), , drop = FALSE]
+    dat <- dat[
+      c(1:naindex, sample((min(naindex + 1, nrow(dat))):nrow(dat))),
+      ,
+      drop = FALSE
+    ]
     if (isTRUE(show_stat)) {
-      subtitle_use <- subtitle %||% paste0(s, " nCells:", sum(!is.na(dat[["group.by"]])))
+      subtitle_use <- subtitle %||%
+        paste0(s, " nCells:", sum(!is.na(dat[["group.by"]])))
     } else {
       subtitle_use <- subtitle
     }
 
     if (isTRUE(add_mark)) {
-      mark_fun <- switch(mark_type,
+      mark_fun <- switch(
+        mark_type,
         "ellipse" = "geom_mark_ellipse",
         "hull" = "geom_mark_hull",
         "rect" = "geom_mark_rect",
@@ -1572,8 +2186,17 @@ CellDimPlot <- function(srt, group.by, reduction = NULL, dims = c(1, 2), split.b
           mark_fun,
           list(
             data = dat[!is.na(dat[["group.by"]]), , drop = FALSE],
-            mapping = aes(x = .data[["x"]], y = .data[["y"]], color = .data[["group.by"]], fill = .data[["group.by"]]),
-            expand = mark_expand, alpha = mark_alpha, linetype = mark_linetype, show.legend = FALSE, inherit.aes = FALSE
+            mapping = aes(
+              x = .data[["x"]],
+              y = .data[["y"]],
+              color = .data[["group.by"]],
+              fill = .data[["group.by"]]
+            ),
+            expand = mark_expand,
+            alpha = mark_alpha,
+            linetype = mark_linetype,
+            show.legend = FALSE,
+            inherit.aes = FALSE
           ),
         ),
         scale_fill_manual(values = colors[names(labels_tb)]),
@@ -1599,8 +2222,17 @@ CellDimPlot <- function(srt, group.by, reduction = NULL, dims = c(1, 2), split.b
       net_df[, "yend"] <- dat[net_df[, "Var2"], "y"]
       net <- list(
         geom_segment(
-          data = net_df, mapping = aes(x = x, y = y, xend = xend, yend = yend, linewidth = value),
-          color = edge_color, alpha = edge_alpha, show.legend = FALSE
+          data = net_df,
+          mapping = aes(
+            x = x,
+            y = y,
+            xend = xend,
+            yend = yend,
+            linewidth = value
+          ),
+          color = edge_color,
+          alpha = edge_alpha,
+          show.legend = FALSE
         ),
         scale_linewidth_continuous(range = edge_size)
       )
@@ -1610,18 +2242,27 @@ CellDimPlot <- function(srt, group.by, reduction = NULL, dims = c(1, 2), split.b
 
     if (isTRUE(add_density)) {
       if (isTRUE(density_filled)) {
-        filled_color <- palette_scp(palette = density_filled_palette, palcolor = density_filled_palcolor)
+        filled_color <- palette_scp(
+          palette = density_filled_palette,
+          palcolor = density_filled_palcolor
+        )
         density <- list(
           stat_density_2d(
-            geom = "raster", aes(x = .data[["x"]], y = .data[["y"]], fill = after_stat(density)),
-            contour = FALSE, inherit.aes = FALSE, show.legend = FALSE
+            geom = "raster",
+            aes(x = .data[["x"]], y = .data[["y"]], fill = after_stat(density)),
+            contour = FALSE,
+            inherit.aes = FALSE,
+            show.legend = FALSE
           ),
           scale_fill_gradientn(name = "Density", colours = filled_color),
           new_scale_fill()
         )
       } else {
-        density <- geom_density_2d(aes(x = .data[["x"]], y = .data[["y"]]),
-          color = density_color, inherit.aes = FALSE, show.legend = FALSE
+        density <- geom_density_2d(
+          aes(x = .data[["x"]], y = .data[["y"]]),
+          color = density_color,
+          inherit.aes = FALSE,
+          show.legend = FALSE
         )
       }
     } else {
@@ -1633,8 +2274,18 @@ CellDimPlot <- function(srt, group.by, reduction = NULL, dims = c(1, 2), split.b
       net +
       density +
       labs(title = title, subtitle = subtitle_use, x = xlab, y = ylab) +
-      scale_x_continuous(limits = c(min(dat_dim[, paste0(reduction_key, dims[1])], na.rm = TRUE), max(dat_dim[, paste0(reduction_key, dims[1])], na.rm = TRUE))) +
-      scale_y_continuous(limits = c(min(dat_dim[, paste0(reduction_key, dims[2])], na.rm = TRUE), max(dat_dim[, paste0(reduction_key, dims[2])], na.rm = TRUE))) +
+      scale_x_continuous(
+        limits = c(
+          min(dat_dim[, paste0(reduction_key, dims[1])], na.rm = TRUE),
+          max(dat_dim[, paste0(reduction_key, dims[1])], na.rm = TRUE)
+        )
+      ) +
+      scale_y_continuous(
+        limits = c(
+          min(dat_dim[, paste0(reduction_key, dims[2])], na.rm = TRUE),
+          max(dat_dim[, paste0(reduction_key, dims[2])], na.rm = TRUE)
+        )
+      ) +
       do.call(theme_use, theme_args) +
       theme(
         aspect.ratio = aspect.ratio,
@@ -1646,83 +2297,146 @@ CellDimPlot <- function(srt, group.by, reduction = NULL, dims = c(1, 2), split.b
     }
 
     if (isTRUE(raster)) {
-      p <- p + scattermore::geom_scattermore(
-        data = dat[is.na(dat[, "group.by"]), , drop = FALSE],
-        mapping = aes(x = .data[["x"]], y = .data[["y"]]), color = bg_color,
-        pointsize = ceiling(pt.size), alpha = pt.alpha, pixels = raster.dpi
-      ) + scattermore::geom_scattermore(
-        data = dat[!is.na(dat[, "group.by"]), , drop = FALSE],
-        mapping = aes(x = .data[["x"]], y = .data[["y"]], color = .data[["group.by"]]),
-        pointsize = ceiling(pt.size), alpha = pt.alpha, pixels = raster.dpi
-      )
+      p <- p +
+        scattermore::geom_scattermore(
+          data = dat[is.na(dat[, "group.by"]), , drop = FALSE],
+          mapping = aes(x = .data[["x"]], y = .data[["y"]]),
+          color = bg_color,
+          pointsize = ceiling(pt.size),
+          alpha = pt.alpha,
+          pixels = raster.dpi
+        ) +
+        scattermore::geom_scattermore(
+          data = dat[!is.na(dat[, "group.by"]), , drop = FALSE],
+          mapping = aes(
+            x = .data[["x"]],
+            y = .data[["y"]],
+            color = .data[["group.by"]]
+          ),
+          pointsize = ceiling(pt.size),
+          alpha = pt.alpha,
+          pixels = raster.dpi
+        )
     } else if (isTRUE(hex)) {
       check_R("hexbin")
       if (isTRUE(hex.count)) {
-        p <- p + geom_hex(
-          mapping = aes(x = .data[["x"]], y = .data[["y"]], fill = .data[["group.by"]], color = .data[["group.by"]], alpha = after_stat(count)),
-          linewidth = hex.linewidth, bins = hex.bins, binwidth = hex.binwidth
-        )
+        p <- p +
+          geom_hex(
+            mapping = aes(
+              x = .data[["x"]],
+              y = .data[["y"]],
+              fill = .data[["group.by"]],
+              color = .data[["group.by"]],
+              alpha = after_stat(count)
+            ),
+            linewidth = hex.linewidth,
+            bins = hex.bins,
+            binwidth = hex.binwidth
+          )
       } else {
-        p <- p + geom_hex(
-          mapping = aes(x = .data[["x"]], y = .data[["y"]], fill = .data[["group.by"]], color = .data[["group.by"]]),
-          linewidth = hex.linewidth, bins = hex.bins, binwidth = hex.binwidth
-        )
+        p <- p +
+          geom_hex(
+            mapping = aes(
+              x = .data[["x"]],
+              y = .data[["y"]],
+              fill = .data[["group.by"]],
+              color = .data[["group.by"]]
+            ),
+            linewidth = hex.linewidth,
+            bins = hex.bins,
+            binwidth = hex.binwidth
+          )
       }
     } else {
-      p <- p + geom_point(
-        mapping = aes(x = .data[["x"]], y = .data[["y"]], color = .data[["group.by"]], fill = .data[["group.by"]]),
-        size = pt.size, alpha = pt.alpha
-      )
+      p <- p +
+        geom_point(
+          mapping = aes(
+            x = .data[["x"]],
+            y = .data[["y"]],
+            color = .data[["group.by"]],
+            fill = .data[["group.by"]]
+          ),
+          size = pt.size,
+          alpha = pt.alpha
+        )
     }
 
     if (!is.null(cells.highlight_use) && !isTRUE(hex)) {
       cell_df <- subset(p$data, rownames(p$data) %in% cells.highlight_use)
       if (nrow(cell_df) > 0) {
         if (isTRUE(raster)) {
-          p <- p + scattermore::geom_scattermore(
-            data = cell_df, aes(x = .data[["x"]], y = .data[["y"]]), color = cols.highlight,
-            pointsize = floor(sizes.highlight) + stroke.highlight, alpha = alpha.highlight, pixels = raster.dpi
-          ) +
+          p <- p +
             scattermore::geom_scattermore(
-              data = cell_df, aes(x = .data[["x"]], y = .data[["y"]], color = .data[["group.by"]]),
-              pointsize = floor(sizes.highlight), alpha = alpha.highlight, pixels = raster.dpi
+              data = cell_df,
+              aes(x = .data[["x"]], y = .data[["y"]]),
+              color = cols.highlight,
+              pointsize = floor(sizes.highlight) + stroke.highlight,
+              alpha = alpha.highlight,
+              pixels = raster.dpi
+            ) +
+            scattermore::geom_scattermore(
+              data = cell_df,
+              aes(
+                x = .data[["x"]],
+                y = .data[["y"]],
+                color = .data[["group.by"]]
+              ),
+              pointsize = floor(sizes.highlight),
+              alpha = alpha.highlight,
+              pixels = raster.dpi
             )
         } else {
-          p <- p + geom_point(
-            data = cell_df, aes(x = .data[["x"]], y = .data[["y"]]), color = cols.highlight,
-            size = sizes.highlight + stroke.highlight, alpha = alpha.highlight
-          ) +
+          p <- p +
             geom_point(
-              data = cell_df, aes(x = .data[["x"]], y = .data[["y"]], color = .data[["group.by"]]),
-              size = sizes.highlight, alpha = alpha.highlight
+              data = cell_df,
+              aes(x = .data[["x"]], y = .data[["y"]]),
+              color = cols.highlight,
+              size = sizes.highlight + stroke.highlight,
+              alpha = alpha.highlight
+            ) +
+            geom_point(
+              data = cell_df,
+              aes(
+                x = .data[["x"]],
+                y = .data[["y"]],
+                color = .data[["group.by"]]
+              ),
+              size = sizes.highlight,
+              alpha = alpha.highlight
             )
         }
       }
     }
-    p <- p + scale_color_manual(
-      name = paste0(g, ":"),
-      values = colors[names(labels_tb)],
-      labels = label_use,
-      na.value = bg_color,
-      guide = guide_legend(
-        title.hjust = 0,
-        order = 1,
-        override.aes = list(size = 4, alpha = 1)
+    p <- p +
+      scale_color_manual(
+        name = paste0(g, ":"),
+        values = colors[names(labels_tb)],
+        labels = label_use,
+        na.value = bg_color,
+        guide = guide_legend(
+          title.hjust = 0,
+          order = 1,
+          override.aes = list(size = 4, alpha = 1)
+        )
+      ) +
+      scale_fill_manual(
+        name = paste0(g, ":"),
+        values = colors[names(labels_tb)],
+        labels = label_use,
+        na.value = bg_color,
+        guide = guide_legend(
+          title.hjust = 0,
+          order = 1
+        )
       )
-    ) + scale_fill_manual(
-      name = paste0(g, ":"),
-      values = colors[names(labels_tb)],
-      labels = label_use,
-      na.value = bg_color,
-      guide = guide_legend(
-        title.hjust = 0,
-        order = 1
-      )
-    )
     p_base <- p
 
     if (!is.null(stat.by)) {
-      coor_df <- aggregate(p$data[, c("x", "y")], by = list(p$data[["group.by"]]), FUN = median)
+      coor_df <- aggregate(
+        p$data[, c("x", "y")],
+        by = list(p$data[["group.by"]]),
+        FUN = median
+      )
       colnames(coor_df)[1] <- "group"
       x_range <- diff(layer_scales(p)$x$range$range)
       y_range <- diff(layer_scales(p)$y$range$range)
@@ -1731,23 +2445,34 @@ CellDimPlot <- function(srt, group.by, reduction = NULL, dims = c(1, 2), split.b
 
       stat_plot_list <- list()
       for (i in seq_len(nrow(coor_df))) {
-        stat_plot_list[[i]] <- annotation_custom(as_grob(stat_plot[[coor_df[i, "group"]]] + theme_void() + theme(legend.position = "none")),
-          xmin = coor_df[i, "x"] - x_range * stat_plot_size / 2, ymin = coor_df[i, "y"] - y_range * stat_plot_size / 2,
-          xmax = coor_df[i, "x"] + x_range * stat_plot_size / 2, ymax = coor_df[i, "y"] + y_range * stat_plot_size / 2
+        stat_plot_list[[i]] <- annotation_custom(
+          as_grob(
+            stat_plot[[coor_df[i, "group"]]] +
+              theme_void() +
+              theme(legend.position = "none")
+          ),
+          xmin = coor_df[i, "x"] - x_range * stat_plot_size / 2,
+          ymin = coor_df[i, "y"] - y_range * stat_plot_size / 2,
+          xmax = coor_df[i, "x"] + x_range * stat_plot_size / 2,
+          ymax = coor_df[i, "y"] + y_range * stat_plot_size / 2
         )
       }
       p <- p + stat_plot_list
-      legend_list[["stat.by"]] <- ggpubr::get_legend(stat_plot[[coor_df[i, "group"]]] + theme(legend.position = "bottom"))
+      legend_list[["stat.by"]] <- ggpubr::get_legend(
+        stat_plot[[coor_df[i, "group"]]] + theme(legend.position = "bottom")
+      )
     }
     if (!is.null(lineages)) {
       lineages_layers <- c(list(new_scale_color()), lineages_layers)
       suppressMessages({
-        legend_list[["lineages"]] <- ggpubr::get_legend(ggplot() +
-          lineages_layers +
-          theme_scp(
-            legend.position = "bottom",
-            legend.direction = legend.direction
-          ))
+        legend_list[["lineages"]] <- ggpubr::get_legend(
+          ggplot() +
+            lineages_layers +
+            theme_scp(
+              legend.position = "bottom",
+              legend.direction = legend.direction
+            )
+        )
       })
       p <- suppressWarnings({
         p + lineages_layers + theme(legend.position = "none")
@@ -1760,12 +2485,14 @@ CellDimPlot <- function(srt, group.by, reduction = NULL, dims = c(1, 2), split.b
       paga_layers <- c(list(new_scale_color()), paga_layers)
       if (g != paga$groups) {
         suppressMessages({
-          legend_list[["paga"]] <- ggpubr::get_legend(ggplot() +
-            paga_layers +
-            theme_scp(
-              legend.position = "bottom",
-              legend.direction = legend.direction
-            ))
+          legend_list[["paga"]] <- ggpubr::get_legend(
+            ggplot() +
+              paga_layers +
+              theme_scp(
+                legend.position = "bottom",
+                legend.direction = legend.direction
+              )
+          )
         })
       }
       p <- suppressWarnings({
@@ -1776,15 +2503,21 @@ CellDimPlot <- function(srt, group.by, reduction = NULL, dims = c(1, 2), split.b
       }
     }
     if (!is.null(velocity)) {
-      velocity_layers <- c(list(new_scale_color()), list(new_scale("size")), velocity_layers)
+      velocity_layers <- c(
+        list(new_scale_color()),
+        list(new_scale("size")),
+        velocity_layers
+      )
       if (velocity_plot_type != "raw") {
         suppressMessages({
-          legend_list[["velocity"]] <- ggpubr::get_legend(ggplot() +
-            velocity_layers +
-            theme_scp(
-              legend.position = "bottom",
-              legend.direction = legend.direction
-            ))
+          legend_list[["velocity"]] <- ggpubr::get_legend(
+            ggplot() +
+              velocity_layers +
+              theme_scp(
+                legend.position = "bottom",
+                legend.direction = legend.direction
+              )
+          )
         })
       }
       p <- suppressWarnings({
@@ -1795,37 +2528,67 @@ CellDimPlot <- function(srt, group.by, reduction = NULL, dims = c(1, 2), split.b
       }
     }
     if (isTRUE(label)) {
-      label_df <- aggregate(p$data[, c("x", "y")], by = list(p$data[["group.by"]]), FUN = median)
+      label_df <- aggregate(
+        p$data[, c("x", "y")],
+        by = list(p$data[["group.by"]]),
+        FUN = median
+      )
       colnames(label_df)[1] <- "label"
       label_df <- label_df[!is.na(label_df[, "label"]), , drop = FALSE]
       if (!isTRUE(label_insitu)) {
         label_df[, "label"] <- seq_len(nrow(label_df))
       }
       if (isTRUE(label_repel)) {
-        p <- p + geom_point(
-          data = label_df, mapping = aes(x = .data[["x"]], y = .data[["y"]]),
-          color = label_point_color, size = label_point_size
-        ) + geom_text_repel(
-          data = label_df, aes(x = .data[["x"]], y = .data[["y"]], label = .data[["label"]]),
-          fontface = "bold", min.segment.length = 0, segment.color = label_segment_color,
-          point.size = label_point_size, max.overlaps = 100, force = label_repulsion,
-          color = label.fg, bg.color = label.bg, bg.r = label.bg.r, size = label.size, inherit.aes = FALSE
-        )
+        p <- p +
+          geom_point(
+            data = label_df,
+            mapping = aes(x = .data[["x"]], y = .data[["y"]]),
+            color = label_point_color,
+            size = label_point_size
+          ) +
+          geom_text_repel(
+            data = label_df,
+            aes(x = .data[["x"]], y = .data[["y"]], label = .data[["label"]]),
+            fontface = "bold",
+            min.segment.length = 0,
+            segment.color = label_segment_color,
+            point.size = label_point_size,
+            max.overlaps = 100,
+            force = label_repulsion,
+            color = label.fg,
+            bg.color = label.bg,
+            bg.r = label.bg.r,
+            size = label.size,
+            inherit.aes = FALSE
+          )
       } else {
-        p <- p + geom_text_repel(
-          data = label_df, aes(x = .data[["x"]], y = .data[["y"]], label = .data[["label"]]),
-          fontface = "bold", min.segment.length = 0, segment.color = label_segment_color,
-          point.size = NA, max.overlaps = 100, force = 0,
-          color = label.fg, bg.color = label.bg, bg.r = label.bg.r, size = label.size, inherit.aes = FALSE
-        )
+        p <- p +
+          geom_text_repel(
+            data = label_df,
+            aes(x = .data[["x"]], y = .data[["y"]], label = .data[["label"]]),
+            fontface = "bold",
+            min.segment.length = 0,
+            segment.color = label_segment_color,
+            point.size = NA,
+            max.overlaps = 100,
+            force = 0,
+            color = label.fg,
+            bg.color = label.bg,
+            bg.r = label.bg.r,
+            size = label.size,
+            inherit.aes = FALSE
+          )
       }
     }
     if (length(legend_list) > 0) {
       legend_list <- legend_list[!sapply(legend_list, is.null)]
-      legend_base <- ggpubr::get_legend(p_base + theme_scp(
-        legend.position = "bottom",
-        legend.direction = legend.direction
-      ))
+      legend_base <- ggpubr::get_legend(
+        p_base +
+          theme_scp(
+            legend.position = "bottom",
+            legend.direction = legend.direction
+          )
+      )
       if (legend.direction == "vertical") {
         legend <- do.call(cbind, c(list(base = legend_base), legend_list))
       } else {
@@ -1840,7 +2603,12 @@ CellDimPlot <- function(srt, group.by, reduction = NULL, dims = c(1, 2), split.b
 
   if (isTRUE(combine)) {
     if (length(plist) > 1) {
-      plot <- wrap_plots(plotlist = plist, nrow = nrow, ncol = ncol, byrow = byrow)
+      plot <- wrap_plots(
+        plotlist = plist,
+        nrow = nrow,
+        ncol = ncol,
+        byrow = byrow
+      )
     } else {
       plot <- plist[[1]]
     }
@@ -2039,28 +2807,90 @@ CellDimPlot <- function(srt, group.by, reduction = NULL, dims = c(1, 2), split.b
 #' @importFrom methods slot
 #' @importFrom reshape2 melt
 #' @export
-FeatureDimPlot <- function(srt, features, reduction = NULL, dims = c(1, 2), split.by = NULL, cells = NULL, layer = "data", assay = NULL,
-                           show_stat = ifelse(identical(theme_use, "theme_blank"), FALSE, TRUE),
-                           palette = ifelse(isTRUE(compare_features), "Set1", "Spectral"), palcolor = NULL,
-                           pt.size = NULL, pt.alpha = 1, bg_cutoff = 0, bg_color = "grey80",
-                           keep_scale = "feature", lower_quantile = 0, upper_quantile = 0.99, lower_cutoff = NULL, upper_cutoff = NULL,
-                           add_density = FALSE, density_color = "grey80", density_filled = FALSE, density_filled_palette = "Greys", density_filled_palcolor = NULL,
-                           cells.highlight = NULL, cols.highlight = "black", sizes.highlight = 1, alpha.highlight = 1, stroke.highlight = 0.5,
-                           calculate_coexp = FALSE, compare_features = FALSE, color_blend_mode = c("blend", "average", "screen", "multiply"),
-                           label = FALSE, label.size = 4, label.fg = "white", label.bg = "black", label.bg.r = 0.1,
-                           label_insitu = FALSE, label_repel = FALSE, label_repulsion = 20,
-                           label_point_size = 1, label_point_color = "black", label_segment_color = "black",
-                           lineages = NULL, lineages_trim = c(0.01, 0.99), lineages_span = 0.75,
-                           lineages_palette = "Dark2", lineages_palcolor = NULL, lineages_arrow = arrow(length = unit(0.1, "inches")),
-                           lineages_linewidth = 1, lineages_line_bg = "white", lineages_line_bg_stroke = 0.5,
-                           lineages_whiskers = FALSE, lineages_whiskers_linewidth = 0.5, lineages_whiskers_alpha = 0.5,
-                           graph = NULL, edge_size = c(0.05, 0.5), edge_alpha = 0.1, edge_color = "grey40",
-                           hex = FALSE, hex.linewidth = 0.5, hex.color = "grey90", hex.bins = 50, hex.binwidth = NULL,
-                           raster = NULL, raster.dpi = c(512, 512),
-                           aspect.ratio = 1, title = NULL, subtitle = NULL, xlab = NULL, ylab = NULL,
-                           legend.position = "right", legend.direction = "vertical",
-                           theme_use = "theme_scp", theme_args = list(),
-                           combine = TRUE, nrow = NULL, ncol = NULL, byrow = TRUE, force = FALSE, seed = 11) {
+FeatureDimPlot <- function(
+  srt,
+  features,
+  reduction = NULL,
+  dims = c(1, 2),
+  split.by = NULL,
+  cells = NULL,
+  layer = "data",
+  assay = NULL,
+  show_stat = ifelse(identical(theme_use, "theme_blank"), FALSE, TRUE),
+  palette = ifelse(isTRUE(compare_features), "Set1", "Spectral"),
+  palcolor = NULL,
+  pt.size = NULL,
+  pt.alpha = 1,
+  bg_cutoff = 0,
+  bg_color = "grey80",
+  keep_scale = "feature",
+  lower_quantile = 0,
+  upper_quantile = 0.99,
+  lower_cutoff = NULL,
+  upper_cutoff = NULL,
+  add_density = FALSE,
+  density_color = "grey80",
+  density_filled = FALSE,
+  density_filled_palette = "Greys",
+  density_filled_palcolor = NULL,
+  cells.highlight = NULL,
+  cols.highlight = "black",
+  sizes.highlight = 1,
+  alpha.highlight = 1,
+  stroke.highlight = 0.5,
+  calculate_coexp = FALSE,
+  compare_features = FALSE,
+  color_blend_mode = c("blend", "average", "screen", "multiply"),
+  label = FALSE,
+  label.size = 4,
+  label.fg = "white",
+  label.bg = "black",
+  label.bg.r = 0.1,
+  label_insitu = FALSE,
+  label_repel = FALSE,
+  label_repulsion = 20,
+  label_point_size = 1,
+  label_point_color = "black",
+  label_segment_color = "black",
+  lineages = NULL,
+  lineages_trim = c(0.01, 0.99),
+  lineages_span = 0.75,
+  lineages_palette = "Dark2",
+  lineages_palcolor = NULL,
+  lineages_arrow = arrow(length = unit(0.1, "inches")),
+  lineages_linewidth = 1,
+  lineages_line_bg = "white",
+  lineages_line_bg_stroke = 0.5,
+  lineages_whiskers = FALSE,
+  lineages_whiskers_linewidth = 0.5,
+  lineages_whiskers_alpha = 0.5,
+  graph = NULL,
+  edge_size = c(0.05, 0.5),
+  edge_alpha = 0.1,
+  edge_color = "grey40",
+  hex = FALSE,
+  hex.linewidth = 0.5,
+  hex.color = "grey90",
+  hex.bins = 50,
+  hex.binwidth = NULL,
+  raster = NULL,
+  raster.dpi = c(512, 512),
+  aspect.ratio = 1,
+  title = NULL,
+  subtitle = NULL,
+  xlab = NULL,
+  ylab = NULL,
+  legend.position = "right",
+  legend.direction = "vertical",
+  theme_use = "theme_scp",
+  theme_args = list(),
+  combine = TRUE,
+  nrow = NULL,
+  ncol = NULL,
+  byrow = TRUE,
+  force = FALSE,
+  seed = 11
+) {
   set.seed(seed)
   color_blend_mode <- match.arg(color_blend_mode)
   if (!is.null(keep_scale)) {
@@ -2071,7 +2901,10 @@ FeatureDimPlot <- function(srt, features, reduction = NULL, dims = c(1, 2), spli
     if (is.null(names(features))) {
       features <- unlist(features)
     } else {
-      features <- setNames(unlist(features), nm = rep(names(features), sapply(features, length)))
+      features <- setNames(
+        unlist(features),
+        nm = rep(names(features), sapply(features, length))
+      )
     }
   }
   if (!inherits(features, "character")) {
@@ -2088,7 +2921,10 @@ FeatureDimPlot <- function(srt, features, reduction = NULL, dims = c(1, 2), spli
       stop(paste0(i, " is not in the meta.data of srt object."))
     }
     if (!is.factor(srt@meta.data[[i]])) {
-      srt@meta.data[[i]] <- factor(srt@meta.data[[i]], levels = unique(srt@meta.data[[i]]))
+      srt@meta.data[[i]] <- factor(
+        srt@meta.data[[i]],
+        levels = unique(srt@meta.data[[i]])
+      )
     }
   }
   for (l in lineages) {
@@ -2115,7 +2951,10 @@ FeatureDimPlot <- function(srt, features, reduction = NULL, dims = c(1, 2), spli
       stop("No cells in 'cells.highlight' found in srt.")
     }
     if (!all(cells.highlight %in% colnames(srt@assays[[1]]))) {
-      warning("Some cells in 'cells.highlight' not found in srt.", immediate. = TRUE)
+      warning(
+        "Some cells in 'cells.highlight' not found in srt.",
+        immediate. = TRUE
+      )
     }
     cells.highlight <- intersect(cells.highlight, colnames(srt@assays[[1]]))
   }
@@ -2123,10 +2962,24 @@ FeatureDimPlot <- function(srt, features, reduction = NULL, dims = c(1, 2), spli
   feature_input <- features
   features <- unique(features)
   embeddings <- lapply(srt@reductions, function(x) colnames(x@cell.embeddings))
-  embeddings <- setNames(rep(names(embeddings), sapply(embeddings, length)), nm = unlist(embeddings))
-  features_drop <- features[!features %in% c(rownames(srt@assays[[assay]]), colnames(srt@meta.data), names(embeddings))]
+  embeddings <- setNames(
+    rep(names(embeddings), sapply(embeddings, length)),
+    nm = unlist(embeddings)
+  )
+  features_drop <- features[
+    !features %in%
+      c(
+        rownames(srt@assays[[assay]]),
+        colnames(srt@meta.data),
+        names(embeddings)
+      )
+  ]
   if (length(features_drop) > 0) {
-    warning(paste0(features_drop, collapse = ","), " are not in the features of srt.", immediate. = TRUE)
+    warning(
+      paste0(features_drop, collapse = ","),
+      " are not in the features of srt.",
+      immediate. = TRUE
+    )
     features <- features[!features %in% features_drop]
   }
 
@@ -2134,7 +2987,10 @@ FeatureDimPlot <- function(srt, features, reduction = NULL, dims = c(1, 2), spli
   features_meta <- features[features %in% colnames(srt@meta.data)]
   features_embedding <- features[features %in% names(embeddings)]
   if (length(intersect(features_gene, features_meta)) > 0) {
-    warning("Features appear in both gene names and metadata names: ", paste0(intersect(features_gene, features_meta), collapse = ","))
+    warning(
+      "Features appear in both gene names and metadata names: ",
+      paste0(intersect(features_gene, features_meta), collapse = ",")
+    )
   }
   if (length(c(features_gene, features_meta, features_embedding)) == 0) {
     stop("There are no valid features present.")
@@ -2142,14 +2998,34 @@ FeatureDimPlot <- function(srt, features, reduction = NULL, dims = c(1, 2), spli
 
   if (isTRUE(calculate_coexp) && length(features_gene) > 0) {
     if (length(features_meta) > 0) {
-      warning(paste(features_meta, collapse = ","), "is not used when calculating co-expression", immediate. = TRUE)
+      warning(
+        paste(features_meta, collapse = ","),
+        "is not used when calculating co-expression",
+        immediate. = TRUE
+      )
     }
     status <- check_DataType(srt, layer = layer, assay = assay)
     message("Data type detected in ", layer, " layer: ", status)
     if (status %in% c("raw_counts", "raw_normalized_counts")) {
-      srt@meta.data[["CoExp"]] <- apply(LayerData(srt@assays[[assay]], layer = layer)[features_gene, , drop = FALSE], 2, function(x) exp(mean(log(x))))
+      srt@meta.data[["CoExp"]] <- apply(
+        LayerData(srt@assays[[assay]], layer = layer)[
+          features_gene,
+          ,
+          drop = FALSE
+        ],
+        2,
+        function(x) exp(mean(log(x)))
+      )
     } else if (status == "log_normalized_counts") {
-      srt@meta.data[["CoExp"]] <- apply(expm1(LayerData(srt@assays[[assay]], layer = layer)[features_gene, , drop = FALSE]), 2, function(x) log1p(exp(mean(log(x)))))
+      srt@meta.data[["CoExp"]] <- apply(
+        expm1(LayerData(srt@assays[[assay]], layer = layer)[
+          features_gene,
+          ,
+          drop = FALSE
+        ]),
+        2,
+        function(x) log1p(exp(mean(log(x))))
+      )
     } else {
       stop("Can not determine the data type.")
     }
@@ -2161,7 +3037,11 @@ FeatureDimPlot <- function(srt, features, reduction = NULL, dims = c(1, 2), spli
     if (all(rownames(srt@assays[[assay]]) %in% features_gene)) {
       dat_gene <- t(as_matrix(LayerData(srt@assays[[assay]], layer = layer)))
     } else {
-      dat_gene <- t(as_matrix(LayerData(srt@assays[[assay]], layer = layer)[features_gene, , drop = FALSE]))
+      dat_gene <- t(as_matrix(LayerData(srt@assays[[assay]], layer = layer)[
+        features_gene,
+        ,
+        drop = FALSE
+      ]))
     }
   } else {
     dat_gene <- matrix(nrow = ncol(srt@assays[[1]]), ncol = 0)
@@ -2177,7 +3057,9 @@ FeatureDimPlot <- function(srt, features, reduction = NULL, dims = c(1, 2), spli
     dat_embedding <- matrix(nrow = ncol(srt@assays[[1]]), ncol = 0)
   }
   dat_exp <- as_matrix(do.call(cbind, list(dat_gene, dat_meta, dat_embedding)))
-  features <- unique(features[features %in% c(features_gene, features_meta, features_embedding)])
+  features <- unique(features[
+    features %in% c(features_gene, features_meta, features_embedding)
+  ])
 
   if (!is.numeric(dat_exp) && !inherits(dat_exp, "Matrix")) {
     stop("'features' must be type of numeric variable.")
@@ -2202,7 +3084,11 @@ FeatureDimPlot <- function(srt, features, reduction = NULL, dims = c(1, 2), spli
     } else if (length(subtitle) == length(features)) {
       subtitle <- setNames(subtitle, nm = features)
     } else {
-      stop(paste0("Subtitle length must be 1 or length of features(", length(features), ")"))
+      stop(paste0(
+        "Subtitle length must be 1 or length of features(",
+        length(features),
+        ")"
+      ))
     }
   }
 
@@ -2230,18 +3116,34 @@ FeatureDimPlot <- function(srt, features, reduction = NULL, dims = c(1, 2), spli
   }
 
   if (!is.null(lineages)) {
-    lineages_layers <- LineagePlot(srt,
-      lineages = lineages, reduction = reduction, dims = dims,
-      trim = lineages_trim, span = lineages_span,
-      palette = lineages_palette, palcolor = lineages_palcolor, lineages_arrow = lineages_arrow,
-      linewidth = lineages_linewidth, line_bg = lineages_line_bg, line_bg_stroke = lineages_line_bg_stroke,
-      whiskers = lineages_whiskers, whiskers_linewidth = lineages_whiskers_linewidth, whiskers_alpha = lineages_whiskers_alpha,
-      aspect.ratio = aspect.ratio, xlab = xlab, ylab = ylab,
-      legend.position = legend.position, legend.direction = legend.direction,
-      theme_use = theme_use, theme_args = theme_args,
+    lineages_layers <- LineagePlot(
+      srt,
+      lineages = lineages,
+      reduction = reduction,
+      dims = dims,
+      trim = lineages_trim,
+      span = lineages_span,
+      palette = lineages_palette,
+      palcolor = lineages_palcolor,
+      lineages_arrow = lineages_arrow,
+      linewidth = lineages_linewidth,
+      line_bg = lineages_line_bg,
+      line_bg_stroke = lineages_line_bg_stroke,
+      whiskers = lineages_whiskers,
+      whiskers_linewidth = lineages_whiskers_linewidth,
+      whiskers_alpha = lineages_whiskers_alpha,
+      aspect.ratio = aspect.ratio,
+      xlab = xlab,
+      ylab = ylab,
+      legend.position = legend.position,
+      legend.direction = legend.direction,
+      theme_use = theme_use,
+      theme_args = theme_args,
       return_layer = TRUE
     )
-    lineages_layers <- lineages_layers[!names(lineages_layers) %in% c("lab_layer", "theme_layer")]
+    lineages_layers <- lineages_layers[
+      !names(lineages_layers) %in% c("lab_layer", "theme_layer")
+    ]
   }
 
   plist <- list()
@@ -2253,14 +3155,25 @@ FeatureDimPlot <- function(srt, features, reduction = NULL, dims = c(1, 2), spli
   }
 
   if (isTRUE(compare_features) && length(features) > 1) {
-    dat_all <- cbind(dat_use, dat_exp[row.names(dat_use), features, drop = FALSE])
+    dat_all <- cbind(
+      dat_use,
+      dat_exp[row.names(dat_use), features, drop = FALSE]
+    )
     dat_split <- split.data.frame(dat_all, dat_all[[split.by]])
     plist <- lapply(levels(dat_sp[[split.by]]), function(s) {
-      dat <- dat_split[[ifelse(split.by == "All.groups", 1, s)]][, , drop = FALSE]
+      dat <- dat_split[[ifelse(split.by == "All.groups", 1, s)]][,,
+        drop = FALSE
+      ]
       for (f in features) {
         if (any(is.infinite(dat[, f]))) {
-          dat[, f][which(dat[, f] == max(dat[, f], na.rm = TRUE))] <- max(dat[, f][is.finite(dat[, f])], na.rm = TRUE)
-          dat[, f][which(dat[, f] == min(dat[, f], na.rm = TRUE))] <- min(dat[, f][is.finite(dat[, f])], na.rm = TRUE)
+          dat[, f][which(dat[, f] == max(dat[, f], na.rm = TRUE))] <- max(
+            dat[, f][is.finite(dat[, f])],
+            na.rm = TRUE
+          )
+          dat[, f][which(dat[, f] == min(dat[, f], na.rm = TRUE))] <- min(
+            dat[, f][is.finite(dat[, f])],
+            na.rm = TRUE
+          )
         }
       }
       dat[["x"]] <- dat[[paste0(reduction_key, dims[1])]]
@@ -2268,35 +3181,88 @@ FeatureDimPlot <- function(srt, features, reduction = NULL, dims = c(1, 2), spli
       dat[, "split.by"] <- s
       dat[, "features"] <- paste(features, collapse = "|")
       subtitle_use <- paste0(subtitle, collapse = "|") %||% s
-      colors <- palette_scp(features, type = "discrete", palette = palette, palcolor = palcolor)
+      colors <- palette_scp(
+        features,
+        type = "discrete",
+        palette = palette,
+        palcolor = palcolor
+      )
       colors_list <- list()
       value_list <- list()
       pal_list <- list()
       temp_geom <- list()
       legend_list <- list()
       for (i in seq_along(colors)) {
-        colors_list[[i]] <- palette_scp(dat[, names(colors)[i]], type = "continuous", NA_color = NA, NA_keep = TRUE, matched = TRUE, palcolor = c(adjcolors(colors[i], 0.1), colors[i]))
-        pal_list[[i]] <- palette_scp(dat[, names(colors)[i]], type = "continuous", NA_color = NA, NA_keep = FALSE, matched = FALSE, palcolor = c(adjcolors(colors[i], 0.1), colors[i]))
-        value_list[[i]] <- seq(min(dat[, names(colors)[i]], na.rm = TRUE), max(dat[, names(colors)[i]], na.rm = TRUE), length.out = 100)
+        colors_list[[i]] <- palette_scp(
+          dat[, names(colors)[i]],
+          type = "continuous",
+          NA_color = NA,
+          NA_keep = TRUE,
+          matched = TRUE,
+          palcolor = c(adjcolors(colors[i], 0.1), colors[i])
+        )
+        pal_list[[i]] <- palette_scp(
+          dat[, names(colors)[i]],
+          type = "continuous",
+          NA_color = NA,
+          NA_keep = FALSE,
+          matched = FALSE,
+          palcolor = c(adjcolors(colors[i], 0.1), colors[i])
+        )
+        value_list[[i]] <- seq(
+          min(dat[, names(colors)[i]], na.rm = TRUE),
+          max(dat[, names(colors)[i]], na.rm = TRUE),
+          length.out = 100
+        )
         temp_geom[[i]] <- list(
-          geom_point(data = dat, mapping = aes(x = .data[["x"]], y = .data[["y"]], color = .data[[names(colors)[i]]]))
+          geom_point(
+            data = dat,
+            mapping = aes(
+              x = .data[["x"]],
+              y = .data[["y"]],
+              color = .data[[names(colors)[i]]]
+            )
+          )
         )
         if (all(is.na(colors_list[[i]]))) {
-          temp_geom[[i]] <- append(temp_geom[[i]], scale_colour_gradient(
-            na.value = bg_color,
-            guide = guide_colorbar(frame.colour = "black", ticks.colour = "black", title.hjust = 0)
-          ))
+          temp_geom[[i]] <- append(
+            temp_geom[[i]],
+            scale_colour_gradient(
+              na.value = bg_color,
+              guide = guide_colorbar(
+                frame.colour = "black",
+                ticks.colour = "black",
+                title.hjust = 0
+              )
+            )
+          )
         } else if (length(colors_list[[i]]) == 1) {
-          temp_geom[[i]] <- append(temp_geom[[i]], scale_colour_gradient(
-            low = colors_list[[i]], na.value = bg_color,
-            guide = guide_colorbar(frame.colour = "black", ticks.colour = "black", title.hjust = 0)
-          ))
+          temp_geom[[i]] <- append(
+            temp_geom[[i]],
+            scale_colour_gradient(
+              low = colors_list[[i]],
+              na.value = bg_color,
+              guide = guide_colorbar(
+                frame.colour = "black",
+                ticks.colour = "black",
+                title.hjust = 0
+              )
+            )
+          )
         } else {
-          temp_geom[[i]] <- append(temp_geom[[i]], scale_color_gradientn(
-            colours = pal_list[[i]],
-            values = rescale(value_list[[i]]), na.value = bg_color,
-            guide = guide_colorbar(frame.colour = "black", ticks.colour = "black", title.hjust = 0)
-          ))
+          temp_geom[[i]] <- append(
+            temp_geom[[i]],
+            scale_color_gradientn(
+              colours = pal_list[[i]],
+              values = rescale(value_list[[i]]),
+              na.value = bg_color,
+              guide = guide_colorbar(
+                frame.colour = "black",
+                ticks.colour = "black",
+                title.hjust = 0
+              )
+            )
+          )
         }
         legend_list[[i]] <- ggpubr::get_legend(
           ggplot(dat, aes(x = .data[["x"]], y = .data[["y"]])) +
@@ -2310,12 +3276,25 @@ FeatureDimPlot <- function(srt, features, reduction = NULL, dims = c(1, 2), spli
         )
       }
       for (j in seq_len(nrow(dat))) {
-        dat[j, "color_blend"] <- blendcolors(sapply(colors_list, function(x) x[j]), mode = color_blend_mode)
+        dat[j, "color_blend"] <- blendcolors(
+          sapply(colors_list, function(x) x[j]),
+          mode = color_blend_mode
+        )
       }
       dat["color_value"] <- colSums(col2rgb(dat[, "color_blend"]))
-      dat[rowSums(is.na(dat[, names(colors)])) == length(colors), "color_value"] <- NA
-      dat <- dat[order(dat[, "color_value"], decreasing = TRUE, na.last = FALSE), , drop = FALSE]
-      dat[rowSums(is.na(dat[, names(colors)])) == length(colors), "color_blend"] <- bg_color
+      dat[
+        rowSums(is.na(dat[, names(colors)])) == length(colors),
+        "color_value"
+      ] <- NA
+      dat <- dat[
+        order(dat[, "color_value"], decreasing = TRUE, na.last = FALSE),
+        ,
+        drop = FALSE
+      ]
+      dat[
+        rowSums(is.na(dat[, names(colors)])) == length(colors),
+        "color_blend"
+      ] <- bg_color
       cells.highlight_use <- cells.highlight
       if (isTRUE(cells.highlight_use)) {
         cells.highlight_use <- rownames(dat)[dat[["color_blend"]] != bg_color]
@@ -2334,8 +3313,17 @@ FeatureDimPlot <- function(srt, features, reduction = NULL, dims = c(1, 2), spli
         net_df[, "yend"] <- dat[net_df[, "Var2"], "y"]
         net <- list(
           geom_segment(
-            data = net_df, mapping = aes(x = x, y = y, xend = xend, yend = yend, linewidth = value),
-            color = edge_color, alpha = edge_alpha, show.legend = FALSE
+            data = net_df,
+            mapping = aes(
+              x = x,
+              y = y,
+              xend = xend,
+              yend = yend,
+              linewidth = value
+            ),
+            color = edge_color,
+            alpha = edge_alpha,
+            show.legend = FALSE
           ),
           scale_linewidth_continuous(range = edge_size)
         )
@@ -2344,17 +3332,28 @@ FeatureDimPlot <- function(srt, features, reduction = NULL, dims = c(1, 2), spli
       }
       if (isTRUE(add_density)) {
         if (isTRUE(density_filled)) {
-          filled_color <- palette_scp(palette = density_filled_palette, palcolor = density_filled_palcolor)
+          filled_color <- palette_scp(
+            palette = density_filled_palette,
+            palcolor = density_filled_palcolor
+          )
           density <- list(
             stat_density_2d(
-              geom = "raster", aes(x = .data[["x"]], y = .data[["y"]], fill = after_stat(density)),
-              contour = FALSE, inherit.aes = FALSE, show.legend = FALSE
+              geom = "raster",
+              aes(
+                x = .data[["x"]],
+                y = .data[["y"]],
+                fill = after_stat(density)
+              ),
+              contour = FALSE,
+              inherit.aes = FALSE,
+              show.legend = FALSE
             ),
             scale_fill_gradientn(name = "Density", colours = filled_color),
             new_scale_fill()
           )
         } else {
-          density <- geom_density_2d(aes(x = .data[["x"]], y = .data[["y"]]),
+          density <- geom_density_2d(
+            aes(x = .data[["x"]], y = .data[["y"]]),
             color = density_color,
             inherit.aes = FALSE
           )
@@ -2366,37 +3365,67 @@ FeatureDimPlot <- function(srt, features, reduction = NULL, dims = c(1, 2), spli
         net +
         density +
         labs(title = title, subtitle = subtitle_use, x = xlab, y = ylab) +
-        scale_x_continuous(limits = c(min(dat_use[, paste0(reduction_key, dims[1])], na.rm = TRUE), max(dat_use[, paste0(reduction_key, dims[1])], na.rm = TRUE))) +
-        scale_y_continuous(limits = c(min(dat_use[, paste0(reduction_key, dims[2])], na.rm = TRUE), max(dat_use[, paste0(reduction_key, dims[2])], na.rm = TRUE)))
+        scale_x_continuous(
+          limits = c(
+            min(dat_use[, paste0(reduction_key, dims[1])], na.rm = TRUE),
+            max(dat_use[, paste0(reduction_key, dims[1])], na.rm = TRUE)
+          )
+        ) +
+        scale_y_continuous(
+          limits = c(
+            min(dat_use[, paste0(reduction_key, dims[2])], na.rm = TRUE),
+            max(dat_use[, paste0(reduction_key, dims[2])], na.rm = TRUE)
+          )
+        )
       if (split.by == "All.groups") {
         p <- p + facet_grid(. ~ features)
       } else {
         p <- p + facet_grid(split.by ~ features)
       }
-      p <- p + do.call(theme_use, theme_args) +
+      p <- p +
+        do.call(theme_use, theme_args) +
         theme(
           aspect.ratio = aspect.ratio,
           legend.position = "none",
           legend.direction = legend.direction
         )
       if (isTRUE(raster)) {
-        p <- p + scattermore::geom_scattermore(
-          data = dat[dat[, "color_blend"] == bg_color, , drop = FALSE],
-          mapping = aes(x = .data[["x"]], y = .data[["y"]], color = .data[["color_blend"]]),
-          pointsize = ceiling(pt.size), alpha = pt.alpha, pixels = raster.dpi
-        ) +
+        p <- p +
+          scattermore::geom_scattermore(
+            data = dat[dat[, "color_blend"] == bg_color, , drop = FALSE],
+            mapping = aes(
+              x = .data[["x"]],
+              y = .data[["y"]],
+              color = .data[["color_blend"]]
+            ),
+            pointsize = ceiling(pt.size),
+            alpha = pt.alpha,
+            pixels = raster.dpi
+          ) +
           scattermore::geom_scattermore(
             data = dat[dat[, "color_blend"] != bg_color, , drop = FALSE],
-            mapping = aes(x = .data[["x"]], y = .data[["y"]], color = .data[["color_blend"]]),
-            pointsize = ceiling(pt.size), alpha = pt.alpha, pixels = raster.dpi
+            mapping = aes(
+              x = .data[["x"]],
+              y = .data[["y"]],
+              color = .data[["color_blend"]]
+            ),
+            pointsize = ceiling(pt.size),
+            alpha = pt.alpha,
+            pixels = raster.dpi
           ) +
           scale_color_identity() +
           new_scale_color()
       } else {
-        p <- p + geom_point(
-          mapping = aes(x = .data[["x"]], y = .data[["y"]], color = .data[["color_blend"]]),
-          size = pt.size, alpha = pt.alpha
-        ) +
+        p <- p +
+          geom_point(
+            mapping = aes(
+              x = .data[["x"]],
+              y = .data[["y"]],
+              color = .data[["color_blend"]]
+            ),
+            size = pt.size,
+            alpha = pt.alpha
+          ) +
           scale_color_identity() +
           new_scale_color()
       }
@@ -2405,25 +3434,46 @@ FeatureDimPlot <- function(srt, features, reduction = NULL, dims = c(1, 2), spli
         cell_df <- subset(p$data, rownames(p$data) %in% cells.highlight_use)
         if (nrow(cell_df) > 0) {
           if (isTRUE(raster)) {
-            p <- p + scattermore::geom_scattermore(
-              data = cell_df, aes(x = .data[["x"]], y = .data[["y"]]), color = cols.highlight,
-              pointsize = floor(sizes.highlight) + stroke.highlight, alpha = alpha.highlight, pixels = raster.dpi
-            ) +
+            p <- p +
               scattermore::geom_scattermore(
-                data = cell_df, aes(x = .data[["x"]], y = .data[["y"]], color = .data[["color_blend"]]),
-                pointsize = floor(sizes.highlight), alpha = alpha.highlight, pixels = raster.dpi
+                data = cell_df,
+                aes(x = .data[["x"]], y = .data[["y"]]),
+                color = cols.highlight,
+                pointsize = floor(sizes.highlight) + stroke.highlight,
+                alpha = alpha.highlight,
+                pixels = raster.dpi
+              ) +
+              scattermore::geom_scattermore(
+                data = cell_df,
+                aes(
+                  x = .data[["x"]],
+                  y = .data[["y"]],
+                  color = .data[["color_blend"]]
+                ),
+                pointsize = floor(sizes.highlight),
+                alpha = alpha.highlight,
+                pixels = raster.dpi
               ) +
               scale_color_identity() +
               new_scale_color()
           } else {
             p <- p +
               geom_point(
-                data = cell_df, aes(x = .data[["x"]], y = .data[["y"]]), color = cols.highlight,
-                size = sizes.highlight + stroke.highlight, alpha = alpha.highlight
+                data = cell_df,
+                aes(x = .data[["x"]], y = .data[["y"]]),
+                color = cols.highlight,
+                size = sizes.highlight + stroke.highlight,
+                alpha = alpha.highlight
               ) +
               geom_point(
-                data = cell_df, aes(x = .data[["x"]], y = .data[["y"]], color = .data[["color_blend"]]),
-                size = sizes.highlight, alpha = alpha.highlight
+                data = cell_df,
+                aes(
+                  x = .data[["x"]],
+                  y = .data[["y"]],
+                  color = .data[["color_blend"]]
+                ),
+                size = sizes.highlight,
+                alpha = alpha.highlight
               ) +
               scale_color_identity() +
               new_scale_color()
@@ -2436,7 +3486,10 @@ FeatureDimPlot <- function(srt, features, reduction = NULL, dims = c(1, 2), spli
         label_df <- melt(p$data, measure.vars = features)
         label_df <- label_df %>%
           group_by(variable) %>%
-          filter(value >= quantile(value[is.finite(value)], 0.95, na.rm = TRUE) & value <= quantile(value[is.finite(value)], 0.99, na.rm = TRUE)) %>%
+          filter(
+            value >= quantile(value[is.finite(value)], 0.95, na.rm = TRUE) &
+              value <= quantile(value[is.finite(value)], 0.99, na.rm = TRUE)
+          ) %>%
           reframe(x = median(.data[["x"]]), y = median(.data[["y"]])) %>%
           as.data.frame()
         colnames(label_df)[1] <- "label"
@@ -2444,64 +3497,140 @@ FeatureDimPlot <- function(srt, features, reduction = NULL, dims = c(1, 2), spli
         label_df[, "rank"] <- seq_len(nrow(label_df))
         if (isTRUE(label_insitu)) {
           if (isTRUE(label_repel)) {
-            p <- p + geom_point(
-              data = label_df, mapping = aes(x = .data[["x"]], y = .data[["y"]]),
-              color = label_point_color, size = label_point_size
-            ) + geom_text_repel(
-              data = label_df, aes(x = .data[["x"]], y = .data[["y"]], label = .data[["label"]], color = .data[["label"]]),
-              fontface = "bold", min.segment.length = 0, segment.color = label_segment_color,
-              point.size = label_point_size, max.overlaps = 100, force = label_repulsion,
-              color = label.fg, bg.color = label.bg, bg.r = label.bg.r, size = label.size, inherit.aes = FALSE, show.legend = FALSE
-            )
-          } else {
-            p <- p + geom_text_repel(
-              data = label_df, aes(x = .data[["x"]], y = .data[["y"]], label = .data[["label"]], color = .data[["label"]]),
-              fontface = "bold", min.segment.length = 0, segment.color = label_segment_color,
-              point.size = NA, max.overlaps = 100, force = 0,
-              color = label.fg, bg.color = label.bg, bg.r = label.bg.r, size = label.size, inherit.aes = FALSE, show.legend = FALSE
-            )
-          }
-          p <- p + scale_color_manual(
-            name = "Label:",
-            values = adjcolors(colors[label_df$label], 0.5),
-            labels = label_df$label,
-            na.value = bg_color
-          )
-        } else {
-          if (isTRUE(label_repel)) {
-            p <- p + geom_point(
-              data = label_df, mapping = aes(x = .data[["x"]], y = .data[["y"]]),
-              color = "black", size = pt.size + 1
-            ) +
+            p <- p +
+              geom_point(
+                data = label_df,
+                mapping = aes(x = .data[["x"]], y = .data[["y"]]),
+                color = label_point_color,
+                size = label_point_size
+              ) +
               geom_text_repel(
-                data = label_df, aes(x = .data[["x"]], y = .data[["y"]], label = .data[["rank"]], color = .data[["label"]]),
-                fontface = "bold", min.segment.length = 0, segment.color = label_segment_color,
-                point.size = pt.size + 1, max.overlaps = 100, force = label_repulsion,
-                bg.color = label.bg, bg.r = label.bg.r, size = label.size, inherit.aes = FALSE, key_glyph = "point"
+                data = label_df,
+                aes(
+                  x = .data[["x"]],
+                  y = .data[["y"]],
+                  label = .data[["label"]],
+                  color = .data[["label"]]
+                ),
+                fontface = "bold",
+                min.segment.length = 0,
+                segment.color = label_segment_color,
+                point.size = label_point_size,
+                max.overlaps = 100,
+                force = label_repulsion,
+                color = label.fg,
+                bg.color = label.bg,
+                bg.r = label.bg.r,
+                size = label.size,
+                inherit.aes = FALSE,
+                show.legend = FALSE
               )
           } else {
-            p <- p + geom_text_repel(
-              data = label_df, aes(x = .data[["x"]], y = .data[["y"]], label = .data[["rank"]], color = .data[["label"]]),
-              fontface = "bold", min.segment.length = 0, segment.colour = label_segment_color,
-              point.size = NA, max.overlaps = 100, force = 0,
-              bg.color = label.bg, bg.r = label.bg.r, size = label.size, inherit.aes = FALSE, key_glyph = "point"
-            )
+            p <- p +
+              geom_text_repel(
+                data = label_df,
+                aes(
+                  x = .data[["x"]],
+                  y = .data[["y"]],
+                  label = .data[["label"]],
+                  color = .data[["label"]]
+                ),
+                fontface = "bold",
+                min.segment.length = 0,
+                segment.color = label_segment_color,
+                point.size = NA,
+                max.overlaps = 100,
+                force = 0,
+                color = label.fg,
+                bg.color = label.bg,
+                bg.r = label.bg.r,
+                size = label.size,
+                inherit.aes = FALSE,
+                show.legend = FALSE
+              )
           }
-          p <- p + scale_color_manual(
-            name = "Label:",
-            values = adjcolors(colors[label_df$label], 0.5),
-            labels = paste(label_df$rank, label_df$label, sep = ": "),
-            na.value = bg_color
-          ) +
-            guides(colour = guide_legend(override.aes = list(color = colors[label_df$label]), order = 1)) +
+          p <- p +
+            scale_color_manual(
+              name = "Label:",
+              values = adjcolors(colors[label_df$label], 0.5),
+              labels = label_df$label,
+              na.value = bg_color
+            )
+        } else {
+          if (isTRUE(label_repel)) {
+            p <- p +
+              geom_point(
+                data = label_df,
+                mapping = aes(x = .data[["x"]], y = .data[["y"]]),
+                color = "black",
+                size = pt.size + 1
+              ) +
+              geom_text_repel(
+                data = label_df,
+                aes(
+                  x = .data[["x"]],
+                  y = .data[["y"]],
+                  label = .data[["rank"]],
+                  color = .data[["label"]]
+                ),
+                fontface = "bold",
+                min.segment.length = 0,
+                segment.color = label_segment_color,
+                point.size = pt.size + 1,
+                max.overlaps = 100,
+                force = label_repulsion,
+                bg.color = label.bg,
+                bg.r = label.bg.r,
+                size = label.size,
+                inherit.aes = FALSE,
+                key_glyph = "point"
+              )
+          } else {
+            p <- p +
+              geom_text_repel(
+                data = label_df,
+                aes(
+                  x = .data[["x"]],
+                  y = .data[["y"]],
+                  label = .data[["rank"]],
+                  color = .data[["label"]]
+                ),
+                fontface = "bold",
+                min.segment.length = 0,
+                segment.colour = label_segment_color,
+                point.size = NA,
+                max.overlaps = 100,
+                force = 0,
+                bg.color = label.bg,
+                bg.r = label.bg.r,
+                size = label.size,
+                inherit.aes = FALSE,
+                key_glyph = "point"
+              )
+          }
+          p <- p +
+            scale_color_manual(
+              name = "Label:",
+              values = adjcolors(colors[label_df$label], 0.5),
+              labels = paste(label_df$rank, label_df$label, sep = ": "),
+              na.value = bg_color
+            ) +
+            guides(
+              colour = guide_legend(
+                override.aes = list(color = colors[label_df$label]),
+                order = 1
+              )
+            ) +
             theme(legend.position = "none")
-          legend2 <- ggpubr::get_legend(p +
-            do.call(theme_use, theme_args) +
-            theme(
-              aspect.ratio = aspect.ratio,
-              legend.position = legend.position,
-              legend.direction = legend.direction
-            ))
+          legend2 <- ggpubr::get_legend(
+            p +
+              do.call(theme_use, theme_args) +
+              theme(
+                aspect.ratio = aspect.ratio,
+                legend.position = legend.position,
+                legend.direction = legend.direction
+              )
+          )
         }
       }
 
@@ -2523,7 +3652,11 @@ FeatureDimPlot <- function(srt, features, reduction = NULL, dims = c(1, 2), spli
         if (i %% legend_nrow != 0 && i == total) {
           ncol_insert <- dim(leg_list[[n - 1]])[2] - dim(leg)[2]
           for (col_insert in 1:ncol_insert) {
-            leg <- gtable_add_cols(leg, sum(leg_list[[n - 1]]$widths) / ncol_insert, -1)
+            leg <- gtable_add_cols(
+              leg,
+              sum(leg_list[[n - 1]]$widths) / ncol_insert,
+              -1
+            )
           }
           leg_list[[n]] <- leg
         }
@@ -2532,9 +3665,11 @@ FeatureDimPlot <- function(srt, features, reduction = NULL, dims = c(1, 2), spli
       if (!is.null(lineages)) {
         lineages_layers <- c(list(new_scale_color()), lineages_layers)
         suppressMessages({
-          legend_curve <- ggpubr::get_legend(ggplot() +
-            lineages_layers +
-            theme_scp())
+          legend_curve <- ggpubr::get_legend(
+            ggplot() +
+              lineages_layers +
+              theme_scp()
+          )
         })
         legend <- add_grob(legend, legend_curve, "top")
         p <- suppressMessages({
@@ -2550,25 +3685,58 @@ FeatureDimPlot <- function(srt, features, reduction = NULL, dims = c(1, 2), spli
       p <- wrap_plots(gtable)
       return(p)
     })
-    names(plist) <- paste0(levels(dat_sp[[split.by]]), ":", paste0(features, collapse = "|"))
+    names(plist) <- paste0(
+      levels(dat_sp[[split.by]]),
+      ":",
+      paste0(features, collapse = "|")
+    )
   } else {
-    comb <- expand.grid(split = levels(dat_sp[[split.by]]), feature = features, stringsAsFactors = FALSE)
+    comb <- expand.grid(
+      split = levels(dat_sp[[split.by]]),
+      feature = features,
+      stringsAsFactors = FALSE
+    )
     rownames(comb) <- paste0(comb[["split"]], ":", comb[["feature"]])
-    dat_all <- cbind(dat_use, dat_exp[row.names(dat_use), features, drop = FALSE])
+    dat_all <- cbind(
+      dat_use,
+      dat_exp[row.names(dat_use), features, drop = FALSE]
+    )
     dat_split <- split.data.frame(dat_all, dat_all[[split.by]])
-    colors <- palette_scp(type = "continuous", palette = palette, palcolor = palcolor)
+    colors <- palette_scp(
+      type = "continuous",
+      palette = palette,
+      palcolor = palcolor
+    )
     plist <- lapply(setNames(rownames(comb), rownames(comb)), function(i) {
       f <- comb[i, "feature"]
       s <- comb[i, "split"]
-      dat <- dat_split[[ifelse(split.by == "All.groups", 1, s)]][, c(colnames(dat_use), f), drop = FALSE]
+      dat <- dat_split[[ifelse(split.by == "All.groups", 1, s)]][,
+        c(colnames(dat_use), f),
+        drop = FALSE
+      ]
       if (any(is.infinite(dat[, f]))) {
-        dat[, f][dat[, f] == max(dat[, f], na.rm = TRUE)] <- max(dat[, f][is.finite(dat[, f])], na.rm = TRUE)
-        dat[, f][dat[, f] == min(dat[, f], na.rm = TRUE)] <- min(dat[, f][is.finite(dat[, f])], na.rm = TRUE)
+        dat[, f][dat[, f] == max(dat[, f], na.rm = TRUE)] <- max(
+          dat[, f][is.finite(dat[, f])],
+          na.rm = TRUE
+        )
+        dat[, f][dat[, f] == min(dat[, f], na.rm = TRUE)] <- min(
+          dat[, f][is.finite(dat[, f])],
+          na.rm = TRUE
+        )
       }
       dat[["x"]] <- dat[[paste0(reduction_key, dims[1])]]
       dat[["y"]] <- dat[[paste0(reduction_key, dims[2])]]
       dat[["value"]] <- dat[[f]]
-      dat <- dat[order(dat[, "value"], method = "radix", decreasing = FALSE, na.last = FALSE), , drop = FALSE]
+      dat <- dat[
+        order(
+          dat[, "value"],
+          method = "radix",
+          decreasing = FALSE,
+          na.last = FALSE
+        ),
+        ,
+        drop = FALSE
+      ]
       dat[, "features"] <- f
       cells.highlight_use <- cells.highlight
       if (isTRUE(cells.highlight_use)) {
@@ -2576,7 +3744,15 @@ FeatureDimPlot <- function(srt, features, reduction = NULL, dims = c(1, 2), spli
       }
       legend_list <- list()
       if (isTRUE(show_stat)) {
-        subtitle_use <- subtitle[f] %||% paste0(s, " nPos:", sum(dat[["value"]] > 0, na.rm = TRUE), ", ", round(sum(dat[["value"]] > 0, na.rm = TRUE) / nrow(dat) * 100, 2), "%")
+        subtitle_use <- subtitle[f] %||%
+          paste0(
+            s,
+            " nPos:",
+            sum(dat[["value"]] > 0, na.rm = TRUE),
+            ", ",
+            round(sum(dat[["value"]] > 0, na.rm = TRUE) / nrow(dat) * 100, 2),
+            "%"
+          )
       } else {
         subtitle_use <- subtitle[f]
       }
@@ -2584,19 +3760,66 @@ FeatureDimPlot <- function(srt, features, reduction = NULL, dims = c(1, 2), spli
         colors_value <- rep(0, 100)
       } else {
         if (is.null(keep_scale)) {
-          colors_value <- seq(lower_cutoff %||% quantile(dat[is.finite(dat[, "value"]), "value"], lower_quantile, na.rm = TRUE), upper_cutoff %||% quantile(dat[is.finite(dat[, "value"]), "value"], upper_quantile, na.rm = TRUE) + 0.001, length.out = 100)
+          colors_value <- seq(
+            lower_cutoff %||%
+              quantile(
+                dat[is.finite(dat[, "value"]), "value"],
+                lower_quantile,
+                na.rm = TRUE
+              ),
+            upper_cutoff %||%
+              quantile(
+                dat[is.finite(dat[, "value"]), "value"],
+                upper_quantile,
+                na.rm = TRUE
+              ) +
+              0.001,
+            length.out = 100
+          )
         } else {
           if (keep_scale == "feature") {
-            colors_value <- seq(lower_cutoff %||% quantile(dat_exp[is.finite(dat_exp[, f]), f], lower_quantile, na.rm = TRUE), upper_cutoff %||% quantile(dat_exp[is.finite(dat_exp[, f]), f], upper_quantile, na.rm = TRUE) + 0.001, length.out = 100)
+            colors_value <- seq(
+              lower_cutoff %||%
+                quantile(
+                  dat_exp[is.finite(dat_exp[, f]), f],
+                  lower_quantile,
+                  na.rm = TRUE
+                ),
+              upper_cutoff %||%
+                quantile(
+                  dat_exp[is.finite(dat_exp[, f]), f],
+                  upper_quantile,
+                  na.rm = TRUE
+                ) +
+                0.001,
+              length.out = 100
+            )
           }
           if (keep_scale == "all") {
             all_values <- as_matrix(dat_exp[, features])
-            colors_value <- seq(lower_cutoff %||% quantile(all_values[is.finite(all_values)], lower_quantile, na.rm = TRUE), upper_cutoff %||% quantile(all_values, upper_quantile, na.rm = TRUE) + 0.001, length.out = 100)
+            colors_value <- seq(
+              lower_cutoff %||%
+                quantile(
+                  all_values[is.finite(all_values)],
+                  lower_quantile,
+                  na.rm = TRUE
+                ),
+              upper_cutoff %||%
+                quantile(all_values, upper_quantile, na.rm = TRUE) +
+                0.001,
+              length.out = 100
+            )
           }
         }
       }
-      dat[which(dat[, "value"] > max(colors_value, na.rm = TRUE)), "value"] <- max(colors_value, na.rm = TRUE)
-      dat[which(dat[, "value"] < min(colors_value, na.rm = TRUE)), "value"] <- min(colors_value, na.rm = TRUE)
+      dat[
+        which(dat[, "value"] > max(colors_value, na.rm = TRUE)),
+        "value"
+      ] <- max(colors_value, na.rm = TRUE)
+      dat[
+        which(dat[, "value"] < min(colors_value, na.rm = TRUE)),
+        "value"
+      ] <- min(colors_value, na.rm = TRUE)
       if (!is.null(graph)) {
         net_mat <- as_matrix(graph)[rownames(dat), rownames(dat)]
         net_mat[net_mat == 0] <- NA
@@ -2611,8 +3834,17 @@ FeatureDimPlot <- function(srt, features, reduction = NULL, dims = c(1, 2), spli
         net_df[, "yend"] <- dat[net_df[, "Var2"], "y"]
         net <- list(
           geom_segment(
-            data = net_df, mapping = aes(x = x, y = y, xend = xend, yend = yend, linewidth = value),
-            color = edge_color, alpha = edge_alpha, show.legend = FALSE
+            data = net_df,
+            mapping = aes(
+              x = x,
+              y = y,
+              xend = xend,
+              yend = yend,
+              linewidth = value
+            ),
+            color = edge_color,
+            alpha = edge_alpha,
+            show.legend = FALSE
           ),
           scale_linewidth_continuous(range = edge_size)
         )
@@ -2621,17 +3853,28 @@ FeatureDimPlot <- function(srt, features, reduction = NULL, dims = c(1, 2), spli
       }
       if (isTRUE(add_density)) {
         if (isTRUE(density_filled)) {
-          filled_color <- palette_scp(palette = density_filled_palette, palcolor = density_filled_palcolor)
+          filled_color <- palette_scp(
+            palette = density_filled_palette,
+            palcolor = density_filled_palcolor
+          )
           density <- list(
             stat_density_2d(
-              geom = "raster", aes(x = .data[["x"]], y = .data[["y"]], fill = after_stat(density)),
-              contour = FALSE, inherit.aes = FALSE, show.legend = FALSE
+              geom = "raster",
+              aes(
+                x = .data[["x"]],
+                y = .data[["y"]],
+                fill = after_stat(density)
+              ),
+              contour = FALSE,
+              inherit.aes = FALSE,
+              show.legend = FALSE
             ),
             scale_fill_gradientn(name = "Density", colours = filled_color),
             new_scale_fill()
           )
         } else {
-          density <- geom_density_2d(aes(x = .data[["x"]], y = .data[["y"]]),
+          density <- geom_density_2d(
+            aes(x = .data[["x"]], y = .data[["y"]]),
             color = density_color,
             inherit.aes = FALSE
           )
@@ -2643,8 +3886,18 @@ FeatureDimPlot <- function(srt, features, reduction = NULL, dims = c(1, 2), spli
         net +
         density +
         labs(title = title, subtitle = subtitle_use, x = xlab, y = ylab) +
-        scale_x_continuous(limits = c(min(dat_use[, paste0(reduction_key, dims[1])], na.rm = TRUE), max(dat_use[, paste0(reduction_key, dims[1])], na.rm = TRUE))) +
-        scale_y_continuous(limits = c(min(dat_use[, paste0(reduction_key, dims[2])], na.rm = TRUE), max(dat_use[, paste0(reduction_key, dims[2])], na.rm = TRUE))) +
+        scale_x_continuous(
+          limits = c(
+            min(dat_use[, paste0(reduction_key, dims[1])], na.rm = TRUE),
+            max(dat_use[, paste0(reduction_key, dims[1])], na.rm = TRUE)
+          )
+        ) +
+        scale_y_continuous(
+          limits = c(
+            min(dat_use[, paste0(reduction_key, dims[2])], na.rm = TRUE),
+            max(dat_use[, paste0(reduction_key, dims[2])], na.rm = TRUE)
+          )
+        ) +
         do.call(theme_use, theme_args) +
         theme(
           aspect.ratio = aspect.ratio,
@@ -2652,72 +3905,131 @@ FeatureDimPlot <- function(srt, features, reduction = NULL, dims = c(1, 2), spli
           legend.direction = legend.direction
         )
       if (isTRUE(raster)) {
-        p <- p + scattermore::geom_scattermore(
-          data = dat[is.na(dat[, "value"]), , drop = FALSE],
-          mapping = aes(x = .data[["x"]], y = .data[["y"]], color = .data[["value"]]),
-          pointsize = ceiling(pt.size), alpha = pt.alpha, pixels = raster.dpi
-        ) +
+        p <- p +
+          scattermore::geom_scattermore(
+            data = dat[is.na(dat[, "value"]), , drop = FALSE],
+            mapping = aes(
+              x = .data[["x"]],
+              y = .data[["y"]],
+              color = .data[["value"]]
+            ),
+            pointsize = ceiling(pt.size),
+            alpha = pt.alpha,
+            pixels = raster.dpi
+          ) +
           scattermore::geom_scattermore(
             data = dat[!is.na(dat[, "value"]), , drop = FALSE],
-            mapping = aes(x = .data[["x"]], y = .data[["y"]], color = .data[["value"]]),
-            pointsize = ceiling(pt.size), alpha = pt.alpha, pixels = raster.dpi
+            mapping = aes(
+              x = .data[["x"]],
+              y = .data[["y"]],
+              color = .data[["value"]]
+            ),
+            pointsize = ceiling(pt.size),
+            alpha = pt.alpha,
+            pixels = raster.dpi
           )
       } else if (isTRUE(hex)) {
         check_R("hexbin")
         dat_na <- dat[is.na(dat[["value"]]), , drop = FALSE]
         dat_hex <- dat[!is.na(dat[["value"]]), , drop = FALSE]
         if (nrow(dat_na) > 0) {
-          p <- p + geom_hex(
-            data = dat[is.na(dat[["value"]]), , drop = FALSE],
-            mapping = aes(x = .data[["x"]], y = .data[["y"]]),
-            fill = bg_color, color = hex.color,
-            linewidth = hex.linewidth, bins = hex.bins, binwidth = hex.binwidth
-          )
+          p <- p +
+            geom_hex(
+              data = dat[is.na(dat[["value"]]), , drop = FALSE],
+              mapping = aes(x = .data[["x"]], y = .data[["y"]]),
+              fill = bg_color,
+              color = hex.color,
+              linewidth = hex.linewidth,
+              bins = hex.bins,
+              binwidth = hex.binwidth
+            )
         }
         if (nrow(dat_hex) > 0) {
-          p <- p + stat_summary_hex(
-            data = dat_hex,
-            mapping = aes(x = .data[["x"]], y = .data[["y"]], z = .data[["value"]]),
-            color = hex.color, linewidth = hex.linewidth, bins = hex.bins, binwidth = hex.binwidth
-          )
+          p <- p +
+            stat_summary_hex(
+              data = dat_hex,
+              mapping = aes(
+                x = .data[["x"]],
+                y = .data[["y"]],
+                z = .data[["value"]]
+              ),
+              color = hex.color,
+              linewidth = hex.linewidth,
+              bins = hex.bins,
+              binwidth = hex.binwidth
+            )
           if (all(is.na(dat[["value"]]))) {
-            p <- p + scale_fill_gradient(
-              name = "", na.value = bg_color
-            )
+            p <- p +
+              scale_fill_gradient(
+                name = "",
+                na.value = bg_color
+              )
           } else {
-            p <- p + scale_fill_gradientn(
-              name = "", colours = colors, values = rescale(colors_value), limits = range(colors_value), na.value = bg_color
-            )
+            p <- p +
+              scale_fill_gradientn(
+                name = "",
+                colours = colors,
+                values = rescale(colors_value),
+                limits = range(colors_value),
+                na.value = bg_color
+              )
           }
           p <- p + new_scale_fill()
         }
       } else {
-        p <- p + geom_point(
-          mapping = aes(x = .data[["x"]], y = .data[["y"]], color = .data[["value"]]),
-          size = pt.size, alpha = pt.alpha
-        )
+        p <- p +
+          geom_point(
+            mapping = aes(
+              x = .data[["x"]],
+              y = .data[["y"]],
+              color = .data[["value"]]
+            ),
+            size = pt.size,
+            alpha = pt.alpha
+          )
       }
       if (!is.null(cells.highlight_use) && !isTRUE(hex)) {
         cell_df <- subset(p$data, rownames(p$data) %in% cells.highlight_use)
         if (nrow(cell_df) > 0) {
           if (isTRUE(raster)) {
-            p <- p + scattermore::geom_scattermore(
-              data = cell_df, aes(x = .data[["x"]], y = .data[["y"]]), color = cols.highlight,
-              pointsize = floor(sizes.highlight) + stroke.highlight, alpha = alpha.highlight, pixels = raster.dpi
-            ) +
+            p <- p +
               scattermore::geom_scattermore(
-                data = cell_df, aes(x = .data[["x"]], y = .data[["y"]], color = .data[["value"]]),
-                pointsize = floor(sizes.highlight), alpha = alpha.highlight, pixels = raster.dpi
+                data = cell_df,
+                aes(x = .data[["x"]], y = .data[["y"]]),
+                color = cols.highlight,
+                pointsize = floor(sizes.highlight) + stroke.highlight,
+                alpha = alpha.highlight,
+                pixels = raster.dpi
+              ) +
+              scattermore::geom_scattermore(
+                data = cell_df,
+                aes(
+                  x = .data[["x"]],
+                  y = .data[["y"]],
+                  color = .data[["value"]]
+                ),
+                pointsize = floor(sizes.highlight),
+                alpha = alpha.highlight,
+                pixels = raster.dpi
               )
           } else {
             p <- p +
               geom_point(
-                data = cell_df, aes(x = .data[["x"]], y = .data[["y"]]), color = cols.highlight,
-                size = sizes.highlight + stroke.highlight, alpha = alpha.highlight
+                data = cell_df,
+                aes(x = .data[["x"]], y = .data[["y"]]),
+                color = cols.highlight,
+                size = sizes.highlight + stroke.highlight,
+                alpha = alpha.highlight
               ) +
               geom_point(
-                data = cell_df, aes(x = .data[["x"]], y = .data[["y"]], color = .data[["value"]]),
-                size = sizes.highlight, alpha = alpha.highlight
+                data = cell_df,
+                aes(
+                  x = .data[["x"]],
+                  y = .data[["y"]],
+                  color = .data[["value"]]
+                ),
+                size = sizes.highlight,
+                alpha = alpha.highlight
               )
           }
         }
@@ -2730,28 +4042,45 @@ FeatureDimPlot <- function(srt, features, reduction = NULL, dims = c(1, 2), spli
         }
       }
       if (all(is.na(dat[["value"]]))) {
-        p <- p + scale_colour_gradient(
-          name = "", na.value = bg_color, aesthetics = c("color")
-        )
+        p <- p +
+          scale_colour_gradient(
+            name = "",
+            na.value = bg_color,
+            aesthetics = c("color")
+          )
       } else {
-        p <- p + scale_color_gradientn(
-          name = "", colours = colors, values = rescale(colors_value), limits = range(colors_value), na.value = bg_color, aesthetics = c("color")
-        )
+        p <- p +
+          scale_color_gradientn(
+            name = "",
+            colours = colors,
+            values = rescale(colors_value),
+            limits = range(colors_value),
+            na.value = bg_color,
+            aesthetics = c("color")
+          )
       }
-      p <- p + guides(
-        color = guide_colorbar(frame.colour = "black", ticks.colour = "black", title.hjust = 0, order = 1)
-      )
+      p <- p +
+        guides(
+          color = guide_colorbar(
+            frame.colour = "black",
+            ticks.colour = "black",
+            title.hjust = 0,
+            order = 1
+          )
+        )
       p_base <- p
 
       if (!is.null(lineages)) {
         lineages_layers <- c(list(new_scale_color()), lineages_layers)
         suppressMessages({
-          legend_list[["lineages"]] <- ggpubr::get_legend(ggplot() +
-            lineages_layers +
-            theme_scp(
-              legend.position = "bottom",
-              legend.direction = legend.direction
-            ))
+          legend_list[["lineages"]] <- ggpubr::get_legend(
+            ggplot() +
+              lineages_layers +
+              theme_scp(
+                legend.position = "bottom",
+                legend.direction = legend.direction
+              )
+          )
         })
         p <- suppressWarnings({
           p + lineages_layers + theme(legend.position = "none")
@@ -2762,28 +4091,55 @@ FeatureDimPlot <- function(srt, features, reduction = NULL, dims = c(1, 2), spli
       }
       if (isTRUE(label)) {
         label_df <- p$data %>%
-          filter(value >= quantile(value[is.finite(value)], 0.95, na.rm = TRUE) & value <= quantile(value[is.finite(value)], 0.99, na.rm = TRUE)) %>%
+          filter(
+            value >= quantile(value[is.finite(value)], 0.95, na.rm = TRUE) &
+              value <= quantile(value[is.finite(value)], 0.99, na.rm = TRUE)
+          ) %>%
           reframe(x = median(.data[["x"]]), y = median(.data[["y"]])) %>%
           as.data.frame()
         label_df[, "label"] <- f
         label_df[, "rank"] <- seq_len(nrow(label_df))
         if (isTRUE(label_repel)) {
-          p <- p + annotate(
-            geom = "point", x = label_df[["x"]], y = label_df[["y"]],
-            color = "black", size = pt.size + 1
-          ) + annotate(
-            geom = GeomTextRepel, x = label_df[["x"]], y = label_df[["y"]], label = label_df[["label"]],
-            fontface = "bold", min.segment.length = 0, segment.color = label_segment_color,
-            point.size = pt.size + 1, max.overlaps = 100, force = label_repulsion,
-            color = label.fg, bg.color = label.bg, bg.r = label.bg.r, size = label.size
-          )
+          p <- p +
+            annotate(
+              geom = "point",
+              x = label_df[["x"]],
+              y = label_df[["y"]],
+              color = "black",
+              size = pt.size + 1
+            ) +
+            annotate(
+              geom = GeomTextRepel,
+              x = label_df[["x"]],
+              y = label_df[["y"]],
+              label = label_df[["label"]],
+              fontface = "bold",
+              min.segment.length = 0,
+              segment.color = label_segment_color,
+              point.size = pt.size + 1,
+              max.overlaps = 100,
+              force = label_repulsion,
+              color = label.fg,
+              bg.color = label.bg,
+              bg.r = label.bg.r,
+              size = label.size
+            )
         } else {
-          p <- p + annotate(
-            geom = GeomTextRepel, x = label_df[["x"]], y = label_df[["y"]], label = label_df[["label"]],
-            fontface = "bold",
-            point.size = NA, max.overlaps = 100, force = 0,
-            color = label.fg, bg.color = label.bg, bg.r = label.bg.r, size = label.size
-          )
+          p <- p +
+            annotate(
+              geom = GeomTextRepel,
+              x = label_df[["x"]],
+              y = label_df[["y"]],
+              label = label_df[["label"]],
+              fontface = "bold",
+              point.size = NA,
+              max.overlaps = 100,
+              force = 0,
+              color = label.fg,
+              bg.color = label.bg,
+              bg.r = label.bg.r,
+              size = label.size
+            )
         }
       }
       if (length(legend_list) > 0) {
@@ -2804,7 +4160,12 @@ FeatureDimPlot <- function(srt, features, reduction = NULL, dims = c(1, 2), spli
 
   if (isTRUE(combine)) {
     if (length(plist) > 1) {
-      plot <- wrap_plots(plotlist = plist, nrow = nrow, ncol = ncol, byrow = byrow)
+      plot <- wrap_plots(
+        plotlist = plist,
+        nrow = nrow,
+        ncol = ncol,
+        byrow = byrow
+      )
     } else {
       plot <- plist[[1]]
     }
@@ -2840,11 +4201,28 @@ FeatureDimPlot <- function(srt, features, reduction = NULL, dims = c(1, 2), spli
 #' @importFrom utils askYesNo
 #' @importFrom plotly plot_ly add_trace layout as_widget
 #' @export
-CellDimPlot3D <- function(srt, group.by, reduction = NULL, dims = c(1, 2, 3), axis_labs = NULL,
-                          palette = "Paired", palcolor = NULL, bg_color = "grey80", pt.size = 1.5,
-                          cells.highlight = NULL, cols.highlight = "black", shape.highlight = "circle-open", sizes.highlight = 2,
-                          lineages = NULL, lineages_palette = "Dark2", span = 0.75,
-                          width = NULL, height = NULL, save = NULL, force = FALSE) {
+CellDimPlot3D <- function(
+  srt,
+  group.by,
+  reduction = NULL,
+  dims = c(1, 2, 3),
+  axis_labs = NULL,
+  palette = "Paired",
+  palcolor = NULL,
+  bg_color = "grey80",
+  pt.size = 1.5,
+  cells.highlight = NULL,
+  cols.highlight = "black",
+  shape.highlight = "circle-open",
+  sizes.highlight = 2,
+  lineages = NULL,
+  lineages_palette = "Dark2",
+  span = 0.75,
+  width = NULL,
+  height = NULL,
+  save = NULL,
+  force = FALSE
+) {
   bg_color <- col2hex(bg_color)
   cols.highlight <- col2hex(cols.highlight)
 
@@ -2853,7 +4231,10 @@ CellDimPlot3D <- function(srt, group.by, reduction = NULL, dims = c(1, 2, 3), ax
       stop(paste0(i, " is not in the meta.data of srt object."))
     }
     if (!is.factor(srt@meta.data[[i]])) {
-      srt@meta.data[[i]] <- factor(srt@meta.data[[i]], levels = unique(srt@meta.data[[i]]))
+      srt@meta.data[[i]] <- factor(
+        srt@meta.data[[i]],
+        levels = unique(srt@meta.data[[i]])
+      )
     }
   }
   for (l in lineages) {
@@ -2877,7 +4258,10 @@ CellDimPlot3D <- function(srt, group.by, reduction = NULL, dims = c(1, 2, 3), ax
       stop("No cells in 'cells.highlight' found in srt.")
     }
     if (!all(cells.highlight %in% colnames(srt@assays[[1]]))) {
-      warning("Some cells in 'cells.highlight' not found in srt.", immediate. = TRUE)
+      warning(
+        "Some cells in 'cells.highlight' not found in srt.",
+        immediate. = TRUE
+      )
     }
     cells.highlight <- intersect(cells.highlight, colnames(srt@assays[[1]]))
   }
@@ -2901,11 +4285,18 @@ CellDimPlot3D <- function(srt, group.by, reduction = NULL, dims = c(1, 2, 3), ax
   dat_dim <- srt@reductions[[reduction]]@cell.embeddings
   colnames(dat_dim) <- paste0(reduction_key, seq_len(ncol(dat_dim)))
   rownames(dat_dim) <- rownames(dat_dim) %||% colnames(srt@assays[[1]])
-  dat_use <- cbind(dat_dim[colnames(srt@assays[[1]]), , drop = FALSE], srt@meta.data[colnames(srt@assays[[1]]), , drop = FALSE])
+  dat_use <- cbind(
+    dat_dim[colnames(srt@assays[[1]]), , drop = FALSE],
+    srt@meta.data[colnames(srt@assays[[1]]), , drop = FALSE]
+  )
   nlev <- sapply(dat_use[, group.by, drop = FALSE], nlevels)
   nlev <- nlev[nlev > 100]
   if (length(nlev) > 0 && !isTRUE(force)) {
-    warning(paste(names(nlev), sep = ","), " have more than 100 levels.", immediate. = TRUE)
+    warning(
+      paste(names(nlev), sep = ","),
+      " have more than 100 levels.",
+      immediate. = TRUE
+    )
     answer <- askYesNo("Are you sure to continue?", default = FALSE)
     if (!isTRUE(answer)) {
       return(invisible(NULL))
@@ -2919,21 +4310,41 @@ CellDimPlot3D <- function(srt, group.by, reduction = NULL, dims = c(1, 2, 3), ax
   if (any(is.na(dat_use[[group.by]]))) {
     n <- as.character(dat_use[[group.by]])
     n[is.na(n)] <- "NA"
-    dat_use[[group.by]] <- factor(n, levels = c(levels(dat_use[[group.by]]), "NA"))
+    dat_use[[group.by]] <- factor(
+      n,
+      levels = c(levels(dat_use[[group.by]]), "NA")
+    )
   }
 
   dat_use[["color"]] <- dat_use[[group.by]]
-  colors <- palette_scp(dat_use[["group.by"]], palette = palette, palcolor = palcolor, NA_color = bg_color, NA_keep = TRUE)
+  colors <- palette_scp(
+    dat_use[["group.by"]],
+    palette = palette,
+    palcolor = palcolor,
+    NA_color = bg_color,
+    NA_keep = TRUE
+  )
 
-  dat_use[[paste0(reduction_key, dims[1], "All_cells")]] <- dat_use[[paste0(reduction_key, dims[1])]]
-  dat_use[[paste0(reduction_key, dims[2], "All_cells")]] <- dat_use[[paste0(reduction_key, dims[2])]]
-  dat_use[[paste0(reduction_key, dims[3], "All_cells")]] <- dat_use[[paste0(reduction_key, dims[3])]]
+  dat_use[[paste0(reduction_key, dims[1], "All_cells")]] <- dat_use[[paste0(
+    reduction_key,
+    dims[1]
+  )]]
+  dat_use[[paste0(reduction_key, dims[2], "All_cells")]] <- dat_use[[paste0(
+    reduction_key,
+    dims[2]
+  )]]
+  dat_use[[paste0(reduction_key, dims[3], "All_cells")]] <- dat_use[[paste0(
+    reduction_key,
+    dims[3]
+  )]]
   cells.highlight_use <- cells.highlight
   if (isTRUE(cells.highlight_use)) {
     cells.highlight_use <- rownames(dat_use)[dat_use[[group.by]] != "NA"]
   }
   if (!is.null(cells.highlight_use)) {
-    cells.highlight_use <- cells.highlight_use[cells.highlight_use %in% rownames(dat_use)]
+    cells.highlight_use <- cells.highlight_use[
+      cells.highlight_use %in% rownames(dat_use)
+    ]
     dat_use_highlight <- dat_use[cells.highlight_use, , drop = FALSE]
   }
 
@@ -2945,9 +4356,12 @@ CellDimPlot3D <- function(srt, group.by, reduction = NULL, dims = c(1, 2, 3), ax
     y = dat_use[[paste0(reduction_key, dims[2], "All_cells")]],
     z = dat_use[[paste0(reduction_key, dims[3], "All_cells")]],
     text = paste0(
-      "Cell:", rownames(dat_use),
-      "\ngroup.by:", dat_use[["group.by"]],
-      "\ncolor:", dat_use[["color"]]
+      "Cell:",
+      rownames(dat_use),
+      "\ngroup.by:",
+      dat_use[["group.by"]],
+      "\ncolor:",
+      dat_use[["color"]]
     ),
     type = "scatter3d",
     mode = "markers",
@@ -2964,13 +4378,20 @@ CellDimPlot3D <- function(srt, group.by, reduction = NULL, dims = c(1, 2, 3), ax
       y = dat_use_highlight[[paste0(reduction_key, dims[2], "All_cells")]],
       z = dat_use_highlight[[paste0(reduction_key, dims[3], "All_cells")]],
       text = paste0(
-        "Cell:", rownames(dat_use_highlight),
-        "\ngroup.by:", dat_use_highlight[["group.by"]],
-        "\ncolor:", dat_use_highlight[["color"]]
+        "Cell:",
+        rownames(dat_use_highlight),
+        "\ngroup.by:",
+        dat_use_highlight[["group.by"]],
+        "\ncolor:",
+        dat_use_highlight[["color"]]
       ),
       type = "scatter3d",
       mode = "markers",
-      marker = list(size = sizes.highlight, color = cols.highlight, symbol = shape.highlight),
+      marker = list(
+        size = sizes.highlight,
+        color = cols.highlight,
+        symbol = shape.highlight
+      ),
       name = "highlight",
       showlegend = TRUE,
       visible = TRUE
@@ -2981,13 +4402,79 @@ CellDimPlot3D <- function(srt, group.by, reduction = NULL, dims = c(1, 2, 3), ax
       dat_sub <- dat_use[!is.na(dat_use[[l]]), , drop = FALSE]
       dat_sub <- dat_sub[order(dat_sub[[l]]), , drop = FALSE]
 
-      xlo <- loess(formula(paste(paste0(reduction_key, dims[1], "All_cells"), l, sep = "~")), data = dat_sub, span = span, degree = 2)
-      ylo <- loess(formula(paste(paste0(reduction_key, dims[2], "All_cells"), l, sep = "~")), data = dat_sub, span = span, degree = 2)
-      zlo <- loess(formula(paste(paste0(reduction_key, dims[3], "All_cells"), l, sep = "~")), data = dat_sub, span = span, degree = 2)
+      xlo <- loess(
+        formula(paste(
+          paste0(reduction_key, dims[1], "All_cells"),
+          l,
+          sep = "~"
+        )),
+        data = dat_sub,
+        span = span,
+        degree = 2
+      )
+      ylo <- loess(
+        formula(paste(
+          paste0(reduction_key, dims[2], "All_cells"),
+          l,
+          sep = "~"
+        )),
+        data = dat_sub,
+        span = span,
+        degree = 2
+      )
+      zlo <- loess(
+        formula(paste(
+          paste0(reduction_key, dims[3], "All_cells"),
+          l,
+          sep = "~"
+        )),
+        data = dat_sub,
+        span = span,
+        degree = 2
+      )
       dat_smooth <- data.frame(x = xlo$fitted, y = ylo$fitted, z = zlo$fitted)
-      dat_smooth <- dat_smooth[dat_smooth[["x"]] <= max(dat_use[[paste0(reduction_key, dims[1], "All_cells")]], na.rm = TRUE) & dat_smooth[["x"]] >= min(dat_use[[paste0(reduction_key, dims[1], "All_cells")]], na.rm = TRUE), , drop = FALSE]
-      dat_smooth <- dat_smooth[dat_smooth[["y"]] <= max(dat_use[[paste0(reduction_key, dims[2], "All_cells")]], na.rm = TRUE) & dat_smooth[["y"]] >= min(dat_use[[paste0(reduction_key, dims[2], "All_cells")]], na.rm = TRUE), , drop = FALSE]
-      dat_smooth <- dat_smooth[dat_smooth[["z"]] <= max(dat_use[[paste0(reduction_key, dims[3], "All_cells")]], na.rm = TRUE) & dat_smooth[["z"]] >= min(dat_use[[paste0(reduction_key, dims[3], "All_cells")]], na.rm = TRUE), , drop = FALSE]
+      dat_smooth <- dat_smooth[
+        dat_smooth[["x"]] <=
+          max(
+            dat_use[[paste0(reduction_key, dims[1], "All_cells")]],
+            na.rm = TRUE
+          ) &
+          dat_smooth[["x"]] >=
+            min(
+              dat_use[[paste0(reduction_key, dims[1], "All_cells")]],
+              na.rm = TRUE
+            ),
+        ,
+        drop = FALSE
+      ]
+      dat_smooth <- dat_smooth[
+        dat_smooth[["y"]] <=
+          max(
+            dat_use[[paste0(reduction_key, dims[2], "All_cells")]],
+            na.rm = TRUE
+          ) &
+          dat_smooth[["y"]] >=
+            min(
+              dat_use[[paste0(reduction_key, dims[2], "All_cells")]],
+              na.rm = TRUE
+            ),
+        ,
+        drop = FALSE
+      ]
+      dat_smooth <- dat_smooth[
+        dat_smooth[["z"]] <=
+          max(
+            dat_use[[paste0(reduction_key, dims[3], "All_cells")]],
+            na.rm = TRUE
+          ) &
+          dat_smooth[["z"]] >=
+            min(
+              dat_use[[paste0(reduction_key, dims[3], "All_cells")]],
+              na.rm = TRUE
+            ),
+        ,
+        drop = FALSE
+      ]
       dat_smooth <- unique(na.omit(dat_smooth))
       p <- add_trace(
         p = p,
@@ -2995,11 +4482,16 @@ CellDimPlot3D <- function(srt, group.by, reduction = NULL, dims = c(1, 2, 3), ax
         y = dat_smooth[, "y"],
         z = dat_smooth[, "z"],
         text = paste0(
-          "Lineage:", l
+          "Lineage:",
+          l
         ),
         type = "scatter3d",
         mode = "lines",
-        line = list(width = 6, color = palette_scp(x = lineages, palette = lineages_palette)[l], reverscale = FALSE),
+        line = list(
+          width = 6,
+          color = palette_scp(x = lineages, palette = lineages_palette)[l],
+          reverscale = FALSE
+        ),
         name = l,
         showlegend = TRUE,
         visible = TRUE
@@ -3024,9 +4516,27 @@ CellDimPlot3D <- function(srt, group.by, reduction = NULL, dims = c(1, 2, 3), ax
       alpha = 1
     ),
     scene = list(
-      xaxis = list(title = xlab, range = c(min(dat_use[[paste0(reduction_key, dims[1])]], na.rm = TRUE), max(dat_use[[paste0(reduction_key, dims[1])]], na.rm = TRUE))),
-      yaxis = list(title = ylab, range = c(min(dat_use[[paste0(reduction_key, dims[2])]], na.rm = TRUE), max(dat_use[[paste0(reduction_key, dims[2])]], na.rm = TRUE))),
-      zaxis = list(title = zlab, range = c(min(dat_use[[paste0(reduction_key, dims[3])]], na.rm = TRUE), max(dat_use[[paste0(reduction_key, dims[3])]], na.rm = TRUE))),
+      xaxis = list(
+        title = xlab,
+        range = c(
+          min(dat_use[[paste0(reduction_key, dims[1])]], na.rm = TRUE),
+          max(dat_use[[paste0(reduction_key, dims[1])]], na.rm = TRUE)
+        )
+      ),
+      yaxis = list(
+        title = ylab,
+        range = c(
+          min(dat_use[[paste0(reduction_key, dims[2])]], na.rm = TRUE),
+          max(dat_use[[paste0(reduction_key, dims[2])]], na.rm = TRUE)
+        )
+      ),
+      zaxis = list(
+        title = zlab,
+        range = c(
+          min(dat_use[[paste0(reduction_key, dims[3])]], na.rm = TRUE),
+          max(dat_use[[paste0(reduction_key, dims[3])]], na.rm = TRUE)
+        )
+      ),
       aspectratio = list(x = 1, y = 1, z = 1)
     ),
     autosize = FALSE
@@ -3063,11 +4573,26 @@ CellDimPlot3D <- function(srt, group.by, reduction = NULL, dims = c(1, 2, 3), ax
 #' @importFrom utils askYesNo
 #' @importFrom plotly plot_ly add_trace layout as_widget
 #' @export
-FeatureDimPlot3D <- function(srt, features, reduction = NULL, dims = c(1, 2, 3), axis_labs = NULL,
-                             split.by = NULL, layer = "data", assay = NULL,
-                             calculate_coexp = FALSE,
-                             pt.size = 1.5, cells.highlight = NULL, cols.highlight = "black", shape.highlight = "circle-open", sizes.highlight = 2,
-                             width = NULL, height = NULL, save = NULL, force = FALSE) {
+FeatureDimPlot3D <- function(
+  srt,
+  features,
+  reduction = NULL,
+  dims = c(1, 2, 3),
+  axis_labs = NULL,
+  split.by = NULL,
+  layer = "data",
+  assay = NULL,
+  calculate_coexp = FALSE,
+  pt.size = 1.5,
+  cells.highlight = NULL,
+  cols.highlight = "black",
+  shape.highlight = "circle-open",
+  sizes.highlight = 2,
+  width = NULL,
+  height = NULL,
+  save = NULL,
+  force = FALSE
+) {
   cols.highlight <- col2hex(cols.highlight)
 
   if (is.list(features)) {
@@ -3087,7 +4612,10 @@ FeatureDimPlot3D <- function(srt, features, reduction = NULL, dims = c(1, 2, 3),
       stop(paste0(i, " is not in the meta.data of srt object."))
     }
     if (!is.factor(srt@meta.data[[i]])) {
-      srt@meta.data[[i]] <- factor(srt@meta.data[[i]], levels = unique(srt@meta.data[[i]]))
+      srt@meta.data[[i]] <- factor(
+        srt@meta.data[[i]],
+        levels = unique(srt@meta.data[[i]])
+      )
     }
   }
   if (is.null(reduction)) {
@@ -3106,7 +4634,10 @@ FeatureDimPlot3D <- function(srt, features, reduction = NULL, dims = c(1, 2, 3),
       stop("No cells in 'cells.highlight' found in srt.")
     }
     if (!all(cells.highlight %in% colnames(srt@assays[[1]]))) {
-      warning("Some cells in 'cells.highlight' not found in srt.", immediate. = TRUE)
+      warning(
+        "Some cells in 'cells.highlight' not found in srt.",
+        immediate. = TRUE
+      )
     }
     cells.highlight <- intersect(cells.highlight, colnames(srt@assays[[1]]))
   }
@@ -3132,10 +4663,24 @@ FeatureDimPlot3D <- function(srt, features, reduction = NULL, dims = c(1, 2, 3),
 
   features <- unique(features)
   embeddings <- lapply(srt@reductions, function(x) colnames(x@cell.embeddings))
-  embeddings <- setNames(rep(names(embeddings), sapply(embeddings, length)), nm = unlist(embeddings))
-  features_drop <- features[!features %in% c(rownames(srt@assays[[assay]]), colnames(srt@meta.data), names(embeddings))]
+  embeddings <- setNames(
+    rep(names(embeddings), sapply(embeddings, length)),
+    nm = unlist(embeddings)
+  )
+  features_drop <- features[
+    !features %in%
+      c(
+        rownames(srt@assays[[assay]]),
+        colnames(srt@meta.data),
+        names(embeddings)
+      )
+  ]
   if (length(features_drop) > 0) {
-    warning(paste0(features_drop, collapse = ","), " are not in the features of srt.", immediate. = TRUE)
+    warning(
+      paste0(features_drop, collapse = ","),
+      " are not in the features of srt.",
+      immediate. = TRUE
+    )
     features <- features[!features %in% features_drop]
   }
 
@@ -3143,7 +4688,10 @@ FeatureDimPlot3D <- function(srt, features, reduction = NULL, dims = c(1, 2, 3),
   features_meta <- features[features %in% colnames(srt@meta.data)]
   features_embedding <- features[features %in% names(embeddings)]
   if (length(intersect(features_gene, features_meta)) > 0) {
-    warning("Features appear in both gene names and metadata names: ", paste0(intersect(features_gene, features_meta), collapse = ","))
+    warning(
+      "Features appear in both gene names and metadata names: ",
+      paste0(intersect(features_gene, features_meta), collapse = ",")
+    )
   }
   if (length(c(features_gene, features_meta, features_embedding)) == 0) {
     stop("There are no valid features present.")
@@ -3151,14 +4699,34 @@ FeatureDimPlot3D <- function(srt, features, reduction = NULL, dims = c(1, 2, 3),
 
   if (isTRUE(calculate_coexp) && length(features_gene) > 0) {
     if (length(features_meta) > 0) {
-      warning(paste(features_meta, collapse = ","), "is not used when calculating co-expression", immediate. = TRUE)
+      warning(
+        paste(features_meta, collapse = ","),
+        "is not used when calculating co-expression",
+        immediate. = TRUE
+      )
     }
     status <- check_DataType(srt, layer = layer, assay = assay)
     message("Data type detected in ", layer, " layer: ", status)
     if (status %in% c("raw_counts", "raw_normalized_counts")) {
-      srt@meta.data[["CoExp"]] <- apply(LayerData(srt@assays[[assay]], layer = layer)[features_gene, , drop = FALSE], 2, function(x) exp(mean(log(x))))
+      srt@meta.data[["CoExp"]] <- apply(
+        LayerData(srt@assays[[assay]], layer = layer)[
+          features_gene,
+          ,
+          drop = FALSE
+        ],
+        2,
+        function(x) exp(mean(log(x)))
+      )
     } else if (status == "log_normalized_counts") {
-      srt@meta.data[["CoExp"]] <- apply(expm1(LayerData(srt@assays[[assay]], layer = layer)[features_gene, , drop = FALSE]), 2, function(x) log1p(exp(mean(log(x)))))
+      srt@meta.data[["CoExp"]] <- apply(
+        expm1(LayerData(srt@assays[[assay]], layer = layer)[
+          features_gene,
+          ,
+          drop = FALSE
+        ]),
+        2,
+        function(x) log1p(exp(mean(log(x))))
+      )
     } else {
       stop("Can not determine the data type.")
     }
@@ -3170,7 +4738,11 @@ FeatureDimPlot3D <- function(srt, features, reduction = NULL, dims = c(1, 2, 3),
     if (all(rownames(srt@assays[[assay]]) %in% features_gene)) {
       dat_gene <- t(as_matrix(LayerData(srt@assays[[assay]], layer = layer)))
     } else {
-      dat_gene <- t(as_matrix(LayerData(srt@assays[[assay]], layer = layer)[features_gene, , drop = FALSE]))
+      dat_gene <- t(as_matrix(LayerData(srt@assays[[assay]], layer = layer)[
+        features_gene,
+        ,
+        drop = FALSE
+      ]))
     }
   } else {
     dat_gene <- matrix(nrow = ncol(srt@assays[[1]]), ncol = 0)
@@ -3186,7 +4758,9 @@ FeatureDimPlot3D <- function(srt, features, reduction = NULL, dims = c(1, 2, 3),
     dat_embedding <- matrix(nrow = ncol(srt@assays[[1]]), ncol = 0)
   }
   dat_exp <- as_matrix(do.call(cbind, list(dat_gene, dat_meta, dat_embedding)))
-  features <- unique(features[features %in% c(features_gene, features_meta, features_embedding)])
+  features <- unique(features[
+    features %in% c(features_gene, features_meta, features_embedding)
+  ])
 
   if (!is.numeric(dat_exp) && !inherits(dat_exp, "Matrix")) {
     stop("'features' must be type of numeric variable.")
@@ -3203,23 +4777,60 @@ FeatureDimPlot3D <- function(srt, features, reduction = NULL, dims = c(1, 2, 3),
   dat_dim <- srt@reductions[[reduction]]@cell.embeddings
   colnames(dat_dim) <- paste0(reduction_key, seq_len(ncol(dat_dim)))
   rownames(dat_dim) <- rownames(dat_dim) %||% colnames(srt@assays[[1]])
-  dat_use <- cbind(dat_exp, dat_dim[rownames(dat_exp), , drop = FALSE], dat_sp[rownames(dat_exp), , drop = FALSE])
+  dat_use <- cbind(
+    dat_exp,
+    dat_dim[rownames(dat_exp), , drop = FALSE],
+    dat_sp[rownames(dat_exp), , drop = FALSE]
+  )
 
-  dat_use[[paste0(reduction_key, dims[1], "All_cells")]] <- dat_use[[paste0(reduction_key, dims[1])]]
-  dat_use[[paste0(reduction_key, dims[2], "All_cells")]] <- dat_use[[paste0(reduction_key, dims[2])]]
-  dat_use[[paste0(reduction_key, dims[3], "All_cells")]] <- dat_use[[paste0(reduction_key, dims[3])]]
+  dat_use[[paste0(reduction_key, dims[1], "All_cells")]] <- dat_use[[paste0(
+    reduction_key,
+    dims[1]
+  )]]
+  dat_use[[paste0(reduction_key, dims[2], "All_cells")]] <- dat_use[[paste0(
+    reduction_key,
+    dims[2]
+  )]]
+  dat_use[[paste0(reduction_key, dims[3], "All_cells")]] <- dat_use[[paste0(
+    reduction_key,
+    dims[3]
+  )]]
   for (i in levels(dat_use[[split.by]])) {
-    dat_use[[paste0(reduction_key, dims[1], i)]] <- ifelse(dat_use[[split.by]] == i, dat_use[[paste0(reduction_key, dims[1])]], NA)
-    dat_use[[paste0(reduction_key, dims[2], i)]] <- ifelse(dat_use[[split.by]] == i, dat_use[[paste0(reduction_key, dims[2])]], NA)
-    dat_use[[paste0(reduction_key, dims[3], i)]] <- ifelse(dat_use[[split.by]] == i, dat_use[[paste0(reduction_key, dims[3])]], NA)
+    dat_use[[paste0(reduction_key, dims[1], i)]] <- ifelse(
+      dat_use[[split.by]] == i,
+      dat_use[[paste0(reduction_key, dims[1])]],
+      NA
+    )
+    dat_use[[paste0(reduction_key, dims[2], i)]] <- ifelse(
+      dat_use[[split.by]] == i,
+      dat_use[[paste0(reduction_key, dims[2])]],
+      NA
+    )
+    dat_use[[paste0(reduction_key, dims[3], i)]] <- ifelse(
+      dat_use[[split.by]] == i,
+      dat_use[[paste0(reduction_key, dims[3])]],
+      NA
+    )
   }
   if (!is.null(cells.highlight)) {
     cells.highlight <- cells.highlight[cells.highlight %in% rownames(dat_use)]
     dat_use_highlight <- dat_use[cells.highlight, , drop = FALSE]
     for (i in levels(dat_use_highlight[[split.by]])) {
-      dat_use_highlight[[paste0(reduction_key, dims[1], i)]] <- ifelse(dat_use_highlight[[split.by]] == i, dat_use_highlight[[paste0(reduction_key, dims[1])]], NA)
-      dat_use_highlight[[paste0(reduction_key, dims[2], i)]] <- ifelse(dat_use_highlight[[split.by]] == i, dat_use_highlight[[paste0(reduction_key, dims[2])]], NA)
-      dat_use_highlight[[paste0(reduction_key, dims[3], i)]] <- ifelse(dat_use_highlight[[split.by]] == i, dat_use_highlight[[paste0(reduction_key, dims[3])]], NA)
+      dat_use_highlight[[paste0(reduction_key, dims[1], i)]] <- ifelse(
+        dat_use_highlight[[split.by]] == i,
+        dat_use_highlight[[paste0(reduction_key, dims[1])]],
+        NA
+      )
+      dat_use_highlight[[paste0(reduction_key, dims[2], i)]] <- ifelse(
+        dat_use_highlight[[split.by]] == i,
+        dat_use_highlight[[paste0(reduction_key, dims[2])]],
+        NA
+      )
+      dat_use_highlight[[paste0(reduction_key, dims[3], i)]] <- ifelse(
+        dat_use_highlight[[split.by]] == i,
+        dat_use_highlight[[paste0(reduction_key, dims[3])]],
+        NA
+      )
     }
   }
 
@@ -3231,14 +4842,22 @@ FeatureDimPlot3D <- function(srt, features, reduction = NULL, dims = c(1, 2, 3),
     y = dat_use[[paste0(reduction_key, dims[2], "All_cells")]],
     z = dat_use[[paste0(reduction_key, dims[3], "All_cells")]],
     text = paste0(
-      "Cell:", rownames(dat_use),
-      "\nExp:", round(dat_use[[features[1]]], 3)
+      "Cell:",
+      rownames(dat_use),
+      "\nExp:",
+      round(dat_use[[features[1]]], 3)
     ),
     type = "scatter3d",
     mode = "markers",
     marker = list(
       color = dat_use[[features[1]]],
-      colorbar = list(title = list(text = features[1], font = list(color = "black", size = 14)), len = 0.5),
+      colorbar = list(
+        title = list(
+          text = features[1],
+          font = list(color = "black", size = 14)
+        ),
+        len = 0.5
+      ),
       size = pt.size,
       showscale = TRUE
     ),
@@ -3254,12 +4873,18 @@ FeatureDimPlot3D <- function(srt, features, reduction = NULL, dims = c(1, 2, 3),
       y = dat_use_highlight[[paste0(reduction_key, dims[2], "All_cells")]],
       z = dat_use_highlight[[paste0(reduction_key, dims[3], "All_cells")]],
       text = paste0(
-        "Cell:", rownames(dat_use_highlight),
-        "\nExp:", round(dat_use_highlight[[features[1]]], 3)
+        "Cell:",
+        rownames(dat_use_highlight),
+        "\nExp:",
+        round(dat_use_highlight[[features[1]]], 3)
       ),
       type = "scatter3d",
       mode = "markers",
-      marker = list(size = sizes.highlight, color = cols.highlight, symbol = shape.highlight),
+      marker = list(
+        size = sizes.highlight,
+        color = cols.highlight,
+        symbol = shape.highlight
+      ),
       name = "highlight",
       showlegend = TRUE,
       visible = TRUE
@@ -3286,37 +4911,57 @@ FeatureDimPlot3D <- function(srt, features, reduction = NULL, dims = c(1, 2, 3),
     }
     split_option[[i + 1]] <- list(
       method = "update",
-      args = list(list(
-        x = x,
-        y = y,
-        z = z,
-        name = name,
-        visible = TRUE
-      ), list(title = list(
-        text = paste0(sp, " (nCells:", ncells, ")"),
-        font = list(size = 16, color = "black"),
-        y = 0.95
-      ))),
+      args = list(
+        list(
+          x = x,
+          y = y,
+          z = z,
+          name = name,
+          visible = TRUE
+        ),
+        list(
+          title = list(
+            text = paste0(sp, " (nCells:", ncells, ")"),
+            font = list(size = 16, color = "black"),
+            y = 0.95
+          )
+        )
+      ),
       label = sp
     )
   }
   for (j in seq_along(features)) {
     marker <- list(
       color = dat_use[[features[j]]],
-      colorbar = list(title = list(text = features[j], font = list(color = "black", size = 14)), len = 0.5),
+      colorbar = list(
+        title = list(
+          text = features[j],
+          font = list(color = "black", size = 14)
+        ),
+        len = 0.5
+      ),
       size = pt.size,
       showscale = TRUE
     )
 
     if (!is.null(cells.highlight)) {
-      marker <- list(marker, list(size = sizes.highlight, color = cols.highlight, symbol = shape.highlight))
+      marker <- list(
+        marker,
+        list(
+          size = sizes.highlight,
+          color = cols.highlight,
+          symbol = shape.highlight
+        )
+      )
     }
     genes_option[[j]] <- list(
       method = "update",
       args = list(list(
         text = list(paste0(
-          "Cell:", rownames(dat_use),
-          "\nExp:", round(dat_use[[features[j]]], 3)
+          "Cell:",
+          rownames(dat_use),
+          "\nExp:",
+          round(dat_use[[features[j]]], 3)
         )),
         marker = marker
       )),
@@ -3339,9 +4984,27 @@ FeatureDimPlot3D <- function(srt, features, reduction = NULL, dims = c(1, 2, 3),
       xanchor = "center"
     ),
     scene = list(
-      xaxis = list(title = xlab, range = c(min(dat_use[[paste0(reduction_key, dims[1])]], na.rm = TRUE), max(dat_use[[paste0(reduction_key, dims[1])]], na.rm = TRUE))),
-      yaxis = list(title = ylab, range = c(min(dat_use[[paste0(reduction_key, dims[2])]], na.rm = TRUE), max(dat_use[[paste0(reduction_key, dims[2])]], na.rm = TRUE))),
-      zaxis = list(title = zlab, range = c(min(dat_use[[paste0(reduction_key, dims[3])]], na.rm = TRUE), max(dat_use[[paste0(reduction_key, dims[3])]], na.rm = TRUE))),
+      xaxis = list(
+        title = xlab,
+        range = c(
+          min(dat_use[[paste0(reduction_key, dims[1])]], na.rm = TRUE),
+          max(dat_use[[paste0(reduction_key, dims[1])]], na.rm = TRUE)
+        )
+      ),
+      yaxis = list(
+        title = ylab,
+        range = c(
+          min(dat_use[[paste0(reduction_key, dims[2])]], na.rm = TRUE),
+          max(dat_use[[paste0(reduction_key, dims[2])]], na.rm = TRUE)
+        )
+      ),
+      zaxis = list(
+        title = zlab,
+        range = c(
+          min(dat_use[[paste0(reduction_key, dims[3])]], na.rm = TRUE),
+          max(dat_use[[paste0(reduction_key, dims[3])]], na.rm = TRUE)
+        )
+      ),
       aspectratio = list(x = 1, y = 1, z = 1)
     ),
     updatemenus = list(
@@ -3521,27 +5184,85 @@ FeatureDimPlot3D <- function(srt, features, reduction = NULL, dims = c(1, 2, 3),
 #' @importFrom grid grobHeight grobWidth
 #' @importFrom patchwork wrap_plots
 #' @export
-FeatureStatPlot <- function(srt, stat.by, group.by = NULL, split.by = NULL, bg.by = NULL, plot.by = c("group", "feature"), fill.by = c("group", "feature", "expression"),
-                            cells = NULL, layer = "data", assay = NULL, keep_empty = FALSE, individual = FALSE,
-                            plot_type = c("violin", "box", "bar", "dot", "col"),
-                            palette = "Paired", palcolor = NULL, alpha = 1,
-                            bg_palette = "Paired", bg_palcolor = NULL, bg_alpha = 0.2,
-                            add_box = FALSE, box_color = "black", box_width = 0.1, box_ptsize = 2,
-                            add_point = FALSE, pt.color = "grey30", pt.size = NULL, pt.alpha = 1, jitter.width = 0.4, jitter.height = 0.1,
-                            add_trend = FALSE, trend_color = "black", trend_linewidth = 1, trend_ptsize = 2,
-                            add_stat = c("none", "mean", "median"), stat_color = "black", stat_size = 1, stat_stroke = 1, stat_shape = 25,
-                            add_line = NULL, line_color = "red", line_size = 1, line_type = 1,
-                            cells.highlight = NULL, cols.highlight = "red", sizes.highlight = 1, alpha.highlight = 1,
-                            calculate_coexp = FALSE,
-                            same.y.lims = FALSE, y.min = NULL, y.max = NULL, y.trans = "identity", y.nbreaks = 5,
-                            sort = FALSE, stack = FALSE, flip = FALSE,
-                            comparisons = NULL, ref_group = NULL, pairwise_method = "wilcox.test",
-                            multiplegroup_comparisons = FALSE, multiple_method = "kruskal.test",
-                            sig_label = c("p.signif", "p.format"), sig_labelsize = 3.5,
-                            aspect.ratio = NULL, title = NULL, subtitle = NULL, xlab = NULL, ylab = "Expression level",
-                            legend.position = "right", legend.direction = "vertical",
-                            theme_use = "theme_scp", theme_args = list(),
-                            combine = TRUE, nrow = NULL, ncol = NULL, byrow = TRUE, force = FALSE, seed = 11) {
+FeatureStatPlot <- function(
+  srt,
+  stat.by,
+  group.by = NULL,
+  split.by = NULL,
+  bg.by = NULL,
+  plot.by = c("group", "feature"),
+  fill.by = c("group", "feature", "expression"),
+  cells = NULL,
+  layer = "data",
+  assay = NULL,
+  keep_empty = FALSE,
+  individual = FALSE,
+  plot_type = c("violin", "box", "bar", "dot", "col"),
+  palette = "Paired",
+  palcolor = NULL,
+  alpha = 1,
+  bg_palette = "Paired",
+  bg_palcolor = NULL,
+  bg_alpha = 0.2,
+  add_box = FALSE,
+  box_color = "black",
+  box_width = 0.1,
+  box_ptsize = 2,
+  add_point = FALSE,
+  pt.color = "grey30",
+  pt.size = NULL,
+  pt.alpha = 1,
+  jitter.width = 0.4,
+  jitter.height = 0.1,
+  add_trend = FALSE,
+  trend_color = "black",
+  trend_linewidth = 1,
+  trend_ptsize = 2,
+  add_stat = c("none", "mean", "median"),
+  stat_color = "black",
+  stat_size = 1,
+  stat_stroke = 1,
+  stat_shape = 25,
+  add_line = NULL,
+  line_color = "red",
+  line_size = 1,
+  line_type = 1,
+  cells.highlight = NULL,
+  cols.highlight = "red",
+  sizes.highlight = 1,
+  alpha.highlight = 1,
+  calculate_coexp = FALSE,
+  same.y.lims = FALSE,
+  y.min = NULL,
+  y.max = NULL,
+  y.trans = "identity",
+  y.nbreaks = 5,
+  sort = FALSE,
+  stack = FALSE,
+  flip = FALSE,
+  comparisons = NULL,
+  ref_group = NULL,
+  pairwise_method = "wilcox.test",
+  multiplegroup_comparisons = FALSE,
+  multiple_method = "kruskal.test",
+  sig_label = c("p.signif", "p.format"),
+  sig_labelsize = 3.5,
+  aspect.ratio = NULL,
+  title = NULL,
+  subtitle = NULL,
+  xlab = NULL,
+  ylab = "Expression level",
+  legend.position = "right",
+  legend.direction = "vertical",
+  theme_use = "theme_scp",
+  theme_args = list(),
+  combine = TRUE,
+  nrow = NULL,
+  ncol = NULL,
+  byrow = TRUE,
+  force = FALSE,
+  seed = 11
+) {
   if (is.null(group.by)) {
     group.by <- "All.groups" # avoid having the same name with split.by. split.by will be All.groups by default
     xlab <- "All groups"
@@ -3556,18 +5277,39 @@ FeatureStatPlot <- function(srt, stat.by, group.by = NULL, split.by = NULL, bg.b
 
   if (plot.by == "feature") {
     if (length(group.by) > 1) {
-      stop("The 'group.by' must have a length of 1 when 'plot.by' is set to 'feature'")
+      stop(
+        "The 'group.by' must have a length of 1 when 'plot.by' is set to 'feature'"
+      )
     }
     if (!is.null(bg.by)) {
       message("'bg.by' is invalid when plot.by is set to 'feature'")
     }
     message("Setting 'group.by' to 'Features' as 'plot.by' is set to 'feature'")
     srt@assays[setdiff(names(srt@assays), assay)] <- NULL
-    meta.reshape <- FetchData(srt, vars = c(stat.by, group.by, split.by), cells = cells %||% rownames(meta.data), layer = layer)
+    meta.reshape <- FetchData(
+      srt,
+      vars = c(stat.by, group.by, split.by),
+      cells = cells %||% rownames(meta.data),
+      layer = layer
+    )
     meta.reshape[["cells"]] <- rownames(meta.reshape)
-    meta.reshape <- reshape2::melt(meta.reshape, measure.vars = stat.by, variable.name = "Features", value.name = "Stat.by")
-    rownames(meta.reshape) <- paste0(meta.reshape[["cells"]], "-", meta.reshape[["Features"]])
-    exp.data <- matrix(0, nrow = 1, ncol = nrow(meta.reshape), dimnames = list("Stat.by", rownames(meta.reshape)))
+    meta.reshape <- reshape2::melt(
+      meta.reshape,
+      measure.vars = stat.by,
+      variable.name = "Features",
+      value.name = "Stat.by"
+    )
+    rownames(meta.reshape) <- paste0(
+      meta.reshape[["cells"]],
+      "-",
+      meta.reshape[["Features"]]
+    )
+    exp.data <- matrix(
+      0,
+      nrow = 1,
+      ncol = nrow(meta.reshape),
+      dimnames = list("Stat.by", rownames(meta.reshape))
+    )
     plist <- list()
     for (g in unique(meta.reshape[[group.by]])) {
       if (length(rownames(meta.reshape)[meta.reshape[[group.by]] == g]) > 0) {
@@ -3575,27 +5317,78 @@ FeatureStatPlot <- function(srt, stat.by, group.by = NULL, split.by = NULL, bg.b
         meta.use[[group.by]] <- NULL
         colnames(meta.use)[colnames(meta.use) == "Stat.by"] <- g
         p <- ExpressionStatPlot(
-          exp.data = exp.data, meta.data = meta.use, stat.by = g, group.by = "Features", split.by = split.by, bg.by = NULL, plot.by = "group", fill.by = fill.by,
-          cells = rownames(meta.reshape)[meta.reshape[[group.by]] == g], keep_empty = keep_empty, individual = individual,
+          exp.data = exp.data,
+          meta.data = meta.use,
+          stat.by = g,
+          group.by = "Features",
+          split.by = split.by,
+          bg.by = NULL,
+          plot.by = "group",
+          fill.by = fill.by,
+          cells = rownames(meta.reshape)[meta.reshape[[group.by]] == g],
+          keep_empty = keep_empty,
+          individual = individual,
           plot_type = plot_type,
-          palette = palette, palcolor = palcolor, alpha = alpha,
-          bg_palette = bg_palette, bg_palcolor = bg_palcolor, bg_alpha = bg_alpha,
-          add_box = add_box, box_color = box_color, box_width = box_width, box_ptsize = box_ptsize,
-          add_point = add_point, pt.color = pt.color, pt.size = pt.size, pt.alpha = pt.alpha, jitter.width = jitter.width, jitter.height = jitter.height,
-          add_trend = add_trend, trend_color = trend_color, trend_linewidth = trend_linewidth, trend_ptsize = trend_ptsize,
-          add_stat = add_stat, stat_color = stat_color, stat_size = stat_size, stat_stroke = stat_stroke, stat_shape = stat_shape,
-          add_line = add_line, line_color = line_color, line_size = line_size, line_type = line_type,
-          cells.highlight = cells.highlight, cols.highlight = cols.highlight, sizes.highlight = sizes.highlight, alpha.highlight = alpha.highlight,
+          palette = palette,
+          palcolor = palcolor,
+          alpha = alpha,
+          bg_palette = bg_palette,
+          bg_palcolor = bg_palcolor,
+          bg_alpha = bg_alpha,
+          add_box = add_box,
+          box_color = box_color,
+          box_width = box_width,
+          box_ptsize = box_ptsize,
+          add_point = add_point,
+          pt.color = pt.color,
+          pt.size = pt.size,
+          pt.alpha = pt.alpha,
+          jitter.width = jitter.width,
+          jitter.height = jitter.height,
+          add_trend = add_trend,
+          trend_color = trend_color,
+          trend_linewidth = trend_linewidth,
+          trend_ptsize = trend_ptsize,
+          add_stat = add_stat,
+          stat_color = stat_color,
+          stat_size = stat_size,
+          stat_stroke = stat_stroke,
+          stat_shape = stat_shape,
+          add_line = add_line,
+          line_color = line_color,
+          line_size = line_size,
+          line_type = line_type,
+          cells.highlight = cells.highlight,
+          cols.highlight = cols.highlight,
+          sizes.highlight = sizes.highlight,
+          alpha.highlight = alpha.highlight,
           calculate_coexp = calculate_coexp,
-          same.y.lims = same.y.lims, y.min = y.min, y.max = y.max, y.trans = y.trans, y.nbreaks = y.nbreaks,
-          sort = sort, stack = stack, flip = flip,
-          comparisons = comparisons, ref_group = ref_group, pairwise_method = pairwise_method,
-          multiplegroup_comparisons = multiplegroup_comparisons, multiple_method = multiple_method,
-          sig_label = sig_label, sig_labelsize = sig_labelsize,
-          aspect.ratio = aspect.ratio, title = title, subtitle = subtitle, xlab = xlab, ylab = ylab,
-          legend.position = legend.position, legend.direction = legend.direction,
-          theme_use = theme_use, theme_args = theme_args,
-          force = force, seed = seed
+          same.y.lims = same.y.lims,
+          y.min = y.min,
+          y.max = y.max,
+          y.trans = y.trans,
+          y.nbreaks = y.nbreaks,
+          sort = sort,
+          stack = stack,
+          flip = flip,
+          comparisons = comparisons,
+          ref_group = ref_group,
+          pairwise_method = pairwise_method,
+          multiplegroup_comparisons = multiplegroup_comparisons,
+          multiple_method = multiple_method,
+          sig_label = sig_label,
+          sig_labelsize = sig_labelsize,
+          aspect.ratio = aspect.ratio,
+          title = title,
+          subtitle = subtitle,
+          xlab = xlab,
+          ylab = ylab,
+          legend.position = legend.position,
+          legend.direction = legend.direction,
+          theme_use = theme_use,
+          theme_args = theme_args,
+          force = force,
+          seed = seed
         )
         plist <- append(plist, p)
       }
@@ -3603,60 +5396,122 @@ FeatureStatPlot <- function(srt, stat.by, group.by = NULL, split.by = NULL, bg.b
     group.by <- "Features"
   } else {
     plist <- ExpressionStatPlot(
-      exp.data = exp.data, meta.data = meta.data, stat.by = stat.by, group.by = group.by, split.by = split.by, bg.by = bg.by, plot.by = "group", fill.by = fill.by,
-      cells = cells, keep_empty = keep_empty, individual = individual,
+      exp.data = exp.data,
+      meta.data = meta.data,
+      stat.by = stat.by,
+      group.by = group.by,
+      split.by = split.by,
+      bg.by = bg.by,
+      plot.by = "group",
+      fill.by = fill.by,
+      cells = cells,
+      keep_empty = keep_empty,
+      individual = individual,
       plot_type = plot_type,
-      palette = palette, palcolor = palcolor, alpha = alpha,
-      bg_palette = bg_palette, bg_palcolor = bg_palcolor, bg_alpha = bg_alpha,
-      add_box = add_box, box_color = box_color, box_width = box_width, box_ptsize = box_ptsize,
-      add_point = add_point, pt.color = pt.color, pt.size = pt.size, pt.alpha = pt.alpha, jitter.width = jitter.width, jitter.height = jitter.height,
-      add_trend = add_trend, trend_color = trend_color, trend_linewidth = trend_linewidth, trend_ptsize = trend_ptsize,
-      add_stat = add_stat, stat_color = stat_color, stat_size = stat_size, stat_stroke = stat_stroke, stat_shape = stat_shape,
-      add_line = add_line, line_color = line_color, line_size = line_size, line_type = line_type,
-      cells.highlight = cells.highlight, cols.highlight = cols.highlight, sizes.highlight = sizes.highlight, alpha.highlight = alpha.highlight,
+      palette = palette,
+      palcolor = palcolor,
+      alpha = alpha,
+      bg_palette = bg_palette,
+      bg_palcolor = bg_palcolor,
+      bg_alpha = bg_alpha,
+      add_box = add_box,
+      box_color = box_color,
+      box_width = box_width,
+      box_ptsize = box_ptsize,
+      add_point = add_point,
+      pt.color = pt.color,
+      pt.size = pt.size,
+      pt.alpha = pt.alpha,
+      jitter.width = jitter.width,
+      jitter.height = jitter.height,
+      add_trend = add_trend,
+      trend_color = trend_color,
+      trend_linewidth = trend_linewidth,
+      trend_ptsize = trend_ptsize,
+      add_stat = add_stat,
+      stat_color = stat_color,
+      stat_size = stat_size,
+      stat_stroke = stat_stroke,
+      stat_shape = stat_shape,
+      add_line = add_line,
+      line_color = line_color,
+      line_size = line_size,
+      line_type = line_type,
+      cells.highlight = cells.highlight,
+      cols.highlight = cols.highlight,
+      sizes.highlight = sizes.highlight,
+      alpha.highlight = alpha.highlight,
       calculate_coexp = calculate_coexp,
-      same.y.lims = same.y.lims, y.min = y.min, y.max = y.max, y.trans = y.trans, y.nbreaks = y.nbreaks,
-      sort = sort, stack = stack, flip = flip,
-      comparisons = comparisons, ref_group = ref_group, pairwise_method = pairwise_method,
-      multiplegroup_comparisons = multiplegroup_comparisons, multiple_method = multiple_method,
-      sig_label = sig_label, sig_labelsize = sig_labelsize,
-      aspect.ratio = aspect.ratio, title = title, subtitle = subtitle, xlab = xlab, ylab = ylab,
-      legend.position = legend.position, legend.direction = legend.direction,
-      theme_use = theme_use, theme_args = theme_args,
-      force = force, seed = seed
+      same.y.lims = same.y.lims,
+      y.min = y.min,
+      y.max = y.max,
+      y.trans = y.trans,
+      y.nbreaks = y.nbreaks,
+      sort = sort,
+      stack = stack,
+      flip = flip,
+      comparisons = comparisons,
+      ref_group = ref_group,
+      pairwise_method = pairwise_method,
+      multiplegroup_comparisons = multiplegroup_comparisons,
+      multiple_method = multiple_method,
+      sig_label = sig_label,
+      sig_labelsize = sig_labelsize,
+      aspect.ratio = aspect.ratio,
+      title = title,
+      subtitle = subtitle,
+      xlab = xlab,
+      ylab = ylab,
+      legend.position = legend.position,
+      legend.direction = legend.direction,
+      theme_use = theme_use,
+      theme_args = theme_args,
+      force = force,
+      seed = seed
     )
   }
 
   plist_stack <- list()
   if (isTRUE(stack) && length(stat.by) > 1 && isFALSE(individual)) {
     for (g in group.by) {
-      plist_g <- plist[sapply(strsplit(names(plist), ":"), function(x) x[2]) == g]
+      plist_g <- plist[
+        sapply(strsplit(names(plist), ":"), function(x) x[2]) == g
+      ]
       legend <- ggpubr::get_legend(plist_g[[1]])
       if (isTRUE(flip)) {
-        lab <- textGrob(label = ifelse(is.null(ylab), "Expression level", ylab), hjust = 0.5)
+        lab <- textGrob(
+          label = ifelse(is.null(ylab), "Expression level", ylab),
+          hjust = 0.5
+        )
         plist_g <- lapply(seq_along(plist_g), FUN = function(i) {
           p <- plist_g[[i]]
           if (i != 1) {
-            suppressWarnings(p <- p + theme(
-              legend.position = "none",
-              panel.grid = element_blank(),
-              plot.title = element_blank(),
-              plot.subtitle = element_blank(),
-              axis.title = element_blank(),
-              axis.text.y = element_blank(),
-              axis.text.x = element_text(vjust = c(1, 0)),
-              axis.ticks.length.y = unit(0, "pt"),
-              plot.margin = unit(c(0, -0.5, 0, 0), "mm")
-            ))
+            suppressWarnings(
+              p <- p +
+                theme(
+                  legend.position = "none",
+                  panel.grid = element_blank(),
+                  plot.title = element_blank(),
+                  plot.subtitle = element_blank(),
+                  axis.title = element_blank(),
+                  axis.text.y = element_blank(),
+                  axis.text.x = element_text(vjust = c(1, 0)),
+                  axis.ticks.length.y = unit(0, "pt"),
+                  plot.margin = unit(c(0, -0.5, 0, 0), "mm")
+                )
+            )
           } else {
-            suppressWarnings(p <- p + theme(
-              legend.position = "none",
-              panel.grid = element_blank(),
-              axis.title.x = element_blank(),
-              axis.text.x = element_text(vjust = c(1, 0)),
-              axis.ticks.length.y = unit(0, "pt"),
-              plot.margin = unit(c(0, -0.5, 0, 0), "mm")
-            ))
+            suppressWarnings(
+              p <- p +
+                theme(
+                  legend.position = "none",
+                  panel.grid = element_blank(),
+                  axis.title.x = element_blank(),
+                  axis.text.x = element_text(vjust = c(1, 0)),
+                  axis.ticks.length.y = unit(0, "pt"),
+                  plot.margin = unit(c(0, -0.5, 0, 0), "mm")
+                )
+            )
           }
           return(as_grob(p))
         })
@@ -3664,31 +5519,45 @@ FeatureStatPlot <- function(srt, stat.by, group.by = NULL, split.by = NULL, bg.b
         gtable <- add_grob(gtable, lab, "bottom", clip = "off")
         gtable <- add_grob(gtable, legend, legend.position)
       } else {
-        lab <- textGrob(label = ifelse(is.null(ylab), "Expression level", ylab), rot = 90, hjust = 0.5)
+        lab <- textGrob(
+          label = ifelse(is.null(ylab), "Expression level", ylab),
+          rot = 90,
+          hjust = 0.5
+        )
         plist_g <- lapply(seq_along(plist_g), FUN = function(i) {
           p <- plist_g[[i]]
           if (i != length(plist_g)) {
-            suppressWarnings(p <- p + theme(
-              legend.position = "none",
-              panel.grid = element_blank(),
-              axis.title = element_blank(),
-              axis.text.x = element_blank(),
-              axis.text.y = element_text(vjust = c(0, 1)),
-              axis.ticks.length.x = unit(0, "pt"),
-              plot.margin = unit(c(-0.5, 0, 0, 0), "mm")
-            ))
+            suppressWarnings(
+              p <- p +
+                theme(
+                  legend.position = "none",
+                  panel.grid = element_blank(),
+                  axis.title = element_blank(),
+                  axis.text.x = element_blank(),
+                  axis.text.y = element_text(vjust = c(0, 1)),
+                  axis.ticks.length.x = unit(0, "pt"),
+                  plot.margin = unit(c(-0.5, 0, 0, 0), "mm")
+                )
+            )
             if (i == 1) {
-              p <- p + theme(plot.title = element_blank(), plot.subtitle = element_blank())
+              p <- p +
+                theme(
+                  plot.title = element_blank(),
+                  plot.subtitle = element_blank()
+                )
             }
           } else {
-            suppressWarnings(p <- p + theme(
-              legend.position = "none",
-              panel.grid = element_blank(),
-              axis.title.y = element_blank(),
-              axis.text.y = element_text(vjust = c(0, 1)),
-              axis.ticks.length.x = unit(0, "pt"),
-              plot.margin = unit(c(-0.5, 0, 0, 0), "mm")
-            ))
+            suppressWarnings(
+              p <- p +
+                theme(
+                  legend.position = "none",
+                  panel.grid = element_blank(),
+                  axis.title.y = element_blank(),
+                  axis.text.y = element_text(vjust = c(0, 1)),
+                  axis.ticks.length.x = unit(0, "pt"),
+                  plot.margin = unit(c(-0.5, 0, 0, 0), "mm")
+                )
+            )
           }
           return(as_grob(p))
         })
@@ -3707,7 +5576,12 @@ FeatureStatPlot <- function(srt, stat.by, group.by = NULL, split.by = NULL, bg.b
   }
   if (isTRUE(combine)) {
     if (length(plist) > 1) {
-      plot <- wrap_plots(plotlist = plist, nrow = nrow, ncol = ncol, byrow = byrow)
+      plot <- wrap_plots(
+        plotlist = plist,
+        nrow = nrow,
+        ncol = ncol,
+        byrow = byrow
+      )
     } else {
       plot <- plist[[1]]
     }
@@ -3720,27 +5594,80 @@ FeatureStatPlot <- function(srt, stat.by, group.by = NULL, split.by = NULL, bg.b
 #' @importFrom Seurat DefaultAssay GetAssayData
 #' @importFrom ggplot2 geom_blank geom_violin geom_rect geom_boxplot geom_count geom_col geom_vline geom_hline layer_data layer_scales position_jitterdodge position_dodge stat_summary scale_x_discrete element_line element_text element_blank annotate mean_sdl after_stat scale_shape_identity
 #' @importFrom Matrix rowSums
-ExpressionStatPlot <- function(exp.data, meta.data, stat.by, group.by = NULL, split.by = NULL, bg.by = NULL, plot.by = c("group", "feature"), fill.by = c("group", "feature", "expression"),
-                               cells = NULL, keep_empty = FALSE, individual = FALSE,
-                               plot_type = c("violin", "box", "bar", "dot", "col"),
-                               palette = "Paired", palcolor = NULL, alpha = 1,
-                               bg_palette = "Paired", bg_palcolor = NULL, bg_alpha = 0.2,
-                               add_box = FALSE, box_color = "black", box_width = 0.1, box_ptsize = 2,
-                               add_point = FALSE, pt.color = "grey30", pt.size = NULL, pt.alpha = 1, jitter.width = 0.4, jitter.height = 0.1,
-                               add_trend = FALSE, trend_color = "black", trend_linewidth = 1, trend_ptsize = 2,
-                               add_stat = c("none", "mean", "median"), stat_color = "black", stat_size = 1, stat_stroke = 1, stat_shape = 25,
-                               add_line = NULL, line_color = "red", line_size = 1, line_type = 1,
-                               cells.highlight = NULL, cols.highlight = "red", sizes.highlight = 1, alpha.highlight = 1,
-                               calculate_coexp = FALSE,
-                               same.y.lims = FALSE, y.min = NULL, y.max = NULL, y.trans = "identity", y.nbreaks = 5,
-                               sort = FALSE, stack = FALSE, flip = FALSE,
-                               comparisons = NULL, ref_group = NULL, pairwise_method = "wilcox.test",
-                               multiplegroup_comparisons = FALSE, multiple_method = "kruskal.test",
-                               sig_label = c("p.signif", "p.format"), sig_labelsize = 3.5,
-                               aspect.ratio = NULL, title = NULL, subtitle = NULL, xlab = NULL, ylab = "Expression level",
-                               legend.position = "right", legend.direction = "vertical",
-                               theme_use = "theme_scp", theme_args = list(),
-                               force = FALSE, seed = 11) {
+ExpressionStatPlot <- function(
+  exp.data,
+  meta.data,
+  stat.by,
+  group.by = NULL,
+  split.by = NULL,
+  bg.by = NULL,
+  plot.by = c("group", "feature"),
+  fill.by = c("group", "feature", "expression"),
+  cells = NULL,
+  keep_empty = FALSE,
+  individual = FALSE,
+  plot_type = c("violin", "box", "bar", "dot", "col"),
+  palette = "Paired",
+  palcolor = NULL,
+  alpha = 1,
+  bg_palette = "Paired",
+  bg_palcolor = NULL,
+  bg_alpha = 0.2,
+  add_box = FALSE,
+  box_color = "black",
+  box_width = 0.1,
+  box_ptsize = 2,
+  add_point = FALSE,
+  pt.color = "grey30",
+  pt.size = NULL,
+  pt.alpha = 1,
+  jitter.width = 0.4,
+  jitter.height = 0.1,
+  add_trend = FALSE,
+  trend_color = "black",
+  trend_linewidth = 1,
+  trend_ptsize = 2,
+  add_stat = c("none", "mean", "median"),
+  stat_color = "black",
+  stat_size = 1,
+  stat_stroke = 1,
+  stat_shape = 25,
+  add_line = NULL,
+  line_color = "red",
+  line_size = 1,
+  line_type = 1,
+  cells.highlight = NULL,
+  cols.highlight = "red",
+  sizes.highlight = 1,
+  alpha.highlight = 1,
+  calculate_coexp = FALSE,
+  same.y.lims = FALSE,
+  y.min = NULL,
+  y.max = NULL,
+  y.trans = "identity",
+  y.nbreaks = 5,
+  sort = FALSE,
+  stack = FALSE,
+  flip = FALSE,
+  comparisons = NULL,
+  ref_group = NULL,
+  pairwise_method = "wilcox.test",
+  multiplegroup_comparisons = FALSE,
+  multiple_method = "kruskal.test",
+  sig_label = c("p.signif", "p.format"),
+  sig_labelsize = 3.5,
+  aspect.ratio = NULL,
+  title = NULL,
+  subtitle = NULL,
+  xlab = NULL,
+  ylab = "Expression level",
+  legend.position = "right",
+  legend.direction = "vertical",
+  theme_use = "theme_scp",
+  theme_args = list(),
+  force = FALSE,
+  seed = 11
+) {
   set.seed(seed)
 
   plot.by <- match.arg(plot.by)
@@ -3753,19 +5680,35 @@ ExpressionStatPlot <- function(exp.data, meta.data, stat.by, group.by = NULL, sp
   }
 
   if (missing(exp.data)) {
-    exp.data <- matrix(0, nrow = 1, ncol = nrow(meta.data), dimnames = list("", rownames(meta.data)))
+    exp.data <- matrix(
+      0,
+      nrow = 1,
+      ncol = nrow(meta.data),
+      dimnames = list("", rownames(meta.data))
+    )
   }
 
   allfeatures <- rownames(exp.data)
   allcells <- rownames(meta.data)
 
   if (plot_type == "col") {
-    if (isTRUE(add_box) || isTRUE(add_point) || isTRUE(add_trend) || isTRUE(add_stat != "none")) {
-      warning("Cannot add other layers when plot_type is 'col'", immediate. = TRUE)
+    if (
+      isTRUE(add_box) ||
+        isTRUE(add_point) ||
+        isTRUE(add_trend) ||
+        isTRUE(add_stat != "none")
+    ) {
+      warning(
+        "Cannot add other layers when plot_type is 'col'",
+        immediate. = TRUE
+      )
       add_box <- add_point <- add_trend <- FALSE
     }
   }
-  if ((isTRUE(multiplegroup_comparisons) || length(comparisons) > 0) && plot_type %in% c("col")) {
+  if (
+    (isTRUE(multiplegroup_comparisons) || length(comparisons) > 0) &&
+      plot_type %in% c("col")
+  ) {
     warning("Cannot add comparison when plot_type is 'col'", immediate. = TRUE)
     multiplegroup_comparisons <- FALSE
     comparisons <- NULL
@@ -3804,7 +5747,10 @@ ExpressionStatPlot <- function(exp.data, meta.data, stat.by, group.by = NULL, sp
       if (max(rowSums(df_table > 0), na.rm = TRUE) > 1) {
         stop("'group.by' must be a part of 'bg.by'")
       } else {
-        bg_map[[g]] <- setNames(colnames(df_table)[apply(df_table, 1, function(x) which(x > 0))], rownames(df_table))
+        bg_map[[g]] <- setNames(
+          colnames(df_table)[apply(df_table, 1, function(x) which(x > 0))],
+          rownames(df_table)
+        )
       }
     }
   } else {
@@ -3825,7 +5771,10 @@ ExpressionStatPlot <- function(exp.data, meta.data, stat.by, group.by = NULL, sp
     cells.highlight <- allcells
   }
   if (!is.null(cells.highlight) && isFALSE(add_point)) {
-    warning("'cells.highlight' is valid only when add_point=TRUE.", immediate. = TRUE)
+    warning(
+      "'cells.highlight' is valid only when add_point=TRUE.",
+      immediate. = TRUE
+    )
   }
   if (isTRUE(stack) & isTRUE(sort)) {
     message("Set sort to FALSE when stack is TRUE")
@@ -3835,33 +5784,56 @@ ExpressionStatPlot <- function(exp.data, meta.data, stat.by, group.by = NULL, sp
     check_R("ggpubr")
     ncomp <- sapply(comparisons, length)
     if (any(ncomp > 2)) {
-      stop("'comparisons' must be a list in which all elements must be vectors of length 2")
+      stop(
+        "'comparisons' must be a list in which all elements must be vectors of length 2"
+      )
     }
   }
 
   stat.by <- unique(stat.by)
-  features_drop <- stat.by[!stat.by %in% c(rownames(exp.data), colnames(meta.data))]
+  features_drop <- stat.by[
+    !stat.by %in% c(rownames(exp.data), colnames(meta.data))
+  ]
   if (length(features_drop) > 0) {
-    warning(paste0(features_drop, collapse = ","), " are not found.", immediate. = TRUE)
+    warning(
+      paste0(features_drop, collapse = ","),
+      " are not found.",
+      immediate. = TRUE
+    )
     stat.by <- stat.by[!stat.by %in% features_drop]
   }
 
   features_gene <- stat.by[stat.by %in% rownames(exp.data)]
   features_meta <- stat.by[stat.by %in% colnames(meta.data)]
   if (length(intersect(features_gene, features_meta)) > 0) {
-    warning("Features appear in both gene names and metadata names: ", paste0(intersect(features_gene, features_meta), collapse = ","))
+    warning(
+      "Features appear in both gene names and metadata names: ",
+      paste0(intersect(features_gene, features_meta), collapse = ",")
+    )
   }
 
   if (isTRUE(calculate_coexp) && length(features_gene) > 1) {
     if (length(features_meta) > 0) {
-      warning(paste(features_meta, collapse = ","), "is not used when calculating co-expression", immediate. = TRUE)
+      warning(
+        paste(features_meta, collapse = ","),
+        "is not used when calculating co-expression",
+        immediate. = TRUE
+      )
     }
     status <- check_DataType(data = exp.data)
     message("Data type: ", status)
     if (status %in% c("raw_counts", "raw_normalized_counts")) {
-      meta.data[["CoExp"]] <- apply(exp.data[features_gene, , drop = FALSE], 2, function(x) exp(mean(log(x))))
+      meta.data[["CoExp"]] <- apply(
+        exp.data[features_gene, , drop = FALSE],
+        2,
+        function(x) exp(mean(log(x)))
+      )
     } else if (status == "log_normalized_counts") {
-      meta.data[["CoExp"]] <- apply(expm1(exp.data[features_gene, , drop = FALSE]), 2, function(x) log1p(exp(mean(log(x)))))
+      meta.data[["CoExp"]] <- apply(
+        expm1(exp.data[features_gene, , drop = FALSE]),
+        2,
+        function(x) log1p(exp(mean(log(x))))
+      )
     } else {
       stop("Can not determine the data type.")
     }
@@ -3888,10 +5860,17 @@ ExpressionStatPlot <- function(exp.data, meta.data, stat.by, group.by = NULL, sp
   if (!is.numeric(dat_exp) && !inherits(dat_exp, "Matrix")) {
     stop("'stat.by' must be type of numeric variable.")
   }
-  dat_group <- meta.data[, unique(c("cells", group.by, bg.by, split.by)), drop = FALSE]
+  dat_group <- meta.data[,
+    unique(c("cells", group.by, bg.by, split.by)),
+    drop = FALSE
+  ]
   dat_use <- cbind(dat_group, dat_exp[row.names(dat_group), , drop = FALSE])
   if (!is.null(cells)) {
-    dat_group <- dat_group[intersect(rownames(dat_group), cells), , drop = FALSE]
+    dat_group <- dat_group[
+      intersect(rownames(dat_group), cells),
+      ,
+      drop = FALSE
+    ]
     dat_use <- dat_use[intersect(rownames(dat_use), cells), , drop = FALSE]
   }
   if (nrow(dat_group) == 0) {
@@ -3905,7 +5884,11 @@ ExpressionStatPlot <- function(exp.data, meta.data, stat.by, group.by = NULL, sp
   nlev <- sapply(dat_group, nlevels)
   nlev <- nlev[nlev > 100]
   if (length(nlev) > 0 && !isTRUE(force)) {
-    warning(paste(names(nlev), sep = ","), " have more than 100 levels.", immediate. = TRUE)
+    warning(
+      paste(names(nlev), sep = ","),
+      " have more than 100 levels.",
+      immediate. = TRUE
+    )
     answer <- askYesNo("Are you sure to continue?", default = FALSE)
     if (!isTRUE(answer)) {
       return(invisible(NULL))
@@ -3913,7 +5896,10 @@ ExpressionStatPlot <- function(exp.data, meta.data, stat.by, group.by = NULL, sp
   }
 
   if (isTRUE(same.y.lims)) {
-    valus <- as_matrix(dat_use[, stat.by, drop = FALSE])[is.finite(as_matrix(dat_use[, stat.by, drop = FALSE]))]
+    valus <- as_matrix(dat_use[,
+      stat.by,
+      drop = FALSE
+    ])[is.finite(as_matrix(dat_use[, stat.by, drop = FALSE]))]
     if (is.null(y.max)) {
       y.max <- max(valus, na.rm = TRUE)
     } else if (is.character(y.max)) {
@@ -3931,30 +5917,48 @@ ExpressionStatPlot <- function(exp.data, meta.data, stat.by, group.by = NULL, sp
   plist <- list()
 
   comb_list <- list()
-  comb <- expand.grid(group_name = group.by, stat_name = stat.by, stringsAsFactors = FALSE)
+  comb <- expand.grid(
+    group_name = group.by,
+    stat_name = stat.by,
+    stringsAsFactors = FALSE
+  )
   if (isTRUE(individual)) {
     for (g in group.by) {
-      comb_list[[g]] <- merge(comb, expand.grid(
-        group_name = g, group_element = levels(dat_use[[g]]),
-        split_name = levels(dat_use[[split.by]]), stringsAsFactors = FALSE
-      ),
-      by = "group_name", all = FALSE
+      comb_list[[g]] <- merge(
+        comb,
+        expand.grid(
+          group_name = g,
+          group_element = levels(dat_use[[g]]),
+          split_name = levels(dat_use[[split.by]]),
+          stringsAsFactors = FALSE
+        ),
+        by = "group_name",
+        all = FALSE
       )
     }
   } else {
     for (g in group.by) {
-      comb_list[[g]] <- merge(comb, expand.grid(
-        group_name = g, group_element = list(levels(dat_use[[g]])),
-        split_name = list(levels(dat_use[[split.by]])), stringsAsFactors = FALSE
-      ),
-      by = "group_name", all = FALSE
+      comb_list[[g]] <- merge(
+        comb,
+        expand.grid(
+          group_name = g,
+          group_element = list(levels(dat_use[[g]])),
+          split_name = list(levels(dat_use[[split.by]])),
+          stringsAsFactors = FALSE
+        ),
+        by = "group_name",
+        all = FALSE
       )
     }
   }
   comb <- do.call(rbind, comb_list)
   rownames(comb) <- paste0(
-    comb[["stat_name"]], ":", comb[["group_name"]], ":",
-    sapply(comb[["group_element"]], function(x) paste0(x, collapse = ",")), ":",
+    comb[["stat_name"]],
+    ":",
+    comb[["group_name"]],
+    ":",
+    sapply(comb[["group_element"]], function(x) paste0(x, collapse = ",")),
+    ":",
     sapply(comb[["split_name"]], function(x) paste0(x, collapse = ","))
   )
 
@@ -3974,26 +5978,61 @@ ExpressionStatPlot <- function(exp.data, meta.data, stat.by, group.by = NULL, sp
     }
     if (fill.by == "group") {
       if (split.by != "All.groups") {
-        colors <- palette_scp(levels(dat_use[[split.by]]), palette = palette, palcolor = palcolor)
+        colors <- palette_scp(
+          levels(dat_use[[split.by]]),
+          palette = palette,
+          palcolor = palcolor
+        )
       } else {
-        colors <- palette_scp(levels(dat_use[[g]]), palette = palette, palcolor = palcolor)
+        colors <- palette_scp(
+          levels(dat_use[[g]]),
+          palette = palette,
+          palcolor = palcolor
+        )
       }
     }
     if (fill.by == "expression") {
-      median_values <- aggregate(dat_use[, stat.by, drop = FALSE], by = list(dat_use[[g]], dat_use[[split.by]]), FUN = median)
-      rownames(median_values) <- paste0(median_values[, 1], "-", median_values[, 2])
-      colors <- palette_scp(unlist(median_values[, stat.by]), type = "continuous", palette = palette, palcolor = palcolor)
+      median_values <- aggregate(
+        dat_use[, stat.by, drop = FALSE],
+        by = list(dat_use[[g]], dat_use[[split.by]]),
+        FUN = median
+      )
+      rownames(median_values) <- paste0(
+        median_values[, 1],
+        "-",
+        median_values[, 2]
+      )
+      colors <- palette_scp(
+        unlist(median_values[, stat.by]),
+        type = "continuous",
+        palette = palette,
+        palcolor = palcolor
+      )
       colors_limits <- range(median_values[, stat.by])
     }
 
-    dat <- dat_use[dat_use[[g]] %in% single_group & dat_use[[split.by]] %in% sp, c(colnames(dat_group), f)]
-    dat[[g]] <- factor(dat[[g]], levels = levels(dat[[g]])[levels(dat[[g]]) %in% dat[[g]]])
+    dat <- dat_use[
+      dat_use[[g]] %in% single_group & dat_use[[split.by]] %in% sp,
+      c(colnames(dat_group), f)
+    ]
+    dat[[g]] <- factor(
+      dat[[g]],
+      levels = levels(dat[[g]])[levels(dat[[g]]) %in% dat[[g]]]
+    )
     if (!is.null(bg.by)) {
       bg <- bg.by
-      bg_color <- palette_scp(levels(dat[[bg]]), palette = bg_palette, palcolor = bg_palcolor)
+      bg_color <- palette_scp(
+        levels(dat[[bg]]),
+        palette = bg_palette,
+        palcolor = bg_palcolor
+      )
     } else {
       bg <- g
-      bg_color <- palette_scp(levels(dat[[bg]]), palcolor = bg_palcolor %||% rep(c("transparent", "grey85"), nlevels(dat[[bg]])))
+      bg_color <- palette_scp(
+        levels(dat[[bg]]),
+        palcolor = bg_palcolor %||%
+          rep(c("transparent", "grey85"), nlevels(dat[[bg]]))
+      )
     }
     dat[["bg.by"]] <- dat[[bg]]
     dat[["value"]] <- dat[[f]]
@@ -4012,14 +6051,23 @@ ExpressionStatPlot <- function(exp.data, meta.data, stat.by, group.by = NULL, sp
     # }
 
     dat[, "features"] <- rep(f, nrow(dat))
-    if (nrow(dat) > 0 && ((is.character(x = sort) && nchar(x = sort) > 0) || sort)) {
-      df_sort <- aggregate(dat[, "value", drop = FALSE], by = list(dat[["group.by"]]), median)
+    if (
+      nrow(dat) > 0 && ((is.character(x = sort) && nchar(x = sort) > 0) || sort)
+    ) {
+      df_sort <- aggregate(
+        dat[, "value", drop = FALSE],
+        by = list(dat[["group.by"]]),
+        median
+      )
       if (is.character(sort) && sort == "increasing") {
         decreasing <- FALSE
       } else {
         decreasing <- TRUE
       }
-      sortlevel <- as.character(df_sort[order(df_sort[["value"]], decreasing = decreasing), 1])
+      sortlevel <- as.character(df_sort[
+        order(df_sort[["value"]], decreasing = decreasing),
+        1
+      ])
       dat[, "group.by"] <- factor(dat[, "group.by"], levels = sortlevel)
     }
     if (fill.by == "feature") {
@@ -4027,11 +6075,18 @@ ExpressionStatPlot <- function(exp.data, meta.data, stat.by, group.by = NULL, sp
       keynm <- "Features"
     }
     if (fill.by == "group") {
-      dat[, "fill.by"] <- if (split.by == "All.groups") dat[, "group.by"] else dat[, "split.by"]
+      dat[, "fill.by"] <- if (split.by == "All.groups") {
+        dat[, "group.by"]
+      } else {
+        dat[, "split.by"]
+      }
       keynm <- ifelse(split.by == "All.groups", g, split.by)
     }
     if (fill.by == "expression") {
-      dat[, "fill.by"] <- median_values[paste0(dat[["group.by"]], "-", dat[["split.by"]]), f]
+      dat[, "fill.by"] <- median_values[
+        paste0(dat[["group.by"]], "-", dat[["split.by"]]),
+        f
+      ]
       keynm <- "Median expression"
     }
     if (split.by != "All.groups") {
@@ -4043,9 +6098,13 @@ ExpressionStatPlot <- function(exp.data, meta.data, stat.by, group.by = NULL, sp
       levels_order <- unique(stat.by)
     }
 
-    group_comb <- expand.grid(x = levels(dat[["split.by"]]), y = levels(dat[["group.by"]]))
+    group_comb <- expand.grid(
+      x = levels(dat[["split.by"]]),
+      y = levels(dat[["group.by"]])
+    )
     dat[["group.unique"]] <- head(
-      factor(paste("sp", dat[["split.by"]], "gp", dat[["group.by"]], sep = "-"),
+      factor(
+        paste("sp", dat[["split.by"]], "gp", dat[["group.by"]], sep = "-"),
         levels = paste("sp", group_comb[[1]], "gp", group_comb[[2]], sep = "-")
       ),
       nrow(dat)
@@ -4071,7 +6130,10 @@ ExpressionStatPlot <- function(exp.data, meta.data, stat.by, group.by = NULL, sp
     }
 
     if (isTRUE(flip)) {
-      dat[["group.by"]] <- factor(dat[["group.by"]], levels = rev(levels(dat[["group.by"]])))
+      dat[["group.by"]] <- factor(
+        dat[["group.by"]],
+        levels = rev(levels(dat[["group.by"]]))
+      )
       aspect.ratio <- 1 / aspect.ratio
       if (length(aspect.ratio) == 0 || is.na(aspect.ratio)) {
         aspect.ratio <- NULL
@@ -4084,13 +6146,23 @@ ExpressionStatPlot <- function(exp.data, meta.data, stat.by, group.by = NULL, sp
       } else {
         dat[["cell"]] <- seq_len(nrow(dat))
       }
-      p <- ggplot(dat, aes(
-        x = .data[["cell"]], y = .data[["value"]], fill = .data[["fill.by"]]
-      ))
+      p <- ggplot(
+        dat,
+        aes(
+          x = .data[["cell"]],
+          y = .data[["value"]],
+          fill = .data[["fill.by"]]
+        )
+      )
     } else {
-      p <- ggplot(dat, aes(
-        x = .data[["group.by"]], y = .data[["value"]], fill = .data[["fill.by"]]
-      ))
+      p <- ggplot(
+        dat,
+        aes(
+          x = .data[["group.by"]],
+          y = .data[["value"]],
+          fill = .data[["fill.by"]]
+        )
+      )
     }
 
     if (isFALSE(individual)) {
@@ -4099,21 +6171,50 @@ ExpressionStatPlot <- function(exp.data, meta.data, stat.by, group.by = NULL, sp
         bg_data <- as.data.frame(t(sapply(x_index, range)))
         colnames(bg_data) <- c("xmin", "xmax")
         bg_data[["group.by"]] <- names(x_index)
-        bg_data[["xmin"]] <- ifelse(bg_data[["xmin"]] == min(bg_data[["xmax"]]), -Inf, bg_data[["xmin"]] - 0.5)
-        bg_data[["xmax"]] <- ifelse(bg_data[["xmax"]] == max(bg_data[["xmax"]]), Inf, bg_data[["xmax"]] + 0.5)
+        bg_data[["xmin"]] <- ifelse(
+          bg_data[["xmin"]] == min(bg_data[["xmax"]]),
+          -Inf,
+          bg_data[["xmin"]] - 0.5
+        )
+        bg_data[["xmax"]] <- ifelse(
+          bg_data[["xmax"]] == max(bg_data[["xmax"]]),
+          Inf,
+          bg_data[["xmax"]] + 0.5
+        )
         bg_data[["ymin"]] <- -Inf
         bg_data[["ymax"]] <- Inf
-        bg_data[["fill"]] <- bg_color[bg_map[[g]][as.character(bg_data[["group.by"]])]]
+        bg_data[["fill"]] <- bg_color[bg_map[[g]][as.character(bg_data[[
+          "group.by"
+        ]])]]
       } else {
         bg_data <- unique(dat[, "group.by", drop = FALSE])
         bg_data[["x"]] <- as.numeric(bg_data[["group.by"]])
-        bg_data[["xmin"]] <- ifelse(bg_data[["x"]] == min(bg_data[["x"]]), -Inf, bg_data[["x"]] - 0.5)
-        bg_data[["xmax"]] <- ifelse(bg_data[["x"]] == max(bg_data[["x"]]), Inf, bg_data[["x"]] + 0.5)
+        bg_data[["xmin"]] <- ifelse(
+          bg_data[["x"]] == min(bg_data[["x"]]),
+          -Inf,
+          bg_data[["x"]] - 0.5
+        )
+        bg_data[["xmax"]] <- ifelse(
+          bg_data[["x"]] == max(bg_data[["x"]]),
+          Inf,
+          bg_data[["x"]] + 0.5
+        )
         bg_data[["ymin"]] <- -Inf
         bg_data[["ymax"]] <- Inf
-        bg_data[["fill"]] <- bg_color[bg_map[[g]][as.character(bg_data[["group.by"]])]]
+        bg_data[["fill"]] <- bg_color[bg_map[[g]][as.character(bg_data[[
+          "group.by"
+        ]])]]
       }
-      bg_layer <- geom_rect(data = bg_data, xmin = bg_data[["xmin"]], xmax = bg_data[["xmax"]], ymin = bg_data[["ymin"]], ymax = bg_data[["ymax"]], fill = bg_data[["fill"]], alpha = bg_alpha, inherit.aes = FALSE)
+      bg_layer <- geom_rect(
+        data = bg_data,
+        xmin = bg_data[["xmin"]],
+        xmax = bg_data[["xmax"]],
+        ymin = bg_data[["ymin"]],
+        ymax = bg_data[["ymax"]],
+        fill = bg_data[["fill"]],
+        alpha = bg_alpha,
+        inherit.aes = FALSE
+      )
       p <- p + bg_layer
     }
 
@@ -4121,208 +6222,398 @@ ExpressionStatPlot <- function(exp.data, meta.data, stat.by, group.by = NULL, sp
       p <- p + geom_hline(yintercept = 0, linetype = 2)
     }
     if (plot_type == "violin") {
-      p <- p + geom_violin(scale = "width", trim = TRUE, alpha = alpha, position = position_dodge())
+      p <- p +
+        geom_violin(
+          scale = "width",
+          trim = TRUE,
+          alpha = alpha,
+          position = position_dodge()
+        )
     }
     if (plot_type == "box") {
       add_box <- FALSE
-      p <- p + geom_boxplot(
-        mapping = aes(group = .data[["group.unique"]]),
-        position = position_dodge(width = 0.9), color = "black", width = 0.8, outlier.shape = NA
-      ) +
+      p <- p +
+        geom_boxplot(
+          mapping = aes(group = .data[["group.unique"]]),
+          position = position_dodge(width = 0.9),
+          color = "black",
+          width = 0.8,
+          outlier.shape = NA
+        ) +
         stat_summary(
-          fun = median, geom = "point", mapping = aes(group = .data[["split.by"]]),
-          position = position_dodge(width = 0.9), color = "black", fill = "white", size = 1.5, shape = 21,
+          fun = median,
+          geom = "point",
+          mapping = aes(group = .data[["split.by"]]),
+          position = position_dodge(width = 0.9),
+          color = "black",
+          fill = "white",
+          size = 1.5,
+          shape = 21,
         )
     }
     if (plot_type == "bar") {
-      p <- p + stat_summary(
-        fun = mean, geom = "col", mapping = aes(group = .data[["split.by"]]),
-        position = position_dodge(width = 0.9), width = 0.8, color = "black"
-      ) +
+      p <- p +
         stat_summary(
-          fun.data = mean_sdl, fun.args = list(mult = 1), geom = "errorbar", mapping = aes(group = .data[["split.by"]]),
-          position = position_dodge(width = 0.9), width = 0.2, color = "black"
+          fun = mean,
+          geom = "col",
+          mapping = aes(group = .data[["split.by"]]),
+          position = position_dodge(width = 0.9),
+          width = 0.8,
+          color = "black"
+        ) +
+        stat_summary(
+          fun.data = mean_sdl,
+          fun.args = list(mult = 1),
+          geom = "errorbar",
+          mapping = aes(group = .data[["split.by"]]),
+          position = position_dodge(width = 0.9),
+          width = 0.2,
+          color = "black"
         )
       y_min_use <- layer_scales(p)$y$range$range[1]
     }
     if (plot_type == "dot") {
-      bins <- cut(dat$value, breaks = seq(min(dat$value), max(dat$value), length.out = 15), include.lowest = TRUE)
-      bins_median <- sapply(strsplit(levels(bins), ","), function(x) median(as.numeric(gsub("\\(|\\)|\\[|\\]", "", x)), na.rm = TRUE))
+      bins <- cut(
+        dat$value,
+        breaks = seq(min(dat$value), max(dat$value), length.out = 15),
+        include.lowest = TRUE
+      )
+      bins_median <- sapply(strsplit(levels(bins), ","), function(x) {
+        median(as.numeric(gsub("\\(|\\)|\\[|\\]", "", x)), na.rm = TRUE)
+      })
       names(bins_median) <- levels(bins)
       dat[["bins"]] <- bins_median[bins]
-      p <- p + geom_count(data = dat, aes(y = bins), shape = 21, alpha = alpha, position = position_dodge(width = 0.9)) +
+      p <- p +
+        geom_count(
+          data = dat,
+          aes(y = bins),
+          shape = 21,
+          alpha = alpha,
+          position = position_dodge(width = 0.9)
+        ) +
         scale_size_area(name = "Count", max_size = 6, n.breaks = 4) +
-        guides(size = guide_legend(override.aes = list(fill = "grey30", shape = 21), order = 2))
+        guides(
+          size = guide_legend(
+            override.aes = list(fill = "grey30", shape = 21),
+            order = 2
+          )
+        )
     }
     if (plot_type == "col") {
       p <- p + geom_col()
       if (flip) {
-        p <- p + theme(axis.text.y = element_blank(), axis.ticks.y = element_blank())
+        p <- p +
+          theme(axis.text.y = element_blank(), axis.ticks.y = element_blank())
       } else {
-        p <- p + theme(axis.text.x = element_blank(), axis.ticks.x = element_blank())
+        p <- p +
+          theme(axis.text.x = element_blank(), axis.ticks.x = element_blank())
       }
       if (isFALSE(individual) && isTRUE(nlevels(dat[["group.by"]]) > 1)) {
         x_index <- split(dat[["cell"]], dat[["group.by"]])
         border_data <- as.data.frame(sapply(x_index, min) - 0.5)
         colnames(border_data) <- "xintercept"
         border_data <- border_data[2:nrow(border_data), , drop = FALSE]
-        border_layer <- geom_vline(xintercept = border_data[["xintercept"]], linetype = 2, alpha = 0.5)
+        border_layer <- geom_vline(
+          xintercept = border_data[["xintercept"]],
+          linetype = 2,
+          alpha = 0.5
+        )
         p <- p + border_layer
       }
     }
 
     if (length(comparisons) > 0) {
       if (isTRUE(comparisons)) {
-        group_use <- names(which(rowSums(table(dat[["group.by"]], dat[["split.by"]]) >= 2) >= 2))
-        if (any(rowSums(table(dat[["group.by"]], dat[["split.by"]]) >= 2) >= 3)) {
-          message("Detected more than 2 groups. Use multiple_method for comparison")
+        group_use <- names(which(
+          rowSums(table(dat[["group.by"]], dat[["split.by"]]) >= 2) >= 2
+        ))
+        if (
+          any(rowSums(table(dat[["group.by"]], dat[["split.by"]]) >= 2) >= 3)
+        ) {
+          message(
+            "Detected more than 2 groups. Use multiple_method for comparison"
+          )
           method <- multiple_method
         } else {
           method <- pairwise_method
         }
-        p <- p + ggpubr::stat_compare_means(
-          data = dat[dat[["group.by"]] %in% group_use, , drop = FALSE],
-          mapping = aes(x = .data[["group.by"]], y = .data[["value"]], group = .data[["group.unique"]]),
-          label = sig_label,
-          label.y = y_max_use,
-          size = sig_labelsize,
-          step.increase = 0.1,
-          tip.length = 0.03,
-          vjust = 1,
-          method = method
-        )
+        p <- p +
+          ggpubr::stat_compare_means(
+            data = dat[dat[["group.by"]] %in% group_use, , drop = FALSE],
+            mapping = aes(
+              x = .data[["group.by"]],
+              y = .data[["value"]],
+              group = .data[["group.unique"]]
+            ),
+            label = sig_label,
+            label.y = y_max_use,
+            size = sig_labelsize,
+            step.increase = 0.1,
+            tip.length = 0.03,
+            vjust = 1,
+            method = method
+          )
 
         y_max_use <- layer_scales(p)$y$range$range[2]
       } else {
-        p <- p + ggpubr::stat_compare_means(
-          mapping = aes(x = .data[["group.by"]], y = .data[["value"]], group = .data[["group.unique"]]),
-          label = sig_label,
-          label.y = y_max_use,
-          size = sig_labelsize,
-          step.increase = 0.1,
-          tip.length = 0.03,
-          vjust = 0,
-          comparisons = comparisons,
-          ref.group = ref_group,
-          method = pairwise_method
-        )
-        y_max_use <- layer_scales(p)$y$range$range[1] + (layer_scales(p)$y$range$range[2] - layer_scales(p)$y$range$range[1]) * 1.15
+        p <- p +
+          ggpubr::stat_compare_means(
+            mapping = aes(
+              x = .data[["group.by"]],
+              y = .data[["value"]],
+              group = .data[["group.unique"]]
+            ),
+            label = sig_label,
+            label.y = y_max_use,
+            size = sig_labelsize,
+            step.increase = 0.1,
+            tip.length = 0.03,
+            vjust = 0,
+            comparisons = comparisons,
+            ref.group = ref_group,
+            method = pairwise_method
+          )
+        y_max_use <- layer_scales(p)$y$range$range[1] +
+          (layer_scales(p)$y$range$range[2] -
+            layer_scales(p)$y$range$range[1]) *
+            1.15
       }
     }
     if (isTRUE(multiplegroup_comparisons)) {
-      p <- p + ggpubr::stat_compare_means(
-        aes(x = .data[["group.by"]], y = .data[["value"]], group = .data[["group.unique"]]),
-        method = multiple_method,
-        label = sig_label,
-        label.y = y_max_use,
-        size = sig_labelsize,
-        vjust = 1.2,
-        hjust = 0
-      )
-      y_max_use <- layer_scales(p)$y$range$range[1] + (layer_scales(p)$y$range$range[2] - layer_scales(p)$y$range$range[1]) * 1.15
+      p <- p +
+        ggpubr::stat_compare_means(
+          aes(
+            x = .data[["group.by"]],
+            y = .data[["value"]],
+            group = .data[["group.unique"]]
+          ),
+          method = multiple_method,
+          label = sig_label,
+          label.y = y_max_use,
+          size = sig_labelsize,
+          vjust = 1.2,
+          hjust = 0
+        )
+      y_max_use <- layer_scales(p)$y$range$range[1] +
+        (layer_scales(p)$y$range$range[2] - layer_scales(p)$y$range$range[1]) *
+          1.15
     }
 
     if (isTRUE(add_point)) {
-      suppressWarnings(p <- p + geom_point(
-        aes(x = .data[["group.by"]], y = .data[["value"]], linetype = rep(f, nrow(dat)), group = .data[["group.unique"]]),
-        inherit.aes = FALSE,
-        color = pt.color, size = pt.size, alpha = pt.alpha,
-        position = position_jitterdodge(jitter.width = jitter.width, jitter.height = jitter.height, dodge.width = 0.9, seed = 11), show.legend = FALSE
-      ))
+      suppressWarnings(
+        p <- p +
+          geom_point(
+            aes(
+              x = .data[["group.by"]],
+              y = .data[["value"]],
+              linetype = rep(f, nrow(dat)),
+              group = .data[["group.unique"]]
+            ),
+            inherit.aes = FALSE,
+            color = pt.color,
+            size = pt.size,
+            alpha = pt.alpha,
+            position = position_jitterdodge(
+              jitter.width = jitter.width,
+              jitter.height = jitter.height,
+              dodge.width = 0.9,
+              seed = 11
+            ),
+            show.legend = FALSE
+          )
+      )
       if (!is.null(cells.highlight)) {
         cell_df <- subset(p$data, rownames(p$data) %in% cells.highlight)
         if (nrow(cell_df) > 0) {
-          p <- p + geom_point(
-            data = cell_df, aes(x = .data[["group.by"]], y = .data[["value"]], linetype = rep(f, nrow(cell_df)), group = .data[["group.unique"]]), inherit.aes = FALSE,
-            color = cols.highlight, size = sizes.highlight, alpha = alpha.highlight,
-            position = position_jitterdodge(jitter.width = jitter.width, jitter.height = jitter.height, dodge.width = 0.9, seed = 11), show.legend = FALSE
-          )
+          p <- p +
+            geom_point(
+              data = cell_df,
+              aes(
+                x = .data[["group.by"]],
+                y = .data[["value"]],
+                linetype = rep(f, nrow(cell_df)),
+                group = .data[["group.unique"]]
+              ),
+              inherit.aes = FALSE,
+              color = cols.highlight,
+              size = sizes.highlight,
+              alpha = alpha.highlight,
+              position = position_jitterdodge(
+                jitter.width = jitter.width,
+                jitter.height = jitter.height,
+                dodge.width = 0.9,
+                seed = 11
+              ),
+              show.legend = FALSE
+            )
         }
       }
     }
     if (isTRUE(add_box)) {
-      p <- p + geom_boxplot(aes(group = .data[["group.unique"]]),
-        position = position_dodge(width = 0.9), color = box_color, fill = box_color, width = box_width, show.legend = FALSE, outlier.shape = NA
-      ) +
+      p <- p +
+        geom_boxplot(
+          aes(group = .data[["group.unique"]]),
+          position = position_dodge(width = 0.9),
+          color = box_color,
+          fill = box_color,
+          width = box_width,
+          show.legend = FALSE,
+          outlier.shape = NA
+        ) +
         stat_summary(
-          fun = median, geom = "point", mapping = aes(group = .data[["split.by"]]),
-          position = position_dodge(width = 0.9), color = "black", fill = "white", size = box_ptsize, shape = 21,
+          fun = median,
+          geom = "point",
+          mapping = aes(group = .data[["split.by"]]),
+          position = position_dodge(width = 0.9),
+          color = "black",
+          fill = "white",
+          size = box_ptsize,
+          shape = 21,
         )
     }
     if (isTRUE(add_trend)) {
       if (plot_type %in% c("violin", "box")) {
         if (nlevels(dat[["split.by"]]) > 1) {
           point_layer <- stat_summary(
-            fun = median, geom = "point", mapping = aes(group = .data[["split.by"]], color = .data[["group.by"]]),
-            position = position_dodge(width = 0.9), fill = "white", size = trend_ptsize, shape = 21
+            fun = median,
+            geom = "point",
+            mapping = aes(
+              group = .data[["split.by"]],
+              color = .data[["group.by"]]
+            ),
+            position = position_dodge(width = 0.9),
+            fill = "white",
+            size = trend_ptsize,
+            shape = 21
           )
           p_data <- p + point_layer
-          p <- p + geom_line(
-            data = layer_data(p_data, length(p_data$layers)),
-            aes(x = x, y = y, group = colour),
-            color = trend_color, linewidth = trend_linewidth, inherit.aes = FALSE
-          ) +
+          p <- p +
+            geom_line(
+              data = layer_data(p_data, length(p_data$layers)),
+              aes(x = x, y = y, group = colour),
+              color = trend_color,
+              linewidth = trend_linewidth,
+              inherit.aes = FALSE
+            ) +
             stat_summary(
-              fun = median, geom = "point", mapping = aes(group = .data[["split.by"]]),
-              position = position_dodge(width = 0.9), color = "black", fill = "white", size = trend_ptsize, shape = 21
+              fun = median,
+              geom = "point",
+              mapping = aes(group = .data[["split.by"]]),
+              position = position_dodge(width = 0.9),
+              color = "black",
+              fill = "white",
+              size = trend_ptsize,
+              shape = 21
             )
         } else {
-          p <- p + stat_summary(
-            fun = median, geom = "line", mapping = aes(group = .data[["split.by"]]),
-            position = position_dodge(width = 0.9), color = trend_color, linewidth = trend_linewidth
-          ) +
+          p <- p +
             stat_summary(
-              fun = median, geom = "point", mapping = aes(group = .data[["split.by"]]),
-              position = position_dodge(width = 0.9), color = "black", fill = "white", size = trend_ptsize, shape = 21
+              fun = median,
+              geom = "line",
+              mapping = aes(group = .data[["split.by"]]),
+              position = position_dodge(width = 0.9),
+              color = trend_color,
+              linewidth = trend_linewidth
+            ) +
+            stat_summary(
+              fun = median,
+              geom = "point",
+              mapping = aes(group = .data[["split.by"]]),
+              position = position_dodge(width = 0.9),
+              color = "black",
+              fill = "white",
+              size = trend_ptsize,
+              shape = 21
             )
         }
       }
       if (plot_type %in% c("bar")) {
         if (nlevels(dat[["split.by"]]) > 1) {
           point_layer <- stat_summary(
-            fun = mean, geom = "point", mapping = aes(group = .data[["split.by"]], color = .data[["group.by"]]),
-            position = position_dodge(width = 0.9), fill = "white", size = trend_ptsize, shape = 21
+            fun = mean,
+            geom = "point",
+            mapping = aes(
+              group = .data[["split.by"]],
+              color = .data[["group.by"]]
+            ),
+            position = position_dodge(width = 0.9),
+            fill = "white",
+            size = trend_ptsize,
+            shape = 21
           )
           p_data <- p + point_layer
-          p <- p + geom_line(
-            data = layer_data(p_data, length(p_data$layers)),
-            aes(x = x, y = y, group = colour),
-            color = trend_color, linewidth = trend_linewidth, inherit.aes = FALSE
-          ) +
+          p <- p +
+            geom_line(
+              data = layer_data(p_data, length(p_data$layers)),
+              aes(x = x, y = y, group = colour),
+              color = trend_color,
+              linewidth = trend_linewidth,
+              inherit.aes = FALSE
+            ) +
             stat_summary(
-              fun = mean, geom = "point", mapping = aes(group = .data[["split.by"]]),
-              position = position_dodge(width = 0.9), color = "black", fill = "white", size = trend_ptsize, shape = 21
+              fun = mean,
+              geom = "point",
+              mapping = aes(group = .data[["split.by"]]),
+              position = position_dodge(width = 0.9),
+              color = "black",
+              fill = "white",
+              size = trend_ptsize,
+              shape = 21
             )
         } else {
-          p <- p + stat_summary(
-            fun = mean, geom = "line", mapping = aes(group = .data[["split.by"]]),
-            position = position_dodge(width = 0.9), color = trend_color, linewidth = trend_linewidth,
-          ) +
+          p <- p +
             stat_summary(
-              fun = mean, geom = "point", mapping = aes(group = .data[["split.by"]]),
-              position = position_dodge(width = 0.9), color = "black", fill = "white", size = trend_ptsize, shape = 21
+              fun = mean,
+              geom = "line",
+              mapping = aes(group = .data[["split.by"]]),
+              position = position_dodge(width = 0.9),
+              color = trend_color,
+              linewidth = trend_linewidth,
+            ) +
+            stat_summary(
+              fun = mean,
+              geom = "point",
+              mapping = aes(group = .data[["split.by"]]),
+              position = position_dodge(width = 0.9),
+              color = "black",
+              fill = "white",
+              size = trend_ptsize,
+              shape = 21
             )
         }
       }
     }
     if (add_stat != "none") {
-      p <- p + stat_summary(
-        fun = add_stat, geom = "point", mapping = aes(group = .data[["split.by"]], shape = stat_shape),
-        position = position_dodge(width = 0.9), color = stat_color, fill = stat_color, size = stat_size, stroke = stat_stroke,
-      ) + scale_shape_identity()
+      p <- p +
+        stat_summary(
+          fun = add_stat,
+          geom = "point",
+          mapping = aes(group = .data[["split.by"]], shape = stat_shape),
+          position = position_dodge(width = 0.9),
+          color = stat_color,
+          fill = stat_color,
+          size = stat_size,
+          stroke = stat_stroke,
+        ) +
+        scale_shape_identity()
     }
     if (!is.null(add_line)) {
-      p <- p + geom_hline(
-        yintercept = add_line,
-        color = line_color, linetype = line_type, linewidth = line_size
-      )
+      p <- p +
+        geom_hline(
+          yintercept = add_line,
+          color = line_color,
+          linetype = line_type,
+          linewidth = line_size
+        )
     }
 
     if (nrow(dat) == 0) {
       p <- p + facet_null()
     } else {
       if (isTRUE(stack) && !isTRUE(flip)) {
-        p <- p + facet_grid(features ~ .) + theme(strip.text.y = element_text(angle = 0))
+        p <- p +
+          facet_grid(features ~ .) +
+          theme(strip.text.y = element_text(angle = 0))
       } else {
         p <- p + facet_grid(. ~ features)
       }
@@ -4334,7 +6625,8 @@ ExpressionStatPlot <- function(exp.data, meta.data, stat.by, group.by = NULL, sp
 
     if (isTRUE(flip)) {
       if (isTRUE(stack)) {
-        p <- p + do.call(theme_use, theme_args) +
+        p <- p +
+          do.call(theme_use, theme_args) +
           theme(
             aspect.ratio = aspect.ratio,
             axis.text.x = element_text(angle = 90, hjust = 1),
@@ -4342,9 +6634,11 @@ ExpressionStatPlot <- function(exp.data, meta.data, stat.by, group.by = NULL, sp
             panel.grid.major.x = element_line(color = "grey", linetype = 2),
             legend.position = legend.position,
             legend.direction = legend.direction
-          ) + coord_flip(ylim = c(y_min_use, y_max_use))
+          ) +
+          coord_flip(ylim = c(y_min_use, y_max_use))
       } else {
-        p <- p + do.call(theme_use, theme_args) +
+        p <- p +
+          do.call(theme_use, theme_args) +
           theme(
             aspect.ratio = aspect.ratio,
             axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1),
@@ -4352,10 +6646,12 @@ ExpressionStatPlot <- function(exp.data, meta.data, stat.by, group.by = NULL, sp
             panel.grid.major.x = element_line(color = "grey", linetype = 2),
             legend.position = legend.position,
             legend.direction = legend.direction
-          ) + coord_flip(ylim = c(y_min_use, y_max_use))
+          ) +
+          coord_flip(ylim = c(y_min_use, y_max_use))
       }
     } else {
-      p <- p + do.call(theme_use, theme_args) +
+      p <- p +
+        do.call(theme_use, theme_args) +
         theme(
           aspect.ratio = aspect.ratio,
           axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1),
@@ -4363,36 +6659,76 @@ ExpressionStatPlot <- function(exp.data, meta.data, stat.by, group.by = NULL, sp
           panel.grid.major.y = element_line(color = "grey", linetype = 2),
           legend.position = legend.position,
           legend.direction = legend.direction
-        ) + coord_cartesian(ylim = c(y_min_use, y_max_use))
+        ) +
+        coord_cartesian(ylim = c(y_min_use, y_max_use))
     }
 
     if (isTRUE(stack)) {
-      p <- p + scale_y_continuous(
-        trans = y.trans, breaks = c(y_min_use, y_max_use), labels = c(round(y_min_use, 1), round(y_max_use, 1))
-      )
+      p <- p +
+        scale_y_continuous(
+          trans = y.trans,
+          breaks = c(y_min_use, y_max_use),
+          labels = c(round(y_min_use, 1), round(y_max_use, 1))
+        )
     } else {
       p <- p + scale_y_continuous(trans = y.trans, n.breaks = y.nbreaks)
     }
 
     if (fill.by != "expression") {
       if (isTRUE(stack)) {
-        p <- p + scale_fill_manual(name = paste0(keynm, ":"), values = colors, breaks = levels_order, limits = levels_order, drop = FALSE) +
-          scale_color_manual(name = paste0(keynm, ":"), values = colors, breaks = levels_order, limits = levels_order, drop = FALSE)
+        p <- p +
+          scale_fill_manual(
+            name = paste0(keynm, ":"),
+            values = colors,
+            breaks = levels_order,
+            limits = levels_order,
+            drop = FALSE
+          ) +
+          scale_color_manual(
+            name = paste0(keynm, ":"),
+            values = colors,
+            breaks = levels_order,
+            limits = levels_order,
+            drop = FALSE
+          )
       } else {
-        p <- p + scale_fill_manual(name = paste0(keynm, ":"), values = colors, breaks = levels_order, drop = FALSE) +
-          scale_color_manual(name = paste0(keynm, ":"), values = colors, breaks = levels_order, drop = FALSE)
+        p <- p +
+          scale_fill_manual(
+            name = paste0(keynm, ":"),
+            values = colors,
+            breaks = levels_order,
+            drop = FALSE
+          ) +
+          scale_color_manual(
+            name = paste0(keynm, ":"),
+            values = colors,
+            breaks = levels_order,
+            drop = FALSE
+          )
       }
-      p <- p + guides(fill = guide_legend(
-        title.hjust = 0,
-        order = 1,
-        override.aes = list(size = 4, color = "black", alpha = 1)
-      ))
+      p <- p +
+        guides(
+          fill = guide_legend(
+            title.hjust = 0,
+            order = 1,
+            override.aes = list(size = 4, color = "black", alpha = 1)
+          )
+        )
     } else {
-      p <- p + scale_fill_gradientn(
-        name = paste0(keynm, ":"), colours = colors, limits = colors_limits
-      ) + guides(
-        fill = guide_colorbar(frame.colour = "black", ticks.colour = "black", title.hjust = 0, order = 1)
-      )
+      p <- p +
+        scale_fill_gradientn(
+          name = paste0(keynm, ":"),
+          colours = colors,
+          limits = colors_limits
+        ) +
+        guides(
+          fill = guide_colorbar(
+            frame.colour = "black",
+            ticks.colour = "black",
+            title.hjust = 0,
+            order = 1
+          )
+        )
     }
     # plist[[paste0(f, ":", g, ":", paste0(single_group, collapse = ","), ":", paste0(sp, collapse = ","))]] <- p
   })
@@ -4460,31 +6796,105 @@ ExpressionStatPlot <- function(exp.data, meta.data, stat.by, group.by = NULL, sp
 #'   pancreas_sub$Neurog3_Expressed == "FALSE")
 #' @importFrom Seurat Cells
 #' @export
-CellStatPlot <- function(srt, stat.by, group.by = NULL, split.by = NULL, bg.by = NULL, cells = NULL, flip = FALSE,
-                         NA_color = "grey", NA_stat = TRUE, keep_empty = FALSE, individual = FALSE, stat_level = NULL,
-                         plot_type = c("bar", "rose", "ring", "pie", "trend", "area", "dot", "sankey", "chord", "venn", "upset"),
-                         stat_type = c("percent", "count"), position = c("stack", "dodge"),
-                         palette = "Paired", palcolor = NULL, alpha = 1,
-                         bg_palette = "Paired", bg_palcolor = NULL, bg_alpha = 0.2,
-                         label = FALSE, label.size = 3.5, label.fg = "black", label.bg = "white", label.bg.r = 0.1,
-                         aspect.ratio = NULL, title = NULL, subtitle = NULL, xlab = NULL, ylab = NULL,
-                         legend.position = "right", legend.direction = "vertical",
-                         theme_use = "theme_scp", theme_args = list(),
-                         combine = TRUE, nrow = NULL, ncol = NULL, byrow = TRUE, force = FALSE, seed = 11) {
+CellStatPlot <- function(
+  srt,
+  stat.by,
+  group.by = NULL,
+  split.by = NULL,
+  bg.by = NULL,
+  cells = NULL,
+  flip = FALSE,
+  NA_color = "grey",
+  NA_stat = TRUE,
+  keep_empty = FALSE,
+  individual = FALSE,
+  stat_level = NULL,
+  plot_type = c(
+    "bar",
+    "rose",
+    "ring",
+    "pie",
+    "trend",
+    "area",
+    "dot",
+    "sankey",
+    "chord",
+    "venn",
+    "upset"
+  ),
+  stat_type = c("percent", "count"),
+  position = c("stack", "dodge"),
+  palette = "Paired",
+  palcolor = NULL,
+  alpha = 1,
+  bg_palette = "Paired",
+  bg_palcolor = NULL,
+  bg_alpha = 0.2,
+  label = FALSE,
+  label.size = 3.5,
+  label.fg = "black",
+  label.bg = "white",
+  label.bg.r = 0.1,
+  aspect.ratio = NULL,
+  title = NULL,
+  subtitle = NULL,
+  xlab = NULL,
+  ylab = NULL,
+  legend.position = "right",
+  legend.direction = "vertical",
+  theme_use = "theme_scp",
+  theme_args = list(),
+  combine = TRUE,
+  nrow = NULL,
+  ncol = NULL,
+  byrow = TRUE,
+  force = FALSE,
+  seed = 11
+) {
   cells <- cells %||% colnames(srt@assays[[1]])
   meta.data <- srt@meta.data[cells, , drop = FALSE]
 
   plot <- StatPlot(
-    meta.data = meta.data, stat.by = stat.by, group.by = group.by, split.by = split.by, bg.by = bg.by, flip = flip,
-    NA_color = NA_color, NA_stat = NA_stat, keep_empty = keep_empty, individual = individual, stat_level = stat_level,
-    plot_type = plot_type, stat_type = stat_type, position = position,
-    palette = palette, palcolor = palcolor, alpha = alpha,
-    bg_palette = bg_palette, bg_palcolor = bg_palcolor, bg_alpha = bg_alpha,
-    label = label, label.size = label.size, label.fg = label.fg, label.bg = label.bg, label.bg.r = label.bg.r,
-    aspect.ratio = aspect.ratio, title = title, subtitle = subtitle, xlab = xlab, ylab = ylab,
-    legend.position = legend.position, legend.direction = legend.direction,
-    theme_use = theme_use, theme_args = theme_args,
-    combine = combine, nrow = nrow, ncol = ncol, byrow = byrow, force = force, seed = seed
+    meta.data = meta.data,
+    stat.by = stat.by,
+    group.by = group.by,
+    split.by = split.by,
+    bg.by = bg.by,
+    flip = flip,
+    NA_color = NA_color,
+    NA_stat = NA_stat,
+    keep_empty = keep_empty,
+    individual = individual,
+    stat_level = stat_level,
+    plot_type = plot_type,
+    stat_type = stat_type,
+    position = position,
+    palette = palette,
+    palcolor = palcolor,
+    alpha = alpha,
+    bg_palette = bg_palette,
+    bg_palcolor = bg_palcolor,
+    bg_alpha = bg_alpha,
+    label = label,
+    label.size = label.size,
+    label.fg = label.fg,
+    label.bg = label.bg,
+    label.bg.r = label.bg.r,
+    aspect.ratio = aspect.ratio,
+    title = title,
+    subtitle = subtitle,
+    xlab = xlab,
+    ylab = ylab,
+    legend.position = legend.position,
+    legend.direction = legend.direction,
+    theme_use = theme_use,
+    theme_args = theme_args,
+    combine = combine,
+    nrow = nrow,
+    ncol = ncol,
+    byrow = byrow,
+    force = force,
+    seed = seed
   )
   return(plot)
 }
@@ -4561,17 +6971,60 @@ CellStatPlot <- function(srt, stat.by, group.by = NULL, split.by = NULL, bg.by =
 #' @importFrom gtable gtable_add_rows gtable_add_cols gtable_add_grob
 #' @importFrom grDevices png dev.control recordPlot dev.off
 #' @export
-StatPlot <- function(meta.data, stat.by, group.by = NULL, split.by = NULL, bg.by = NULL, flip = FALSE,
-                     NA_color = "grey", NA_stat = TRUE, keep_empty = FALSE, individual = FALSE, stat_level = NULL,
-                     plot_type = c("bar", "rose", "ring", "pie", "trend", "area", "dot", "sankey", "chord", "venn", "upset"),
-                     stat_type = c("percent", "count"), position = c("stack", "dodge"),
-                     palette = "Paired", palcolor = NULL, alpha = 1,
-                     bg_palette = "Paired", bg_palcolor = NULL, bg_alpha = 0.2,
-                     label = FALSE, label.size = 3.5, label.fg = "black", label.bg = "white", label.bg.r = 0.1,
-                     aspect.ratio = NULL, title = NULL, subtitle = NULL, xlab = NULL, ylab = NULL,
-                     legend.position = "right", legend.direction = "vertical",
-                     theme_use = "theme_scp", theme_args = list(),
-                     combine = TRUE, nrow = NULL, ncol = NULL, byrow = TRUE, force = FALSE, seed = 11) {
+StatPlot <- function(
+  meta.data,
+  stat.by,
+  group.by = NULL,
+  split.by = NULL,
+  bg.by = NULL,
+  flip = FALSE,
+  NA_color = "grey",
+  NA_stat = TRUE,
+  keep_empty = FALSE,
+  individual = FALSE,
+  stat_level = NULL,
+  plot_type = c(
+    "bar",
+    "rose",
+    "ring",
+    "pie",
+    "trend",
+    "area",
+    "dot",
+    "sankey",
+    "chord",
+    "venn",
+    "upset"
+  ),
+  stat_type = c("percent", "count"),
+  position = c("stack", "dodge"),
+  palette = "Paired",
+  palcolor = NULL,
+  alpha = 1,
+  bg_palette = "Paired",
+  bg_palcolor = NULL,
+  bg_alpha = 0.2,
+  label = FALSE,
+  label.size = 3.5,
+  label.fg = "black",
+  label.bg = "white",
+  label.bg.r = 0.1,
+  aspect.ratio = NULL,
+  title = NULL,
+  subtitle = NULL,
+  xlab = NULL,
+  ylab = NULL,
+  legend.position = "right",
+  legend.direction = "vertical",
+  theme_use = "theme_scp",
+  theme_args = list(),
+  combine = TRUE,
+  nrow = NULL,
+  ncol = NULL,
+  byrow = TRUE,
+  force = FALSE,
+  seed = 11
+) {
   set.seed(seed)
 
   stat_type <- match.arg(stat_type)
@@ -4606,7 +7059,10 @@ StatPlot <- function(meta.data, stat.by, group.by = NULL, split.by = NULL, bg.by
       if (max(rowSums(df_table > 0), na.rm = TRUE) > 1) {
         stop("'group.by' must be a part of 'bg.by'")
       } else {
-        bg_map[[g]] <- setNames(colnames(df_table)[apply(df_table, 1, function(x) which(x > 0))], rownames(df_table))
+        bg_map[[g]] <- setNames(
+          colnames(df_table)[apply(df_table, 1, function(x) which(x > 0))],
+          rownames(df_table)
+        )
       }
     }
   } else {
@@ -4620,7 +7076,10 @@ StatPlot <- function(meta.data, stat.by, group.by = NULL, split.by = NULL, bg.by
     }
     if (plot_type %in% c("venn", "upset")) {
       if (!is.factor(meta.data[[i]]) && !is.logical(meta.data[[i]])) {
-        meta.data[[i]] <- factor(meta.data[[i]], levels = unique(meta.data[[i]]))
+        meta.data[[i]] <- factor(
+          meta.data[[i]],
+          levels = unique(meta.data[[i]])
+        )
       }
     } else if (!is.factor(meta.data[[i]])) {
       meta.data[[i]] <- factor(meta.data[[i]], levels = unique(meta.data[[i]]))
@@ -4629,23 +7088,32 @@ StatPlot <- function(meta.data, stat.by, group.by = NULL, split.by = NULL, bg.by
 
   if (length(stat.by) >= 2) {
     if (!plot_type %in% c("sankey", "chord", "venn", "upset")) {
-      stop("plot_type must be one of 'sankey', 'chord', 'venn' and 'upset' whtn multiple 'stat.by' provided.")
+      stop(
+        "plot_type must be one of 'sankey', 'chord', 'venn' and 'upset' whtn multiple 'stat.by' provided."
+      )
     }
     if (length(stat.by) > 2 && plot_type == "chord") {
-      stop("'stat.by' can only be a vector of length 2 when 'plot_type' is 'chord'.")
+      stop(
+        "'stat.by' can only be a vector of length 2 when 'plot_type' is 'chord'."
+      )
     }
     if (length(stat.by) > 7 && plot_type == "venn") {
-      stop("'stat.by' can only be a vector of length <= 7 when 'plot_type' is 'venn'.")
+      stop(
+        "'stat.by' can only be a vector of length <= 7 when 'plot_type' is 'venn'."
+      )
     }
   }
-  levels <- unique(unlist(lapply(meta.data[, stat.by, drop = FALSE], function(x) {
-    if (is.factor(x)) {
-      return(levels(x))
+  levels <- unique(unlist(lapply(
+    meta.data[, stat.by, drop = FALSE],
+    function(x) {
+      if (is.factor(x)) {
+        return(levels(x))
+      }
+      if (is.logical(x)) {
+        return(as.character(unique(x)))
+      }
     }
-    if (is.logical(x)) {
-      return(as.character(unique(x)))
-    }
-  })))
+  )))
 
   if (plot_type %in% c("venn", "upset")) {
     if (is.null(stat_level)) {
@@ -4673,18 +7141,37 @@ StatPlot <- function(meta.data, stat.by, group.by = NULL, split.by = NULL, bg.by
     aspect.ratio <- 1
   }
 
-  if (any(group.by != "All.groups") && plot_type %in% c("sankey", "chord", "venn", "upset")) {
-    warning("group.by is not used when plot sankey, chord, venn or upset", immediate. = TRUE)
+  if (
+    any(group.by != "All.groups") &&
+      plot_type %in% c("sankey", "chord", "venn", "upset")
+  ) {
+    warning(
+      "group.by is not used when plot sankey, chord, venn or upset",
+      immediate. = TRUE
+    )
   }
-  if (stat_type == "percent" && plot_type %in% c("sankey", "chord", "venn", "upset")) {
-    warning("stat_type is forcibly set to 'count' when plot sankey, chord, venn or upset", immediate. = TRUE)
+  if (
+    stat_type == "percent" &&
+      plot_type %in% c("sankey", "chord", "venn", "upset")
+  ) {
+    warning(
+      "stat_type is forcibly set to 'count' when plot sankey, chord, venn or upset",
+      immediate. = TRUE
+    )
     stat_type <- "count"
   }
-  dat_all <- meta.data[, unique(c(stat.by, group.by, split.by, bg.by)), drop = FALSE]
+  dat_all <- meta.data[,
+    unique(c(stat.by, group.by, split.by, bg.by)),
+    drop = FALSE
+  ]
   nlev <- sapply(dat_all, nlevels)
   nlev <- nlev[nlev > 100]
   if (length(nlev) > 0 && !isTRUE(force)) {
-    warning(paste(names(nlev), sep = ","), " have more than 100 levels.", immediate. = TRUE)
+    warning(
+      paste(names(nlev), sep = ","),
+      " have more than 100 levels.",
+      immediate. = TRUE
+    )
     answer <- askYesNo("Are you sure to continue?", default = FALSE)
     if (!isTRUE(answer)) {
       return(invisible(NULL))
@@ -4703,33 +7190,53 @@ StatPlot <- function(meta.data, stat.by, group.by = NULL, split.by = NULL, bg.by
         theme_args[["add_coord"]] <- FALSE
       }
     }
-    colors <- palette_scp(dat_all[[stat.by]], palette = palette, palcolor = palcolor, NA_color = NA_color, NA_keep = TRUE)
+    colors <- palette_scp(
+      dat_all[[stat.by]],
+      palette = palette,
+      palcolor = palcolor,
+      NA_color = NA_color,
+      NA_keep = TRUE
+    )
 
     comb_list <- list()
-    comb <- expand.grid(stat_name = stat.by, group_name = group.by, stringsAsFactors = FALSE)
+    comb <- expand.grid(
+      stat_name = stat.by,
+      group_name = group.by,
+      stringsAsFactors = FALSE
+    )
     if (isTRUE(individual)) {
       for (g in group.by) {
-        comb_list[[g]] <- merge(comb, expand.grid(
-          group_name = g, group_element = levels(dat_all[[g]]),
-          split_name = levels(dat_all[[split.by]]), stringsAsFactors = FALSE
-        ),
-        by = "group_name"
+        comb_list[[g]] <- merge(
+          comb,
+          expand.grid(
+            group_name = g,
+            group_element = levels(dat_all[[g]]),
+            split_name = levels(dat_all[[split.by]]),
+            stringsAsFactors = FALSE
+          ),
+          by = "group_name"
         )
       }
     } else {
       for (g in group.by) {
-        comb_list[[g]] <- merge(comb, expand.grid(
-          group_name = g, group_element = list(levels(dat_all[[g]])),
-          split_name = levels(dat_all[[split.by]]), stringsAsFactors = FALSE
-        ),
-        by = "group_name"
+        comb_list[[g]] <- merge(
+          comb,
+          expand.grid(
+            group_name = g,
+            group_element = list(levels(dat_all[[g]])),
+            split_name = levels(dat_all[[split.by]]),
+            stringsAsFactors = FALSE
+          ),
+          by = "group_name"
         )
       }
     }
     comb <- do.call(rbind, comb_list)
     rownames(comb) <- paste0(
-      comb[["group_name"]], ":",
-      sapply(comb[["group_element"]], function(x) paste0(x, collapse = ",")), ":",
+      comb[["group_name"]],
+      ":",
+      sapply(comb[["group_element"]], function(x) paste0(x, collapse = ",")),
+      ":",
       comb[["split_name"]]
     )
 
@@ -4738,8 +7245,16 @@ StatPlot <- function(meta.data, stat.by, group.by = NULL, split.by = NULL, bg.by
       sp <- comb[i, "split_name"]
       g <- comb[i, "group_name"]
       single_group <- comb[[i, "group_element"]]
-      colors_use <- colors[names(colors) %in% dat_split[[ifelse(split.by == "All.groups", 1, sp)]][[stat.by]]]
-      if (any(is.na(dat_split[[ifelse(split.by == "All.groups", 1, sp)]][[stat.by]])) && isTRUE(NA_stat)) {
+      colors_use <- colors[
+        names(colors) %in%
+          dat_split[[ifelse(split.by == "All.groups", 1, sp)]][[stat.by]]
+      ]
+      if (
+        any(is.na(dat_split[[ifelse(split.by == "All.groups", 1, sp)]][[
+          stat.by
+        ]])) &&
+          isTRUE(NA_stat)
+      ) {
         colors_use <- c(colors_use, colors["NA"])
       }
       if (stat_type == "percent") {
@@ -4758,14 +7273,25 @@ StatPlot <- function(meta.data, stat.by, group.by = NULL, split.by = NULL, bg.by
           mutate(value = Freq)
       }
       dat <- dat_use[dat_use[[g]] %in% single_group, , drop = FALSE]
-      dat[[g]] <- factor(dat[[g]], levels = levels(dat[[g]])[levels(dat[[g]]) %in% dat[[g]]])
+      dat[[g]] <- factor(
+        dat[[g]],
+        levels = levels(dat[[g]])[levels(dat[[g]]) %in% dat[[g]]]
+      )
       dat <- dat[!is.na(dat[["value"]]), , drop = FALSE]
       if (!is.null(bg.by)) {
         bg <- bg.by
-        bg_color <- palette_scp(levels(dat_all[[bg]]), palette = bg_palette, palcolor = bg_palcolor)
+        bg_color <- palette_scp(
+          levels(dat_all[[bg]]),
+          palette = bg_palette,
+          palcolor = bg_palcolor
+        )
       } else {
         bg <- g
-        bg_color <- palette_scp(levels(dat_all[[bg]]), palcolor = bg_palcolor %||% rep(c("transparent", "grey85"), nlevels(dat_all[[bg]])))
+        bg_color <- palette_scp(
+          levels(dat_all[[bg]]),
+          palcolor = bg_palcolor %||%
+            rep(c("transparent", "grey85"), nlevels(dat_all[[bg]]))
+        )
       }
 
       if (isTRUE(flip)) {
@@ -4788,7 +7314,11 @@ StatPlot <- function(meta.data, stat.by, group.by = NULL, split.by = NULL, bg.by
           position_use <- position_stack(vjust = 0.5)
           scalex <- scale_x_discrete(drop = !keep_empty, expand = c(0, 0))
           scaley <- scale_y_continuous(
-            labels = if (stat_type == "count") scales::number else scales::percent,
+            labels = if (stat_type == "count") {
+              scales::number
+            } else {
+              scales::percent
+            },
             expand = c(0, 0)
           )
         } else if (position == "dodge") {
@@ -4800,7 +7330,11 @@ StatPlot <- function(meta.data, stat.by, group.by = NULL, split.by = NULL, bg.by
           scalex <- scale_x_discrete(drop = !keep_empty)
           scaley <- scale_y_continuous(
             limits = c(0, max(dat[["value"]], na.rm = TRUE) * 1.1),
-            labels = if (stat_type == "count") scales::number else scales::percent,
+            labels = if (stat_type == "count") {
+              scales::number
+            } else {
+              scales::percent
+            },
             expand = c(0, 0)
           )
         }
@@ -4810,18 +7344,39 @@ StatPlot <- function(meta.data, stat.by, group.by = NULL, split.by = NULL, bg.by
       } else {
         bg_data <- na.omit(unique(dat[, g, drop = FALSE]))
         bg_data[["x"]] <- as.numeric(bg_data[[g]])
-        bg_data[["xmin"]] <- ifelse(bg_data[["x"]] == min(bg_data[["x"]]), -Inf, bg_data[["x"]] - 0.5)
-        bg_data[["xmax"]] <- ifelse(bg_data[["x"]] == max(bg_data[["x"]]), Inf, bg_data[["x"]] + 0.5)
+        bg_data[["xmin"]] <- ifelse(
+          bg_data[["x"]] == min(bg_data[["x"]]),
+          -Inf,
+          bg_data[["x"]] - 0.5
+        )
+        bg_data[["xmax"]] <- ifelse(
+          bg_data[["x"]] == max(bg_data[["x"]]),
+          Inf,
+          bg_data[["x"]] + 0.5
+        )
         bg_data[["ymin"]] <- -Inf
         bg_data[["ymax"]] <- Inf
         bg_data[["fill"]] <- bg_color[bg_map[[g]][as.character(bg_data[[g]])]]
-        bg_layer <- geom_rect(data = bg_data, xmin = bg_data[["xmin"]], xmax = bg_data[["xmax"]], ymin = bg_data[["ymin"]], ymax = bg_data[["ymax"]], fill = bg_data[["fill"]], alpha = bg_alpha, inherit.aes = FALSE)
+        bg_layer <- geom_rect(
+          data = bg_data,
+          xmin = bg_data[["xmin"]],
+          xmax = bg_data[["xmax"]],
+          ymin = bg_data[["ymin"]],
+          ymax = bg_data[["ymax"]],
+          fill = bg_data[["fill"]],
+          alpha = bg_alpha,
+          inherit.aes = FALSE
+        )
       }
 
       if (plot_type == "bar") {
-        p <- ggplot(dat, aes(x = .data[[g]], y = value, group = .data[[stat.by]])) +
+        p <- ggplot(
+          dat,
+          aes(x = .data[[g]], y = value, group = .data[[stat.by]])
+        ) +
           bg_layer +
-          geom_col(aes(fill = .data[[stat.by]]),
+          geom_col(
+            aes(fill = .data[[stat.by]]),
             width = 0.8,
             color = "black",
             alpha = alpha,
@@ -4833,15 +7388,30 @@ StatPlot <- function(meta.data, stat.by, group.by = NULL, split.by = NULL, bg.by
       if (plot_type == "trend") {
         dat_area <- dat[rep(seq_len(nrow(dat)), each = 2), , drop = FALSE]
         dat_area[[g]] <- as.numeric(dat_area[[g]])
-        dat_area[seq(1, nrow(dat_area), 2), g] <- dat_area[seq(1, nrow(dat_area), 2), g] - 0.3
-        dat_area[seq(2, nrow(dat_area), 2), g] <- dat_area[seq(2, nrow(dat_area), 2), g] + 0.3
-        p <- ggplot(dat, aes(x = .data[[g]], y = value, fill = .data[[stat.by]])) +
+        dat_area[seq(1, nrow(dat_area), 2), g] <- dat_area[
+          seq(1, nrow(dat_area), 2),
+          g
+        ] -
+          0.3
+        dat_area[seq(2, nrow(dat_area), 2), g] <- dat_area[
+          seq(2, nrow(dat_area), 2),
+          g
+        ] +
+          0.3
+        p <- ggplot(
+          dat,
+          aes(x = .data[[g]], y = value, fill = .data[[stat.by]])
+        ) +
           bg_layer +
           geom_area(
-            data = dat_area, mapping = aes(x = .data[[g]], fill = .data[[stat.by]]),
-            alpha = alpha / 2, color = "grey50", position = position_use
+            data = dat_area,
+            mapping = aes(x = .data[[g]], fill = .data[[stat.by]]),
+            alpha = alpha / 2,
+            color = "grey50",
+            position = position_use
           ) +
-          geom_col(aes(fill = .data[[stat.by]]),
+          geom_col(
+            aes(fill = .data[[stat.by]]),
             width = 0.6,
             color = "black",
             alpha = alpha,
@@ -4851,9 +7421,13 @@ StatPlot <- function(meta.data, stat.by, group.by = NULL, split.by = NULL, bg.by
           scaley
       }
       if (plot_type == "rose") {
-        p <- ggplot(dat, aes(x = .data[[g]], y = value, group = .data[[stat.by]])) +
+        p <- ggplot(
+          dat,
+          aes(x = .data[[g]], y = value, group = .data[[stat.by]])
+        ) +
           bg_layer +
-          geom_col(aes(fill = .data[[stat.by]]),
+          geom_col(
+            aes(fill = .data[[stat.by]]),
             width = 0.8,
             color = "black",
             alpha = alpha,
@@ -4864,9 +7438,13 @@ StatPlot <- function(meta.data, stat.by, group.by = NULL, split.by = NULL, bg.by
           coord_polar(theta = "x", start = ifelse(flip, pi / 2, 0))
       }
       if (plot_type == "ring" || plot_type == "pie") {
-        p <- ggplot(dat, aes(x = .data[[g]], y = value, group = .data[[stat.by]])) +
+        p <- ggplot(
+          dat,
+          aes(x = .data[[g]], y = value, group = .data[[stat.by]])
+        ) +
           bg_layer +
-          geom_col(aes(fill = .data[[stat.by]]),
+          geom_col(
+            aes(fill = .data[[stat.by]]),
             width = 0.8,
             color = "black",
             alpha = alpha,
@@ -4877,9 +7455,13 @@ StatPlot <- function(meta.data, stat.by, group.by = NULL, split.by = NULL, bg.by
           coord_polar(theta = "y", start = ifelse(flip, pi / 2, 0))
       }
       if (plot_type == "area") {
-        p <- ggplot(dat, aes(x = .data[[g]], y = value, group = .data[[stat.by]])) +
+        p <- ggplot(
+          dat,
+          aes(x = .data[[g]], y = value, group = .data[[stat.by]])
+        ) +
           bg_layer +
-          geom_area(aes(fill = .data[[stat.by]]),
+          geom_area(
+            aes(fill = .data[[stat.by]]),
             color = "black",
             alpha = alpha,
             position = position_use
@@ -4890,7 +7472,8 @@ StatPlot <- function(meta.data, stat.by, group.by = NULL, split.by = NULL, bg.by
       if (plot_type == "dot") {
         p <- ggplot(dat, aes(x = .data[[g]], y = .data[[stat.by]])) +
           bg_layer +
-          geom_point(aes(fill = .data[[stat.by]], size = value),
+          geom_point(
+            aes(fill = .data[[stat.by]], size = value),
             color = "black",
             alpha = alpha,
             shape = 21,
@@ -4902,27 +7485,48 @@ StatPlot <- function(meta.data, stat.by, group.by = NULL, split.by = NULL, bg.by
       }
       if (isTRUE(label)) {
         if (plot_type == "dot") {
-          p <- p + geom_text_repel(
-            aes(
-              x = .data[[g]], y = .data[[stat.by]],
-              label = if (stat_type == "count") value else paste0(round(value * 100, 1), "%"),
-            ),
-            colour = label.fg, size = label.size,
-            bg.color = label.bg, bg.r = label.bg.r,
-            point.size = NA, max.overlaps = 100, min.segment.length = 0, force = 0,
-            position = position_use
-          )
+          p <- p +
+            geom_text_repel(
+              aes(
+                x = .data[[g]],
+                y = .data[[stat.by]],
+                label = if (stat_type == "count") {
+                  value
+                } else {
+                  paste0(round(value * 100, 1), "%")
+                },
+              ),
+              colour = label.fg,
+              size = label.size,
+              bg.color = label.bg,
+              bg.r = label.bg.r,
+              point.size = NA,
+              max.overlaps = 100,
+              min.segment.length = 0,
+              force = 0,
+              position = position_use
+            )
         } else {
-          p <- p + geom_text_repel(
-            aes(
-              label = if (stat_type == "count") value else paste0(round(value * 100, 1), "%"),
-              y = value
-            ),
-            colour = label.fg, size = label.size,
-            bg.color = label.bg, bg.r = label.bg.r,
-            point.size = NA, max.overlaps = 100, min.segment.length = 0, force = 0,
-            position = position_use
-          )
+          p <- p +
+            geom_text_repel(
+              aes(
+                label = if (stat_type == "count") {
+                  value
+                } else {
+                  paste0(round(value * 100, 1), "%")
+                },
+                y = value
+              ),
+              colour = label.fg,
+              size = label.size,
+              bg.color = label.bg,
+              bg.r = label.bg.r,
+              point.size = NA,
+              max.overlaps = 100,
+              min.segment.length = 0,
+              force = 0,
+              position = position_use
+            )
         }
       }
       if (plot_type %in% c("rose")) {
@@ -4935,10 +7539,15 @@ StatPlot <- function(meta.data, stat.by, group.by = NULL, split.by = NULL, bg.by
         axis.text.x <- element_text(angle = 45, hjust = 1, vjust = 1)
       }
       title <- title %||% sp
-      p <- p + labs(title = title, subtitle = subtitle, x = xlab, y = ylab) +
+      p <- p +
+        labs(title = title, subtitle = subtitle, x = xlab, y = ylab) +
         scale_fill_manual(
-          name = paste0(stat.by, ":"), values = colors_use, na.value = colors_use["NA"], drop = FALSE,
-          limits = names(colors_use), na.translate = T
+          name = paste0(stat.by, ":"),
+          values = colors_use,
+          na.value = colors_use["NA"],
+          drop = FALSE,
+          limits = names(colors_use),
+          na.translate = T
         ) +
         do.call(theme_use, theme_args) +
         theme(
@@ -4946,12 +7555,21 @@ StatPlot <- function(meta.data, stat.by, group.by = NULL, split.by = NULL, bg.by
           axis.text.x = axis.text.x,
           legend.position = legend.position,
           legend.direction = legend.direction,
-          panel.grid.major = if (plot_type == "trend" & stat_type == "percent") element_blank() else element_line(colour = "grey80", linetype = 2)
-        ) + guides(fill = guide_legend(
-          title.hjust = 0,
-          order = 1,
-          override.aes = list(size = 4, color = "black", alpha = 1)
-        ))
+          panel.grid.major = if (
+            plot_type == "trend" & stat_type == "percent"
+          ) {
+            element_blank()
+          } else {
+            element_line(colour = "grey80", linetype = 2)
+          }
+        ) +
+        guides(
+          fill = guide_legend(
+            title.hjust = 0,
+            order = 1,
+            override.aes = list(size = 4, color = "black", alpha = 1)
+          )
+        )
       if (isTRUE(flip) && !plot_type %in% c("pie", "rose")) {
         p <- p + coord_flip()
       }
@@ -4981,23 +7599,37 @@ StatPlot <- function(meta.data, stat.by, group.by = NULL, split.by = NULL, bg.by
       if (plot_type == "venn") {
         check_R(c("ggVennDiagram", "sf"))
         dat_list <- as.list(dat_use[, stat.by])
-        dat_list <- lapply(setNames(names(dat_list), names(dat_list)), function(x) {
-          lg <- dat_list[[x]]
-          names(lg) <- rownames(dat_use)
-          cellkeep <- names(lg)[lg]
-          return(cellkeep)
-        })
+        dat_list <- lapply(
+          setNames(names(dat_list), names(dat_list)),
+          function(x) {
+            lg <- dat_list[[x]]
+            names(lg) <- rownames(dat_use)
+            cellkeep <- names(lg)[lg]
+            return(cellkeep)
+          }
+        )
         venn <- ggVennDiagram::Venn(dat_list)
         data <- ggVennDiagram::process_data(venn)
         dat_venn_region <- ggVennDiagram::venn_region(data)
-        idname <- dat_venn_region[["name"]][dat_venn_region[["name"]] %in% stat.by]
-        names(idname) <- dat_venn_region[["id"]][dat_venn_region[["name"]] %in% stat.by]
+        idname <- dat_venn_region[["name"]][
+          dat_venn_region[["name"]] %in% stat.by
+        ]
+        names(idname) <- dat_venn_region[["id"]][
+          dat_venn_region[["name"]] %in% stat.by
+        ]
         idcomb <- strsplit(dat_venn_region[["id"]], split = "")
         colorcomb <- lapply(idcomb, function(x) colors[idname[as.character(x)]])
-        dat_venn_region[["colors"]] <- sapply(colorcomb, function(x) blendcolors(x, mode = "blend"))
+        dat_venn_region[["colors"]] <- sapply(colorcomb, function(x) {
+          blendcolors(x, mode = "blend")
+        })
         dat_venn_region[["label"]] <- paste0(
-          dat_venn_region[["count"]], "\n",
-          round(dat_venn_region[["count"]] / sum(dat_venn_region[["count"]]) * 100, 1), "%"
+          dat_venn_region[["count"]],
+          "\n",
+          round(
+            dat_venn_region[["count"]] / sum(dat_venn_region[["count"]]) * 100,
+            1
+          ),
+          "%"
         )
         dat_venn_setedge <- ggVennDiagram::venn_setedge(data)
         dat_venn_setedge[["colors"]] <- colors[dat_venn_setedge[["name"]]]
@@ -5005,29 +7637,47 @@ StatPlot <- function(meta.data, stat.by, group.by = NULL, split.by = NULL, bg.by
         dat_title <- as.data.frame(do.call(rbind, dat_venn_setlabel$geometry))
         colnames(dat_title) <- c("x", "y")
         dat_title[["label"]] <- paste0(
-          dat_venn_setlabel[["name"]], "\n",
-          "(", sapply(dat_list, length)[dat_venn_setlabel[["name"]]], ")"
+          dat_venn_setlabel[["name"]],
+          "\n",
+          "(",
+          sapply(dat_list, length)[dat_venn_setlabel[["name"]]],
+          ")"
         )
-        dat_stat <- as.data.frame(do.call(rbind, lapply(dat_venn_region$geometry, function(x) sf::st_centroid(x))))
+        dat_stat <- as.data.frame(do.call(
+          rbind,
+          lapply(dat_venn_region$geometry, function(x) sf::st_centroid(x))
+        ))
         colnames(dat_stat) <- c("x", "y")
         dat_stat[["label"]] <- dat_venn_region[["label"]]
         p <- ggplot() +
           geom_sf(data = dat_venn_region, aes(fill = colors), alpha = alpha) +
           geom_sf(data = dat_venn_setedge, aes(color = colors), size = 1) +
           geom_text_repel(
-            data = dat_title, aes(label = label, x = x, y = y),
+            data = dat_title,
+            aes(label = label, x = x, y = y),
             fontface = "bold",
-            colour = label.fg, size = label.size + 0.5,
-            bg.color = label.bg, bg.r = label.bg.r,
-            point.size = NA, max.overlaps = 100, force = 0,
-            min.segment.length = 0, segment.colour = "black"
+            colour = label.fg,
+            size = label.size + 0.5,
+            bg.color = label.bg,
+            bg.r = label.bg.r,
+            point.size = NA,
+            max.overlaps = 100,
+            force = 0,
+            min.segment.length = 0,
+            segment.colour = "black"
           ) +
           geom_text_repel(
-            data = dat_stat, aes(label = label, x = x, y = y),
-            colour = label.fg, size = label.size,
-            bg.color = label.bg, bg.r = label.bg.r,
-            point.size = NA, max.overlaps = 100, force = 0,
-            min.segment.length = 0, segment.colour = "black"
+            data = dat_stat,
+            aes(label = label, x = x, y = y),
+            colour = label.fg,
+            size = label.size,
+            bg.color = label.bg,
+            bg.r = label.bg.r,
+            point.size = NA,
+            max.overlaps = 100,
+            force = 0,
+            min.segment.length = 0,
+            segment.colour = "black"
           ) +
           scale_fill_identity() +
           scale_color_identity() +
@@ -5044,21 +7694,46 @@ StatPlot <- function(meta.data, stat.by, group.by = NULL, split.by = NULL, bg.by
       if (plot_type == "upset") {
         check_R("ggupset")
         for (n in seq_len(nrow(dat_use))) {
-          dat_use[["intersection"]][n] <- list(stat.by[unlist(dat_use[n, stat.by])])
+          dat_use[["intersection"]][n] <- list(stat.by[unlist(dat_use[
+            n,
+            stat.by
+          ])])
         }
-        dat_use <- dat_use[sapply(dat_use[["intersection"]], length) > 0, , drop = FALSE]
+        dat_use <- dat_use[
+          sapply(dat_use[["intersection"]], length) > 0,
+          ,
+          drop = FALSE
+        ]
         p <- ggplot(dat_use, aes(x = intersection)) +
-          geom_bar(aes(fill = after_stat(count)), color = "black", width = 0.5, show.legend = FALSE) +
-          geom_text_repel(aes(label = after_stat(count)),
-            stat = "count",
-            colour = label.fg, size = label.size,
-            bg.color = label.bg, bg.r = label.bg.r,
-            point.size = NA, max.overlaps = 100, force = 0,
-            min.segment.length = 0, segment.colour = "black"
+          geom_bar(
+            aes(fill = after_stat(count)),
+            color = "black",
+            width = 0.5,
+            show.legend = FALSE
           ) +
-          labs(title = title, subtitle = subtitle, x = sp, y = "Intersection size") +
+          geom_text_repel(
+            aes(label = after_stat(count)),
+            stat = "count",
+            colour = label.fg,
+            size = label.size,
+            bg.color = label.bg,
+            bg.r = label.bg.r,
+            point.size = NA,
+            max.overlaps = 100,
+            force = 0,
+            min.segment.length = 0,
+            segment.colour = "black"
+          ) +
+          labs(
+            title = title,
+            subtitle = subtitle,
+            x = sp,
+            y = "Intersection size"
+          ) +
           ggupset::scale_x_upset(sets = stat.by, n_intersections = 20) +
-          scale_fill_gradientn(colors = palette_scp(palette = "material-indigo")) +
+          scale_fill_gradientn(
+            colors = palette_scp(palette = "material-indigo")
+          ) +
           theme_scp(
             aspect.ratio = 0.6,
             panel.grid.major = element_line(colour = "grey80", linetype = 2)
@@ -5070,24 +7745,40 @@ StatPlot <- function(meta.data, stat.by, group.by = NULL, split.by = NULL, bg.by
         p <- p + labs(title = title, subtitle = subtitle)
       }
       if (plot_type == "sankey") {
-        colors <- palette_scp(c(unique(unlist(lapply(dat_all[, stat.by, drop = FALSE], levels))), NA), palette = palette, palcolor = palcolor, NA_keep = TRUE, NA_color = NA_color)
+        colors <- palette_scp(
+          c(
+            unique(unlist(lapply(dat_all[, stat.by, drop = FALSE], levels))),
+            NA
+          ),
+          palette = palette,
+          palcolor = palcolor,
+          NA_keep = TRUE,
+          NA_color = NA_color
+        )
         legend_list <- list()
         for (l in stat.by) {
-          df <- data.frame(factor(levels(dat_use[[l]]), levels = levels(dat_use[[l]])))
+          df <- data.frame(factor(
+            levels(dat_use[[l]]),
+            levels = levels(dat_use[[l]])
+          ))
           colnames(df) <- l
-          legend_list[[l]] <- ggpubr::get_legend(ggplot(data = df) +
-            geom_col(aes(x = 1, y = 1, fill = .data[[l]]), color = "black") +
-            scale_fill_manual(values = colors[levels(dat_use[[l]])]) +
-            guides(fill = guide_legend(
-              title.hjust = 0,
-              title.vjust = 0,
-              order = 1,
-              override.aes = list(size = 4, color = "black", alpha = 1)
-            )) +
-            theme_scp(
-              legend.position = "bottom",
-              legend.direction = legend.direction
-            ))
+          legend_list[[l]] <- ggpubr::get_legend(
+            ggplot(data = df) +
+              geom_col(aes(x = 1, y = 1, fill = .data[[l]]), color = "black") +
+              scale_fill_manual(values = colors[levels(dat_use[[l]])]) +
+              guides(
+                fill = guide_legend(
+                  title.hjust = 0,
+                  title.vjust = 0,
+                  order = 1,
+                  override.aes = list(size = 4, color = "black", alpha = 1)
+                )
+              ) +
+              theme_scp(
+                legend.position = "bottom",
+                legend.direction = legend.direction
+              )
+          )
           if (any(is.na(dat_use[[l]]))) {
             raw_levels <- levels(dat_use[[l]])
             dat_use[[l]] <- as.character(dat_use[[l]])
@@ -5102,8 +7793,22 @@ StatPlot <- function(meta.data, stat.by, group.by = NULL, split.by = NULL, bg.by
         }
         dat <- suppressWarnings(make_long(dat_use, all_of(stat.by)))
         dat$node <- factor(dat$node, levels = rev(names(colors)))
-        p0 <- ggplot(dat, aes(x = x, next_x = next_x, node = node, next_node = next_node, fill = node)) +
-          geom_sankey(color = "black", flow.alpha = alpha, show.legend = FALSE, na.rm = FALSE) +
+        p0 <- ggplot(
+          dat,
+          aes(
+            x = x,
+            next_x = next_x,
+            node = node,
+            next_node = next_node,
+            fill = node
+          )
+        ) +
+          geom_sankey(
+            color = "black",
+            flow.alpha = alpha,
+            show.legend = FALSE,
+            na.rm = FALSE
+          ) +
           scale_fill_manual(values = colors, drop = FALSE) +
           scale_x_discrete(expand = c(0, 0.2)) +
           theme_void() +
@@ -5113,11 +7818,25 @@ StatPlot <- function(meta.data, stat.by, group.by = NULL, split.by = NULL, bg.by
         p <- wrap_plots(gtable)
       }
       if (plot_type == "chord") {
-        colors <- palette_scp(c(unique(unlist(lapply(dat_all[, stat.by, drop = FALSE], levels))), NA), palette = palette, palcolor = palcolor, NA_keep = TRUE, NA_color = NA_color)
-        M <- table(dat_use[[stat.by[1]]], dat_use[[stat.by[2]]], useNA = "ifany")
+        colors <- palette_scp(
+          c(
+            unique(unlist(lapply(dat_all[, stat.by, drop = FALSE], levels))),
+            NA
+          ),
+          palette = palette,
+          palcolor = palcolor,
+          NA_keep = TRUE,
+          NA_color = NA_color
+        )
+        M <- table(
+          dat_use[[stat.by[1]]],
+          dat_use[[stat.by[2]]],
+          useNA = "ifany"
+        )
         m <- matrix(M, ncol = ncol(M), dimnames = dimnames(M))
         colnames(m)[is.na(colnames(m))] <- "NA"
-        chordDiagram(m,
+        chordDiagram(
+          m,
           grid.col = colors,
           transparency = 0.2,
           link.lwd = 1,
@@ -5148,7 +7867,12 @@ StatPlot <- function(meta.data, stat.by, group.by = NULL, split.by = NULL, bg.by
   }
   if (isTRUE(combine) && plot_type != "chord") {
     if (length(plist) > 1) {
-      plot <- wrap_plots(plotlist = plist, nrow = nrow, ncol = ncol, byrow = byrow)
+      plot <- wrap_plots(
+        plotlist = plist,
+        nrow = nrow,
+        ncol = ncol,
+        byrow = byrow
+      )
     } else {
       plot <- plist[[1]]
     }
@@ -5229,18 +7953,51 @@ StatPlot <- function(meta.data, stat.by, group.by = NULL, split.by = NULL, bg.by
 #' @importFrom Matrix t
 #' @importFrom methods slot
 #' @export
-FeatureCorPlot <- function(srt, features, group.by = NULL, split.by = NULL, cells = NULL, layer = "data", assay = NULL,
-                           cor_method = "pearson", adjust = 1, margin = 1, reverse = FALSE,
-                           add_equation = FALSE, add_r2 = TRUE, add_pvalue = TRUE, add_smooth = TRUE,
-                           palette = "Paired", palcolor = NULL, cor_palette = "RdBu", cor_palcolor = NULL, cor_range = c(-1, 1),
-                           pt.size = NULL, pt.alpha = 1,
-                           cells.highlight = NULL, cols.highlight = "black", sizes.highlight = 1, alpha.highlight = 1, stroke.highlight = 0.5,
-                           calculate_coexp = FALSE,
-                           raster = NULL, raster.dpi = c(512, 512),
-                           aspect.ratio = 1, title = NULL, subtitle = NULL,
-                           legend.position = "right", legend.direction = "vertical",
-                           theme_use = "theme_scp", theme_args = list(),
-                           combine = TRUE, nrow = NULL, ncol = NULL, byrow = TRUE, force = FALSE, seed = 11) {
+FeatureCorPlot <- function(
+  srt,
+  features,
+  group.by = NULL,
+  split.by = NULL,
+  cells = NULL,
+  layer = "data",
+  assay = NULL,
+  cor_method = "pearson",
+  adjust = 1,
+  margin = 1,
+  reverse = FALSE,
+  add_equation = FALSE,
+  add_r2 = TRUE,
+  add_pvalue = TRUE,
+  add_smooth = TRUE,
+  palette = "Paired",
+  palcolor = NULL,
+  cor_palette = "RdBu",
+  cor_palcolor = NULL,
+  cor_range = c(-1, 1),
+  pt.size = NULL,
+  pt.alpha = 1,
+  cells.highlight = NULL,
+  cols.highlight = "black",
+  sizes.highlight = 1,
+  alpha.highlight = 1,
+  stroke.highlight = 0.5,
+  calculate_coexp = FALSE,
+  raster = NULL,
+  raster.dpi = c(512, 512),
+  aspect.ratio = 1,
+  title = NULL,
+  subtitle = NULL,
+  legend.position = "right",
+  legend.direction = "vertical",
+  theme_use = "theme_scp",
+  theme_args = list(),
+  combine = TRUE,
+  nrow = NULL,
+  ncol = NULL,
+  byrow = TRUE,
+  force = FALSE,
+  seed = 11
+) {
   set.seed(seed)
 
   if (is.null(features)) {
@@ -5263,7 +8020,10 @@ FeatureCorPlot <- function(srt, features, group.by = NULL, split.by = NULL, cell
       stop(paste0(i, " is not in the meta.data of srt object."))
     }
     if (!is.factor(srt@meta.data[[i]])) {
-      srt@meta.data[[i]] <- factor(srt@meta.data[[i]], levels = unique(srt@meta.data[[i]]))
+      srt@meta.data[[i]] <- factor(
+        srt@meta.data[[i]],
+        levels = unique(srt@meta.data[[i]])
+      )
     }
   }
   if (!is.null(cells.highlight) & !isTRUE(cells.highlight)) {
@@ -5271,7 +8031,10 @@ FeatureCorPlot <- function(srt, features, group.by = NULL, split.by = NULL, cell
       stop("No cells in 'cells.highlight' found in srt.")
     }
     if (!all(cells.highlight %in% colnames(srt@assays[[1]]))) {
-      warning("Some cells in 'cells.highlight' not found in srt.", immediate. = TRUE)
+      warning(
+        "Some cells in 'cells.highlight' not found in srt.",
+        immediate. = TRUE
+      )
     }
     cells.highlight <- intersect(cells.highlight, colnames(srt@assays[[1]]))
   }
@@ -5279,26 +8042,55 @@ FeatureCorPlot <- function(srt, features, group.by = NULL, split.by = NULL, cell
     cells.highlight <- colnames(srt@assays[[1]])
   }
 
-  features_drop <- features[!features %in% c(rownames(srt@assays[[assay]]), colnames(srt@meta.data))]
+  features_drop <- features[
+    !features %in% c(rownames(srt@assays[[assay]]), colnames(srt@meta.data))
+  ]
   if (length(features_drop) > 0) {
-    warning(paste0(features_drop, collapse = ","), " are not in the features of srt.", immediate. = TRUE)
+    warning(
+      paste0(features_drop, collapse = ","),
+      " are not in the features of srt.",
+      immediate. = TRUE
+    )
     features <- features[!features %in% features_drop]
   }
 
   features_gene <- features[features %in% rownames(srt@assays[[assay]])]
   features_meta <- features[features %in% colnames(srt@meta.data)]
   if (length(intersect(features_gene, features_meta)) > 0) {
-    warning("Features appear in both gene names and metadata names: ", paste0(intersect(features_gene, features_meta), collapse = ","))
+    warning(
+      "Features appear in both gene names and metadata names: ",
+      paste0(intersect(features_gene, features_meta), collapse = ",")
+    )
   }
 
   if (isTRUE(calculate_coexp) && length(features_gene) > 0) {
     if (length(features_meta) > 0) {
-      warning(paste(features_meta, collapse = ","), "is not used when calculating co-expression", immediate. = TRUE)
+      warning(
+        paste(features_meta, collapse = ","),
+        "is not used when calculating co-expression",
+        immediate. = TRUE
+      )
     }
     if (status %in% c("raw_counts", "raw_normalized_counts")) {
-      srt@meta.data[["CoExp"]] <- apply(LayerData(srt@assays[[assay]], layer = layer)[features_gene, , drop = FALSE], 2, function(x) exp(mean(log(x))))
+      srt@meta.data[["CoExp"]] <- apply(
+        LayerData(srt@assays[[assay]], layer = layer)[
+          features_gene,
+          ,
+          drop = FALSE
+        ],
+        2,
+        function(x) exp(mean(log(x)))
+      )
     } else if (status == "log_normalized_counts") {
-      srt@meta.data[["CoExp"]] <- apply(expm1(LayerData(srt@assays[[assay]], layer = layer)[features_gene, , drop = FALSE]), 2, function(x) log1p(exp(mean(log(x)))))
+      srt@meta.data[["CoExp"]] <- apply(
+        expm1(LayerData(srt@assays[[assay]], layer = layer)[
+          features_gene,
+          ,
+          drop = FALSE
+        ]),
+        2,
+        function(x) log1p(exp(mean(log(x))))
+      )
     } else {
       stop("Can not determine the data type.")
     }
@@ -5306,7 +8098,11 @@ FeatureCorPlot <- function(srt, features, group.by = NULL, split.by = NULL, cell
     features_meta <- c(features_meta, "CoExp")
   }
   if (length(features_gene) > 0) {
-    dat_gene <- t(LayerData(srt@assays[[assay]], layer = layer)[features_gene, , drop = FALSE])
+    dat_gene <- t(LayerData(srt@assays[[assay]], layer = layer)[
+      features_gene,
+      ,
+      drop = FALSE
+    ])
   } else {
     dat_gene <- matrix(nrow = ncol(srt@assays[[1]]), ncol = 0)
   }
@@ -5328,7 +8124,10 @@ FeatureCorPlot <- function(srt, features, group.by = NULL, split.by = NULL, cell
     dat_exp <- as.sparse(as_matrix(dat_exp))
   }
   if (length(features) > 10 && !isTRUE(force)) {
-    warning("More than 10 features to be paired compared which will generate more than 50 plots.", immediate. = TRUE)
+    warning(
+      "More than 10 features to be paired compared which will generate more than 50 plots.",
+      immediate. = TRUE
+    )
     answer <- askYesNo("Are you sure to continue?", default = FALSE)
     if (!isTRUE(answer)) {
       return(invisible(NULL))
@@ -5354,8 +8153,16 @@ FeatureCorPlot <- function(srt, features, group.by = NULL, split.by = NULL, cell
   }
 
   plist <- list()
-  colors <- palette_scp(levels(dat_use[[group.by]]), palette = palette, palcolor = palcolor)
-  cor_colors <- palette_scp(x = seq(cor_range[1], cor_range[2], length.out = 200), palette = cor_palette, palcolor = cor_palcolor)
+  colors <- palette_scp(
+    levels(dat_use[[group.by]]),
+    palette = palette,
+    palcolor = palcolor
+  )
+  cor_colors <- palette_scp(
+    x = seq(cor_range[1], cor_range[2], length.out = 200),
+    palette = cor_palette,
+    palcolor = cor_palcolor
+  )
   bound <- strsplit(gsub("\\(|\\)|\\[|\\]", "", names(cor_colors)), ",")
   bound <- lapply(bound, as.numeric)
   df_bound <- do.call(rbind, bound)
@@ -5366,7 +8173,10 @@ FeatureCorPlot <- function(srt, features, group.by = NULL, split.by = NULL, cell
   colnames(pair) <- c("feature1", "feature2")
   pair_expand <- expand.grid(features, features, stringsAsFactors = TRUE)
   colnames(pair_expand) <- c("feature1", "feature2")
-  pair_expand[["feature1"]] <- factor(pair_expand[["feature1"]], levels = levels(pair_expand[["feature2"]]))
+  pair_expand[["feature1"]] <- factor(
+    pair_expand[["feature1"]],
+    levels = levels(pair_expand[["feature2"]])
+  )
 
   for (s in levels(dat_use[[split.by]])) {
     dat <- dat_use[dat_use[[split.by]] == s, , drop = FALSE]
@@ -5390,203 +8200,318 @@ FeatureCorPlot <- function(srt, features, group.by = NULL, split.by = NULL, cell
       order1 <- pair_expand[, 1]
       order2 <- pair_expand[, 2]
     }
-    plotlist <- mapply(FUN = function(x, y) {
-      f1 <- as.character(x)
-      f2 <- as.character(y)
-      f1_index <- as.numeric(x)
-      f2_index <- as.numeric(y)
-      p <- ggplot(data = dat) +
-        do.call(theme_use, theme_args) +
-        theme(
-          aspect.ratio = aspect.ratio,
-          axis.title = element_blank(),
-          axis.ticks = element_blank(),
-          axis.text = element_blank(),
-          plot.margin = margin(margin, margin, margin, margin),
-          legend.position = "none"
-        )
-      if (f1_index == f2_index) {
-        p <- p + geom_violin(aes(x = .data[[group.by]], y = .data[[f1]], fill = .data[[group.by]]),
-          scale = "width", adjust = adjust, trim = TRUE, na.rm = TRUE
-        ) + scale_x_discrete(position = ifelse(isTRUE(reverse), "top", "bottom")) +
-          scale_y_continuous(position = ifelse(isTRUE(reverse), "right", "left"))
-      } else {
-        p <- p + scale_x_continuous(
-          n.breaks = 3, labels = scales::number_format(),
-          position = ifelse(isTRUE(reverse), "top", "bottom")
-        ) +
-          scale_y_continuous(
-            n.breaks = 3, labels = scales::number_format(),
-            position = ifelse(isTRUE(reverse), "right", "left")
+    plotlist <- mapply(
+      FUN = function(x, y) {
+        f1 <- as.character(x)
+        f2 <- as.character(y)
+        f1_index <- as.numeric(x)
+        f2_index <- as.numeric(y)
+        p <- ggplot(data = dat) +
+          do.call(theme_use, theme_args) +
+          theme(
+            aspect.ratio = aspect.ratio,
+            axis.title = element_blank(),
+            axis.ticks = element_blank(),
+            axis.text = element_blank(),
+            plot.margin = margin(margin, margin, margin, margin),
+            legend.position = "none"
           )
-      }
-      if (f1_index < f2_index) {
-        if (isTRUE(raster)) {
-          p <- p + scattermore::geom_scattermore(
-            mapping = aes(x = .data[[f1]], y = .data[[f2]], color = .data[[group.by]]),
-            pointsize = ceiling(pt.size), alpha = pt.alpha, pixels = raster.dpi
-          )
+        if (f1_index == f2_index) {
+          p <- p +
+            geom_violin(
+              aes(
+                x = .data[[group.by]],
+                y = .data[[f1]],
+                fill = .data[[group.by]]
+              ),
+              scale = "width",
+              adjust = adjust,
+              trim = TRUE,
+              na.rm = TRUE
+            ) +
+            scale_x_discrete(
+              position = ifelse(isTRUE(reverse), "top", "bottom")
+            ) +
+            scale_y_continuous(
+              position = ifelse(isTRUE(reverse), "right", "left")
+            )
         } else {
-          p <- p + geom_point(aes(x = .data[[f1]], y = .data[[f2]], color = .data[[group.by]]),
-            alpha = pt.alpha, size = pt.size
-          )
-        }
-        if (isTRUE(add_smooth)) {
-          p <- p + geom_smooth(aes(x = .data[[f1]], y = .data[[f2]]),
-            alpha = 0.5, method = "lm", color = "red", formula = y ~ x, na.rm = TRUE
-          )
-        }
-        if (any(isTRUE(add_equation), isTRUE(add_r2), isTRUE(add_pvalue))) {
-          m <- lm(dat[[f2]] ~ dat[[f1]])
-          min_x <- min(dat[[f1]])
-          max_y <- max(dat[[f2]])
-          if (coef(m)[2] >= 0) {
-            eq1 <- substitute(
-              italic(y) == a + b %.% italic(x),
-              list(
-                a = format(as.numeric(coef(m)[1]), digits = 2),
-                b = format(as.numeric(coef(m)[2]), digits = 2)
-              )
+          p <- p +
+            scale_x_continuous(
+              n.breaks = 3,
+              labels = scales::number_format(),
+              position = ifelse(isTRUE(reverse), "top", "bottom")
+            ) +
+            scale_y_continuous(
+              n.breaks = 3,
+              labels = scales::number_format(),
+              position = ifelse(isTRUE(reverse), "right", "left")
             )
+        }
+        if (f1_index < f2_index) {
+          if (isTRUE(raster)) {
+            p <- p +
+              scattermore::geom_scattermore(
+                mapping = aes(
+                  x = .data[[f1]],
+                  y = .data[[f2]],
+                  color = .data[[group.by]]
+                ),
+                pointsize = ceiling(pt.size),
+                alpha = pt.alpha,
+                pixels = raster.dpi
+              )
           } else {
-            eq1 <- substitute(
-              italic(y) == a - b %.% italic(x),
+            p <- p +
+              geom_point(
+                aes(
+                  x = .data[[f1]],
+                  y = .data[[f2]],
+                  color = .data[[group.by]]
+                ),
+                alpha = pt.alpha,
+                size = pt.size
+              )
+          }
+          if (isTRUE(add_smooth)) {
+            p <- p +
+              geom_smooth(
+                aes(x = .data[[f1]], y = .data[[f2]]),
+                alpha = 0.5,
+                method = "lm",
+                color = "red",
+                formula = y ~ x,
+                na.rm = TRUE
+              )
+          }
+          if (any(isTRUE(add_equation), isTRUE(add_r2), isTRUE(add_pvalue))) {
+            m <- lm(dat[[f2]] ~ dat[[f1]])
+            min_x <- min(dat[[f1]])
+            max_y <- max(dat[[f2]])
+            if (coef(m)[2] >= 0) {
+              eq1 <- substitute(
+                italic(y) == a + b %.% italic(x),
+                list(
+                  a = format(as.numeric(coef(m)[1]), digits = 2),
+                  b = format(as.numeric(coef(m)[2]), digits = 2)
+                )
+              )
+            } else {
+              eq1 <- substitute(
+                italic(y) == a - b %.% italic(x),
+                list(
+                  a = format(as.numeric(coef(m)[1]), digits = 2),
+                  b = format(-as.numeric(coef(m)[2]), digits = 2)
+                )
+              )
+            }
+            eq1 <- as.character(as.expression(eq1))
+            eq2 <- substitute(
+              italic(r)^2 ~ "=" ~ r2,
               list(
-                a = format(as.numeric(coef(m)[1]), digits = 2),
-                b = format(-as.numeric(coef(m)[2]), digits = 2)
+                r2 = format(summary(m)$r.squared, digits = 2)
               )
             )
+            eq2 <- as.character(as.expression(eq2))
+            eq3 <- substitute(
+              italic(p) ~ "=" ~ pvalue,
+              list(
+                pvalue = format(summary(m)$coefficients[2, 4], digits = 2)
+              )
+            )
+            eq3 <- as.character(as.expression(eq3))
+            eqs <- c(eq1, eq2, eq3)
+            vjusts <- c(1.3, 1.3 * 2, 1.3 * 2^2)
+            i <- c(isTRUE(add_equation), isTRUE(add_r2), isTRUE(add_pvalue))
+            p <- p +
+              annotate(
+                geom = GeomTextRepel,
+                x = min_x * 1.05,
+                y = max_y * 0.95,
+                label = eqs[i],
+                color = "black",
+                bg.color = "white",
+                bg.r = 0.1,
+                size = 3.5,
+                point.size = NA,
+                max.overlaps = 100,
+                force = 0,
+                min.segment.length = Inf,
+                hjust = -0.05,
+                vjust = vjusts[1:sum(i)],
+                parse = TRUE
+              )
           }
-          eq1 <- as.character(as.expression(eq1))
-          eq2 <- substitute(
-            italic(r)^2 ~ "=" ~ r2,
-            list(
-              r2 = format(summary(m)$r.squared, digits = 2)
-            )
-          )
-          eq2 <- as.character(as.expression(eq2))
-          eq3 <- substitute(
-            italic(p) ~ "=" ~ pvalue,
-            list(
-              pvalue = format(summary(m)$coefficients[2, 4], digits = 2)
-            )
-          )
-          eq3 <- as.character(as.expression(eq3))
-          eqs <- c(eq1, eq2, eq3)
-          vjusts <- c(1.3, 1.3 * 2, 1.3 * 2^2)
-          i <- c(isTRUE(add_equation), isTRUE(add_r2), isTRUE(add_pvalue))
-          p <- p + annotate(
-            geom = GeomTextRepel, x = min_x * 1.05, y = max_y * 0.95, label = eqs[i],
-            color = "black", bg.color = "white", bg.r = 0.1, size = 3.5, point.size = NA,
-            max.overlaps = 100, force = 0, min.segment.length = Inf,
-            hjust = -0.05, vjust = vjusts[1:sum(i)], parse = TRUE
-          )
-        }
-        if (!is.null(cells.highlight)) {
-          cell_df <- subset(p$data, rownames(p$data) %in% cells.highlight)
-          if (nrow(cell_df) > 0) {
-            # point_size <- p$layers[[1]]$aes_params$size
-            if (isTRUE(raster)) {
-              p <- p + scattermore::geom_scattermore(
-                data = cell_df, aes(x = .data[[f1]], y = .data[[f2]]), color = cols.highlight,
-                pointsize = floor(sizes.highlight) + stroke.highlight, alpha = alpha.highlight, pixels = raster.dpi
-              ) +
-                scattermore::geom_scattermore(
-                  data = cell_df, aes(x = .data[[f1]], y = .data[[f2]], color = .data[[group.by]]),
-                  pointsize = floor(sizes.highlight), alpha = alpha.highlight, pixels = raster.dpi
-                )
-            } else {
-              p <- p +
-                suppressWarnings(geom_point(
-                  data = cell_df, aes(x = .data[[f1]], y = .data[[f2]]), color = cols.highlight,
-                  size = sizes.highlight + stroke.highlight, alpha = alpha.highlight
-                )) +
-                suppressWarnings(geom_point(
-                  data = cell_df, aes(x = .data[[f1]], y = .data[[f2]], color = .data[[group.by]]),
-                  size = sizes.highlight, alpha = alpha.highlight
-                ))
+          if (!is.null(cells.highlight)) {
+            cell_df <- subset(p$data, rownames(p$data) %in% cells.highlight)
+            if (nrow(cell_df) > 0) {
+              # point_size <- p$layers[[1]]$aes_params$size
+              if (isTRUE(raster)) {
+                p <- p +
+                  scattermore::geom_scattermore(
+                    data = cell_df,
+                    aes(x = .data[[f1]], y = .data[[f2]]),
+                    color = cols.highlight,
+                    pointsize = floor(sizes.highlight) + stroke.highlight,
+                    alpha = alpha.highlight,
+                    pixels = raster.dpi
+                  ) +
+                  scattermore::geom_scattermore(
+                    data = cell_df,
+                    aes(
+                      x = .data[[f1]],
+                      y = .data[[f2]],
+                      color = .data[[group.by]]
+                    ),
+                    pointsize = floor(sizes.highlight),
+                    alpha = alpha.highlight,
+                    pixels = raster.dpi
+                  )
+              } else {
+                p <- p +
+                  suppressWarnings(geom_point(
+                    data = cell_df,
+                    aes(x = .data[[f1]], y = .data[[f2]]),
+                    color = cols.highlight,
+                    size = sizes.highlight + stroke.highlight,
+                    alpha = alpha.highlight
+                  )) +
+                  suppressWarnings(geom_point(
+                    data = cell_df,
+                    aes(
+                      x = .data[[f1]],
+                      y = .data[[f2]],
+                      color = .data[[group.by]]
+                    ),
+                    size = sizes.highlight,
+                    alpha = alpha.highlight
+                  ))
+              }
             }
           }
         }
-      }
-      if (f1_index > f2_index) {
-        label <- paste0(f1, "\n", f2, "\nCor: ", round(pair_sim[f1, f2], 3)) # "\n","f1_index:",f1_index," ","f2_index:",f2_index
-        label_pos <- (max(dat_exp[rownames(dat), ], na.rm = TRUE) + min(dat_exp[rownames(dat), ], na.rm = TRUE)) / 2
-        fill <- rownames(df_bound)[df_bound[, 1] < pair_sim[f1, f2] & df_bound[, 2] >= pair_sim[f1, f2]]
-        p <- p + annotate(geom = "rect", xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf, fill = fill) +
-          annotate(
-            geom = GeomTextRepel, x = label_pos, y = label_pos, label = label,
-            fontface = "bold", color = "black", bg.color = "white", bg.r = 0.1, size = 3.5, point.size = NA
-          )
-      }
+        if (f1_index > f2_index) {
+          label <- paste0(f1, "\n", f2, "\nCor: ", round(pair_sim[f1, f2], 3)) # "\n","f1_index:",f1_index," ","f2_index:",f2_index
+          label_pos <- (max(dat_exp[rownames(dat), ], na.rm = TRUE) +
+            min(dat_exp[rownames(dat), ], na.rm = TRUE)) /
+            2
+          fill <- rownames(df_bound)[
+            df_bound[, 1] < pair_sim[f1, f2] & df_bound[, 2] >= pair_sim[f1, f2]
+          ]
+          p <- p +
+            annotate(
+              geom = "rect",
+              xmin = -Inf,
+              xmax = Inf,
+              ymin = -Inf,
+              ymax = Inf,
+              fill = fill
+            ) +
+            annotate(
+              geom = GeomTextRepel,
+              x = label_pos,
+              y = label_pos,
+              label = label,
+              fontface = "bold",
+              color = "black",
+              bg.color = "white",
+              bg.r = 0.1,
+              size = 3.5,
+              point.size = NA
+            )
+        }
 
-      if (f1_index == 1 & f2_index != 1) {
-        p <- p + theme(
-          axis.ticks.y = element_line(),
-          axis.text.y = element_text(size = 10)
-        )
-      }
-      if (f2_index == length(features) & f1_index != length(features)) {
-        p <- p + theme(
-          axis.ticks.x = element_line(),
-          axis.text.x = element_text(size = 10)
-        )
-      }
-      if (f1_index == 1) {
-        p <- p + labs(y = f2) + theme(axis.title.y = element_text(size = 12))
-      }
-      if (f2_index == length(features)) {
-        p <- p + labs(x = f1) + theme(axis.title.x = element_text(size = 12))
-      }
-      p <- p + scale_color_manual(
-        name = paste0(group.by, ":"),
-        values = colors,
-        labels = names(colors)
-      ) + scale_fill_manual(
-        name = paste0(group.by, ":"),
-        values = colors,
-        labels = names(colors)
-      )
-      return(p)
-    }, x = order1, y = order2, SIMPLIFY = FALSE)
+        if (f1_index == 1 & f2_index != 1) {
+          p <- p +
+            theme(
+              axis.ticks.y = element_line(),
+              axis.text.y = element_text(size = 10)
+            )
+        }
+        if (f2_index == length(features) & f1_index != length(features)) {
+          p <- p +
+            theme(
+              axis.ticks.x = element_line(),
+              axis.text.x = element_text(size = 10)
+            )
+        }
+        if (f1_index == 1) {
+          p <- p + labs(y = f2) + theme(axis.title.y = element_text(size = 12))
+        }
+        if (f2_index == length(features)) {
+          p <- p + labs(x = f1) + theme(axis.title.x = element_text(size = 12))
+        }
+        p <- p +
+          scale_color_manual(
+            name = paste0(group.by, ":"),
+            values = colors,
+            labels = names(colors)
+          ) +
+          scale_fill_manual(
+            name = paste0(group.by, ":"),
+            values = colors,
+            labels = names(colors)
+          )
+        return(p)
+      },
+      x = order1,
+      y = order2,
+      SIMPLIFY = FALSE
+    )
 
     legend_list <- NULL
     if (length(features) > 1) {
-      legend_list[["correlation"]] <- ggpubr::get_legend(ggplot(data.frame(range = cor_range, x = 1, y = 1), aes(x = x, y = y, fill = range)) +
-        geom_point() +
-        scale_fill_gradientn(
-          name = paste0("Correlation"),
-          limits = cor_range,
-          n.breaks = 3,
-          colors = cor_colors,
-          guide = guide_colorbar(frame.colour = "black", ticks.colour = "black", title.hjust = 0)
+      legend_list[["correlation"]] <- ggpubr::get_legend(
+        ggplot(
+          data.frame(range = cor_range, x = 1, y = 1),
+          aes(x = x, y = y, fill = range)
         ) +
-        do.call(theme_use, theme_args) +
-        theme(
-          aspect.ratio = aspect.ratio,
-          legend.position = legend.position,
-          legend.direction = legend.direction
-        ))
+          geom_point() +
+          scale_fill_gradientn(
+            name = paste0("Correlation"),
+            limits = cor_range,
+            n.breaks = 3,
+            colors = cor_colors,
+            guide = guide_colorbar(
+              frame.colour = "black",
+              ticks.colour = "black",
+              title.hjust = 0
+            )
+          ) +
+          do.call(theme_use, theme_args) +
+          theme(
+            aspect.ratio = aspect.ratio,
+            legend.position = legend.position,
+            legend.direction = legend.direction
+          )
+      )
     }
     if (nlevels(dat[[group.by]]) > 1) {
-      legend_list[["group.by"]] <- suppressWarnings(ggpubr::get_legend(plotlist[[1]] +
-        guides(fill = guide_legend(
-          title.hjust = 0,
-          order = 1,
-          override.aes = list(size = 4, color = "black", alpha = 1)
-        )) +
-        do.call(theme_use, theme_args) +
-        theme(
-          aspect.ratio = aspect.ratio,
-          legend.position = legend.position,
-          legend.direction = legend.direction
-        )))
+      legend_list[["group.by"]] <- suppressWarnings(ggpubr::get_legend(
+        plotlist[[1]] +
+          guides(
+            fill = guide_legend(
+              title.hjust = 0,
+              order = 1,
+              override.aes = list(size = 4, color = "black", alpha = 1)
+            )
+          ) +
+          do.call(theme_use, theme_args) +
+          theme(
+            aspect.ratio = aspect.ratio,
+            legend.position = legend.position,
+            legend.direction = legend.direction
+          )
+      ))
     }
 
     grob_row <- list()
     plotlist <- suppressWarnings(lapply(plotlist, as_grob))
     for (i in seq(1, length(plotlist), length(features))) {
-      grob_row[[paste0(i:(i + length(features) - 1), collapse = "-")]] <- do.call(cbind, plotlist[i:(i + length(features) - 1)])
+      grob_row[[paste0(
+        i:(i + length(features) - 1),
+        collapse = "-"
+      )]] <- do.call(cbind, plotlist[i:(i + length(features) - 1)])
     }
     gtable <- do.call(rbind, grob_row)
     if (length(legend_list) > 0) {
@@ -5599,11 +8524,20 @@ FeatureCorPlot <- function(srt, features, group.by = NULL, split.by = NULL, cell
       gtable <- add_grob(gtable, legend, legend.position)
     }
     if (nlevels(dat_use[[split.by]]) > 1) {
-      split_grob <- textGrob(s, just = "center", gp = gpar(fontface = "bold", fontsize = 13))
+      split_grob <- textGrob(
+        s,
+        just = "center",
+        gp = gpar(fontface = "bold", fontsize = 13)
+      )
       gtable <- add_grob(gtable, split_grob, "top")
     }
     if (!is.null(subtitle)) {
-      subtitle_grob <- textGrob(subtitle, x = 0, hjust = 0, gp = gpar(fontface = "italic", fontsize = 13))
+      subtitle_grob <- textGrob(
+        subtitle,
+        x = 0,
+        hjust = 0,
+        gp = gpar(fontface = "italic", fontsize = 13)
+      )
       gtable <- add_grob(gtable, subtitle_grob, "top")
     }
     if (!is.null(title)) {
@@ -5615,7 +8549,12 @@ FeatureCorPlot <- function(srt, features, group.by = NULL, split.by = NULL, cell
   }
   if (isTRUE(combine)) {
     if (length(plist) > 1) {
-      plot <- wrap_plots(plotlist = plist, nrow = nrow, ncol = ncol, byrow = byrow)
+      plot <- wrap_plots(
+        plotlist = plist,
+        nrow = nrow,
+        ncol = ncol,
+        byrow = byrow
+      )
     } else {
       plot <- plist[[1]]
     }
@@ -5678,15 +8617,38 @@ FeatureCorPlot <- function(srt, features, group.by = NULL, split.by = NULL, cell
 #' @importFrom patchwork wrap_plots
 #' @importFrom methods slot
 #' @export
-CellDensityPlot <- function(srt, features, group.by = NULL, split.by = NULL, assay = NULL, layer = "data",
-                            flip = FALSE, reverse = FALSE, x_order = c("value", "rank"),
-                            decreasing = NULL, palette = "Paired", palcolor = NULL,
-                            cells = NULL, keep_empty = FALSE,
-                            y.nbreaks = 4, y.min = NULL, y.max = NULL, same.y.lims = FALSE,
-                            aspect.ratio = NULL, title = NULL, subtitle = NULL,
-                            legend.position = "right", legend.direction = "vertical",
-                            theme_use = "theme_scp", theme_args = list(),
-                            combine = TRUE, nrow = NULL, ncol = NULL, byrow = TRUE, force = FALSE) {
+CellDensityPlot <- function(
+  srt,
+  features,
+  group.by = NULL,
+  split.by = NULL,
+  assay = NULL,
+  layer = "data",
+  flip = FALSE,
+  reverse = FALSE,
+  x_order = c("value", "rank"),
+  decreasing = NULL,
+  palette = "Paired",
+  palcolor = NULL,
+  cells = NULL,
+  keep_empty = FALSE,
+  y.nbreaks = 4,
+  y.min = NULL,
+  y.max = NULL,
+  same.y.lims = FALSE,
+  aspect.ratio = NULL,
+  title = NULL,
+  subtitle = NULL,
+  legend.position = "right",
+  legend.direction = "vertical",
+  theme_use = "theme_scp",
+  theme_args = list(),
+  combine = TRUE,
+  nrow = NULL,
+  ncol = NULL,
+  byrow = TRUE,
+  force = FALSE
+) {
   check_R("ggridges")
   assay <- assay %||% DefaultAssay(srt)
   x_order <- match.arg(x_order)
@@ -5712,26 +8674,42 @@ CellDensityPlot <- function(srt, features, group.by = NULL, split.by = NULL, ass
       stop(paste0(i, " is not in the meta.data of srt object."))
     }
     if (!is.factor(srt@meta.data[[i]])) {
-      srt@meta.data[[i]] <- factor(srt@meta.data[[i]], levels = unique(srt@meta.data[[i]]))
+      srt@meta.data[[i]] <- factor(
+        srt@meta.data[[i]],
+        levels = unique(srt@meta.data[[i]])
+      )
     }
   }
 
   features <- unique(features)
-  features_drop <- features[!features %in% c(rownames(srt@assays[[assay]]), colnames(srt@meta.data))]
+  features_drop <- features[
+    !features %in% c(rownames(srt@assays[[assay]]), colnames(srt@meta.data))
+  ]
   # print(colnames(srt@meta.data))
   if (length(features_drop) > 0) {
-    warning(paste0(features_drop, collapse = ","), " are not in the features of srt.", immediate. = TRUE)
+    warning(
+      paste0(features_drop, collapse = ","),
+      " are not in the features of srt.",
+      immediate. = TRUE
+    )
     features <- features[!features %in% features_drop]
   }
 
   features_gene <- features[features %in% rownames(srt@assays[[assay]])]
   features_meta <- features[features %in% colnames(srt@meta.data)]
   if (length(intersect(features_gene, features_meta)) > 0) {
-    warning("Features appear in both gene names and metadata names: ", paste0(intersect(features_gene, features_meta), collapse = ","))
+    warning(
+      "Features appear in both gene names and metadata names: ",
+      paste0(intersect(features_gene, features_meta), collapse = ",")
+    )
   }
 
   if (length(features_gene) > 0) {
-    dat_gene <- t(LayerData(srt@assays[[assay]], layer = layer)[features_gene, , drop = FALSE])
+    dat_gene <- t(LayerData(srt@assays[[assay]], layer = layer)[
+      features_gene,
+      ,
+      drop = FALSE
+    ])
   } else {
     dat_gene <- matrix(nrow = ncol(srt@assays[[1]]), ncol = 0)
   }
@@ -5754,27 +8732,46 @@ CellDensityPlot <- function(srt, features, group.by = NULL, split.by = NULL, ass
     }
   }
 
-  dat_use <- cbind(dat_exp, srt@meta.data[row.names(dat_exp), c(group.by, split.by), drop = FALSE])
+  dat_use <- cbind(
+    dat_exp,
+    srt@meta.data[row.names(dat_exp), c(group.by, split.by), drop = FALSE]
+  )
   if (!is.null(cells)) {
     dat_use <- dat_use[intersect(rownames(dat_use), cells), , drop = FALSE]
   }
 
   if (isTRUE(same.y.lims) && is.null(y.max)) {
-    y.max <- max(as_matrix(dat_exp[, features])[is.finite(as_matrix(dat_exp[, features]))], na.rm = TRUE)
+    y.max <- max(
+      as_matrix(dat_exp[, features])[is.finite(as_matrix(dat_exp[, features]))],
+      na.rm = TRUE
+    )
   }
   if (isTRUE(same.y.lims) && is.null(y.min)) {
-    y.min <- min(as_matrix(dat_exp[, features])[is.finite(as_matrix(dat_exp[, features]))], na.rm = TRUE)
+    y.min <- min(
+      as_matrix(dat_exp[, features])[is.finite(as_matrix(dat_exp[, features]))],
+      na.rm = TRUE
+    )
   }
 
   plist <- list()
   for (f in features) {
     for (g in group.by) {
-      colors <- palette_scp(levels(dat_use[[g]]), palette = palette, palcolor = palcolor)
+      colors <- palette_scp(
+        levels(dat_use[[g]]),
+        palette = palette,
+        palcolor = palcolor
+      )
       for (s in levels(dat_use[[split.by]])) {
         dat <- dat_use[dat_use[[split.by]] == s, , drop = FALSE]
         if (any(is.infinite(dat[, f]))) {
-          dat[, f][dat[, f] == max(dat[, f], na.rm = TRUE)] <- max(dat[, f][is.finite(dat[, f])], na.rm = TRUE)
-          dat[, f][dat[, f] == min(dat[, f], na.rm = TRUE)] <- min(dat[, f][is.finite(dat[, f])], na.rm = TRUE)
+          dat[, f][dat[, f] == max(dat[, f], na.rm = TRUE)] <- max(
+            dat[, f][is.finite(dat[, f])],
+            na.rm = TRUE
+          )
+          dat[, f][dat[, f] == min(dat[, f], na.rm = TRUE)] <- min(
+            dat[, f][is.finite(dat[, f])],
+            na.rm = TRUE
+          )
         }
         dat[, "cell"] <- rownames(dat)
         if (x_order == "value") {
@@ -5790,8 +8787,16 @@ CellDensityPlot <- function(srt, features, group.by = NULL, split.by = NULL, ass
         # if (length(stat_drop) > 0) {
         #   dat <- dat[!dat[[g]] %in% stat_drop, , drop = FALSE]
         # }
-        y_max_use <- y.max %||% suppressWarnings(max(dat[, "value"][is.finite(x = dat[, "value"])], na.rm = TRUE))
-        y_min_use <- y.min %||% suppressWarnings(min(dat[, "value"][is.finite(x = dat[, "value"])], na.rm = TRUE))
+        y_max_use <- y.max %||%
+          suppressWarnings(max(
+            dat[, "value"][is.finite(x = dat[, "value"])],
+            na.rm = TRUE
+          ))
+        y_min_use <- y.min %||%
+          suppressWarnings(min(
+            dat[, "value"][is.finite(x = dat[, "value"])],
+            na.rm = TRUE
+          ))
 
         if (!is.null(decreasing)) {
           levels <- dat %>%
@@ -5811,20 +8816,34 @@ CellDensityPlot <- function(srt, features, group.by = NULL, split.by = NULL, ass
             aspect.ratio <- NULL
           }
         }
-        p <- ggplot(dat, aes(x = .data[["value"]], y = .data[["order"]], fill = .data[[g]])) +
+        p <- ggplot(
+          dat,
+          aes(x = .data[["value"]], y = .data[["order"]], fill = .data[[g]])
+        ) +
           ggridges::geom_density_ridges()
-        p <- p + scale_fill_manual(
-          name = paste0(g, ":"),
-          values = colors
-        )
+        p <- p +
+          scale_fill_manual(
+            name = paste0(g, ":"),
+            values = colors
+          )
         y.trans <- ifelse(flip, "reverse", "identity")
-        y.trans <- ifelse(reverse, setdiff(c("reverse", "identity"), y.trans), y.trans)
+        y.trans <- ifelse(
+          reverse,
+          setdiff(c("reverse", "identity"), y.trans),
+          y.trans
+        )
 
-        limits <- if (y.trans == "reverse") c(y_max_use, y_min_use) else c(y_min_use, y_max_use)
+        limits <- if (y.trans == "reverse") {
+          c(y_max_use, y_min_use)
+        } else {
+          c(y_min_use, y_max_use)
+        }
         p <- p +
           scale_y_discrete(drop = !keep_empty, expand = c(0, 0)) +
           scale_x_continuous(
-            limits = limits, trans = y.trans, n.breaks = y.nbreaks,
+            limits = limits,
+            trans = y.trans,
+            n.breaks = y.nbreaks,
             expand = c(0, 0)
           )
         if (split.by != "All.groups") {
@@ -5832,7 +8851,8 @@ CellDensityPlot <- function(srt, features, group.by = NULL, split.by = NULL, ass
         }
         p <- p + labs(title = title, subtitle = subtitle, x = f, y = g)
         if (isTRUE(flip)) {
-          p <- p + do.call(theme_use, theme_args) +
+          p <- p +
+            do.call(theme_use, theme_args) +
             theme(
               aspect.ratio = aspect.ratio,
               strip.text.x = element_text(angle = 0),
@@ -5841,9 +8861,11 @@ CellDensityPlot <- function(srt, features, group.by = NULL, split.by = NULL, ass
               panel.grid.major.x = element_line(color = "grey", linetype = 2),
               legend.position = legend.position,
               legend.direction = legend.direction
-            ) + coord_flip()
+            ) +
+            coord_flip()
         } else {
-          p <- p + do.call(theme_use, theme_args) +
+          p <- p +
+            do.call(theme_use, theme_args) +
             theme(
               aspect.ratio = aspect.ratio,
               strip.text.y = element_text(angle = 0),
@@ -5862,7 +8884,12 @@ CellDensityPlot <- function(srt, features, group.by = NULL, split.by = NULL, ass
 
   if (isTRUE(combine)) {
     if (length(plist) > 1) {
-      plot <- wrap_plots(plotlist = plist, nrow = nrow, ncol = ncol, byrow = byrow)
+      plot <- wrap_plots(
+        plotlist = plist,
+        nrow = nrow,
+        ncol = ncol,
+        byrow = byrow
+      )
     } else {
       plot <- plist[[1]]
     }
@@ -5917,15 +8944,35 @@ CellDensityPlot <- function(srt, features, group.by = NULL, split.by = NULL, ass
 #' @importFrom grid arrow unit
 #' @importFrom stats loess quantile
 #' @export
-LineagePlot <- function(srt, lineages, reduction = NULL, dims = c(1, 2), cells = NULL,
-                        trim = c(0.01, 0.99), span = 0.75,
-                        palette = "Dark2", palcolor = NULL, lineages_arrow = arrow(length = unit(0.1, "inches")),
-                        linewidth = 1, line_bg = "white", line_bg_stroke = 0.5,
-                        whiskers = FALSE, whiskers_linewidth = 0.5, whiskers_alpha = 0.5,
-                        aspect.ratio = 1, title = NULL, subtitle = NULL, xlab = NULL, ylab = NULL,
-                        legend.position = "right", legend.direction = "vertical",
-                        theme_use = "theme_scp", theme_args = list(),
-                        return_layer = FALSE, seed = 11) {
+LineagePlot <- function(
+  srt,
+  lineages,
+  reduction = NULL,
+  dims = c(1, 2),
+  cells = NULL,
+  trim = c(0.01, 0.99),
+  span = 0.75,
+  palette = "Dark2",
+  palcolor = NULL,
+  lineages_arrow = arrow(length = unit(0.1, "inches")),
+  linewidth = 1,
+  line_bg = "white",
+  line_bg_stroke = 0.5,
+  whiskers = FALSE,
+  whiskers_linewidth = 0.5,
+  whiskers_alpha = 0.5,
+  aspect.ratio = 1,
+  title = NULL,
+  subtitle = NULL,
+  xlab = NULL,
+  ylab = NULL,
+  legend.position = "right",
+  legend.direction = "vertical",
+  theme_use = "theme_scp",
+  theme_args = list(),
+  return_layer = FALSE,
+  seed = 11
+) {
   set.seed(seed)
 
   if (is.null(reduction)) {
@@ -5958,7 +9005,8 @@ LineagePlot <- function(srt, lineages, reduction = NULL, dims = c(1, 2), cells =
   colors <- palette_scp(lineages, palette = palette, palcolor = palcolor)
   axes <- paste0(reduction_key, dims)
   fitted_list <- lapply(lineages, function(l) {
-    trim_pass <- dat[[l]] > quantile(dat[[l]], trim[1], na.rm = TRUE) & dat[[l]] < quantile(dat[[l]], trim[2], na.rm = TRUE)
+    trim_pass <- dat[[l]] > quantile(dat[[l]], trim[1], na.rm = TRUE) &
+      dat[[l]] < quantile(dat[[l]], trim[2], na.rm = TRUE)
     na_pass <- !is.na(dat[[l]])
     index <- which(trim_pass & na_pass)
     index <- index[order(dat[index, l])]
@@ -5969,7 +9017,13 @@ LineagePlot <- function(srt, lineages, reduction = NULL, dims = c(1, 2), cells =
     # weights_used <- dat_sub[[weights]]
     # }
     fitted <- lapply(axes, function(x) {
-      loess(formula(paste(x, l, sep = "~")), weights = weights_used, data = dat_sub, span = span, degree = 2)$fitted
+      loess(
+        formula(paste(x, l, sep = "~")),
+        weights = weights_used,
+        data = dat_sub,
+        span = span,
+        degree = 2
+      )$fitted
     })
     names(fitted) <- axes
     fitted[["index"]] <- index
@@ -5979,43 +9033,75 @@ LineagePlot <- function(srt, lineages, reduction = NULL, dims = c(1, 2), cells =
 
   curve_layer <- lapply(lineages, function(l) {
     dat_smooth <- as.data.frame(fitted_list[[l]])
-    colnames(dat_smooth) <- c(paste0("Axis_", 1:(ncol(dat_smooth) - 1)), "index")
+    colnames(dat_smooth) <- c(
+      paste0("Axis_", 1:(ncol(dat_smooth) - 1)),
+      "index"
+    )
     dat_smooth[, "Lineages"] <- factor(l, levels = lineages)
     dat_smooth <- unique(na.omit(dat_smooth))
     curve <- list()
     if (isTRUE(whiskers)) {
       dat_smooth[, "raw_Axis_1"] <- dat[dat_smooth[, "index"], axes[1]]
       dat_smooth[, "raw_Axis_2"] <- dat[dat_smooth[, "index"], axes[2]]
-      curve <- c(curve, geom_segment(
-        data = dat_smooth, mapping = aes(x = Axis_1, y = Axis_2, xend = raw_Axis_1, yend = raw_Axis_2, color = Lineages),
-        linewidth = whiskers_linewidth, alpha = whiskers_alpha,
-        show.legend = TRUE, inherit.aes = FALSE
-      ))
+      curve <- c(
+        curve,
+        geom_segment(
+          data = dat_smooth,
+          mapping = aes(
+            x = Axis_1,
+            y = Axis_2,
+            xend = raw_Axis_1,
+            yend = raw_Axis_2,
+            color = Lineages
+          ),
+          linewidth = whiskers_linewidth,
+          alpha = whiskers_alpha,
+          show.legend = TRUE,
+          inherit.aes = FALSE
+        )
+      )
     }
     curve <- c(
       curve,
       geom_path(
-        data = dat_smooth, mapping = aes(x = Axis_1, y = Axis_2), color = line_bg,
-        linewidth = linewidth + line_bg_stroke, arrow = lineages_arrow,
-        show.legend = TRUE, inherit.aes = FALSE
+        data = dat_smooth,
+        mapping = aes(x = Axis_1, y = Axis_2),
+        color = line_bg,
+        linewidth = linewidth + line_bg_stroke,
+        arrow = lineages_arrow,
+        show.legend = TRUE,
+        inherit.aes = FALSE
       ),
       geom_path(
-        data = dat_smooth, mapping = aes(x = Axis_1, y = Axis_2, color = Lineages),
-        linewidth = linewidth, arrow = lineages_arrow,
-        show.legend = TRUE, inherit.aes = FALSE
+        data = dat_smooth,
+        mapping = aes(x = Axis_1, y = Axis_2, color = Lineages),
+        linewidth = linewidth,
+        arrow = lineages_arrow,
+        show.legend = TRUE,
+        inherit.aes = FALSE
       )
     )
     return(curve)
   })
-  curve_layer <- c(unlist(curve_layer), list(scale_color_manual(values = colors)))
+  curve_layer <- c(
+    unlist(curve_layer),
+    list(scale_color_manual(values = colors))
+  )
 
-  lab_layer <- list(labs(title = title, subtitle = subtitle, x = xlab, y = ylab))
-  theme_layer <- list(do.call(theme_use, theme_args) +
-    theme(
-      aspect.ratio = aspect.ratio,
-      legend.position = legend.position,
-      legend.direction = legend.direction
-    ))
+  lab_layer <- list(labs(
+    title = title,
+    subtitle = subtitle,
+    x = xlab,
+    y = ylab
+  ))
+  theme_layer <- list(
+    do.call(theme_use, theme_args) +
+      theme(
+        aspect.ratio = aspect.ratio,
+        legend.position = legend.position,
+        legend.direction = legend.direction
+      )
+  )
 
   if (isTRUE(return_layer)) {
     return(list(
@@ -6024,10 +9110,12 @@ LineagePlot <- function(srt, lineages, reduction = NULL, dims = c(1, 2), cells =
       theme_layer = theme_layer
     ))
   } else {
-    return(ggplot() +
-      curve_layer +
-      lab_layer +
-      theme_layer)
+    return(
+      ggplot() +
+        curve_layer +
+        lab_layer +
+        theme_layer
+    )
   }
 }
 
@@ -6120,24 +9208,67 @@ LineagePlot <- function(srt, lineages, reduction = NULL, dims = c(1, 2), cells =
 #'
 #' @importFrom Seurat Reductions Key Embeddings
 #' @export
-PAGAPlot <- function(srt, paga = srt@misc$paga, type = "connectivities",
-                     reduction = NULL, dims = c(1, 2), cells = NULL, show_transition = FALSE,
-                     node_palette = "Paired", node_palcolor = NULL, node_size = 4, node_alpha = 1,
-                     node_highlight = NULL, node_highlight_color = "red",
-                     label = FALSE, label.size = 3.5, label.fg = "white", label.bg = "black", label.bg.r = 0.1,
-                     label_insitu = FALSE, label_repel = FALSE, label_repulsion = 20,
-                     label_point_size = 1, label_point_color = "black", label_segment_color = "black",
-                     edge_threshold = 0.01, edge_line = c("straight", "curved"), edge_line_curvature = 0.3, edge_line_angle = 90,
-                     edge_size = c(0.2, 1), edge_color = "grey40", edge_alpha = 0.5,
-                     edge_shorten = 0, edge_offset = 0, edge_highlight = NULL, edge_highlight_color = "red",
-                     transition_threshold = 0.01, transition_line = c("straight", "curved"), transition_line_curvature = 0.3, transition_line_angle = 90,
-                     transition_size = c(0.2, 1), transition_color = "black", transition_alpha = 1,
-                     transition_arrow_type = "closed", transition_arrow_angle = 20, transition_arrow_length = unit(0.02, "npc"),
-                     transition_shorten = 0.05, transition_offset = 0, transition_highlight = NULL, transition_highlight_color = "red",
-                     aspect.ratio = 1, title = "PAGA", subtitle = NULL, xlab = NULL, ylab = NULL,
-                     legend.position = "right", legend.direction = "vertical",
-                     theme_use = "theme_scp", theme_args = list(),
-                     return_layer = FALSE) {
+PAGAPlot <- function(
+  srt,
+  paga = srt@misc$paga,
+  type = "connectivities",
+  reduction = NULL,
+  dims = c(1, 2),
+  cells = NULL,
+  show_transition = FALSE,
+  node_palette = "Paired",
+  node_palcolor = NULL,
+  node_size = 4,
+  node_alpha = 1,
+  node_highlight = NULL,
+  node_highlight_color = "red",
+  label = FALSE,
+  label.size = 3.5,
+  label.fg = "white",
+  label.bg = "black",
+  label.bg.r = 0.1,
+  label_insitu = FALSE,
+  label_repel = FALSE,
+  label_repulsion = 20,
+  label_point_size = 1,
+  label_point_color = "black",
+  label_segment_color = "black",
+  edge_threshold = 0.01,
+  edge_line = c("straight", "curved"),
+  edge_line_curvature = 0.3,
+  edge_line_angle = 90,
+  edge_size = c(0.2, 1),
+  edge_color = "grey40",
+  edge_alpha = 0.5,
+  edge_shorten = 0,
+  edge_offset = 0,
+  edge_highlight = NULL,
+  edge_highlight_color = "red",
+  transition_threshold = 0.01,
+  transition_line = c("straight", "curved"),
+  transition_line_curvature = 0.3,
+  transition_line_angle = 90,
+  transition_size = c(0.2, 1),
+  transition_color = "black",
+  transition_alpha = 1,
+  transition_arrow_type = "closed",
+  transition_arrow_angle = 20,
+  transition_arrow_length = unit(0.02, "npc"),
+  transition_shorten = 0.05,
+  transition_offset = 0,
+  transition_highlight = NULL,
+  transition_highlight_color = "red",
+  aspect.ratio = 1,
+  title = "PAGA",
+  subtitle = NULL,
+  xlab = NULL,
+  ylab = NULL,
+  legend.position = "right",
+  legend.direction = "vertical",
+  theme_use = "theme_scp",
+  theme_args = list(),
+  return_layer = FALSE
+) {
   if (is.null(paga)) {
     stop("Cannot find the paga result.")
   }
@@ -6170,7 +9301,11 @@ PAGAPlot <- function(srt, paga = srt@misc$paga, type = "connectivities",
   rownames(dat_dim) <- rownames(dat_dim) %||% colnames(srt@assays[[1]])
   dat_dim <- dat_dim[, paste0(reduction_key, dims)]
   dat_dim[[groups]] <- srt@meta.data[rownames(dat_dim), groups]
-  dat <- aggregate(dat_dim[, paste0(reduction_key, dims)], by = list(dat_dim[[groups]]), FUN = median)
+  dat <- aggregate(
+    dat_dim[, paste0(reduction_key, dims)],
+    by = list(dat_dim[[groups]]),
+    FUN = median
+  )
   colnames(dat)[1] <- groups
   rownames(dat) <- dat[[groups]]
   dat[["GroupSize"]] <- as.numeric(table(dat_dim[[groups]])[rownames(dat)])
@@ -6181,7 +9316,10 @@ PAGAPlot <- function(srt, paga = srt@misc$paga, type = "connectivities",
   if (!isTRUE(show_transition)) {
     transition <- NULL
   } else if (isTRUE(show_transition) && is.null(transition)) {
-    warning("transitions_confidence need to be calculated first.", immediate. = TRUE)
+    warning(
+      "transitions_confidence need to be calculated first.",
+      immediate. = TRUE
+    )
   }
   xlab <- xlab %||% paste0(reduction_key, dims[1])
   ylab <- ylab %||% paste0(reduction_key, dims[2])
@@ -6192,24 +9330,63 @@ PAGAPlot <- function(srt, paga = srt@misc$paga, type = "connectivities",
   }
 
   out <- GraphPlot(
-    node = dat, edge = as_matrix(connectivities), node_coord = paste0(reduction_key, dims),
-    node_group = groups, node_palette = node_palette, node_palcolor = node_palcolor, node_size = node_size, node_alpha = node_alpha,
-    node_highlight = node_highlight, node_highlight_color = node_highlight_color,
-    label = label, label.size = label.size, label.fg = label.fg, label.bg = label.bg, label.bg.r = label.bg.r,
-    label_insitu = label_insitu, label_repel = label_repel, label_repulsion = label_repulsion,
-    label_point_size = label_point_size, label_point_color = label_point_color, label_segment_color = label_segment_color,
-    edge_threshold = edge_threshold, use_triangular = use_triangular,
-    edge_line = edge_line, edge_line_curvature = edge_line_curvature, edge_line_angle = edge_line_angle, edge_size = edge_size, edge_color = edge_color, edge_alpha = edge_alpha,
-    edge_shorten = edge_shorten, edge_offset = edge_offset,
-    edge_highlight = edge_highlight, edge_highlight_color = edge_highlight_color,
-    transition = transition, transition_threshold = transition_threshold, transition_line = transition_line, transition_line_curvature = transition_line_curvature, transition_line_angle = transition_line_angle,
-    transition_color = transition_color, transition_size = transition_size, transition_alpha = transition_alpha,
-    transition_arrow_type = transition_arrow_type, transition_arrow_angle = transition_arrow_angle, transition_arrow_length = transition_arrow_length,
-    transition_shorten = transition_shorten, transition_offset = transition_offset,
-    transition_highlight = transition_highlight, transition_highlight_color = transition_highlight_color,
-    aspect.ratio = aspect.ratio, title = title, subtitle = subtitle, xlab = xlab, ylab = ylab,
-    legend.position = legend.position, legend.direction = legend.direction,
-    theme_use = theme_use, theme_args = theme_args,
+    node = dat,
+    edge = as_matrix(connectivities),
+    node_coord = paste0(reduction_key, dims),
+    node_group = groups,
+    node_palette = node_palette,
+    node_palcolor = node_palcolor,
+    node_size = node_size,
+    node_alpha = node_alpha,
+    node_highlight = node_highlight,
+    node_highlight_color = node_highlight_color,
+    label = label,
+    label.size = label.size,
+    label.fg = label.fg,
+    label.bg = label.bg,
+    label.bg.r = label.bg.r,
+    label_insitu = label_insitu,
+    label_repel = label_repel,
+    label_repulsion = label_repulsion,
+    label_point_size = label_point_size,
+    label_point_color = label_point_color,
+    label_segment_color = label_segment_color,
+    edge_threshold = edge_threshold,
+    use_triangular = use_triangular,
+    edge_line = edge_line,
+    edge_line_curvature = edge_line_curvature,
+    edge_line_angle = edge_line_angle,
+    edge_size = edge_size,
+    edge_color = edge_color,
+    edge_alpha = edge_alpha,
+    edge_shorten = edge_shorten,
+    edge_offset = edge_offset,
+    edge_highlight = edge_highlight,
+    edge_highlight_color = edge_highlight_color,
+    transition = transition,
+    transition_threshold = transition_threshold,
+    transition_line = transition_line,
+    transition_line_curvature = transition_line_curvature,
+    transition_line_angle = transition_line_angle,
+    transition_color = transition_color,
+    transition_size = transition_size,
+    transition_alpha = transition_alpha,
+    transition_arrow_type = transition_arrow_type,
+    transition_arrow_angle = transition_arrow_angle,
+    transition_arrow_length = transition_arrow_length,
+    transition_shorten = transition_shorten,
+    transition_offset = transition_offset,
+    transition_highlight = transition_highlight,
+    transition_highlight_color = transition_highlight_color,
+    aspect.ratio = aspect.ratio,
+    title = title,
+    subtitle = subtitle,
+    xlab = xlab,
+    ylab = ylab,
+    legend.position = legend.position,
+    legend.direction = legend.direction,
+    theme_use = theme_use,
+    theme_args = theme_args,
     return_layer = return_layer
   )
   return(out)
@@ -6286,23 +9463,66 @@ PAGAPlot <- function(srt, paga = srt@misc$paga, type = "connectivities",
 #' @importFrom grid arrow
 #' @importFrom reshape2 melt
 #' @export
-GraphPlot <- function(node, edge, transition = NULL,
-                      node_coord = c("x", "y"), node_group = NULL, node_palette = "Paired", node_palcolor = NULL, node_size = 4, node_alpha = 1,
-                      node_highlight = NULL, node_highlight_color = "red",
-                      label = FALSE, label.size = 3.5, label.fg = "white", label.bg = "black", label.bg.r = 0.1,
-                      label_insitu = FALSE, label_repel = FALSE, label_repulsion = 20,
-                      label_point_size = 1, label_point_color = "black", label_segment_color = "black",
-                      edge_threshold = 0.01, use_triangular = c("upper", "lower", "both"), edge_line = c("straight", "curved"), edge_line_curvature = 0.3, edge_line_angle = 90,
-                      edge_color = "grey40", edge_size = c(0.2, 1), edge_alpha = 0.5,
-                      edge_shorten = 0, edge_offset = 0, edge_highlight = NULL, edge_highlight_color = "red",
-                      transition_threshold = 0.01, transition_line = c("straight", "curved"), transition_line_curvature = 0.3, transition_line_angle = 90,
-                      transition_color = "black", transition_size = c(0.2, 1), transition_alpha = 1,
-                      transition_arrow_type = "closed", transition_arrow_angle = 20, transition_arrow_length = unit(0.02, "npc"),
-                      transition_shorten = 0.05, transition_offset = 0, transition_highlight = NULL, transition_highlight_color = "red",
-                      aspect.ratio = 1, title = NULL, subtitle = NULL, xlab = NULL, ylab = NULL,
-                      legend.position = "right", legend.direction = "vertical",
-                      theme_use = "theme_scp", theme_args = list(),
-                      return_layer = FALSE) {
+GraphPlot <- function(
+  node,
+  edge,
+  transition = NULL,
+  node_coord = c("x", "y"),
+  node_group = NULL,
+  node_palette = "Paired",
+  node_palcolor = NULL,
+  node_size = 4,
+  node_alpha = 1,
+  node_highlight = NULL,
+  node_highlight_color = "red",
+  label = FALSE,
+  label.size = 3.5,
+  label.fg = "white",
+  label.bg = "black",
+  label.bg.r = 0.1,
+  label_insitu = FALSE,
+  label_repel = FALSE,
+  label_repulsion = 20,
+  label_point_size = 1,
+  label_point_color = "black",
+  label_segment_color = "black",
+  edge_threshold = 0.01,
+  use_triangular = c("upper", "lower", "both"),
+  edge_line = c("straight", "curved"),
+  edge_line_curvature = 0.3,
+  edge_line_angle = 90,
+  edge_color = "grey40",
+  edge_size = c(0.2, 1),
+  edge_alpha = 0.5,
+  edge_shorten = 0,
+  edge_offset = 0,
+  edge_highlight = NULL,
+  edge_highlight_color = "red",
+  transition_threshold = 0.01,
+  transition_line = c("straight", "curved"),
+  transition_line_curvature = 0.3,
+  transition_line_angle = 90,
+  transition_color = "black",
+  transition_size = c(0.2, 1),
+  transition_alpha = 1,
+  transition_arrow_type = "closed",
+  transition_arrow_angle = 20,
+  transition_arrow_length = unit(0.02, "npc"),
+  transition_shorten = 0.05,
+  transition_offset = 0,
+  transition_highlight = NULL,
+  transition_highlight_color = "red",
+  aspect.ratio = 1,
+  title = NULL,
+  subtitle = NULL,
+  xlab = NULL,
+  ylab = NULL,
+  legend.position = "right",
+  legend.direction = "vertical",
+  theme_use = "theme_scp",
+  theme_args = list(),
+  return_layer = FALSE
+) {
   use_triangular <- match.arg(use_triangular)
   edge_line <- match.arg(edge_line)
   transition_line <- match.arg(transition_line)
@@ -6319,19 +9539,33 @@ GraphPlot <- function(node, edge, transition = NULL,
     stop("nrow is not identical between edge and node.")
   }
   if (!identical(rownames(edge), rownames(node))) {
-    warning("rownames of node is not identical with edge matrix. They will correspond according to the order.", immediate. = TRUE)
-    colnames(edge) <- rownames(edge) <- rownames(node) <- rownames(node) %||% colnames(edge) %||% rownames(edge)
+    warning(
+      "rownames of node is not identical with edge matrix. They will correspond according to the order.",
+      immediate. = TRUE
+    )
+    colnames(edge) <- rownames(edge) <- rownames(node) <- rownames(node) %||%
+      colnames(edge) %||%
+      rownames(edge)
   }
   if (!all(node_coord %in% colnames(node))) {
-    stop("Cannot find the node_coord ", paste(node_coord[!node_coord %in% colnames(node)], collapse = ","), " in the node column")
+    stop(
+      "Cannot find the node_coord ",
+      paste(node_coord[!node_coord %in% colnames(node)], collapse = ","),
+      " in the node column"
+    )
   }
   if (!is.null(transition)) {
     if (!identical(nrow(transition), nrow(node))) {
       stop("nrow is not identical between transition and node.")
     }
     if (!identical(rownames(transition), rownames(node))) {
-      warning("rownames of node is not identical with transition matrix. They will correspond according to the order.", immediate. = TRUE)
-      colnames(transition) <- rownames(transition) <- rownames(node) <- rownames(node) %||% colnames(transition) %||% rownames(transition)
+      warning(
+        "rownames of node is not identical with transition matrix. They will correspond according to the order.",
+        immediate. = TRUE
+      )
+      colnames(transition) <- rownames(transition) <- rownames(
+        node
+      ) <- rownames(node) %||% colnames(transition) %||% rownames(transition)
     }
   }
   if (identical(theme_use, "theme_blank")) {
@@ -6352,7 +9586,10 @@ GraphPlot <- function(node, edge, transition = NULL,
     node[["node_group"]] <- node[[node_group]]
   }
   if (!is.factor(node[["node_group"]])) {
-    node[["node_group"]] <- factor(node[["node_group"]], levels = unique(node[["node_group"]]))
+    node[["node_group"]] <- factor(
+      node[["node_group"]],
+      levels = unique(node[["node_group"]])
+    )
   }
   if (!node_size %in% colnames(node)) {
     if (!is.numeric(node_size)) {
@@ -6384,11 +9621,17 @@ GraphPlot <- function(node, edge, transition = NULL,
   }
 
   if (isTRUE(label) && !isTRUE(label_insitu)) {
-    label_use <- paste0(1:nlevels(node[["node_group"]]), ": ", levels(node[["node_group"]]))
+    label_use <- paste0(
+      1:nlevels(node[["node_group"]]),
+      ": ",
+      levels(node[["node_group"]])
+    )
   } else {
     label_use <- levels(node[["node_group"]])
   }
-  global_size <- sqrt(max(node[["x"]], na.rm = TRUE)^2 + max(node[["y"]], na.rm = TRUE)^2)
+  global_size <- sqrt(
+    max(node[["x"]], na.rm = TRUE)^2 + max(node[["y"]], na.rm = TRUE)^2
+  )
 
   edge[edge <= edge_threshold] <- NA
   if (use_triangular == "upper") {
@@ -6408,27 +9651,64 @@ GraphPlot <- function(node, edge, transition = NULL,
     edge_df[, "y"] <- node[edge_df[, "from"], "y"]
     edge_df[, "xend"] <- node[edge_df[, "to"], "x"]
     edge_df[, "yend"] <- node[edge_df[, "to"], "y"]
-    rownames(edge_df) <- edge_df[, "edge_name"] <- paste0(edge_df[, "from"], "-", edge_df[, "to"])
-    edge_df <- segementsDf(edge_df, global_size * edge_shorten, global_size * edge_shorten, global_size * edge_offset)
+    rownames(edge_df) <- edge_df[, "edge_name"] <- paste0(
+      edge_df[, "from"],
+      "-",
+      edge_df[, "to"]
+    )
+    edge_df <- segementsDf(
+      edge_df,
+      global_size * edge_shorten,
+      global_size * edge_shorten,
+      global_size * edge_offset
+    )
 
     linetype <- ifelse(is.null(transition), 1, 2)
     if (edge_line == "straight") {
       edge_layer <- list(
         geom_segment(
-          data = edge_df, mapping = aes(x = x, y = y, xend = xend, yend = yend, linewidth = size),
-          lineend = "round", linejoin = "mitre", linetype = linetype, color = edge_color, alpha = edge_alpha,
-          inherit.aes = FALSE, show.legend = FALSE
+          data = edge_df,
+          mapping = aes(
+            x = x,
+            y = y,
+            xend = xend,
+            yend = yend,
+            linewidth = size
+          ),
+          lineend = "round",
+          linejoin = "mitre",
+          linetype = linetype,
+          color = edge_color,
+          alpha = edge_alpha,
+          inherit.aes = FALSE,
+          show.legend = FALSE
         )
       )
       if (!is.null(edge_highlight)) {
-        edge_df_highlight <- edge_df[edge_df[["edge_name"]] %in% edge_highlight, , drop = FALSE]
+        edge_df_highlight <- edge_df[
+          edge_df[["edge_name"]] %in% edge_highlight,
+          ,
+          drop = FALSE
+        ]
         edge_layer <- c(
           edge_layer,
           list(
             geom_segment(
-              data = edge_df_highlight, mapping = aes(x = x, y = y, xend = xend, yend = yend, linewidth = size),
-              lineend = "round", linejoin = "mitre", linetype = linetype, color = edge_highlight_color, alpha = 1,
-              inherit.aes = FALSE, show.legend = FALSE
+              data = edge_df_highlight,
+              mapping = aes(
+                x = x,
+                y = y,
+                xend = xend,
+                yend = yend,
+                linewidth = size
+              ),
+              lineend = "round",
+              linejoin = "mitre",
+              linetype = linetype,
+              color = edge_highlight_color,
+              alpha = 1,
+              inherit.aes = FALSE,
+              show.legend = FALSE
             )
           )
         )
@@ -6436,31 +9716,62 @@ GraphPlot <- function(node, edge, transition = NULL,
     } else {
       edge_layer <- list(
         geom_curve(
-          data = edge_df, mapping = aes(x = x, y = y, xend = xend, yend = yend, linewidth = size),
-          curvature = edge_line_curvature, angle = edge_line_angle,
-          lineend = "round", linetype = linetype, color = edge_color, alpha = edge_alpha,
-          inherit.aes = FALSE, show.legend = FALSE
+          data = edge_df,
+          mapping = aes(
+            x = x,
+            y = y,
+            xend = xend,
+            yend = yend,
+            linewidth = size
+          ),
+          curvature = edge_line_curvature,
+          angle = edge_line_angle,
+          lineend = "round",
+          linetype = linetype,
+          color = edge_color,
+          alpha = edge_alpha,
+          inherit.aes = FALSE,
+          show.legend = FALSE
         )
       )
       if (!is.null(edge_highlight)) {
-        edge_df_highlight <- edge_df[edge_df[["edge_name"]] %in% edge_highlight, , drop = FALSE]
+        edge_df_highlight <- edge_df[
+          edge_df[["edge_name"]] %in% edge_highlight,
+          ,
+          drop = FALSE
+        ]
         edge_layer <- c(
           edge_layer,
           list(
             geom_curve(
-              data = edge_df_highlight, mapping = aes(x = x, y = y, xend = xend, yend = yend, linewidth = size),
-              curvature = edge_line_curvature, angle = edge_line_angle,
-              lineend = "round", linetype = linetype, color = edge_highlight_color, alpha = 1,
-              inherit.aes = FALSE, show.legend = FALSE
+              data = edge_df_highlight,
+              mapping = aes(
+                x = x,
+                y = y,
+                xend = xend,
+                yend = yend,
+                linewidth = size
+              ),
+              curvature = edge_line_curvature,
+              angle = edge_line_angle,
+              lineend = "round",
+              linetype = linetype,
+              color = edge_highlight_color,
+              alpha = 1,
+              inherit.aes = FALSE,
+              show.legend = FALSE
             )
           )
         )
       }
     }
-    edge_layer <- c(edge_layer, list(
-      scale_linewidth_continuous(range = range(edge_size), guide = "none"),
-      new_scale("linewidth")
-    ))
+    edge_layer <- c(
+      edge_layer,
+      list(
+        scale_linewidth_continuous(range = range(edge_size), guide = "none"),
+        new_scale("linewidth")
+      )
+    )
   }
 
   if (!is.null(transition)) {
@@ -6488,28 +9799,71 @@ GraphPlot <- function(node, edge, transition = NULL,
       trans_df[, "y"] <- node[trans_df[, "from"], "y"]
       trans_df[, "xend"] <- node[trans_df[, "to"], "x"]
       trans_df[, "yend"] <- node[trans_df[, "to"], "y"]
-      rownames(trans_df) <- trans_df[, "trans_name"] <- paste0(trans_df[, "from"], "-", trans_df[, "to"])
-      trans_df <- segementsDf(trans_df, global_size * transition_shorten, global_size * transition_shorten, global_size * transition_offset)
+      rownames(trans_df) <- trans_df[, "trans_name"] <- paste0(
+        trans_df[, "from"],
+        "-",
+        trans_df[, "to"]
+      )
+      trans_df <- segementsDf(
+        trans_df,
+        global_size * transition_shorten,
+        global_size * transition_shorten,
+        global_size * transition_offset
+      )
 
       if (transition_line == "straight") {
         trans_layer <- list(
           geom_segment(
-            data = trans_df, mapping = aes(x = x, y = y, xend = xend, yend = yend, linewidth = size),
-            arrow = arrow(angle = transition_arrow_angle, type = transition_arrow_type, length = transition_arrow_length),
-            lineend = "round", linejoin = "mitre", color = transition_color, alpha = transition_alpha,
-            inherit.aes = FALSE, show.legend = FALSE
+            data = trans_df,
+            mapping = aes(
+              x = x,
+              y = y,
+              xend = xend,
+              yend = yend,
+              linewidth = size
+            ),
+            arrow = arrow(
+              angle = transition_arrow_angle,
+              type = transition_arrow_type,
+              length = transition_arrow_length
+            ),
+            lineend = "round",
+            linejoin = "mitre",
+            color = transition_color,
+            alpha = transition_alpha,
+            inherit.aes = FALSE,
+            show.legend = FALSE
           )
         )
         if (!is.null(transition_highlight)) {
-          trans_df_highlight <- trans_df[trans_df[["trans_name"]] %in% transition_highlight, , drop = FALSE]
+          trans_df_highlight <- trans_df[
+            trans_df[["trans_name"]] %in% transition_highlight,
+            ,
+            drop = FALSE
+          ]
           trans_layer <- c(
             trans_layer,
             list(
               geom_segment(
-                data = trans_df_highlight, mapping = aes(x = x, y = y, xend = xend, yend = yend, linewidth = size),
-                arrow = arrow(angle = transition_arrow_angle, type = transition_arrow_type, length = transition_arrow_length),
-                lineend = "round", linejoin = "mitre", color = transition_highlight_color, alpha = 1,
-                inherit.aes = FALSE, show.legend = FALSE
+                data = trans_df_highlight,
+                mapping = aes(
+                  x = x,
+                  y = y,
+                  xend = xend,
+                  yend = yend,
+                  linewidth = size
+                ),
+                arrow = arrow(
+                  angle = transition_arrow_angle,
+                  type = transition_arrow_type,
+                  length = transition_arrow_length
+                ),
+                lineend = "round",
+                linejoin = "mitre",
+                color = transition_highlight_color,
+                alpha = 1,
+                inherit.aes = FALSE,
+                show.legend = FALSE
               )
             )
           )
@@ -6517,64 +9871,149 @@ GraphPlot <- function(node, edge, transition = NULL,
       } else {
         trans_layer <- list(
           geom_curve(
-            data = trans_df, mapping = aes(x = x, y = y, xend = xend, yend = yend, linewidth = size),
-            arrow = arrow(angle = transition_arrow_angle, type = transition_arrow_type, length = transition_arrow_length),
-            curvature = transition_line_curvature, angle = transition_line_angle,
-            lineend = "round", color = transition_color, alpha = transition_alpha,
-            inherit.aes = FALSE, show.legend = FALSE
+            data = trans_df,
+            mapping = aes(
+              x = x,
+              y = y,
+              xend = xend,
+              yend = yend,
+              linewidth = size
+            ),
+            arrow = arrow(
+              angle = transition_arrow_angle,
+              type = transition_arrow_type,
+              length = transition_arrow_length
+            ),
+            curvature = transition_line_curvature,
+            angle = transition_line_angle,
+            lineend = "round",
+            color = transition_color,
+            alpha = transition_alpha,
+            inherit.aes = FALSE,
+            show.legend = FALSE
           )
         )
         if (!is.null(edge_highlight)) {
-          trans_df_highlight <- trans_df[trans_df[["trans_name"]] %in% transition_highlight, , drop = FALSE]
+          trans_df_highlight <- trans_df[
+            trans_df[["trans_name"]] %in% transition_highlight,
+            ,
+            drop = FALSE
+          ]
           trans_layer <- c(
             trans_layer,
             list(
               geom_curve(
-                data = trans_df_highlight, mapping = aes(x = x, y = y, xend = xend, yend = yend, linewidth = size),
-                arrow = arrow(angle = transition_arrow_angle, type = transition_arrow_type, length = transition_arrow_length),
-                curvature = transition_line_curvature, angle = transition_line_angle,
-                lineend = "round", color = transition_highlight_color, alpha = 1,
-                inherit.aes = FALSE, show.legend = FALSE
+                data = trans_df_highlight,
+                mapping = aes(
+                  x = x,
+                  y = y,
+                  xend = xend,
+                  yend = yend,
+                  linewidth = size
+                ),
+                arrow = arrow(
+                  angle = transition_arrow_angle,
+                  type = transition_arrow_type,
+                  length = transition_arrow_length
+                ),
+                curvature = transition_line_curvature,
+                angle = transition_line_angle,
+                lineend = "round",
+                color = transition_highlight_color,
+                alpha = 1,
+                inherit.aes = FALSE,
+                show.legend = FALSE
               )
             )
           )
         }
       }
-      trans_layer <- c(trans_layer, list(
-        scale_linewidth_continuous(range = range(transition_size), guide = "none"),
-        new_scale("linewidth")
-      ))
+      trans_layer <- c(
+        trans_layer,
+        list(
+          scale_linewidth_continuous(
+            range = range(transition_size),
+            guide = "none"
+          ),
+          new_scale("linewidth")
+        )
+      )
     }
   } else {
     trans_layer <- NULL
   }
 
   node_layer <- list(
-    geom_point(data = node, aes(x = x, y = y, size = node_size * 1.2), color = "black", show.legend = FALSE, inherit.aes = FALSE),
-    geom_point(data = node, aes(x = x, y = y, size = node_size, color = node_group, alpha = node_alpha), inherit.aes = FALSE)
+    geom_point(
+      data = node,
+      aes(x = x, y = y, size = node_size * 1.2),
+      color = "black",
+      show.legend = FALSE,
+      inherit.aes = FALSE
+    ),
+    geom_point(
+      data = node,
+      aes(
+        x = x,
+        y = y,
+        size = node_size,
+        color = node_group,
+        alpha = node_alpha
+      ),
+      inherit.aes = FALSE
+    )
   )
   if (!is.null(node_highlight)) {
-    node_highlight <- node[node[["node_name"]] %in% node_highlight, , drop = FALSE]
+    node_highlight <- node[
+      node[["node_name"]] %in% node_highlight,
+      ,
+      drop = FALSE
+    ]
     node_layer <- c(
       node_layer,
       list(
-        geom_point(data = node_highlight, aes(x = x, y = y, size = node_size * 1.3), color = node_highlight_color, show.legend = FALSE, inherit.aes = FALSE),
-        geom_point(data = node_highlight, aes(x = x, y = y, size = node_size, color = node_group, alpha = node_alpha), inherit.aes = FALSE)
+        geom_point(
+          data = node_highlight,
+          aes(x = x, y = y, size = node_size * 1.3),
+          color = node_highlight_color,
+          show.legend = FALSE,
+          inherit.aes = FALSE
+        ),
+        geom_point(
+          data = node_highlight,
+          aes(
+            x = x,
+            y = y,
+            size = node_size,
+            color = node_group,
+            alpha = node_alpha
+          ),
+          inherit.aes = FALSE
+        )
       )
     )
   }
-  node_layer <- c(node_layer, list(
-    scale_color_manual(
-      name = node_group, values = palette_scp(node[["node_group"]], palette = node_palette, palcolor = node_palcolor), labels = label_use,
-      guide = guide_legend(
-        title.hjust = 0,
-        order = 1,
-        override.aes = list(size = 4, alpha = 1)
-      )
-    ),
-    scale_size,
-    scale_alpha
-  ))
+  node_layer <- c(
+    node_layer,
+    list(
+      scale_color_manual(
+        name = node_group,
+        values = palette_scp(
+          node[["node_group"]],
+          palette = node_palette,
+          palcolor = node_palcolor
+        ),
+        labels = label_use,
+        guide = guide_legend(
+          title.hjust = 0,
+          order = 1,
+          override.aes = list(size = 4, alpha = 1)
+        )
+      ),
+      scale_size,
+      scale_alpha
+    )
+  )
 
   if (isTRUE(label)) {
     if (isTRUE(label_insitu)) {
@@ -6583,34 +10022,65 @@ GraphPlot <- function(node, edge, transition = NULL,
       node[, "label"] <- as.numeric(node[["node_group"]])
     }
     if (isTRUE(label_repel)) {
-      label_layer <- list(geom_point(
-        data = node, mapping = aes(x = .data[["x"]], y = .data[["y"]]),
-        color = label_point_color, size = label_point_size, inherit.aes = FALSE
-      ), geom_text_repel(
-        data = node, aes(x = .data[["x"]], y = .data[["y"]], label = .data[["label"]]),
-        fontface = "bold", min.segment.length = 0, segment.color = label_segment_color,
-        point.size = label_point_size, max.overlaps = 100, force = label_repulsion,
-        color = label.fg, bg.color = label.bg, bg.r = label.bg.r, size = label.size, inherit.aes = FALSE
-      ))
+      label_layer <- list(
+        geom_point(
+          data = node,
+          mapping = aes(x = .data[["x"]], y = .data[["y"]]),
+          color = label_point_color,
+          size = label_point_size,
+          inherit.aes = FALSE
+        ),
+        geom_text_repel(
+          data = node,
+          aes(x = .data[["x"]], y = .data[["y"]], label = .data[["label"]]),
+          fontface = "bold",
+          min.segment.length = 0,
+          segment.color = label_segment_color,
+          point.size = label_point_size,
+          max.overlaps = 100,
+          force = label_repulsion,
+          color = label.fg,
+          bg.color = label.bg,
+          bg.r = label.bg.r,
+          size = label.size,
+          inherit.aes = FALSE
+        )
+      )
     } else {
       label_layer <- list(geom_text_repel(
-        data = node, aes(x = .data[["x"]], y = .data[["y"]], label = .data[["label"]]),
-        fontface = "bold", min.segment.length = 0, segment.color = label_segment_color,
-        point.size = NA, max.overlaps = 100, force = 0,
-        color = label.fg, bg.color = label.bg, bg.r = label.bg.r, size = label.size, inherit.aes = FALSE
+        data = node,
+        aes(x = .data[["x"]], y = .data[["y"]], label = .data[["label"]]),
+        fontface = "bold",
+        min.segment.length = 0,
+        segment.color = label_segment_color,
+        point.size = NA,
+        max.overlaps = 100,
+        force = 0,
+        color = label.fg,
+        bg.color = label.bg,
+        bg.r = label.bg.r,
+        size = label.size,
+        inherit.aes = FALSE
       ))
     }
   } else {
     label_layer <- NULL
   }
 
-  lab_layer <- list(labs(title = title, subtitle = subtitle, x = xlab, y = ylab))
-  theme_layer <- list(do.call(theme_use, theme_args) +
-    theme(
-      aspect.ratio = aspect.ratio,
-      legend.position = legend.position,
-      legend.direction = legend.direction
-    ))
+  lab_layer <- list(labs(
+    title = title,
+    subtitle = subtitle,
+    x = xlab,
+    y = ylab
+  ))
+  theme_layer <- list(
+    do.call(theme_use, theme_args) +
+      theme(
+        aspect.ratio = aspect.ratio,
+        legend.position = legend.position,
+        legend.direction = legend.direction
+      )
+  )
 
   if (isTRUE(return_layer)) {
     return(list(
@@ -6622,13 +10092,15 @@ GraphPlot <- function(node, edge, transition = NULL,
       theme_layer = theme_layer
     ))
   } else {
-    return(ggplot() +
-      edge_layer +
-      trans_layer +
-      node_layer +
-      label_layer +
-      lab_layer +
-      theme_layer)
+    return(
+      ggplot() +
+        edge_layer +
+        trans_layer +
+        node_layer +
+        label_layer +
+        lab_layer +
+        theme_layer
+    )
   }
 }
 
@@ -6744,17 +10216,47 @@ segementsDf <- function(data, shorten_start, shorten_end, offset) {
 #' @importFrom grid arrow unit
 #' @importFrom reshape2 melt
 #' @export
-VelocityPlot <- function(srt, reduction, dims = c(1, 2), cells = NULL, velocity = "stochastic", plot_type = c("raw", "grid", "stream"),
-                         group_by = NULL, group_palette = "Paired", group_palcolor = NULL,
-                         n_neighbors = ceiling(ncol(srt@assays[[1]]) / 50), density = 1, smooth = 0.5, scale = 1, min_mass = 1, cutoff_perc = 5,
-                         arrow_angle = 20, arrow_color = "black",
-                         streamline_L = 5, streamline_minL = 1, streamline_res = 1, streamline_n = 15,
-                         streamline_width = c(0, 0.8), streamline_alpha = 1, streamline_color = NULL, streamline_palette = "RdYlBu", streamline_palcolor = NULL,
-                         streamline_bg_color = "white", streamline_bg_stroke = 0.5,
-                         aspect.ratio = 1, title = "Cell velocity", subtitle = NULL, xlab = NULL, ylab = NULL,
-                         legend.position = "right", legend.direction = "vertical",
-                         theme_use = "theme_scp", theme_args = list(),
-                         return_layer = FALSE, seed = 11) {
+VelocityPlot <- function(
+  srt,
+  reduction,
+  dims = c(1, 2),
+  cells = NULL,
+  velocity = "stochastic",
+  plot_type = c("raw", "grid", "stream"),
+  group_by = NULL,
+  group_palette = "Paired",
+  group_palcolor = NULL,
+  n_neighbors = ceiling(ncol(srt@assays[[1]]) / 50),
+  density = 1,
+  smooth = 0.5,
+  scale = 1,
+  min_mass = 1,
+  cutoff_perc = 5,
+  arrow_angle = 20,
+  arrow_color = "black",
+  streamline_L = 5,
+  streamline_minL = 1,
+  streamline_res = 1,
+  streamline_n = 15,
+  streamline_width = c(0, 0.8),
+  streamline_alpha = 1,
+  streamline_color = NULL,
+  streamline_palette = "RdYlBu",
+  streamline_palcolor = NULL,
+  streamline_bg_color = "white",
+  streamline_bg_stroke = 0.5,
+  aspect.ratio = 1,
+  title = "Cell velocity",
+  subtitle = NULL,
+  xlab = NULL,
+  ylab = NULL,
+  legend.position = "right",
+  legend.direction = "vertical",
+  theme_use = "theme_scp",
+  theme_args = list(),
+  return_layer = FALSE,
+  seed = 11
+) {
   set.seed(seed)
 
   plot_type <- match.arg(plot_type)
@@ -6795,37 +10297,72 @@ VelocityPlot <- function(srt, reduction, dims = c(1, 2), cells = NULL, velocity 
     df_field <- cbind.data.frame(X_emb, V_emb)
     colnames(df_field) <- c("x", "y", "u", "v")
     df_field[["length"]] <- sqrt(df_field[["u"]]^2 + df_field[["v"]]^2)
-    global_size <- sqrt(max(df_field[["x"]], na.rm = TRUE)^2 + max(df_field[["y"]], na.rm = TRUE)^2)
+    global_size <- sqrt(
+      max(df_field[["x"]], na.rm = TRUE)^2 +
+        max(df_field[["y"]], na.rm = TRUE)^2
+    )
     df_field[["length_perc"]] <- df_field[["length"]] / global_size
 
     if (!is.null(group_by)) {
-      df_field[["group_by"]] <- srt@meta.data[rownames(df_field), group_by, drop = TRUE]
+      df_field[["group_by"]] <- srt@meta.data[
+        rownames(df_field),
+        group_by,
+        drop = TRUE
+      ]
       velocity_layer <- list(
         geom_segment(
-          data = df_field, aes(x = x, y = y, xend = x + u, yend = y + v, color = group_by),
-          arrow = arrow(length = unit(df_field[["length_perc"]], "npc"), type = "closed", angle = arrow_angle),
-          lineend = "round", linejoin = "mitre", inherit.aes = FALSE
+          data = df_field,
+          aes(x = x, y = y, xend = x + u, yend = y + v, color = group_by),
+          arrow = arrow(
+            length = unit(df_field[["length_perc"]], "npc"),
+            type = "closed",
+            angle = arrow_angle
+          ),
+          lineend = "round",
+          linejoin = "mitre",
+          inherit.aes = FALSE
         ),
         scale_color_manual(
-          name = group_by, values = palette_scp(df_field[["group_by"]], palette = group_palette, palcolor = group_palcolor),
-          guide = guide_legend(title.hjust = 0, order = 1, override.aes = list(linewidth = 2, alpha = 1))
+          name = group_by,
+          values = palette_scp(
+            df_field[["group_by"]],
+            palette = group_palette,
+            palcolor = group_palcolor
+          ),
+          guide = guide_legend(
+            title.hjust = 0,
+            order = 1,
+            override.aes = list(linewidth = 2, alpha = 1)
+          )
         )
       )
     } else {
       velocity_layer <- list(
         geom_segment(
-          data = df_field, aes(x = x, y = y, xend = x + u, yend = y + v),
+          data = df_field,
+          aes(x = x, y = y, xend = x + u, yend = y + v),
           color = arrow_color,
-          arrow = arrow(length = unit(df_field[["length_perc"]], "npc"), type = "closed", angle = arrow_angle),
-          lineend = "round", linejoin = "mitre", inherit.aes = FALSE
+          arrow = arrow(
+            length = unit(df_field[["length_perc"]], "npc"),
+            type = "closed",
+            angle = arrow_angle
+          ),
+          lineend = "round",
+          linejoin = "mitre",
+          inherit.aes = FALSE
         )
       )
     }
   }
   if (plot_type == "grid") {
-    res <- compute_velocity_on_grid(X_emb, V_emb,
-      density = density, smooth = smooth, n_neighbors = n_neighbors,
-      min_mass = min_mass, scale = scale
+    res <- compute_velocity_on_grid(
+      X_emb,
+      V_emb,
+      density = density,
+      smooth = smooth,
+      n_neighbors = n_neighbors,
+      min_mass = min_mass,
+      scale = scale
     )
     X_grid <- res$X_grid
     V_grid <- res$V_grid
@@ -6833,22 +10370,38 @@ VelocityPlot <- function(srt, reduction, dims = c(1, 2), cells = NULL, velocity 
     df_field <- cbind.data.frame(X_grid, V_grid)
     colnames(df_field) <- c("x", "y", "u", "v")
     df_field[["length"]] <- sqrt(df_field[["u"]]^2 + df_field[["v"]]^2)
-    global_size <- sqrt(max(df_field[["x"]], na.rm = TRUE)^2 + max(df_field[["y"]], na.rm = TRUE)^2)
+    global_size <- sqrt(
+      max(df_field[["x"]], na.rm = TRUE)^2 +
+        max(df_field[["y"]], na.rm = TRUE)^2
+    )
     df_field[["length_perc"]] <- df_field[["length"]] / global_size
     velocity_layer <- list(
       geom_segment(
-        data = df_field, aes(x = x, y = y, xend = x + u, yend = y + v),
+        data = df_field,
+        aes(x = x, y = y, xend = x + u, yend = y + v),
         color = arrow_color,
-        arrow = arrow(length = unit(df_field[["length_perc"]], "npc"), type = "closed", angle = arrow_angle),
-        lineend = "round", linejoin = "mitre", inherit.aes = FALSE
+        arrow = arrow(
+          length = unit(df_field[["length_perc"]], "npc"),
+          type = "closed",
+          angle = arrow_angle
+        ),
+        lineend = "round",
+        linejoin = "mitre",
+        inherit.aes = FALSE
       )
     )
   }
   if (plot_type == "stream") {
     check_R("metR")
-    res <- compute_velocity_on_grid(X_emb, V_emb,
-      density = density, smooth = smooth, n_neighbors = n_neighbors,
-      min_mass = min_mass, scale = 1, cutoff_perc = cutoff_perc,
+    res <- compute_velocity_on_grid(
+      X_emb,
+      V_emb,
+      density = density,
+      smooth = smooth,
+      n_neighbors = n_neighbors,
+      min_mass = min_mass,
+      scale = 1,
+      cutoff_perc = cutoff_perc,
       adjust_for_stream = TRUE
     )
     X_grid <- res$X_grid
@@ -6872,64 +10425,138 @@ VelocityPlot <- function(srt, reduction, dims = c(1, 2), cells = NULL, velocity 
     if (!is.null(streamline_color)) {
       velocity_layer <- list(
         metR::geom_streamline(
-          data = df_field, aes(x = x, y = y, dx = u, dy = v),
-          L = streamline_L, min.L = streamline_minL, res = streamline_res,
-          n = streamline_n, size = max(streamline_width, na.rm = TRUE) + streamline_bg_stroke, color = streamline_bg_color, alpha = streamline_alpha,
-          arrow.type = "closed", arrow.angle = arrow_angle,
-          lineend = "round", linejoin = "mitre", inherit.aes = FALSE
+          data = df_field,
+          aes(x = x, y = y, dx = u, dy = v),
+          L = streamline_L,
+          min.L = streamline_minL,
+          res = streamline_res,
+          n = streamline_n,
+          size = max(streamline_width, na.rm = TRUE) + streamline_bg_stroke,
+          color = streamline_bg_color,
+          alpha = streamline_alpha,
+          arrow.type = "closed",
+          arrow.angle = arrow_angle,
+          lineend = "round",
+          linejoin = "mitre",
+          inherit.aes = FALSE
         ),
         metR::geom_streamline(
-          data = df_field, aes(x = x, y = y, dx = u, dy = v),
-          L = streamline_L, min.L = streamline_minL, res = streamline_res,
-          n = streamline_n, size = max(streamline_width, na.rm = TRUE), color = streamline_color, alpha = streamline_alpha,
-          arrow.type = "closed", arrow.angle = arrow_angle,
-          lineend = "round", linejoin = "mitre", inherit.aes = FALSE
+          data = df_field,
+          aes(x = x, y = y, dx = u, dy = v),
+          L = streamline_L,
+          min.L = streamline_minL,
+          res = streamline_res,
+          n = streamline_n,
+          size = max(streamline_width, na.rm = TRUE),
+          color = streamline_color,
+          alpha = streamline_alpha,
+          arrow.type = "closed",
+          arrow.angle = arrow_angle,
+          lineend = "round",
+          linejoin = "mitre",
+          inherit.aes = FALSE
         ),
         metR::geom_streamline(
-          data = df_field, aes(x = x, y = y, dx = u, dy = v),
-          L = streamline_L, min.L = streamline_minL, res = streamline_res,
-          n = streamline_n, linetype = 0, color = arrow_color,
-          arrow.type = "closed", arrow.angle = arrow_angle,
-          lineend = "round", linejoin = "mitre", inherit.aes = FALSE
+          data = df_field,
+          aes(x = x, y = y, dx = u, dy = v),
+          L = streamline_L,
+          min.L = streamline_minL,
+          res = streamline_res,
+          n = streamline_n,
+          linetype = 0,
+          color = arrow_color,
+          arrow.type = "closed",
+          arrow.angle = arrow_angle,
+          lineend = "round",
+          linejoin = "mitre",
+          inherit.aes = FALSE
         )
       )
     } else {
       velocity_layer <- list(
         metR::geom_streamline(
-          data = df_field, aes(x = x, y = y, dx = u, dy = v),
-          L = streamline_L, min.L = streamline_minL, res = streamline_res,
-          n = streamline_n, size = max(streamline_width, na.rm = TRUE) + streamline_bg_stroke, color = streamline_bg_color, alpha = streamline_alpha,
-          arrow.type = "closed", arrow.angle = arrow_angle,
-          lineend = "round", linejoin = "mitre", inherit.aes = FALSE
+          data = df_field,
+          aes(x = x, y = y, dx = u, dy = v),
+          L = streamline_L,
+          min.L = streamline_minL,
+          res = streamline_res,
+          n = streamline_n,
+          size = max(streamline_width, na.rm = TRUE) + streamline_bg_stroke,
+          color = streamline_bg_color,
+          alpha = streamline_alpha,
+          arrow.type = "closed",
+          arrow.angle = arrow_angle,
+          lineend = "round",
+          linejoin = "mitre",
+          inherit.aes = FALSE
         ),
         metR::geom_streamline(
-          data = df_field, aes(x = x, y = y, dx = u, dy = v, size = after_stat(step), color = sqrt(after_stat(dx)^2 + after_stat(dy)^2)),
-          L = streamline_L, min.L = streamline_minL, res = streamline_res,
-          n = streamline_n, alpha = streamline_alpha,
-          arrow = NULL, lineend = "round", linejoin = "mitre", inherit.aes = FALSE
+          data = df_field,
+          aes(
+            x = x,
+            y = y,
+            dx = u,
+            dy = v,
+            size = after_stat(step),
+            color = sqrt(after_stat(dx)^2 + after_stat(dy)^2)
+          ),
+          L = streamline_L,
+          min.L = streamline_minL,
+          res = streamline_res,
+          n = streamline_n,
+          alpha = streamline_alpha,
+          arrow = NULL,
+          lineend = "round",
+          linejoin = "mitre",
+          inherit.aes = FALSE
         ),
         metR::geom_streamline(
-          data = df_field, aes(x = x, y = y, dx = u, dy = v),
-          L = streamline_L, min.L = streamline_minL, res = streamline_res,
-          n = streamline_n, linetype = 0, color = arrow_color,
-          arrow.type = "closed", arrow.angle = arrow_angle,
-          lineend = "round", linejoin = "mitre", inherit.aes = FALSE
+          data = df_field,
+          aes(x = x, y = y, dx = u, dy = v),
+          L = streamline_L,
+          min.L = streamline_minL,
+          res = streamline_res,
+          n = streamline_n,
+          linetype = 0,
+          color = arrow_color,
+          arrow.type = "closed",
+          arrow.angle = arrow_angle,
+          lineend = "round",
+          linejoin = "mitre",
+          inherit.aes = FALSE
         ),
         scale_color_gradientn(
-          name = "Velocity", colors = palette_scp(palette = streamline_palette, palcolor = streamline_palcolor),
-          guide = guide_colorbar(frame.colour = "black", ticks.colour = "black", title.hjust = 0, order = 1)
+          name = "Velocity",
+          colors = palette_scp(
+            palette = streamline_palette,
+            palcolor = streamline_palcolor
+          ),
+          guide = guide_colorbar(
+            frame.colour = "black",
+            ticks.colour = "black",
+            title.hjust = 0,
+            order = 1
+          )
         ),
         scale_size(range = range(streamline_width), guide = "none")
       )
     }
   }
 
-  lab_layer <- list(labs(title = title, subtitle = subtitle, x = xlab, y = ylab))
-  theme_layer <- list(do.call(theme_use, theme_args) + theme(
-    aspect.ratio = aspect.ratio,
-    legend.position = legend.position,
-    legend.direction = legend.direction
+  lab_layer <- list(labs(
+    title = title,
+    subtitle = subtitle,
+    x = xlab,
+    y = ylab
   ))
+  theme_layer <- list(
+    do.call(theme_use, theme_args) +
+      theme(
+        aspect.ratio = aspect.ratio,
+        legend.position = legend.position,
+        legend.direction = legend.direction
+      )
+  )
 
   if (isTRUE(return_layer)) {
     return(list(
@@ -6938,11 +10565,13 @@ VelocityPlot <- function(srt, reduction, dims = c(1, 2), cells = NULL, velocity 
       theme_layer = theme_layer
     ))
   } else {
-    return(ggplot() +
-      velocity_layer +
-      lab_layer +
-      lab_layer +
-      theme_layer)
+    return(
+      ggplot() +
+        velocity_layer +
+        lab_layer +
+        lab_layer +
+        theme_layer
+    )
   }
 }
 
@@ -6962,9 +10591,17 @@ VelocityPlot <- function(srt, reduction, dims = c(1, 2), cells = NULL, velocity 
 #' @importFrom SeuratObject as.sparse
 #' @importFrom proxyC dist
 #' @export
-compute_velocity_on_grid <- function(X_emb, V_emb,
-                                     density = NULL, smooth = NULL, n_neighbors = NULL, min_mass = NULL,
-                                     scale = 1, adjust_for_stream = FALSE, cutoff_perc = NULL) {
+compute_velocity_on_grid <- function(
+  X_emb,
+  V_emb,
+  density = NULL,
+  smooth = NULL,
+  n_neighbors = NULL,
+  min_mass = NULL,
+  scale = 1,
+  adjust_for_stream = FALSE,
+  cutoff_perc = NULL
+) {
   n_obs <- nrow(X_emb)
   n_dim <- ncol(X_emb)
 
@@ -6991,22 +10628,30 @@ compute_velocity_on_grid <- function(X_emb, V_emb,
     method = "euclidean",
     use_nan = TRUE
   )
-  neighbors <- t(as_matrix(apply(d, 2, function(x) order(x, decreasing = FALSE)[1:n_neighbors])))
-  dists <- t(as_matrix(apply(d, 2, function(x) x[order(x, decreasing = FALSE)[1:n_neighbors]])))
+  neighbors <- t(as_matrix(apply(d, 2, function(x) {
+    order(x, decreasing = FALSE)[1:n_neighbors]
+  })))
+  dists <- t(as_matrix(apply(d, 2, function(x) {
+    x[order(x, decreasing = FALSE)[1:n_neighbors]]
+  })))
 
   # ggplot() +
   #   annotate(geom = "point", x = X_grid[, 1], y = X_grid[, 2]) +
   #   annotate(geom = "point", x = X_grid[1, 1], y = X_grid[1, 2], color = "blue") +
   #   annotate(geom = "point", x = X_grid[neighbors[1, ], 1], y = X_grid[neighbors[1, ], 2], color = "red")
 
-  weight <- dnorm(dists, sd = mean(sapply(grs, function(g) g[2] - g[1])) * smooth)
+  weight <- dnorm(
+    dists,
+    sd = mean(sapply(grs, function(g) g[2] - g[1])) * smooth
+  )
   p_mass <- p_mass_V <- rowSums(weight)
   p_mass_V[p_mass_V < 1] <- 1
 
   # qplot(dists[,1],weight[,1])
   # qplot(py$dists[,1],py$weight[,1])
 
-  neighbors_emb <- array(V_emb[neighbors, seq_len(ncol(V_emb))],
+  neighbors_emb <- array(
+    V_emb[neighbors, seq_len(ncol(V_emb))],
     dim = c(dim(neighbors), dim(V_emb)[2])
   )
   V_grid <- apply((neighbors_emb * c(weight)), c(1, 3), sum)
@@ -7016,13 +10661,21 @@ compute_velocity_on_grid <- function(X_emb, V_emb,
   # qplot(py$V_grid[,1],py$V_grid[,2])
 
   if (isTRUE(adjust_for_stream)) {
-    X_grid <- matrix(c(unique(X_grid[, 1]), unique(X_grid[, 2])), nrow = 2, byrow = TRUE)
+    X_grid <- matrix(
+      c(unique(X_grid[, 1]), unique(X_grid[, 2])),
+      nrow = 2,
+      byrow = TRUE
+    )
     ns <- floor(sqrt(length(V_grid[, 1])))
     V_grid <- reticulate::array_reshape(t(V_grid), c(2, ns, ns))
 
     mass <- sqrt(apply(V_grid**2, c(2, 3), sum))
     min_mass <- 10**(min_mass - 6) # default min_mass = 1e-5
-    min_mass[min_mass > max(mass, na.rm = TRUE) * 0.9] <- max(mass, na.rm = TRUE) * 0.9
+    min_mass[min_mass > max(mass, na.rm = TRUE) * 0.9] <- max(
+      mass,
+      na.rm = TRUE
+    ) *
+      0.9
     cutoff <- reticulate::array_reshape(mass, dim = c(ns, ns)) < min_mass
 
     length <- t(apply(apply(abs(neighbors_emb), c(1, 3), mean), 1, sum))
@@ -7087,21 +10740,54 @@ compute_velocity_on_grid <- function(X_emb, V_emb,
 #' @importFrom ggrepel geom_text_repel
 #' @importFrom patchwork wrap_plots
 #' @export
-VolcanoPlot <- function(srt, group_by = NULL, test.use = "wilcox", DE_threshold = "avg_log2FC > 0 & p_val_adj < 0.05",
-                        x_metric = "diff_pct", palette = "RdBu", palcolor = NULL, pt.size = 1, pt.alpha = 1,
-                        cols.highlight = "black", sizes.highlight = 1, alpha.highlight = 1, stroke.highlight = 0.5,
-                        nlabel = 5, features_label = NULL, label.fg = "black", label.bg = "white", label.bg.r = 0.1, label.size = 4,
-                        aspect.ratio = NULL, xlab = x_metric, ylab = "-log10(p-adjust)",
-                        theme_use = "theme_scp", theme_args = list(),
-                        combine = TRUE, nrow = NULL, ncol = NULL, byrow = TRUE) {
+VolcanoPlot <- function(
+  srt,
+  group_by = NULL,
+  test.use = "wilcox",
+  DE_threshold = "avg_log2FC > 0 & p_val_adj < 0.05",
+  x_metric = "diff_pct",
+  palette = "RdBu",
+  palcolor = NULL,
+  pt.size = 1,
+  pt.alpha = 1,
+  cols.highlight = "black",
+  sizes.highlight = 1,
+  alpha.highlight = 1,
+  stroke.highlight = 0.5,
+  nlabel = 5,
+  features_label = NULL,
+  label.fg = "black",
+  label.bg = "white",
+  label.bg.r = 0.1,
+  label.size = 4,
+  aspect.ratio = NULL,
+  xlab = x_metric,
+  ylab = "-log10(p-adjust)",
+  theme_use = "theme_scp",
+  theme_args = list(),
+  combine = TRUE,
+  nrow = NULL,
+  ncol = NULL,
+  byrow = TRUE
+) {
   if (is.null(group_by)) {
     group_by <- "custom"
   }
   layer <- paste0("DEtest_", group_by)
-  if (!layer %in% names(srt@tools) || length(grep(pattern = "AllMarkers", names(srt@tools[[layer]]))) == 0) {
-    stop("Cannot find the DEtest result for the group '", group_by, "'. You may perform RunDEtest first.")
+  if (
+    !layer %in% names(srt@tools) ||
+      length(grep(pattern = "AllMarkers", names(srt@tools[[layer]]))) == 0
+  ) {
+    stop(
+      "Cannot find the DEtest result for the group '",
+      group_by,
+      "'. You may perform RunDEtest first."
+    )
   }
-  index <- grep(pattern = paste0("AllMarkers_", test.use), names(srt@tools[[layer]]))[1]
+  index <- grep(
+    pattern = paste0("AllMarkers_", test.use),
+    names(srt@tools[[layer]])
+  )[1]
   if (is.na(index)) {
     stop("Cannot find the 'AllMarkers_", test.use, "' in the DEtest result.")
   }
@@ -7112,8 +10798,14 @@ VolcanoPlot <- function(srt, group_by = NULL, test.use = "wilcox", DE_threshold 
   de_df[, "DE"] <- FALSE
   de_df[with(de_df, eval(rlang::parse_expr(DE_threshold))), "DE"] <- TRUE
 
-  x_upper <- quantile(de_df[["avg_log2FC"]][is.finite(de_df[["avg_log2FC"]])], c(0.99, 1))
-  x_lower <- quantile(de_df[["avg_log2FC"]][is.finite(de_df[["avg_log2FC"]])], c(0.01, 0))
+  x_upper <- quantile(
+    de_df[["avg_log2FC"]][is.finite(de_df[["avg_log2FC"]])],
+    c(0.99, 1)
+  )
+  x_lower <- quantile(
+    de_df[["avg_log2FC"]][is.finite(de_df[["avg_log2FC"]])],
+    c(0.01, 0)
+  )
   x_upper <- ifelse(x_upper[1] > 0, x_upper[1], x_upper[2])
   x_lower <- ifelse(x_lower[1] < 0, x_lower[1], x_lower[2])
   if (x_upper > 0 & x_lower < 0) {
@@ -7131,12 +10823,23 @@ VolcanoPlot <- function(srt, group_by = NULL, test.use = "wilcox", DE_threshold 
   de_df[, "y"] <- -log10(de_df[, "p_val_adj"])
   if (x_metric == "diff_pct") {
     de_df[, "x"] <- de_df[, "diff_pct"]
-    de_df[de_df[, "avg_log2FC"] < 0, "y"] <- -de_df[de_df[, "avg_log2FC"] < 0, "y"]
-    de_df <- de_df[order(abs(de_df[, "avg_log2FC"]), decreasing = FALSE, na.last = FALSE), , drop = FALSE]
+    de_df[de_df[, "avg_log2FC"] < 0, "y"] <- -de_df[
+      de_df[, "avg_log2FC"] < 0,
+      "y"
+    ]
+    de_df <- de_df[
+      order(abs(de_df[, "avg_log2FC"]), decreasing = FALSE, na.last = FALSE),
+      ,
+      drop = FALSE
+    ]
   } else if (x_metric == "avg_log2FC") {
     de_df[, "x"] <- de_df[, "avg_log2FC"]
     de_df[de_df[, "diff_pct"] < 0, "y"] <- -de_df[de_df[, "diff_pct"] < 0, "y"]
-    de_df <- de_df[order(abs(de_df[, "diff_pct"]), decreasing = FALSE, na.last = FALSE), , drop = FALSE]
+    de_df <- de_df[
+      order(abs(de_df[, "diff_pct"]), decreasing = FALSE, na.last = FALSE),
+      ,
+      drop = FALSE
+    ]
   }
   de_df[, "distance"] <- de_df[, "x"]^2 + de_df[, "y"]^2
 
@@ -7149,33 +10852,91 @@ VolcanoPlot <- function(srt, group_by = NULL, test.use = "wilcox", DE_threshold 
     x_nudge <- diff(range(df$x)) * 0.05
     df[, "label"] <- FALSE
     if (is.null(features_label)) {
-      df[df[["y"]] >= 0, ][head(order(df[df[["y"]] >= 0, "distance"], decreasing = TRUE), nlabel), "label"] <- TRUE
-      df[df[["y"]] < 0, ][head(order(df[df[["y"]] < 0, "distance"], decreasing = TRUE), nlabel), "label"] <- TRUE
+      df[df[["y"]] >= 0, ][
+        head(order(df[df[["y"]] >= 0, "distance"], decreasing = TRUE), nlabel),
+        "label"
+      ] <- TRUE
+      df[df[["y"]] < 0, ][
+        head(order(df[df[["y"]] < 0, "distance"], decreasing = TRUE), nlabel),
+        "label"
+      ] <- TRUE
     } else {
       df[df[["gene"]] %in% features_label, "label"] <- TRUE
     }
     jitter <- position_jitter(width = 0.2, height = 0.2, seed = 11)
     color_by <- ifelse(x_metric == "diff_pct", "avg_log2FC", "diff_pct")
     p <- ggplot() +
-      geom_point(data = df[!df[["DE"]] & !df[["border"]], , drop = FALSE], aes(x = x, y = y, color = .data[[color_by]]), size = pt.size, alpha = pt.alpha) +
-      geom_point(data = df[!df[["DE"]] & df[["border"]], , drop = FALSE], aes(x = x, y = y, color = .data[[color_by]]), size = pt.size, alpha = pt.alpha, position = jitter) +
-      geom_point(data = df[df[["DE"]] & !df[["border"]], , drop = FALSE], aes(x = x, y = y), color = cols.highlight, size = sizes.highlight + stroke.highlight, alpha = alpha.highlight) +
-      geom_point(data = df[df[["DE"]] & df[["border"]], , drop = FALSE], aes(x = x, y = y), color = cols.highlight, size = sizes.highlight + stroke.highlight, alpha = alpha.highlight, position = jitter) +
-      geom_point(data = df[df[["DE"]] & !df[["border"]], , drop = FALSE], aes(x = x, y = y, color = .data[[color_by]]), size = pt.size, alpha = pt.alpha) +
-      geom_point(data = df[df[["DE"]] & df[["border"]], , drop = FALSE], aes(x = x, y = y, color = .data[[color_by]]), size = pt.size, alpha = pt.alpha, position = jitter) +
+      geom_point(
+        data = df[!df[["DE"]] & !df[["border"]], , drop = FALSE],
+        aes(x = x, y = y, color = .data[[color_by]]),
+        size = pt.size,
+        alpha = pt.alpha
+      ) +
+      geom_point(
+        data = df[!df[["DE"]] & df[["border"]], , drop = FALSE],
+        aes(x = x, y = y, color = .data[[color_by]]),
+        size = pt.size,
+        alpha = pt.alpha,
+        position = jitter
+      ) +
+      geom_point(
+        data = df[df[["DE"]] & !df[["border"]], , drop = FALSE],
+        aes(x = x, y = y),
+        color = cols.highlight,
+        size = sizes.highlight + stroke.highlight,
+        alpha = alpha.highlight
+      ) +
+      geom_point(
+        data = df[df[["DE"]] & df[["border"]], , drop = FALSE],
+        aes(x = x, y = y),
+        color = cols.highlight,
+        size = sizes.highlight + stroke.highlight,
+        alpha = alpha.highlight,
+        position = jitter
+      ) +
+      geom_point(
+        data = df[df[["DE"]] & !df[["border"]], , drop = FALSE],
+        aes(x = x, y = y, color = .data[[color_by]]),
+        size = pt.size,
+        alpha = pt.alpha
+      ) +
+      geom_point(
+        data = df[df[["DE"]] & df[["border"]], , drop = FALSE],
+        aes(x = x, y = y, color = .data[[color_by]]),
+        size = pt.size,
+        alpha = pt.alpha,
+        position = jitter
+      ) +
       geom_hline(yintercept = 0, color = "black", linetype = 1) +
       geom_vline(xintercept = 0, color = "grey", linetype = 2) +
       geom_text_repel(
-        data = df[df[["label"]], , drop = FALSE], aes(x = x, y = y, label = gene),
-        min.segment.length = 0, max.overlaps = 100, segment.colour = "grey40",
-        color = label.fg, bg.color = label.bg, bg.r = label.bg.r, size = label.size, force = 20,
+        data = df[df[["label"]], , drop = FALSE],
+        aes(x = x, y = y, label = gene),
+        min.segment.length = 0,
+        max.overlaps = 100,
+        segment.colour = "grey40",
+        color = label.fg,
+        bg.color = label.bg,
+        bg.r = label.bg.r,
+        size = label.size,
+        force = 20,
         nudge_x = ifelse(df[df[["label"]], "y"] >= 0, -x_nudge, x_nudge)
       ) +
       labs(x = xlab, y = ylab) +
       scale_color_gradientn(
-        name = ifelse(x_metric == "diff_pct", "log2FC", "diff_pct"), colors = palette_scp(palette = palette, palcolor = palcolor),
-        values = rescale(unique(c(min(c(df[, color_by], 0), na.rm = TRUE), 0, max(df[, color_by], na.rm = TRUE)))),
-        guide = guide_colorbar(frame.colour = "black", ticks.colour = "black", title.hjust = 0, order = 1)
+        name = ifelse(x_metric == "diff_pct", "log2FC", "diff_pct"),
+        colors = palette_scp(palette = palette, palcolor = palcolor),
+        values = rescale(unique(c(
+          min(c(df[, color_by], 0), na.rm = TRUE),
+          0,
+          max(df[, color_by], na.rm = TRUE)
+        ))),
+        guide = guide_colorbar(
+          frame.colour = "black",
+          ticks.colour = "black",
+          title.hjust = 0,
+          order = 1
+        )
       ) +
       scale_y_continuous(labels = abs) +
       facet_wrap(~group1) +
@@ -7185,7 +10946,12 @@ VolcanoPlot <- function(srt, group_by = NULL, test.use = "wilcox", DE_threshold 
   }
   if (isTRUE(combine)) {
     if (length(plist) > 1) {
-      plot <- wrap_plots(plotlist = plist, nrow = nrow, ncol = ncol, byrow = byrow)
+      plot <- wrap_plots(
+        plotlist = plist,
+        nrow = nrow,
+        ncol = ncol,
+        byrow = byrow
+      )
     } else {
       plot <- plist[[1]]
     }
@@ -7207,7 +10973,11 @@ log2fc_matrix <- function(matrix) {
 log1p_matrix <- function(matrix) {
   log1p(matrix)
 }
-matrix_process <- function(matrix, method = c("raw", "zscore", "fc", "log2fc", "log1p"), ...) {
+matrix_process <- function(
+  matrix,
+  method = c("raw", "zscore", "fc", "log2fc", "log1p"),
+  ...
+) {
   if (is.function(method)) {
     matrix_processed <- method(matrix, ...)
   } else if (method == "raw") {
@@ -7241,7 +11011,12 @@ grid_draw <- function(groblist, x, y, width, height) {
     groblist <- list(groblist)
   }
   for (i in seq_along(groblist)) {
-    groblist[[i]]$vp <- viewport(x = x[i], y = y[i], width = width[i], height = height[i])
+    groblist[[i]]$vp <- viewport(
+      x = x[i],
+      y = y[i],
+      width = width[i],
+      height = height[i]
+    )
     grid.draw(groblist[[i]])
   }
 }
@@ -7260,9 +11035,12 @@ cluster_within_group2 <- function(mat, factor) {
     m <- mat[, factor == le, drop = FALSE]
     if (ncol(m) == 1) {
       order_list[[le]] <- which(factor == le)
-      dend_list[[le]] <- structure(which(factor == le),
-        class = "dendrogram", leaf = TRUE, # height = 0,
-        label = 1, members = 1
+      dend_list[[le]] <- structure(
+        which(factor == le),
+        class = "dendrogram",
+        leaf = TRUE, # height = 0,
+        label = 1,
+        members = 1
       )
     } else if (ncol(m) > 1) {
       hc1 <- hclust(as.dist(dist(t(m))))
@@ -7296,21 +11074,55 @@ cluster_within_group2 <- function(mat, factor) {
 #' @importFrom ComplexHeatmap HeatmapAnnotation anno_empty anno_block anno_textbox
 #' @importFrom grid gpar unit
 #' @importFrom dplyr %>% filter group_by arrange desc across reframe mutate distinct n .data "%>%"
-heatmap_enrichment <- function(geneID, geneID_groups, feature_split_palette = "simspec", feature_split_palcolor = NULL, ha_right = NULL, flip = FALSE,
-                               anno_terms = FALSE, anno_keys = FALSE, anno_features = FALSE,
-                               terms_width = unit(4, "in"), terms_fontsize = 8,
-                               keys_width = unit(2, "in"), keys_fontsize = c(6, 10),
-                               features_width = unit(2, "in"), features_fontsize = c(6, 10),
-                               IDtype = "symbol", species = "Homo_sapiens", db_update = FALSE, db_combine = FALSE, db_version = "latest", convert_species = FALSE, Ensembl_version = 103, mirror = NULL,
-                               db = "GO_BP", TERM2GENE = NULL, TERM2NAME = NULL, minGSSize = 10, maxGSSize = 500,
-                               GO_simplify = FALSE, GO_simplify_cutoff = "p.adjust < 0.05", simplify_method = "Wang", simplify_similarityCutoff = 0.7,
-                               pvalueCutoff = NULL, padjustCutoff = 0.05, topTerm = 5, show_termid = FALSE, topWord = 20, words_excluded = NULL, BPPARAM = BiocParallel::bpparam()) {
+heatmap_enrichment <- function(
+  geneID,
+  geneID_groups,
+  feature_split_palette = "simspec",
+  feature_split_palcolor = NULL,
+  ha_right = NULL,
+  flip = FALSE,
+  anno_terms = FALSE,
+  anno_keys = FALSE,
+  anno_features = FALSE,
+  terms_width = unit(4, "in"),
+  terms_fontsize = 8,
+  keys_width = unit(2, "in"),
+  keys_fontsize = c(6, 10),
+  features_width = unit(2, "in"),
+  features_fontsize = c(6, 10),
+  IDtype = "symbol",
+  species = "Homo_sapiens",
+  db_update = FALSE,
+  db_combine = FALSE,
+  db_version = "latest",
+  convert_species = FALSE,
+  Ensembl_version = 103,
+  mirror = NULL,
+  db = "GO_BP",
+  TERM2GENE = NULL,
+  TERM2NAME = NULL,
+  minGSSize = 10,
+  maxGSSize = 500,
+  GO_simplify = FALSE,
+  GO_simplify_cutoff = "p.adjust < 0.05",
+  simplify_method = "Wang",
+  simplify_similarityCutoff = 0.7,
+  pvalueCutoff = NULL,
+  padjustCutoff = 0.05,
+  topTerm = 5,
+  show_termid = FALSE,
+  topWord = 20,
+  words_excluded = NULL,
+  BPPARAM = BiocParallel::bpparam()
+) {
   res <- NULL
   words_excluded <- words_excluded %||% SCP::words_excluded
 
   if (isTRUE(anno_keys) || isTRUE(anno_features) || isTRUE(anno_terms)) {
     if (isTRUE(flip)) {
-      stop("anno_keys, anno_features and anno_terms can only be used when flip is FALSE.")
+      stop(
+        "anno_keys, anno_features and anno_terms can only be used when flip is FALSE."
+      )
     }
     if (all(is.na(geneID_groups))) {
       geneID_groups <- rep(1, length(geneID))
@@ -7318,24 +11130,52 @@ heatmap_enrichment <- function(geneID, geneID_groups, feature_split_palette = "s
     if (!is.factor(geneID_groups)) {
       geneID_groups <- factor(geneID_groups, levels = unique(geneID_groups))
     }
-    fill_split <- palette_scp(levels(geneID_groups), type = "discrete", palette = feature_split_palette, palcolor = feature_split_palcolor)[levels(geneID_groups) %in% geneID_groups]
+    fill_split <- palette_scp(
+      levels(geneID_groups),
+      type = "discrete",
+      palette = feature_split_palette,
+      palcolor = feature_split_palcolor
+    )[levels(geneID_groups) %in% geneID_groups]
     res <- RunEnrichment(
-      geneID = geneID, geneID_groups = geneID_groups, IDtype = IDtype, species = species,
-      db_update = db_update, db_version = db_version, db_combine = db_combine, convert_species = convert_species, Ensembl_version = Ensembl_version, mirror = mirror,
-      db = db, TERM2GENE = TERM2GENE, TERM2NAME = TERM2NAME, minGSSize = minGSSize, maxGSSize = maxGSSize,
-      GO_simplify = GO_simplify, GO_simplify_cutoff = GO_simplify_cutoff, simplify_method = simplify_method, simplify_similarityCutoff = simplify_similarityCutoff, BPPARAM = BPPARAM
+      geneID = geneID,
+      geneID_groups = geneID_groups,
+      IDtype = IDtype,
+      species = species,
+      db_update = db_update,
+      db_version = db_version,
+      db_combine = db_combine,
+      convert_species = convert_species,
+      Ensembl_version = Ensembl_version,
+      mirror = mirror,
+      db = db,
+      TERM2GENE = TERM2GENE,
+      TERM2NAME = TERM2NAME,
+      minGSSize = minGSSize,
+      maxGSSize = maxGSSize,
+      GO_simplify = GO_simplify,
+      GO_simplify_cutoff = GO_simplify_cutoff,
+      simplify_method = simplify_method,
+      simplify_similarityCutoff = simplify_similarityCutoff,
+      BPPARAM = BPPARAM
     )
     if (isTRUE(db_combine)) {
       db <- "Combined"
     }
     if (isTRUE(GO_simplify) && any(db %in% c("GO_BP", "GO_CC", "GO_MF"))) {
-      db[db %in% c("GO_BP", "GO_CC", "GO_MF")] <- paste0(db[db %in% c("GO_BP", "GO_CC", "GO_MF")], "_sim")
+      db[db %in% c("GO_BP", "GO_CC", "GO_MF")] <- paste0(
+        db[db %in% c("GO_BP", "GO_CC", "GO_MF")],
+        "_sim"
+      )
     }
     if (nrow(res$enrichment) == 0) {
       warning("No enrichment result found.", immediate. = TRUE)
     } else {
       metric <- ifelse(is.null(padjustCutoff), "pvalue", "p.adjust")
-      metric_value <- ifelse(is.null(padjustCutoff), pvalueCutoff, padjustCutoff)
+      metric_value <- ifelse(
+        is.null(padjustCutoff),
+        pvalueCutoff,
+        padjustCutoff
+      )
       pvalueCutoff <- ifelse(is.null(pvalueCutoff), 1, pvalueCutoff)
       padjustCutoff <- ifelse(is.null(padjustCutoff), 1, padjustCutoff)
 
@@ -7346,7 +11186,8 @@ heatmap_enrichment <- function(geneID, geneID_groups, feature_split_palette = "s
       if (nrow(df) == 0) {
         warning(
           "No term enriched using the threshold: ",
-          paste0("pvalueCutoff = ", pvalueCutoff), "; ",
+          paste0("pvalueCutoff = ", pvalueCutoff),
+          "; ",
           paste0("padjustCutoff = ", padjustCutoff),
           immediate. = TRUE
         )
@@ -7356,11 +11197,16 @@ heatmap_enrichment <- function(geneID, geneID_groups, feature_split_palette = "s
 
         for (enrich in db) {
           nm <- strsplit(names(df_list), "\\.")
-          subdf_list <- df_list[unlist(lapply(nm, function(x) x[[1]])) %in% enrich]
+          subdf_list <- df_list[
+            unlist(lapply(nm, function(x) x[[1]])) %in% enrich
+          ]
           if (length(subdf_list) == 0) {
             warning(
-              "No ", enrich, " term enriched using the threshold: ",
-              paste0("pvalueCutoff = ", pvalueCutoff), "; ",
+              "No ",
+              enrich,
+              " term enriched using the threshold: ",
+              paste0("pvalueCutoff = ", pvalueCutoff),
+              "; ",
               paste0("padjustCutoff = ", padjustCutoff),
               immediate. = TRUE
             )
@@ -7372,33 +11218,52 @@ heatmap_enrichment <- function(geneID, geneID_groups, feature_split_palette = "s
           if (isTRUE(anno_terms)) {
             terms_list <- lapply(subdf_list, function(df) {
               if (isTRUE(show_termid)) {
-                terms <- paste(head(df$ID, topTerm), head(df$Description, topTerm))
+                terms <- paste(
+                  head(df$ID, topTerm),
+                  head(df$Description, topTerm)
+                )
               } else {
                 terms <- head(df$Description, topTerm)
                 terms <- capitalize(terms)
               }
               df_out <- data.frame(keyword = terms)
-              df_out[["col"]] <- palette_scp(-log10(head(df[, metric], topTerm)), type = "continuous", palette = "Spectral", matched = TRUE)
-              df_out[["col"]] <- sapply(df_out[["col"]], function(x) blendcolors(c(x, "black")))
+              df_out[["col"]] <- palette_scp(
+                -log10(head(df[, metric], topTerm)),
+                type = "continuous",
+                palette = "Spectral",
+                matched = TRUE
+              )
+              df_out[["col"]] <- sapply(df_out[["col"]], function(x) {
+                blendcolors(c(x, "black"))
+              })
               df_out[["fontsize"]] <- rep(terms_fontsize, nrow(df_out))
               return(df_out)
             })
             names(terms_list) <- unlist(lapply(nm, function(x) x[[2]]))
             if (length(intersect(geneID_groups, names(terms_list))) > 0) {
               ha_terms <- HeatmapAnnotation(
-                "terms_empty" = anno_empty(width = unit(0.05, "in"), border = FALSE, which = "row"),
+                "terms_empty" = anno_empty(
+                  width = unit(0.05, "in"),
+                  border = FALSE,
+                  which = "row"
+                ),
                 "terms_split" = anno_block(
                   gp = gpar(fill = fill_split),
                   width = unit(0.1, "in"),
                   which = "row"
                 ),
                 "terms" = anno_textbox(
-                  align_to = geneID_groups, text = terms_list, max_width = terms_width,
-                  word_wrap = TRUE, add_new_line = TRUE,
-                  background_gp = gpar(fill = "grey98", col = "black"), round_corners = TRUE,
+                  align_to = geneID_groups,
+                  text = terms_list,
+                  max_width = terms_width,
+                  word_wrap = TRUE,
+                  add_new_line = TRUE,
+                  background_gp = gpar(fill = "grey98", col = "black"),
+                  round_corners = TRUE,
                   which = "row"
                 ),
-                which = "row", gap = unit(0, "points")
+                which = "row",
+                gap = unit(0, "points")
               )
               names(ha_terms) <- paste0(names(ha_terms), "_", enrich)
             }
@@ -7409,7 +11274,9 @@ heatmap_enrichment <- function(geneID, geneID_groups, feature_split_palette = "s
             check_R("jokergoo/simplifyEnrichment")
             keys_list <- lapply(subdf_list, function(df) {
               if (all(df$Database %in% c("GO", "GO_BP", "GO_CC", "GO_MF"))) {
-                df0 <- simplifyEnrichment::keyword_enrichment_from_GO(df[["ID"]])
+                df0 <- simplifyEnrichment::keyword_enrichment_from_GO(df[[
+                  "ID"
+                ]])
                 if (nrow(df0) > 0) {
                   df <- df0 %>%
                     reframe(
@@ -7419,19 +11286,35 @@ heatmap_enrichment <- function(geneID, geneID_groups, feature_split_palette = "s
                       Database = df[["Database"]][1],
                       Groups = df[["Groups"]][1]
                     ) %>%
-                    filter(!grepl(pattern = "\\[.*\\]", x = .data[["keyword"]])) %>%
+                    filter(
+                      !grepl(pattern = "\\[.*\\]", x = .data[["keyword"]])
+                    ) %>%
                     filter(nchar(.data[["keyword"]]) >= 1) %>%
-                    filter(!tolower(.data[["keyword"]]) %in% tolower(words_excluded)) %>%
+                    filter(
+                      !tolower(.data[["keyword"]]) %in% tolower(words_excluded)
+                    ) %>%
                     distinct() %>%
-                    mutate(angle = 90 * sample(c(0, 1), n(), replace = TRUE, prob = c(60, 40))) %>%
+                    mutate(
+                      angle = 90 *
+                        sample(c(0, 1), n(), replace = TRUE, prob = c(60, 40))
+                    ) %>%
                     as.data.frame()
-                  df <- df[head(order(df[["score"]], decreasing = TRUE), topWord), , drop = FALSE]
+                  df <- df[
+                    head(order(df[["score"]], decreasing = TRUE), topWord),
+                    ,
+                    drop = FALSE
+                  ]
                 } else {
                   df <- NULL
                 }
               } else {
                 df <- df %>%
-                  mutate(keyword = strsplit(tolower(as.character(.data[["Description"]])), " ")) %>%
+                  mutate(
+                    keyword = strsplit(
+                      tolower(as.character(.data[["Description"]])),
+                      " "
+                    )
+                  ) %>%
                   unnest(cols = "keyword") %>%
                   group_by(.data[["keyword"]], Database, Groups) %>%
                   reframe(
@@ -7442,17 +11325,35 @@ heatmap_enrichment <- function(geneID, geneID_groups, feature_split_palette = "s
                     Groups = .data[["Groups"]],
                     .groups = "keep"
                   ) %>%
-                  filter(!grepl(pattern = "\\[.*\\]", x = .data[["keyword"]])) %>%
+                  filter(
+                    !grepl(pattern = "\\[.*\\]", x = .data[["keyword"]])
+                  ) %>%
                   filter(nchar(.data[["keyword"]]) >= 1) %>%
-                  filter(!tolower(.data[["keyword"]]) %in% tolower(words_excluded)) %>%
+                  filter(
+                    !tolower(.data[["keyword"]]) %in% tolower(words_excluded)
+                  ) %>%
                   distinct() %>%
-                  mutate(angle = 90 * sample(c(0, 1), n(), replace = TRUE, prob = c(60, 40))) %>%
+                  mutate(
+                    angle = 90 *
+                      sample(c(0, 1), n(), replace = TRUE, prob = c(60, 40))
+                  ) %>%
                   as.data.frame()
-                df <- df[head(order(df[["score"]], decreasing = TRUE), topWord), , drop = FALSE]
+                df <- df[
+                  head(order(df[["score"]], decreasing = TRUE), topWord),
+                  ,
+                  drop = FALSE
+                ]
               }
               if (isTRUE(nrow(df) > 0)) {
-                df[["col"]] <- palette_scp(df[, "score"], type = "continuous", palette = "Spectral", matched = TRUE)
-                df[["col"]] <- sapply(df[["col"]], function(x) blendcolors(c(x, "black")))
+                df[["col"]] <- palette_scp(
+                  df[, "score"],
+                  type = "continuous",
+                  palette = "Spectral",
+                  matched = TRUE
+                )
+                df[["col"]] <- sapply(df[["col"]], function(x) {
+                  blendcolors(c(x, "black"))
+                })
                 df[["fontsize"]] <- rescale(df[, "count"], to = keys_fontsize)
                 return(df)
               } else {
@@ -7463,18 +11364,26 @@ heatmap_enrichment <- function(geneID, geneID_groups, feature_split_palette = "s
             keys_list <- keys_list[lapply(keys_list, length) > 0]
             if (length(intersect(geneID_groups, names(keys_list))) > 0) {
               ha_keys <- HeatmapAnnotation(
-                "keys_empty" = anno_empty(width = unit(0.05, "in"), border = FALSE, which = "row"),
+                "keys_empty" = anno_empty(
+                  width = unit(0.05, "in"),
+                  border = FALSE,
+                  which = "row"
+                ),
                 "keys_split" = anno_block(
                   gp = gpar(fill = fill_split),
                   width = unit(0.1, "in"),
                   which = "row"
                 ),
                 "keys" = anno_textbox(
-                  align_to = geneID_groups, text = keys_list, max_width = keys_width,
-                  background_gp = gpar(fill = "grey98", col = "black"), round_corners = TRUE,
+                  align_to = geneID_groups,
+                  text = keys_list,
+                  max_width = keys_width,
+                  background_gp = gpar(fill = "grey98", col = "black"),
+                  round_corners = TRUE,
                   which = "row"
                 ),
-                which = "row", gap = unit(0, "points")
+                which = "row",
+                gap = unit(0, "points")
               )
               names(ha_keys) <- paste0(names(ha_keys), "_", enrich)
             }
@@ -7484,7 +11393,9 @@ heatmap_enrichment <- function(geneID, geneID_groups, feature_split_palette = "s
           if (isTRUE(anno_features)) {
             features_list <- lapply(subdf_list, function(df) {
               df <- df %>%
-                mutate(keyword = strsplit(as.character(.data[["geneID"]]), "/")) %>%
+                mutate(
+                  keyword = strsplit(as.character(.data[["geneID"]]), "/")
+                ) %>%
                 unnest(cols = "keyword") %>%
                 group_by(.data[["keyword"]], Database, Groups) %>%
                 reframe(
@@ -7496,29 +11407,51 @@ heatmap_enrichment <- function(geneID, geneID_groups, feature_split_palette = "s
                   .groups = "keep"
                 ) %>%
                 distinct() %>%
-                mutate(angle = 90 * sample(c(0, 1), n(), replace = TRUE, prob = c(60, 40))) %>%
+                mutate(
+                  angle = 90 *
+                    sample(c(0, 1), n(), replace = TRUE, prob = c(60, 40))
+                ) %>%
                 as.data.frame()
-              df <- df[head(order(df[["score"]], decreasing = TRUE), topWord), , drop = FALSE]
-              df[["col"]] <- palette_scp(df[, "score"], type = "continuous", palette = "Spectral", matched = TRUE)
-              df[["col"]] <- sapply(df[["col"]], function(x) blendcolors(c(x, "black")))
+              df <- df[
+                head(order(df[["score"]], decreasing = TRUE), topWord),
+                ,
+                drop = FALSE
+              ]
+              df[["col"]] <- palette_scp(
+                df[, "score"],
+                type = "continuous",
+                palette = "Spectral",
+                matched = TRUE
+              )
+              df[["col"]] <- sapply(df[["col"]], function(x) {
+                blendcolors(c(x, "black"))
+              })
               df[["fontsize"]] <- rescale(df[, "count"], to = features_fontsize)
               return(df)
             })
             names(features_list) <- unlist(lapply(nm, function(x) x[[2]]))
             if (length(intersect(geneID_groups, names(features_list))) > 0) {
               ha_features <- HeatmapAnnotation(
-                "features_empty" = anno_empty(width = unit(0.05, "in"), border = FALSE, which = "row"),
+                "features_empty" = anno_empty(
+                  width = unit(0.05, "in"),
+                  border = FALSE,
+                  which = "row"
+                ),
                 "features_split" = anno_block(
                   gp = gpar(fill = fill_split),
                   width = unit(0.1, "in"),
                   which = "row"
                 ),
                 "features" = anno_textbox(
-                  align_to = geneID_groups, text = features_list, max_width = features_width,
-                  background_gp = gpar(fill = "grey98", col = "black"), round_corners = TRUE,
+                  align_to = geneID_groups,
+                  text = features_list,
+                  max_width = features_width,
+                  background_gp = gpar(fill = "grey98", col = "black"),
+                  round_corners = TRUE,
                   which = "row"
                 ),
-                which = "row", gap = unit(0, "points")
+                which = "row",
+                gap = unit(0, "points")
               )
               names(ha_features) <- paste0(names(ha_features), "_", enrich)
             }
@@ -7542,31 +11475,73 @@ heatmap_enrichment <- function(geneID, geneID_groups, feature_split_palette = "s
 
 #' @importFrom grid convertWidth convertHeight unit
 #' @importFrom ComplexHeatmap width.HeatmapAnnotation height.HeatmapAnnotation width.Legends
-heatmap_rendersize <- function(width, height, units, ha_top_list, ha_left, ha_right, ht_list, legend_list, flip) {
+heatmap_rendersize <- function(
+  width,
+  height,
+  units,
+  ha_top_list,
+  ha_left,
+  ha_right,
+  ht_list,
+  legend_list,
+  flip
+) {
   width_annotation <- height_annotation <- 0
   if (isTRUE(flip)) {
-    width_sum <- width[1] %||% convertWidth(unit(1, "in"), units, valueOnly = TRUE)
-    height_sum <- sum(height %||% convertHeight(unit(1, "in"), units, valueOnly = TRUE))
+    width_sum <- width[1] %||%
+      convertWidth(unit(1, "in"), units, valueOnly = TRUE)
+    height_sum <- sum(
+      height %||% convertHeight(unit(1, "in"), units, valueOnly = TRUE)
+    )
     if (length(ha_top_list) > 0) {
-      width_annotation <- convertWidth(unit(width_annotation, units) + width.HeatmapAnnotation(ha_top_list[[1]]), units, valueOnly = TRUE)
+      width_annotation <- convertWidth(
+        unit(width_annotation, units) +
+          width.HeatmapAnnotation(ha_top_list[[1]]),
+        units,
+        valueOnly = TRUE
+      )
     }
     if (!is.null(ha_left)) {
-      height_annotation <- convertHeight(unit(height_annotation, units) + height.HeatmapAnnotation(ha_left), units, valueOnly = TRUE)
+      height_annotation <- convertHeight(
+        unit(height_annotation, units) + height.HeatmapAnnotation(ha_left),
+        units,
+        valueOnly = TRUE
+      )
     }
     if (!is.null(ha_right)) {
-      height_annotation <- convertHeight(unit(height_annotation, units) + height.HeatmapAnnotation(ha_right), units, valueOnly = TRUE)
+      height_annotation <- convertHeight(
+        unit(height_annotation, units) + height.HeatmapAnnotation(ha_right),
+        units,
+        valueOnly = TRUE
+      )
     }
   } else {
-    width_sum <- sum(width %||% convertWidth(unit(1, "in"), units, valueOnly = TRUE))
-    height_sum <- height[1] %||% convertHeight(unit(1, "in"), units, valueOnly = TRUE)
+    width_sum <- sum(
+      width %||% convertWidth(unit(1, "in"), units, valueOnly = TRUE)
+    )
+    height_sum <- height[1] %||%
+      convertHeight(unit(1, "in"), units, valueOnly = TRUE)
     if (length(ha_top_list) > 0) {
-      height_annotation <- convertHeight(unit(height_annotation, units) + height.HeatmapAnnotation(ha_top_list[[1]]), units, valueOnly = TRUE)
+      height_annotation <- convertHeight(
+        unit(height_annotation, units) +
+          height.HeatmapAnnotation(ha_top_list[[1]]),
+        units,
+        valueOnly = TRUE
+      )
     }
     if (!is.null(ha_left)) {
-      width_annotation <- convertWidth(unit(width_annotation, units) + width.HeatmapAnnotation(ha_left), units, valueOnly = TRUE)
+      width_annotation <- convertWidth(
+        unit(width_annotation, units) + width.HeatmapAnnotation(ha_left),
+        units,
+        valueOnly = TRUE
+      )
     }
     if (!is.null(ha_right)) {
-      width_annotation <- convertWidth(unit(width_annotation, units) + width.HeatmapAnnotation(ha_right), units, valueOnly = TRUE)
+      width_annotation <- convertWidth(
+        unit(width_annotation, units) + width.HeatmapAnnotation(ha_right),
+        units,
+        valueOnly = TRUE
+      )
     }
   }
   dend_width <- name_width <- NULL
@@ -7589,16 +11564,32 @@ heatmap_rendersize <- function(width, height, units, ha_top_list, ha_left, ha_ri
     stop("ht_list is not a class of HeatmapList or Heatmap.")
   }
 
-  lgd_width <- convertWidth(unit(unlist(lapply(legend_list, width.Legends)), unitType(width.Legends(legend_list[[1]]))), unitTo = units, valueOnly = TRUE)
-  width_sum <- convertWidth(unit(width_sum, units) +
-    unit(width_annotation, units) +
-    dend_width +
-    name_width, units, valueOnly = TRUE) + sum(lgd_width)
+  lgd_width <- convertWidth(
+    unit(
+      unlist(lapply(legend_list, width.Legends)),
+      unitType(width.Legends(legend_list[[1]]))
+    ),
+    unitTo = units,
+    valueOnly = TRUE
+  )
+  width_sum <- convertWidth(
+    unit(width_sum, units) +
+      unit(width_annotation, units) +
+      dend_width +
+      name_width,
+    units,
+    valueOnly = TRUE
+  ) +
+    sum(lgd_width)
   height_sum <- max(
-    convertHeight(unit(height_sum, units) +
-      unit(height_annotation, units) +
-      dend_height +
-      name_height, units, valueOnly = TRUE),
+    convertHeight(
+      unit(height_sum, units) +
+        unit(height_annotation, units) +
+        dend_height +
+        name_height,
+      units,
+      valueOnly = TRUE
+    ),
     convertHeight(unit(0.95, "npc"), units, valueOnly = TRUE)
   )
   return(list(width_sum = width_sum, height_sum = height_sum))
@@ -7607,7 +11598,15 @@ heatmap_rendersize <- function(width, height, units, ha_top_list, ha_left, ha_ri
 #' @importFrom grid convertWidth convertHeight convertUnit unit grid.grabExpr
 #' @importFrom ComplexHeatmap draw
 #' @importFrom methods slotNames
-heatmap_fixsize <- function(width, width_sum, height, height_sum, units, ht_list, legend_list) {
+heatmap_fixsize <- function(
+  width,
+  width_sum,
+  height,
+  height_sum,
+  units,
+  ht_list,
+  legend_list
+) {
   gTree <- grid.grabExpr(
     {
       ht <- draw(ht_list, annotation_legend_list = legend_list)
@@ -7625,12 +11624,24 @@ heatmap_fixsize <- function(width, width_sum, height, height_sum, units, ht_list
           } else {
             height_fix <- height[nm]
           }
-          ht_list@ht_list[[nm]]@matrix_param$width <- unit(width_fix %||% dim(ht_list@ht_list[[nm]]@matrix)[1], units = "null")
-          ht_list@ht_list[[nm]]@matrix_param$height <- unit(height_fix %||% dim(ht_list@ht_list[[nm]]@matrix)[2], units = "null")
+          ht_list@ht_list[[nm]]@matrix_param$width <- unit(
+            width_fix %||% dim(ht_list@ht_list[[nm]]@matrix)[1],
+            units = "null"
+          )
+          ht_list@ht_list[[nm]]@matrix_param$height <- unit(
+            height_fix %||% dim(ht_list@ht_list[[nm]]@matrix)[2],
+            units = "null"
+          )
         }
       } else if (inherits(ht_list, "Heatmap")) {
-        ht_list@matrix_param$width <- unit(width[1] %||% dim(ht_list@matrix)[1], units = "null")
-        ht_list@matrix_param$height <- unit(height[1] %||% dim(ht_list@matrix)[2], units = "null")
+        ht_list@matrix_param$width <- unit(
+          width[1] %||% dim(ht_list@matrix)[1],
+          units = "null"
+        )
+        ht_list@matrix_param$height <- unit(
+          height[1] %||% dim(ht_list@matrix)[2],
+          units = "null"
+        )
       } else {
         stop("ht_list is not a class of HeatmapList or Heatmap.")
       }
@@ -7648,10 +11659,26 @@ heatmap_fixsize <- function(width, width_sum, height, height_sum, units, ht_list
   }
   if (is.null(width)) {
     ht_width <- max(
-      convertWidth(ht@layout$max_left_component_width, units, valueOnly = TRUE) +
-        convertWidth(ht@layout$max_right_component_width, units, valueOnly = TRUE) +
-        convertWidth(sum(ht@layout$max_title_component_width), units, valueOnly = TRUE) +
-        convertWidth(ht@annotation_legend_param$size[1], units, valueOnly = TRUE) +
+      convertWidth(
+        ht@layout$max_left_component_width,
+        units,
+        valueOnly = TRUE
+      ) +
+        convertWidth(
+          ht@layout$max_right_component_width,
+          units,
+          valueOnly = TRUE
+        ) +
+        convertWidth(
+          sum(ht@layout$max_title_component_width),
+          units,
+          valueOnly = TRUE
+        ) +
+        convertWidth(
+          ht@annotation_legend_param$size[1],
+          units,
+          valueOnly = TRUE
+        ) +
         convertWidth(unit(1, "in"), units, valueOnly = TRUE),
       convertWidth(unit(0.95, "npc"), units, valueOnly = TRUE)
     )
@@ -7659,11 +11686,27 @@ heatmap_fixsize <- function(width, width_sum, height, height_sum, units, ht_list
   }
   if (is.null(height)) {
     ht_height <- max(
-      convertHeight(ht@layout$max_top_component_height, units, valueOnly = TRUE) +
-        convertHeight(ht@layout$max_bottom_component_height, units, valueOnly = TRUE) +
-        convertHeight(sum(ht@layout$max_title_component_height), units, valueOnly = TRUE) +
+      convertHeight(
+        ht@layout$max_top_component_height,
+        units,
+        valueOnly = TRUE
+      ) +
+        convertHeight(
+          ht@layout$max_bottom_component_height,
+          units,
+          valueOnly = TRUE
+        ) +
+        convertHeight(
+          sum(ht@layout$max_title_component_height),
+          units,
+          valueOnly = TRUE
+        ) +
         convertHeight(unit(1, "in"), units, valueOnly = TRUE),
-      convertHeight(ht@annotation_legend_param$size[2], units, valueOnly = TRUE),
+      convertHeight(
+        ht@annotation_legend_param$size[2],
+        units,
+        valueOnly = TRUE
+      ),
       convertHeight(unit(0.95, "npc"), units, valueOnly = TRUE)
     )
     ht_height <- unit(ht_height, units)
@@ -7682,8 +11725,10 @@ standardise <- function(data) {
 mestimate <- function(data) {
   N <- nrow(data)
   D <- ncol(data)
-  m.sj <- 1 + (1418 / N + 22.05) * D^(-2) + (12.33 / N + 0.243) *
-    D^(-0.0406 * log(N) - 0.1134)
+  m.sj <- 1 +
+    (1418 / N + 22.05) * D^(-2) +
+    (12.33 / N + 0.243) *
+      D^(-0.0406 * log(N) - 0.1134)
   return(m.sj)
 }
 
@@ -7910,33 +11955,129 @@ mestimate <- function(data) {
 #' @importFrom Matrix t
 #' @importFrom proxyC dist
 #' @export
-GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL, within_groups = FALSE, grouping.var = NULL, numerator = NULL, cells = NULL,
-                         aggregate_fun = base::mean, exp_cutoff = 0, border = TRUE, flip = FALSE,
-                         layer = "counts", assay = NULL, exp_method = c("zscore", "raw", "fc", "log2fc", "log1p"), exp_legend_title = NULL, limits = NULL, lib_normalize = identical(layer, "counts"), libsize = NULL,
-                         feature_split = NULL, feature_split_by = NULL, n_split = NULL, split_order = NULL,
-                         split_method = c("kmeans", "hclust", "mfuzz"), decreasing = FALSE, fuzzification = NULL,
-                         cluster_features_by = NULL, cluster_rows = FALSE, cluster_columns = FALSE, cluster_row_slices = FALSE, cluster_column_slices = FALSE,
-                         show_row_names = FALSE, show_column_names = FALSE, row_names_side = ifelse(flip, "left", "right"), column_names_side = ifelse(flip, "bottom", "top"), row_names_rot = 0, column_names_rot = 90,
-                         row_title = NULL, column_title = NULL, row_title_side = "left", column_title_side = "top", row_title_rot = 0, column_title_rot = ifelse(flip, 90, 0),
-                         anno_terms = FALSE, anno_keys = FALSE, anno_features = FALSE,
-                         terms_width = unit(4, "in"), terms_fontsize = 8,
-                         keys_width = unit(2, "in"), keys_fontsize = c(6, 10),
-                         features_width = unit(2, "in"), features_fontsize = c(6, 10),
-                         IDtype = "symbol", species = "Homo_sapiens", db_update = FALSE, db_version = "latest", db_combine = FALSE, convert_species = FALSE, Ensembl_version = 103, mirror = NULL,
-                         db = "GO_BP", TERM2GENE = NULL, TERM2NAME = NULL, minGSSize = 10, maxGSSize = 500,
-                         GO_simplify = FALSE, GO_simplify_cutoff = "p.adjust < 0.05", simplify_method = "Wang", simplify_similarityCutoff = 0.7,
-                         pvalueCutoff = NULL, padjustCutoff = 0.05, topTerm = 5, show_termid = FALSE, topWord = 20, words_excluded = NULL,
-                         nlabel = 20, features_label = NULL, label_size = 10, label_color = "black",
-                         add_bg = FALSE, bg_alpha = 0.5,
-                         add_dot = FALSE, dot_size = unit(8, "mm"),
-                         add_reticle = FALSE, reticle_color = "grey",
-                         add_violin = FALSE, fill.by = "feature", fill_palette = "Dark2", fill_palcolor = NULL,
-                         heatmap_palette = "RdBu", heatmap_palcolor = NULL, group_palette = "Paired", group_palcolor = NULL,
-                         cell_split_palette = "simspec", cell_split_palcolor = NULL, feature_split_palette = "simspec", feature_split_palcolor = NULL,
-                         cell_annotation = NULL, cell_annotation_palette = "Paired", cell_annotation_palcolor = NULL, cell_annotation_params = if (flip) list(width = unit(10, "mm")) else list(height = unit(10, "mm")),
-                         feature_annotation = NULL, feature_annotation_palette = "Dark2", feature_annotation_palcolor = NULL, feature_annotation_params = if (flip) list(height = unit(5, "mm")) else list(width = unit(5, "mm")),
-                         use_raster = NULL, raster_device = "png", raster_by_magick = FALSE, height = NULL, width = NULL, units = "inch",
-                         seed = 11, ht_params = list()) {
+GroupHeatmap <- function(
+  srt,
+  features = NULL,
+  group.by = NULL,
+  split.by = NULL,
+  within_groups = FALSE,
+  grouping.var = NULL,
+  numerator = NULL,
+  cells = NULL,
+  aggregate_fun = base::mean,
+  exp_cutoff = 0,
+  border = TRUE,
+  flip = FALSE,
+  layer = "counts",
+  assay = NULL,
+  exp_method = c("zscore", "raw", "fc", "log2fc", "log1p"),
+  exp_legend_title = NULL,
+  limits = NULL,
+  lib_normalize = identical(layer, "counts"),
+  libsize = NULL,
+  feature_split = NULL,
+  feature_split_by = NULL,
+  n_split = NULL,
+  split_order = NULL,
+  split_method = c("kmeans", "hclust", "mfuzz"),
+  decreasing = FALSE,
+  fuzzification = NULL,
+  cluster_features_by = NULL,
+  cluster_rows = FALSE,
+  cluster_columns = FALSE,
+  cluster_row_slices = FALSE,
+  cluster_column_slices = FALSE,
+  show_row_names = FALSE,
+  show_column_names = FALSE,
+  row_names_side = ifelse(flip, "left", "right"),
+  column_names_side = ifelse(flip, "bottom", "top"),
+  row_names_rot = 0,
+  column_names_rot = 90,
+  row_title = NULL,
+  column_title = NULL,
+  row_title_side = "left",
+  column_title_side = "top",
+  row_title_rot = 0,
+  column_title_rot = ifelse(flip, 90, 0),
+  anno_terms = FALSE,
+  anno_keys = FALSE,
+  anno_features = FALSE,
+  terms_width = unit(4, "in"),
+  terms_fontsize = 8,
+  keys_width = unit(2, "in"),
+  keys_fontsize = c(6, 10),
+  features_width = unit(2, "in"),
+  features_fontsize = c(6, 10),
+  IDtype = "symbol",
+  species = "Homo_sapiens",
+  db_update = FALSE,
+  db_version = "latest",
+  db_combine = FALSE,
+  convert_species = FALSE,
+  Ensembl_version = 103,
+  mirror = NULL,
+  db = "GO_BP",
+  TERM2GENE = NULL,
+  TERM2NAME = NULL,
+  minGSSize = 10,
+  maxGSSize = 500,
+  GO_simplify = FALSE,
+  GO_simplify_cutoff = "p.adjust < 0.05",
+  simplify_method = "Wang",
+  simplify_similarityCutoff = 0.7,
+  pvalueCutoff = NULL,
+  padjustCutoff = 0.05,
+  topTerm = 5,
+  show_termid = FALSE,
+  topWord = 20,
+  words_excluded = NULL,
+  nlabel = 20,
+  features_label = NULL,
+  label_size = 10,
+  label_color = "black",
+  add_bg = FALSE,
+  bg_alpha = 0.5,
+  add_dot = FALSE,
+  dot_size = unit(8, "mm"),
+  add_reticle = FALSE,
+  reticle_color = "grey",
+  add_violin = FALSE,
+  fill.by = "feature",
+  fill_palette = "Dark2",
+  fill_palcolor = NULL,
+  heatmap_palette = "RdBu",
+  heatmap_palcolor = NULL,
+  group_palette = "Paired",
+  group_palcolor = NULL,
+  cell_split_palette = "simspec",
+  cell_split_palcolor = NULL,
+  feature_split_palette = "simspec",
+  feature_split_palcolor = NULL,
+  cell_annotation = NULL,
+  cell_annotation_palette = "Paired",
+  cell_annotation_palcolor = NULL,
+  cell_annotation_params = if (flip) {
+    list(width = unit(10, "mm"))
+  } else {
+    list(height = unit(10, "mm"))
+  },
+  feature_annotation = NULL,
+  feature_annotation_palette = "Dark2",
+  feature_annotation_palcolor = NULL,
+  feature_annotation_params = if (flip) {
+    list(height = unit(5, "mm"))
+  } else {
+    list(width = unit(5, "mm"))
+  },
+  use_raster = NULL,
+  raster_device = "png",
+  raster_by_magick = FALSE,
+  height = NULL,
+  width = NULL,
+  units = "inch",
+  seed = 11,
+  ht_params = list()
+) {
   set.seed(seed)
 
   if (isTRUE(raster_by_magick)) {
@@ -7950,13 +12091,21 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
   data_nm <- c(ifelse(isTRUE(lib_normalize), "normalized", ""), layer)
   data_nm <- paste(data_nm[data_nm != ""], collapse = " ")
   if (length(exp_method) == 1 && is.function(exp_method)) {
-    exp_name <- paste0(as.character(x = formals()$exp_method), "(", data_nm, ")")
+    exp_name <- paste0(
+      as.character(x = formals()$exp_method),
+      "(",
+      data_nm,
+      ")"
+    )
   } else {
     exp_method <- match.arg(exp_method)
     exp_name <- paste0(exp_method, "(", data_nm, ")")
   }
   if (!is.null(grouping.var) && exp_method != "log2fc") {
-    warning("When 'grouping.var' is specified, 'exp_method' can only be 'log2fc'", immediate. = TRUE)
+    warning(
+      "When 'grouping.var' is specified, 'exp_method' can only be 'log2fc'",
+      immediate. = TRUE
+    )
     exp_method <- "log2fc"
   }
   exp_name <- exp_legend_title %||% exp_name
@@ -7966,17 +12115,25 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
       stop("'grouping.var' must be different from 'split.by'")
     }
     if (!is.factor(srt@meta.data[[grouping.var]])) {
-      srt@meta.data[[grouping.var]] <- factor(srt@meta.data[[grouping.var]], levels = unique(srt@meta.data[[grouping.var]]))
+      srt@meta.data[[grouping.var]] <- factor(
+        srt@meta.data[[grouping.var]],
+        levels = unique(srt@meta.data[[grouping.var]])
+      )
     }
     if (is.null(numerator)) {
       numerator <- levels(srt@meta.data[[grouping.var]])[1]
-      warning("'numerator' is not specified. Use the first level in 'grouping.var': ", numerator, immediate. = TRUE)
+      warning(
+        "'numerator' is not specified. Use the first level in 'grouping.var': ",
+        numerator,
+        immediate. = TRUE
+      )
     } else {
       if (!numerator %in% levels(srt@meta.data[, grouping.var])) {
         stop("'", numerator, "' is not an element of the '", grouping.var, "'")
       }
     }
-    srt@meta.data[["grouping.var.use"]] <- srt@meta.data[[grouping.var]] == numerator
+    srt@meta.data[["grouping.var.use"]] <- srt@meta.data[[grouping.var]] ==
+      numerator
     add_dot <- FALSE
     exp_name <- paste0(numerator, "/", "other\n", exp_method, "(", data_nm, ")")
   }
@@ -7987,12 +12144,18 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
     group.by <- "All.groups"
   }
   if (any(!group.by %in% colnames(srt@meta.data))) {
-    stop(group.by[!group.by %in% colnames(srt@meta.data)], " is not in the meta data of the Seurat object.")
+    stop(
+      group.by[!group.by %in% colnames(srt@meta.data)],
+      " is not in the meta data of the Seurat object."
+    )
   }
   if (!is.null(group.by)) {
     for (g in group.by) {
       if (!is.factor(srt@meta.data[[g]])) {
-        srt@meta.data[[g]] <- factor(srt@meta.data[[g]], levels = unique(srt@meta.data[[g]]))
+        srt@meta.data[[g]] <- factor(
+          srt@meta.data[[g]],
+          levels = unique(srt@meta.data[[g]])
+        )
       }
     }
   }
@@ -8000,14 +12163,23 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
     stop("'split.by' only support one variable.")
   }
   if (any(!split.by %in% colnames(srt@meta.data))) {
-    stop(split.by[!split.by %in% colnames(srt@meta.data)], " is not in the meta data of the Seurat object.")
+    stop(
+      split.by[!split.by %in% colnames(srt@meta.data)],
+      " is not in the meta data of the Seurat object."
+    )
   }
   if (!is.null(split.by)) {
     if (!is.factor(srt@meta.data[[split.by]])) {
-      srt@meta.data[[split.by]] <- factor(srt@meta.data[[split.by]], levels = unique(srt@meta.data[[split.by]]))
+      srt@meta.data[[split.by]] <- factor(
+        srt@meta.data[[split.by]],
+        levels = unique(srt@meta.data[[split.by]])
+      )
     }
   }
-  group_elements <- unlist(lapply(srt@meta.data[, group.by, drop = FALSE], function(x) length(unique(x))))
+  group_elements <- unlist(lapply(
+    srt@meta.data[, group.by, drop = FALSE],
+    function(x) length(unique(x))
+  ))
   if (any(group_elements == 1) && exp_method == "zscore") {
     stop(
       "'zscore' cannot be applied to the group(s) consisting of one element: ",
@@ -8030,7 +12202,10 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
       groups <- split(colnames(srt), srt[[g, drop = TRUE]])
       new.group_palette[g] <- list(rep(new.group_palette[g], length(groups)))
       for (nm in names(groups)) {
-        srt[[make.names(nm)]] <- factor(NA, levels = levels(srt[[g, drop = TRUE]]))
+        srt[[make.names(nm)]] <- factor(
+          NA,
+          levels = levels(srt[[g, drop = TRUE]])
+        )
         srt[[make.names(nm)]][colnames(srt) %in% groups[[nm]], ] <- nm
         new.group.by <- c(new.group.by, make.names(nm))
       }
@@ -8052,32 +12227,84 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
   }
   if (!is.null(cell_annotation)) {
     if (length(cell_annotation_palette) == 1) {
-      cell_annotation_palette <- rep(cell_annotation_palette, length(cell_annotation))
+      cell_annotation_palette <- rep(
+        cell_annotation_palette,
+        length(cell_annotation)
+      )
     }
     if (length(cell_annotation_palcolor) == 1) {
-      cell_annotation_palcolor <- rep(cell_annotation_palcolor, length(cell_annotation))
+      cell_annotation_palcolor <- rep(
+        cell_annotation_palcolor,
+        length(cell_annotation)
+      )
     }
-    npal <- unique(c(length(cell_annotation_palette), length(cell_annotation_palcolor), length(cell_annotation)))
+    npal <- unique(c(
+      length(cell_annotation_palette),
+      length(cell_annotation_palcolor),
+      length(cell_annotation)
+    ))
     if (length(npal[npal != 0]) > 1) {
-      stop("cell_annotation_palette and cell_annotation_palcolor must be the same length as cell_annotation")
+      stop(
+        "cell_annotation_palette and cell_annotation_palcolor must be the same length as cell_annotation"
+      )
     }
-    if (any(!cell_annotation %in% c(colnames(srt@meta.data), rownames(srt@assays[[assay]])))) {
-      stop("cell_annotation: ", paste0(cell_annotation[!cell_annotation %in% c(colnames(srt@meta.data), rownames(srt@assays[[assay]]))], collapse = ","), " is not in the Seurat object.")
+    if (
+      any(
+        !cell_annotation %in%
+          c(colnames(srt@meta.data), rownames(srt@assays[[assay]]))
+      )
+    ) {
+      stop(
+        "cell_annotation: ",
+        paste0(
+          cell_annotation[
+            !cell_annotation %in%
+              c(colnames(srt@meta.data), rownames(srt@assays[[assay]]))
+          ],
+          collapse = ","
+        ),
+        " is not in the Seurat object."
+      )
     }
   }
   if (!is.null(feature_annotation)) {
     if (length(feature_annotation_palette) == 1) {
-      feature_annotation_palette <- rep(feature_annotation_palette, length(feature_annotation))
+      feature_annotation_palette <- rep(
+        feature_annotation_palette,
+        length(feature_annotation)
+      )
     }
     if (length(feature_annotation_palcolor) == 1) {
-      feature_annotation_palcolor <- rep(feature_annotation_palcolor, length(feature_annotation))
+      feature_annotation_palcolor <- rep(
+        feature_annotation_palcolor,
+        length(feature_annotation)
+      )
     }
-    npal <- unique(c(length(feature_annotation_palette), length(feature_annotation_palcolor), length(feature_annotation)))
+    npal <- unique(c(
+      length(feature_annotation_palette),
+      length(feature_annotation_palcolor),
+      length(feature_annotation)
+    ))
     if (length(npal[npal != 0]) > 1) {
-      stop("feature_annotation_palette and feature_annotation_palcolor must be the same length as feature_annotation")
+      stop(
+        "feature_annotation_palette and feature_annotation_palcolor must be the same length as feature_annotation"
+      )
     }
-    if (any(!feature_annotation %in% colnames(srt@assays[[assay]]@meta.features))) {
-      stop("feature_annotation: ", paste0(feature_annotation[!feature_annotation %in% colnames(srt@assays[[assay]]@meta.features)], collapse = ","), " is not in the meta data of the ", assay, " assay in the Seurat object.")
+    if (
+      any(!feature_annotation %in% colnames(srt@assays[[assay]]@meta.features))
+    ) {
+      stop(
+        "feature_annotation: ",
+        paste0(
+          feature_annotation[
+            !feature_annotation %in% colnames(srt@assays[[assay]]@meta.features)
+          ],
+          collapse = ","
+        ),
+        " is not in the meta data of the ",
+        assay,
+        " assay in the Seurat object."
+      )
     }
   }
   if (length(width) == 1) {
@@ -8118,7 +12345,8 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
   if (is.null(features)) {
     features <- VariableFeatures(srt, assay = assay)
   }
-  index <- features %in% c(rownames(srt@assays[[assay]]), colnames(srt@meta.data))
+  index <- features %in%
+    c(rownames(srt@assays[[assay]]), colnames(srt@meta.data))
   features <- features[index]
   features_unique <- make.unique(features)
   if (!is.null(feature_split)) {
@@ -8129,24 +12357,69 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
   cell_groups <- list()
   for (cell_group in group.by) {
     if (!is.factor(srt@meta.data[[cell_group]])) {
-      srt@meta.data[[cell_group]] <- factor(srt@meta.data[[cell_group]], levels = unique(srt@meta.data[[cell_group]]))
+      srt@meta.data[[cell_group]] <- factor(
+        srt@meta.data[[cell_group]],
+        levels = unique(srt@meta.data[[cell_group]])
+      )
     }
-    cell_groups[[cell_group]] <- setNames(srt@meta.data[cells, cell_group], cells)
+    cell_groups[[cell_group]] <- setNames(
+      srt@meta.data[cells, cell_group],
+      cells
+    )
     cell_groups[[cell_group]] <- na.omit(cell_groups[[cell_group]])
-    cell_groups[[cell_group]] <- factor(cell_groups[[cell_group]], levels = levels(cell_groups[[cell_group]])[levels(cell_groups[[cell_group]]) %in% cell_groups[[cell_group]]])
+    cell_groups[[cell_group]] <- factor(
+      cell_groups[[cell_group]],
+      levels = levels(cell_groups[[cell_group]])[
+        levels(cell_groups[[cell_group]]) %in% cell_groups[[cell_group]]
+      ]
+    )
 
     if (!is.null(split.by)) {
       if (!is.factor(srt@meta.data[[split.by]])) {
-        srt@meta.data[[split.by]] <- factor(srt@meta.data[[split.by]], levels = unique(srt@meta.data[[split.by]]))
+        srt@meta.data[[split.by]] <- factor(
+          srt@meta.data[[split.by]],
+          levels = unique(srt@meta.data[[split.by]])
+        )
       }
-      levels <- apply(expand.grid(levels(srt@meta.data[[split.by]]), levels(cell_groups[[cell_group]])), 1, function(x) paste0(x[2:1], collapse = " : "))
-      cell_groups[[cell_group]] <- setNames(paste0(cell_groups[[cell_group]][cells], " : ", srt@meta.data[cells, split.by]), cells)
-      cell_groups[[cell_group]] <- factor(cell_groups[[cell_group]], levels = levels[levels %in% cell_groups[[cell_group]]])
+      levels <- apply(
+        expand.grid(
+          levels(srt@meta.data[[split.by]]),
+          levels(cell_groups[[cell_group]])
+        ),
+        1,
+        function(x) paste0(x[2:1], collapse = " : ")
+      )
+      cell_groups[[cell_group]] <- setNames(
+        paste0(
+          cell_groups[[cell_group]][cells],
+          " : ",
+          srt@meta.data[cells, split.by]
+        ),
+        cells
+      )
+      cell_groups[[cell_group]] <- factor(
+        cell_groups[[cell_group]],
+        levels = levels[levels %in% cell_groups[[cell_group]]]
+      )
     }
     if (!is.null(grouping.var)) {
-      levels <- apply(expand.grid(c("TRUE", "FALSE"), levels(cell_groups[[cell_group]])), 1, function(x) paste0(x[2:1], collapse = " ; "))
-      cell_groups[[cell_group]] <- setNames(paste0(cell_groups[[cell_group]][cells], " ; ", srt@meta.data[cells, "grouping.var.use"]), cells)
-      cell_groups[[cell_group]] <- factor(cell_groups[[cell_group]], levels = levels[levels %in% cell_groups[[cell_group]]])
+      levels <- apply(
+        expand.grid(c("TRUE", "FALSE"), levels(cell_groups[[cell_group]])),
+        1,
+        function(x) paste0(x[2:1], collapse = " ; ")
+      )
+      cell_groups[[cell_group]] <- setNames(
+        paste0(
+          cell_groups[[cell_group]][cells],
+          " ; ",
+          srt@meta.data[cells, "grouping.var.use"]
+        ),
+        cells
+      )
+      cell_groups[[cell_group]] <- factor(
+        cell_groups[[cell_group]],
+        levels = levels[levels %in% cell_groups[[cell_group]]]
+      )
     }
   }
 
@@ -8154,39 +12427,68 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
   gene_unique <- features_unique[features %in% rownames(srt@assays[[assay]])]
   meta <- features[features %in% colnames(srt@meta.data)]
 
-  mat_raw <- as_matrix(rbind(LayerData(srt@assays[[assay]], layer = layer)[gene, cells, drop = FALSE], t(srt@meta.data[cells, meta, drop = FALSE])))[features, , drop = FALSE]
+  mat_raw <- as_matrix(rbind(
+    LayerData(srt@assays[[assay]], layer = layer)[gene, cells, drop = FALSE],
+    t(srt@meta.data[cells, meta, drop = FALSE])
+  ))[features, , drop = FALSE]
   rownames(mat_raw) <- features_unique
   if (isTRUE(lib_normalize) && min(mat_raw, na.rm = TRUE) >= 0) {
     if (!is.null(libsize)) {
       libsize_use <- libsize
     } else {
-      libsize_use <- colSums(LayerData(srt@assays[[assay]], layer = "counts")[, colnames(mat_raw), drop = FALSE])
+      libsize_use <- colSums(LayerData(srt@assays[[assay]], layer = "counts")[,
+        colnames(mat_raw),
+        drop = FALSE
+      ])
       isfloat <- any(libsize_use %% 1 != 0, na.rm = TRUE)
       if (isTRUE(isfloat)) {
         libsize_use <- rep(1, length(libsize_use))
-        warning("The values in the 'counts' layer are non-integer. Set the library size to 1.", immediate. = TRUE)
+        warning(
+          "The values in the 'counts' layer are non-integer. Set the library size to 1.",
+          immediate. = TRUE
+        )
         if (!is.null(grouping.var)) {
-          exp_name <- paste0(numerator, "/", "other\n", exp_method, "(", layer, ")")
+          exp_name <- paste0(
+            numerator,
+            "/",
+            "other\n",
+            exp_method,
+            "(",
+            layer,
+            ")"
+          )
         } else {
           exp_name <- paste0(exp_method, "(", layer, ")")
         }
       }
     }
-    mat_raw[gene_unique, ] <- t(t(mat_raw[gene_unique, , drop = FALSE]) / libsize_use * median(libsize_use))
+    mat_raw[gene_unique, ] <- t(
+      t(mat_raw[gene_unique, , drop = FALSE]) /
+        libsize_use *
+        median(libsize_use)
+    )
   }
 
   mat_raw_list <- list()
   mat_perc_list <- list()
   for (cell_group in names(cell_groups)) {
-    mat_tmp <- t(aggregate(t(mat_raw[features_unique, , drop = FALSE]), by = list(cell_groups[[cell_group]][colnames(mat_raw)]), FUN = aggregate_fun))
+    mat_tmp <- t(aggregate(
+      t(mat_raw[features_unique, , drop = FALSE]),
+      by = list(cell_groups[[cell_group]][colnames(mat_raw)]),
+      FUN = aggregate_fun
+    ))
     colnames(mat_tmp) <- mat_tmp[1, , drop = FALSE]
     mat_tmp <- mat_tmp[-1, , drop = FALSE]
     class(mat_tmp) <- "numeric"
     mat_raw_list[[cell_group]] <- mat_tmp
 
-    mat_perc <- t(aggregate(t(mat_raw[features_unique, , drop = FALSE]), by = list(cell_groups[[cell_group]][colnames(mat_raw)]), FUN = function(x) {
-      sum(x > exp_cutoff) / length(x)
-    }))
+    mat_perc <- t(aggregate(
+      t(mat_raw[features_unique, , drop = FALSE]),
+      by = list(cell_groups[[cell_group]][colnames(mat_raw)]),
+      FUN = function(x) {
+        sum(x > exp_cutoff) / length(x)
+      }
+    ))
     colnames(mat_perc) <- mat_perc[1, , drop = FALSE]
     mat_perc <- mat_perc[-1, , drop = FALSE]
     class(mat_perc) <- "numeric"
@@ -8202,21 +12504,42 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
     mat_tmp <- mat_raw_list[[cell_group]]
     if (is.null(grouping.var)) {
       mat_tmp <- matrix_process(mat_tmp, method = exp_method)
-      mat_tmp[is.infinite(mat_tmp)] <- max(abs(mat_tmp[!is.infinite(mat_tmp)]), na.rm = TRUE) * ifelse(mat_tmp[is.infinite(mat_tmp)] > 0, 1, -1)
+      mat_tmp[is.infinite(mat_tmp)] <- max(
+        abs(mat_tmp[!is.infinite(mat_tmp)]),
+        na.rm = TRUE
+      ) *
+        ifelse(mat_tmp[is.infinite(mat_tmp)] > 0, 1, -1)
       mat_tmp[is.na(mat_tmp)] <- mean(mat_tmp, na.rm = TRUE)
       mat_list[[cell_group]] <- mat_tmp
     } else {
       compare_groups <- strsplit(colnames(mat_tmp), " ; ")
-      names_keep <- names(which(table(sapply(compare_groups, function(x) x[[1]])) == 2))
-      group_keep <- which(sapply(compare_groups, function(x) x[[1]] %in% names_keep))
-      group_TRUE <- intersect(group_keep, which(sapply(compare_groups, function(x) x[[2]]) == "TRUE"))
-      group_FALSE <- intersect(group_keep, which(sapply(compare_groups, function(x) x[[2]]) == "FALSE"))
+      names_keep <- names(which(
+        table(sapply(compare_groups, function(x) x[[1]])) == 2
+      ))
+      group_keep <- which(sapply(compare_groups, function(x) {
+        x[[1]] %in% names_keep
+      }))
+      group_TRUE <- intersect(
+        group_keep,
+        which(sapply(compare_groups, function(x) x[[2]]) == "TRUE")
+      )
+      group_FALSE <- intersect(
+        group_keep,
+        which(sapply(compare_groups, function(x) x[[2]]) == "FALSE")
+      )
       mat_tmp <- log2(mat_tmp[, group_TRUE] / mat_tmp[, group_FALSE])
       colnames(mat_tmp) <- gsub(" ; .*", "", colnames(mat_tmp))
-      mat_tmp[is.infinite(mat_tmp)] <- max(abs(mat_tmp[!is.infinite(mat_tmp)]), na.rm = TRUE) * ifelse(mat_tmp[is.infinite(mat_tmp)] > 0, 1, -1)
+      mat_tmp[is.infinite(mat_tmp)] <- max(
+        abs(mat_tmp[!is.infinite(mat_tmp)]),
+        na.rm = TRUE
+      ) *
+        ifelse(mat_tmp[is.infinite(mat_tmp)] > 0, 1, -1)
       mat_tmp[is.na(mat_tmp)] <- 0
       mat_list[[cell_group]] <- mat_tmp
-      cell_groups[[cell_group]] <- factor(gsub(" ; .*", "", cell_groups[[cell_group]]), levels = unique(gsub(" ; .*", "", levels(cell_groups[[cell_group]]))))
+      cell_groups[[cell_group]] <- factor(
+        gsub(" ; .*", "", cell_groups[[cell_group]]),
+        levels = unique(gsub(" ; .*", "", levels(cell_groups[[cell_group]])))
+      )
     }
   }
 
@@ -8234,41 +12557,87 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
 
   if (is.null(limits)) {
     if (!is.function(exp_method) && exp_method %in% c("zscore", "log2fc")) {
-      b <- ceiling(min(abs(quantile(do.call(cbind, mat_list), c(0.01, 0.99), na.rm = TRUE)), na.rm = TRUE) * 2) / 2
-      colors <- circlize::colorRamp2(seq(-b, b, length = 100), palette_scp(palette = heatmap_palette, palcolor = heatmap_palcolor))
+      b <- ceiling(
+        min(
+          abs(quantile(do.call(cbind, mat_list), c(0.01, 0.99), na.rm = TRUE)),
+          na.rm = TRUE
+        ) *
+          2
+      ) /
+        2
+      colors <- circlize::colorRamp2(
+        seq(-b, b, length = 100),
+        palette_scp(palette = heatmap_palette, palcolor = heatmap_palcolor)
+      )
     } else {
       b <- quantile(do.call(cbind, mat_list), c(0.01, 0.99), na.rm = TRUE)
-      colors <- circlize::colorRamp2(seq(b[1], b[2], length = 100), palette_scp(palette = heatmap_palette, palcolor = heatmap_palcolor))
+      colors <- circlize::colorRamp2(
+        seq(b[1], b[2], length = 100),
+        palette_scp(palette = heatmap_palette, palcolor = heatmap_palcolor)
+      )
     }
   } else {
-    colors <- circlize::colorRamp2(seq(limits[1], limits[2], length = 100), palette_scp(palette = heatmap_palette, palcolor = heatmap_palcolor))
+    colors <- circlize::colorRamp2(
+      seq(limits[1], limits[2], length = 100),
+      palette_scp(palette = heatmap_palette, palcolor = heatmap_palcolor)
+    )
   }
-  
-  t_matx <- srt@assays[[assay]]$data[intersect(cell_annotation, rownames(srt@assays[[assay]])) %||% integer(), cells, drop = FALSE]
-  
+
+  t_matx <- srt@assays[[assay]]$data[
+    intersect(cell_annotation, rownames(srt@assays[[assay]])) %||% integer(),
+    cells,
+    drop = FALSE
+  ]
+
   if (nrow(t_matx) != 0) {
     cell_metadata <- cbind.data.frame(
       data.frame(row.names = cells, cells = cells),
       cbind.data.frame(
-        srt@meta.data[cells, c(group.by, intersect(cell_annotation, colnames(srt@meta.data))), drop = FALSE],
-        SeuratDisk::Transpose(srt@assays[[assay]]$data[intersect(cell_annotation, rownames(srt@assays[[assay]])) %||% integer(), cells, drop = FALSE])
+        srt@meta.data[
+          cells,
+          c(group.by, intersect(cell_annotation, colnames(srt@meta.data))),
+          drop = FALSE
+        ],
+        SeuratDisk::Transpose(srt@assays[[assay]]$data[
+          intersect(cell_annotation, rownames(srt@assays[[assay]])) %||%
+            integer(),
+          cells,
+          drop = FALSE
+        ])
       )
     )
   }
 
   cell_metadata <- cbind.data.frame(
     data.frame(row.names = cells, cells = cells),
-      srt@meta.data[cells, c(group.by, intersect(cell_annotation, colnames(srt@meta.data))), drop = FALSE]
+    srt@meta.data[
+      cells,
+      c(group.by, intersect(cell_annotation, colnames(srt@meta.data))),
+      drop = FALSE
+    ]
   )
-  
+
   feature_metadata <- cbind.data.frame(
-    data.frame(row.names = features_unique, features = features, features_uique = features_unique),
-    srt@assays[[assay]]@meta.data[match(features, rownames(srt)), intersect(feature_annotation, colnames(srt@assays[[assay]]@meta.data)), drop = FALSE]
+    data.frame(
+      row.names = features_unique,
+      features = features,
+      features_uique = features_unique
+    ),
+    srt@assays[[assay]]@meta.data[
+      match(features, rownames(srt)),
+      intersect(feature_annotation, colnames(srt@assays[[assay]]@meta.data)),
+      drop = FALSE
+    ]
   )
-  feature_metadata[, "duplicated"] <- feature_metadata[["features"]] %in% features[duplicated(features)]
+  feature_metadata[, "duplicated"] <- feature_metadata[["features"]] %in%
+    features[duplicated(features)]
 
   lgd <- list()
-  lgd[["ht"]] <- ComplexHeatmap::Legend(title = exp_name, col_fun = colors, border = TRUE)
+  lgd[["ht"]] <- ComplexHeatmap::Legend(
+    title = exp_name,
+    col_fun = colors,
+    border = TRUE
+  )
   if (isTRUE(add_dot)) {
     lgd[["point"]] <- ComplexHeatmap::Legend(
       labels = paste0(seq(20, 100, length.out = 5), "%"),
@@ -8294,35 +12663,81 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
     if (is.null(split.by)) {
       column_split_list[[cell_group]] <- NULL
     } else {
-      column_split_list[[cell_group]] <- factor(gsub(" : .*", "", levels(cell_groups[[cell_group]])), levels = levels(srt@meta.data[[cell_group]]))
+      column_split_list[[cell_group]] <- factor(
+        gsub(" : .*", "", levels(cell_groups[[cell_group]])),
+        levels = levels(srt@meta.data[[cell_group]])
+      )
     }
     if (isTRUE(cluster_column_slices) && !is.null(split.by)) {
       if (!isTRUE(cluster_columns)) {
         if (nlevels(column_split_list[[cell_group]]) == 1) {
-          stop("cluster_column_slices=TRUE can not be used when there is only one group.")
+          stop(
+            "cluster_column_slices=TRUE can not be used when there is only one group."
+          )
         }
-        dend <- cluster_within_group(mat_list[[cell_group]], column_split_list[[cell_group]])
+        dend <- cluster_within_group(
+          mat_list[[cell_group]],
+          column_split_list[[cell_group]]
+        )
         cluster_columns_list[[cell_group]] <- dend
-        column_split_list[[cell_group]] <- length(unique(column_split_list[[cell_group]]))
+        column_split_list[[cell_group]] <- length(unique(column_split_list[[
+          cell_group
+        ]]))
       }
     }
     if (cell_group != "All.groups") {
       funbody <- paste0(
         "
-        grid.rect(gp = gpar(fill = palette_scp(", paste0("c('", paste0(levels(srt@meta.data[[cell_group]]), collapse = "','"), "')"), ",palette = '", group_palette[i], "',palcolor=c(", paste0("'", paste0(group_palcolor[[i]], collapse = "','"), "'"), "))[nm]))
+        grid.rect(gp = gpar(fill = palette_scp(",
+        paste0(
+          "c('",
+          paste0(levels(srt@meta.data[[cell_group]]), collapse = "','"),
+          "')"
+        ),
+        ",palette = '",
+        group_palette[i],
+        "',palcolor=c(",
+        paste0("'", paste0(group_palcolor[[i]], collapse = "','"), "'"),
+        "))[nm]))
       "
       )
       funbody <- gsub(pattern = "\n", replacement = "", x = funbody)
-      eval(parse(text = paste("panel_fun <- function(index, nm) {", funbody, "}", sep = "")), envir = environment())
+      eval(
+        parse(
+          text = paste(
+            "panel_fun <- function(index, nm) {",
+            funbody,
+            "}",
+            sep = ""
+          )
+        ),
+        envir = environment()
+      )
 
       anno <- list()
       anno[[cell_group]] <- ComplexHeatmap::anno_block(
-        align_to = split(seq_along(levels(cell_groups[[cell_group]])), gsub(pattern = " : .*", replacement = "", x = levels(cell_groups[[cell_group]]))),
+        align_to = split(
+          seq_along(levels(cell_groups[[cell_group]])),
+          gsub(
+            pattern = " : .*",
+            replacement = "",
+            x = levels(cell_groups[[cell_group]])
+          )
+        ),
         panel_fun = getFunction("panel_fun", where = environment()),
         which = ifelse(flip, "row", "column"),
         show_name = FALSE
       )
-      ha_cell_group <- do.call("HeatmapAnnotation", args = c(anno, which = ifelse(flip, "row", "column"), show_annotation_name = TRUE, annotation_name_side = ifelse(flip, "top", "left"), border = TRUE))
+      ha_cell_group <- do.call(
+        "HeatmapAnnotation",
+        args = c(
+          anno,
+          which = ifelse(flip, "row", "column"),
+          show_annotation_name = TRUE,
+          annotation_name_side = ifelse(flip, "top", "left"),
+          border = TRUE
+        )
+      )
       ha_top_list[[cell_group]] <- ha_cell_group
       #   lgd[[cell_group]] <- Legend(
       #     title = cell_group, labels = levels(srt@meta.data[[cell_group]]),
@@ -8333,20 +12748,56 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
     if (!is.null(split.by)) {
       funbody <- paste0(
         "
-      grid.rect(gp = gpar(fill = palette_scp(", paste0("c('", paste0(levels(srt@meta.data[[split.by]]), collapse = "','"), "')"), ",palette = '", cell_split_palette, "',palcolor=c(", paste0("'", paste0(unlist(cell_split_palcolor), collapse = "','"), "'"), "))[nm]))
+      grid.rect(gp = gpar(fill = palette_scp(",
+        paste0(
+          "c('",
+          paste0(levels(srt@meta.data[[split.by]]), collapse = "','"),
+          "')"
+        ),
+        ",palette = '",
+        cell_split_palette,
+        "',palcolor=c(",
+        paste0("'", paste0(unlist(cell_split_palcolor), collapse = "','"), "'"),
+        "))[nm]))
     "
       )
       funbody <- gsub(pattern = "\n", replacement = "", x = funbody)
-      eval(parse(text = paste("panel_fun <- function(index, nm) {", funbody, "}", sep = "")), envir = environment())
+      eval(
+        parse(
+          text = paste(
+            "panel_fun <- function(index, nm) {",
+            funbody,
+            "}",
+            sep = ""
+          )
+        ),
+        envir = environment()
+      )
 
       anno <- list()
       anno[[split.by]] <- anno_block(
-        align_to = split(seq_along(levels(cell_groups[[cell_group]])), gsub(pattern = ".* : ", replacement = "", x = levels(cell_groups[[cell_group]]))),
+        align_to = split(
+          seq_along(levels(cell_groups[[cell_group]])),
+          gsub(
+            pattern = ".* : ",
+            replacement = "",
+            x = levels(cell_groups[[cell_group]])
+          )
+        ),
         panel_fun = getFunction("panel_fun", where = environment()),
         which = ifelse(flip, "row", "column"),
         show_name = i == 1
       )
-      ha_split_by <- do.call("HeatmapAnnotation", args = c(anno, which = ifelse(flip, "row", "column"), show_annotation_name = TRUE, annotation_name_side = ifelse(flip, "top", "left"), border = TRUE))
+      ha_split_by <- do.call(
+        "HeatmapAnnotation",
+        args = c(
+          anno,
+          which = ifelse(flip, "row", "column"),
+          show_annotation_name = TRUE,
+          annotation_name_side = ifelse(flip, "top", "left"),
+          border = TRUE
+        )
+      )
       if (is.null(ha_top_list[[cell_group]])) {
         ha_top_list[[cell_group]] <- ha_split_by
       } else {
@@ -8359,16 +12810,32 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
     cell_group <- raw.group.by[i]
     if (cell_group != "All.groups") {
       lgd[[cell_group]] <- Legend(
-        title = cell_group, labels = levels(srt@meta.data[[cell_group]]),
-        legend_gp = gpar(fill = palette_scp(levels(srt@meta.data[[cell_group]]), palette = raw.group_palette[i], palcolor = group_palcolor[[i]])), border = TRUE
+        title = cell_group,
+        labels = levels(srt@meta.data[[cell_group]]),
+        legend_gp = gpar(
+          fill = palette_scp(
+            levels(srt@meta.data[[cell_group]]),
+            palette = raw.group_palette[i],
+            palcolor = group_palcolor[[i]]
+          )
+        ),
+        border = TRUE
       )
     }
   }
 
   if (!is.null(split.by)) {
     lgd[[split.by]] <- Legend(
-      title = split.by, labels = levels(srt@meta.data[[split.by]]),
-      legend_gp = gpar(fill = palette_scp(levels(srt@meta.data[[split.by]]), palette = cell_split_palette, palcolor = cell_split_palcolor)), border = TRUE
+      title = split.by,
+      labels = levels(srt@meta.data[[split.by]]),
+      legend_gp = gpar(
+        fill = palette_scp(
+          levels(srt@meta.data[[split.by]]),
+          palette = cell_split_palette,
+          palcolor = cell_split_palcolor
+        )
+      ),
+      border = TRUE
     )
   }
 
@@ -8387,33 +12854,62 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
           cell_anno <- factor(cell_anno, levels = unique(cell_anno))
         }
         for (cell_group in group.by) {
-          subplots <- CellStatPlot(srt,
+          subplots <- CellStatPlot(
+            srt,
             flip = flip,
-            cells = names(cell_groups[[cell_group]]), plot_type = "pie",
-            stat.by = cellan, group.by = cell_group, split.by = split.by,
-            palette = palette, palcolor = palcolor, title = NULL,
-            individual = TRUE, combine = FALSE
+            cells = names(cell_groups[[cell_group]]),
+            plot_type = "pie",
+            stat.by = cellan,
+            group.by = cell_group,
+            split.by = split.by,
+            palette = palette,
+            palcolor = palcolor,
+            title = NULL,
+            individual = TRUE,
+            combine = FALSE
           )
           subplots_list[[paste0(cellan, ":", cell_group)]] <- subplots
           graphics <- list()
           for (nm in names(subplots)) {
             funbody <- paste0(
               "
-              g <- as_grob(subplots_list[['", cellan, ":", cell_group, "']]", "[['", nm, "']]  + facet_null() + theme_void() + theme(plot.title = element_blank(), plot.subtitle = element_blank(), legend.position = 'none'));
-              g$name <- '", paste0(cellan, ":", cell_group, "-", nm), "';
+              g <- as_grob(subplots_list[['",
+              cellan,
+              ":",
+              cell_group,
+              "']]",
+              "[['",
+              nm,
+              "']]  + facet_null() + theme_void() + theme(plot.title = element_blank(), plot.subtitle = element_blank(), legend.position = 'none'));
+              g$name <- '",
+              paste0(cellan, ":", cell_group, "-", nm),
+              "';
               grid.draw(g)
               "
             )
             funbody <- gsub(pattern = "\n", replacement = "", x = funbody)
-            eval(parse(text = paste("graphics[[nm]] <- function(x, y, w, h) {", funbody, "}", sep = "")), envir = environment())
+            eval(
+              parse(
+                text = paste(
+                  "graphics[[nm]] <- function(x, y, w, h) {",
+                  funbody,
+                  "}",
+                  sep = ""
+                )
+              ),
+              envir = environment()
+            )
           }
-          x_nm <- sapply(strsplit(levels(cell_groups[[cell_group]]), " : "), function(x) {
-            if (length(x) == 2) {
-              paste0(c(cell_group, x[1], x[2]), collapse = ":")
-            } else {
-              paste0(c(cell_group, x[1], ""), collapse = ":")
+          x_nm <- sapply(
+            strsplit(levels(cell_groups[[cell_group]]), " : "),
+            function(x) {
+              if (length(x) == 2) {
+                paste0(c(cell_group, x[1], x[2]), collapse = ":")
+              } else {
+                paste0(c(cell_group, x[1], ""), collapse = ":")
+              }
             }
-          })
+          )
 
           ha_cell <- list()
           ha_cell[[cellan]] <- anno_customize(
@@ -8423,12 +12919,19 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
             border = TRUE,
             verbose = FALSE
           )
-          anno_args <- c(ha_cell,
+          anno_args <- c(
+            ha_cell,
             which = ifelse(flip, "row", "column"),
             show_annotation_name = cell_group == group.by[1],
             annotation_name_side = ifelse(flip, "top", "left")
           )
-          anno_args <- c(anno_args, cell_annotation_params[setdiff(names(cell_annotation_params), names(anno_args))])
+          anno_args <- c(
+            anno_args,
+            cell_annotation_params[setdiff(
+              names(cell_annotation_params),
+              names(anno_args)
+            )]
+          )
           ha_top <- do.call(HeatmapAnnotation, args = anno_args)
           if (is.null(ha_top_list[[cell_group]])) {
             ha_top_list[[cell_group]] <- ha_top
@@ -8437,39 +12940,77 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
           }
         }
         lgd[[cellan]] <- Legend(
-          title = cellan, labels = levels(cell_anno),
-          legend_gp = gpar(fill = palette_scp(cell_anno, palette = palette, palcolor = palcolor)), border = TRUE
+          title = cellan,
+          labels = levels(cell_anno),
+          legend_gp = gpar(
+            fill = palette_scp(
+              cell_anno,
+              palette = palette,
+              palcolor = palcolor
+            )
+          ),
+          border = TRUE
         )
       } else {
         for (cell_group in group.by) {
-          subplots <- FeatureStatPlot(srt,
-            assay = assay, layer = "data", flip = flip,
-            stat.by = cellan, cells = names(cell_groups[[cell_group]]),
-            group.by = cell_group, split.by = split.by,
-            palette = palette, palcolor = palcolor,
-            fill.by = "group", same.y.lims = TRUE,
-            individual = TRUE, combine = FALSE
+          subplots <- FeatureStatPlot(
+            srt,
+            assay = assay,
+            layer = "data",
+            flip = flip,
+            stat.by = cellan,
+            cells = names(cell_groups[[cell_group]]),
+            group.by = cell_group,
+            split.by = split.by,
+            palette = palette,
+            palcolor = palcolor,
+            fill.by = "group",
+            same.y.lims = TRUE,
+            individual = TRUE,
+            combine = FALSE
           )
           subplots_list[[paste0(cellan, ":", cell_group)]] <- subplots
           graphics <- list()
           for (nm in names(subplots)) {
             funbody <- paste0(
               "
-              g <- as_grob(subplots_list[['", cellan, ":", cell_group, "']]", "[['", nm, "']]  + facet_null() + theme_void() + theme(plot.title = element_blank(), plot.subtitle = element_blank(), legend.position = 'none'));
-              g$name <- '", paste0(cellan, ":", cell_group, "-", nm), "';
+              g <- as_grob(subplots_list[['",
+              cellan,
+              ":",
+              cell_group,
+              "']]",
+              "[['",
+              nm,
+              "']]  + facet_null() + theme_void() + theme(plot.title = element_blank(), plot.subtitle = element_blank(), legend.position = 'none'));
+              g$name <- '",
+              paste0(cellan, ":", cell_group, "-", nm),
+              "';
               grid.draw(g)
               "
             )
             funbody <- gsub(pattern = "\n", replacement = "", x = funbody)
-            eval(parse(text = paste("graphics[[nm]] <- function(x, y, w, h) {", funbody, "}", sep = "")), envir = environment())
+            eval(
+              parse(
+                text = paste(
+                  "graphics[[nm]] <- function(x, y, w, h) {",
+                  funbody,
+                  "}",
+                  sep = ""
+                )
+              ),
+              envir = environment()
+            )
           }
-          x_nm <- sapply(strsplit(levels(cell_groups[[cell_group]]), " : "), function(x) {
-            if (length(x) == 2) {
-              paste0(c(cellan, cell_group, x[1], x[2]), collapse = ":")
-            } else {
-              paste0(c(cellan, cell_group, x[1], ""), collapse = ":")
+          x_nm <- sapply(
+            strsplit(levels(cell_groups[[cell_group]]), " : "),
+            function(x) {
+              if (length(x) == 2) {
+                paste0(c(cellan, cell_group, x[1], x[2]), collapse = ":")
+              } else {
+                paste0(c(cellan, cell_group, x[1], ""), collapse = ":")
+              }
             }
-          })
+          )
           ha_cell <- list()
           ha_cell[[cellan]] <- anno_customize(
             x = x_nm,
@@ -8478,12 +13019,19 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
             border = TRUE,
             verbose = FALSE
           )
-          anno_args <- c(ha_cell,
+          anno_args <- c(
+            ha_cell,
             which = ifelse(flip, "row", "column"),
             show_annotation_name = cell_group == group.by[1],
             annotation_name_side = ifelse(flip, "top", "left")
           )
-          anno_args <- c(anno_args, cell_annotation_params[setdiff(names(cell_annotation_params), names(anno_args))])
+          anno_args <- c(
+            anno_args,
+            cell_annotation_params[setdiff(
+              names(cell_annotation_params),
+              names(anno_args)
+            )]
+          )
           ha_top <- do.call(HeatmapAnnotation, args = anno_args)
           if (is.null(ha_top_list[[cell_group]])) {
             ha_top_list[[cell_group]] <- ha_top
@@ -8504,12 +13052,18 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
       row_split_raw <- row_split <- feature_split <- NULL
     } else {
       if (n_split == 1) {
-        row_split_raw <- row_split <- feature_split <- setNames(rep(1, nrow(mat_split)), rownames(mat_split))
+        row_split_raw <- row_split <- feature_split <- setNames(
+          rep(1, nrow(mat_split)),
+          rownames(mat_split)
+        )
       } else {
         if (split_method == "mfuzz") {
           status <- tryCatch(check_R("e1071"), error = identity)
           if (inherits(status, "error")) {
-            warning("The e1071 package was not found. Switch split_method to 'kmeans'", immediate. = TRUE)
+            warning(
+              "The e1071 package was not found. Switch split_method to 'kmeans'",
+              immediate. = TRUE
+            )
             split_method <- "kmeans"
           } else {
             mat_split_tmp <- mat_split
@@ -8520,19 +13074,37 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
               fuzzification <- min_fuzzification + 0.1
             } else {
               if (fuzzification <= min_fuzzification) {
-                warning("fuzzification value is samller than estimated:", round(min_fuzzification, 2), immediate. = TRUE)
+                warning(
+                  "fuzzification value is samller than estimated:",
+                  round(min_fuzzification, 2),
+                  immediate. = TRUE
+                )
               }
             }
-            cl <- e1071::cmeans(mat_split_tmp, centers = n_split, method = "cmeans", m = fuzzification)
+            cl <- e1071::cmeans(
+              mat_split_tmp,
+              centers = n_split,
+              method = "cmeans",
+              m = fuzzification
+            )
             if (length(cl$cluster) == 0) {
-              stop("Clustering with mfuzz failed (fuzzification=", round(fuzzification, 2), "). Please set a larger fuzzification parameter manually.")
+              stop(
+                "Clustering with mfuzz failed (fuzzification=",
+                round(fuzzification, 2),
+                "). Please set a larger fuzzification parameter manually."
+              )
             }
             # mfuzz.plot(eset, cl,new.window = FALSE)
             row_split <- feature_split <- cl$cluster
           }
         }
         if (split_method == "kmeans") {
-          km <- kmeans(mat_split, centers = n_split, iter.max = 1e4, nstart = 20)
+          km <- kmeans(
+            mat_split,
+            centers = n_split,
+            iter.max = 1e4,
+            nstart = 20
+          )
           row_split <- feature_split <- km$cluster
         }
         if (split_method == "hclust") {
@@ -8540,14 +13112,36 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
           row_split <- feature_split <- cutree(hc, k = n_split)
         }
       }
-      groupmean <- aggregate(t(mat_split), by = list(unlist(lapply(cell_groups[feature_split_by], levels))), mean)
-      maxgroup <- groupmean[, 1][apply(groupmean[, names(row_split)], 2, which.max)]
-      maxgroup <- factor(maxgroup, levels = levels(unlist(cell_groups[feature_split_by])))
+      groupmean <- aggregate(
+        t(mat_split),
+        by = list(unlist(lapply(cell_groups[feature_split_by], levels))),
+        mean
+      )
+      maxgroup <- groupmean[, 1][apply(
+        groupmean[, names(row_split)],
+        2,
+        which.max
+      )]
+      maxgroup <- factor(
+        maxgroup,
+        levels = levels(unlist(cell_groups[feature_split_by]))
+      )
       df <- data.frame(row_split = row_split, order_by = maxgroup)
-      df_order <- aggregate(df[["order_by"]], by = list(df[, "row_split"]), FUN = function(x) names(sort(table(x), decreasing = TRUE))[1])
+      df_order <- aggregate(
+        df[["order_by"]],
+        by = list(df[, "row_split"]),
+        FUN = function(x) names(sort(table(x), decreasing = TRUE))[1]
+      )
       df_order[, "row_split"] <- df_order[, "Group.1"]
-      df_order[["order_by"]] <- as.numeric(factor(df_order[["x"]], levels = levels(maxgroup)))
-      df_order <- df_order[order(df_order[["order_by"]], decreasing = decreasing), , drop = FALSE]
+      df_order[["order_by"]] <- as.numeric(factor(
+        df_order[["x"]],
+        levels = levels(maxgroup)
+      ))
+      df_order <- df_order[
+        order(df_order[["order_by"]], decreasing = decreasing),
+        ,
+        drop = FALSE
+      ]
       if (!is.null(split_order)) {
         df_order <- df_order[split_order, , drop = FALSE]
       }
@@ -8560,10 +13154,15 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
         split_levels <- c(split_levels, level)
       }
       row_split_raw <- row_split <- factor(row_split, levels = split_levels)
-      feature_split <- factor(feature_split, levels = paste0("C", seq_len(nrow(df_order))))
+      feature_split <- factor(
+        feature_split,
+        levels = paste0("C", seq_len(nrow(df_order)))
+      )
     }
   } else {
-    row_split_raw <- row_split <- feature_split <- feature_split[row.names(mat_split)]
+    row_split_raw <- row_split <- feature_split <- feature_split[row.names(
+      mat_split
+    )]
   }
   if (!is.null(feature_split)) {
     feature_metadata[["feature_split"]] <- feature_split
@@ -8582,11 +13181,31 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
     }
     funbody <- paste0(
       "
-      grid.rect(gp = gpar(fill = palette_scp(", paste0("c('", paste0(levels(row_split_raw), collapse = "','"), "')"), ",palette = '", feature_split_palette, "',palcolor=c(", paste0("'", paste0(unlist(feature_split_palcolor), collapse = "','"), "'"), "))[nm]))
+      grid.rect(gp = gpar(fill = palette_scp(",
+      paste0("c('", paste0(levels(row_split_raw), collapse = "','"), "')"),
+      ",palette = '",
+      feature_split_palette,
+      "',palcolor=c(",
+      paste0(
+        "'",
+        paste0(unlist(feature_split_palcolor), collapse = "','"),
+        "'"
+      ),
+      "))[nm]))
     "
     )
     funbody <- gsub(pattern = "\n", replacement = "", x = funbody)
-    eval(parse(text = paste("panel_fun <- function(index, nm) {", funbody, "}", sep = "")), envir = environment())
+    eval(
+      parse(
+        text = paste(
+          "panel_fun <- function(index, nm) {",
+          funbody,
+          "}",
+          sep = ""
+        )
+      ),
+      envir = environment()
+    )
     ha_clusters <- HeatmapAnnotation(
       features_split = anno_block(
         align_to = split(seq_along(row_split_raw), row_split_raw),
@@ -8605,8 +13224,18 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
       ha_left <- c(ha_left, ha_clusters)
     }
     lgd[["Cluster"]] <- Legend(
-      title = "Cluster", labels = intersect(levels(row_split_raw), row_split_raw),
-      legend_gp = gpar(fill = palette_scp(intersect(levels(row_split_raw), row_split_raw), type = "discrete", palette = feature_split_palette, palcolor = feature_split_palcolor, matched = TRUE)), border = TRUE
+      title = "Cluster",
+      labels = intersect(levels(row_split_raw), row_split_raw),
+      legend_gp = gpar(
+        fill = palette_scp(
+          intersect(levels(row_split_raw), row_split_raw),
+          type = "discrete",
+          palette = feature_split_palette,
+          palcolor = feature_split_palcolor,
+          matched = TRUE
+        )
+      ),
+      border = TRUE
     )
   }
 
@@ -8614,7 +13243,11 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
     mat_cluster <- do.call(cbind, mat_list[cluster_features_by])
     if (is.null(row_split)) {
       dend <- as.dendrogram(hclust(as.dist(dist(mat_cluster))))
-      dend_ordered <- reorder(dend, wts = colMeans(mat_cluster), agglo.FUN = mean)
+      dend_ordered <- reorder(
+        dend,
+        wts = colMeans(mat_cluster),
+        agglo.FUN = mean
+      )
       cluster_rows <- dend_ordered
     } else {
       row_split <- length(unique(row_split_raw))
@@ -8637,15 +13270,24 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
   )
   ht_args <- c(ht_args, ht_params[setdiff(names(ht_params), names(ht_args))])
   ht_list <- do.call(Heatmap, args = ht_args)
-  features_ordered <- rownames(mat_list[[1]])[unlist(suppressWarnings(row_order(ht_list)))]
-  feature_metadata[["index"]] <- setNames(object = seq_along(features_ordered), nm = features_ordered)[rownames(feature_metadata)]
+  features_ordered <- rownames(mat_list[[1]])[unlist(suppressWarnings(row_order(
+    ht_list
+  )))]
+  feature_metadata[["index"]] <- setNames(
+    object = seq_along(features_ordered),
+    nm = features_ordered
+  )[rownames(feature_metadata)]
 
   if (is.null(features_label)) {
     if (nlabel > 0) {
       if (length(features) > nlabel) {
         index_from <- ceiling((length(features_ordered) / nlabel) / 2)
         index_to <- length(features_ordered)
-        index <- unique(round(seq(from = index_from, to = index_to, length.out = nlabel)))
+        index <- unique(round(seq(
+          from = index_from,
+          to = index_to,
+          length.out = nlabel
+        )))
       } else {
         index <- seq_along(features_ordered)
       }
@@ -8656,20 +13298,27 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
     index <- which(features_ordered %in% features_label)
     drop <- setdiff(features_label, features_ordered)
     if (length(drop) > 0) {
-      warning(paste0(paste0(drop, collapse = ","), "was not found in the features"), immediate. = TRUE)
+      warning(
+        paste0(paste0(drop, collapse = ","), "was not found in the features"),
+        immediate. = TRUE
+      )
     }
   }
   if (length(index) > 0) {
     ha_mark <- HeatmapAnnotation(
       gene = anno_mark(
         at = which(rownames(feature_metadata) %in% features_ordered[index]),
-        labels = feature_metadata[which(rownames(feature_metadata) %in% features_ordered[index]), "features"],
+        labels = feature_metadata[
+          which(rownames(feature_metadata) %in% features_ordered[index]),
+          "features"
+        ],
         side = ifelse(flip, "top", "left"),
         labels_gp = gpar(fontsize = label_size, col = label_color),
         link_gp = gpar(fontsize = label_size, col = label_color),
         which = ifelse(flip, "column", "row")
       ),
-      which = ifelse(flip, "column", "row"), show_annotation_name = FALSE
+      which = ifelse(flip, "column", "row"),
+      show_annotation_name = FALSE
     )
     if (is.null(ha_left)) {
       ha_left <- ha_mark
@@ -8694,13 +13343,29 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
         ha_feature <- list()
         ha_feature[[featan]] <- anno_simple(
           x = as.character(featan_values),
-          col = palette_scp(featan_values, palette = palette, palcolor = palcolor),
+          col = palette_scp(
+            featan_values,
+            palette = palette,
+            palcolor = palcolor
+          ),
           na_col = "transparent",
           which = ifelse(flip, "column", "row"),
           border = TRUE
         )
-        anno_args <- c(ha_feature, which = ifelse(flip, "column", "row"), show_annotation_name = TRUE, annotation_name_side = ifelse(flip, "left", "top"), border = TRUE)
-        anno_args <- c(anno_args, feature_annotation_params[setdiff(names(feature_annotation_params), names(anno_args))])
+        anno_args <- c(
+          ha_feature,
+          which = ifelse(flip, "column", "row"),
+          show_annotation_name = TRUE,
+          annotation_name_side = ifelse(flip, "left", "top"),
+          border = TRUE
+        )
+        anno_args <- c(
+          anno_args,
+          feature_annotation_params[setdiff(
+            names(feature_annotation_params),
+            names(anno_args)
+          )]
+        )
         ha_feature <- do.call(HeatmapAnnotation, args = anno_args)
         if (is.null(ha_right)) {
           ha_right <- ha_feature
@@ -8708,12 +13373,24 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
           ha_right <- c(ha_right, ha_feature)
         }
         lgd[[featan]] <- Legend(
-          title = featan, labels = levels(featan_values),
-          legend_gp = gpar(fill = palette_scp(featan_values, palette = palette, palcolor = palcolor)), border = TRUE
+          title = featan,
+          labels = levels(featan_values),
+          legend_gp = gpar(
+            fill = palette_scp(
+              featan_values,
+              palette = palette,
+              palcolor = palcolor
+            )
+          ),
+          border = TRUE
         )
       } else {
         col_fun <- circlize::colorRamp2(
-          breaks = seq(min(featan_values, na.rm = TRUE), max(featan_values, na.rm = TRUE), length = 100),
+          breaks = seq(
+            min(featan_values, na.rm = TRUE),
+            max(featan_values, na.rm = TRUE),
+            length = 100
+          ),
           colors = palette_scp(palette = palette, palcolor = palcolor)
         )
         ha_feature <- list()
@@ -8724,8 +13401,20 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
           which = ifelse(flip, "column", "row"),
           border = TRUE
         )
-        anno_args <- c(ha_feature, which = ifelse(flip, "column", "row"), show_annotation_name = TRUE, annotation_name_side = ifelse(flip, "left", "top"), border = TRUE)
-        anno_args <- c(anno_args, feature_annotation_params[setdiff(names(feature_annotation_params), names(anno_args))])
+        anno_args <- c(
+          ha_feature,
+          which = ifelse(flip, "column", "row"),
+          show_annotation_name = TRUE,
+          annotation_name_side = ifelse(flip, "left", "top"),
+          border = TRUE
+        )
+        anno_args <- c(
+          anno_args,
+          feature_annotation_params[setdiff(
+            names(feature_annotation_params),
+            names(anno_args)
+          )]
+        )
         ha_feature <- do.call(HeatmapAnnotation, args = anno_args)
         if (is.null(ha_right)) {
           ha_right <- ha_feature
@@ -8733,24 +13422,53 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
           ha_right <- c(ha_right, ha_feature)
         }
         lgd[[featan]] <- Legend(
-          title = featan, col_fun = col_fun, border = TRUE
+          title = featan,
+          col_fun = col_fun,
+          border = TRUE
         )
       }
     }
   }
 
   enrichment <- heatmap_enrichment(
-    geneID = feature_metadata[["features"]], geneID_groups = feature_metadata[["feature_split"]],
-    feature_split_palette = feature_split_palette, feature_split_palcolor = feature_split_palcolor,
-    ha_right = ha_right, flip = flip,
-    anno_terms = anno_terms, anno_keys = anno_keys, anno_features = anno_features,
-    terms_width = terms_width, terms_fontsize = terms_fontsize,
-    keys_width = keys_width, keys_fontsize = keys_fontsize,
-    features_width = features_width, features_fontsize = features_fontsize,
-    IDtype = IDtype, species = species, db_update = db_update, db_version = db_version, db_combine = db_combine, convert_species = convert_species, Ensembl_version = Ensembl_version, mirror = mirror,
-    db = db, TERM2GENE = TERM2GENE, TERM2NAME = TERM2NAME, minGSSize = minGSSize, maxGSSize = maxGSSize,
-    GO_simplify = GO_simplify, GO_simplify_cutoff = GO_simplify_cutoff, simplify_method = simplify_method, simplify_similarityCutoff = simplify_similarityCutoff,
-    pvalueCutoff = pvalueCutoff, padjustCutoff = padjustCutoff, topTerm = topTerm, show_termid = show_termid, topWord = topWord, words_excluded = words_excluded
+    geneID = feature_metadata[["features"]],
+    geneID_groups = feature_metadata[["feature_split"]],
+    feature_split_palette = feature_split_palette,
+    feature_split_palcolor = feature_split_palcolor,
+    ha_right = ha_right,
+    flip = flip,
+    anno_terms = anno_terms,
+    anno_keys = anno_keys,
+    anno_features = anno_features,
+    terms_width = terms_width,
+    terms_fontsize = terms_fontsize,
+    keys_width = keys_width,
+    keys_fontsize = keys_fontsize,
+    features_width = features_width,
+    features_fontsize = features_fontsize,
+    IDtype = IDtype,
+    species = species,
+    db_update = db_update,
+    db_version = db_version,
+    db_combine = db_combine,
+    convert_species = convert_species,
+    Ensembl_version = Ensembl_version,
+    mirror = mirror,
+    db = db,
+    TERM2GENE = TERM2GENE,
+    TERM2NAME = TERM2NAME,
+    minGSSize = minGSSize,
+    maxGSSize = maxGSSize,
+    GO_simplify = GO_simplify,
+    GO_simplify_cutoff = GO_simplify_cutoff,
+    simplify_method = simplify_method,
+    simplify_similarityCutoff = simplify_similarityCutoff,
+    pvalueCutoff = pvalueCutoff,
+    padjustCutoff = padjustCutoff,
+    topTerm = topTerm,
+    show_termid = show_termid,
+    topWord = topWord,
+    words_excluded = words_excluded
   )
   res <- enrichment$res
   ha_right <- enrichment$ha_right
@@ -8778,14 +13496,21 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
       right_annotation <- NULL
     }
     if (isTRUE(add_violin)) {
-      vlnplots <- FeatureStatPlot(srt,
-        assay = assay, layer = "data", flip = flip,
+      vlnplots <- FeatureStatPlot(
+        srt,
+        assay = assay,
+        layer = "data",
+        flip = flip,
         stat.by = rownames(mat_list[[cell_group]]),
         cells = names(cell_groups[[cell_group]]),
-        group.by = cell_group, split.by = split.by,
-        palette = fill_palette, palcolor = fill_palcolor,
-        fill.by = fill.by, same.y.lims = TRUE,
-        individual = TRUE, combine = FALSE
+        group.by = cell_group,
+        split.by = split.by,
+        palette = fill_palette,
+        palcolor = fill_palcolor,
+        fill.by = fill.by,
+        same.y.lims = TRUE,
+        individual = TRUE,
+        combine = FALSE
       )
       lgd[["ht"]] <- NULL
       # legend <- ggpubr::get_legend(vlnplots[[1]])
@@ -8804,20 +13529,28 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
       # lgd[["ht"]] <- Legend(title = " ", at = names(graphics), graphics = graphics, border = TRUE)
 
       for (nm in names(vlnplots)) {
-        gtable <- cowplot::as_grob(vlnplots[[nm]] + facet_null() + theme_void() + theme(legend.position = "none"))
+        gtable <- cowplot::as_grob(
+          vlnplots[[nm]] +
+            facet_null() +
+            theme_void() +
+            theme(legend.position = "none")
+        )
         gtable$name <- paste0(cell_group, "-", nm)
         vlnplots[[nm]] <- gtable
       }
       vlnplots_list[[paste0("heatmap_group:", cell_group)]] <- vlnplots
       x_nm <- rownames(mat_list[[cell_group]])
       x_nm_list[[paste0("heatmap_group:", cell_group)]] <- x_nm
-      y_nm <- sapply(strsplit(levels(cell_groups[[cell_group]]), " : "), function(x) {
-        if (length(x) == 2) {
-          paste0(c(cell_group, x[1], x[2]), collapse = ":")
-        } else {
-          paste0(c(cell_group, x[1], ""), collapse = ":")
+      y_nm <- sapply(
+        strsplit(levels(cell_groups[[cell_group]]), " : "),
+        function(x) {
+          if (length(x) == 2) {
+            paste0(c(cell_group, x[1], x[2]), collapse = ":")
+          } else {
+            paste0(c(cell_group, x[1], ""), collapse = ":")
+          }
         }
-      })
+      )
       y_nm_list[[paste0("heatmap_group:", cell_group)]] <- y_nm
 
       # popViewport()
@@ -8840,52 +13573,83 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
         );"
       },
       if (isTRUE(add_bg)) {
-        paste0("
+        paste0(
+          "
         grid.rect(x, y,
           width = width, height = height,
-          gp = gpar(col = fill, lwd = 1, fill = adjcolors(fill, ", bg_alpha, "))
+          gp = gpar(col = fill, lwd = 1, fill = adjcolors(fill, ",
+          bg_alpha,
+          "))
         );
-        ")
+        "
+        )
       },
       if (isTRUE(add_reticle)) {
-        paste0("
+        paste0(
+          "
         ind_mat = restore_matrix(j, i, x, y);
         ind_top = ind_mat[1,];
         ind_left = ind_mat[,1];
         for(col in seq_len(ncol(ind_mat))){
-          grid.lines(x = unit(rep(x[ind_top[col]],each=2),'npc'),y = unit(c(0,1),'npc'),gp = gpar(col = '", reticle_color, "', lwd = 1.5));
+          grid.lines(x = unit(rep(x[ind_top[col]],each=2),'npc'),y = unit(c(0,1),'npc'),gp = gpar(col = '",
+          reticle_color,
+          "', lwd = 1.5));
         };
         for(row in seq_len(nrow(ind_mat))){
-          grid.lines(x = unit(c(0,1),'npc'),y = unit(rep(y[ind_left[row]],each=2),'npc'),gp = gpar(col = '", reticle_color, "', lwd = 1.5));
+          grid.lines(x = unit(c(0,1),'npc'),y = unit(rep(y[ind_left[row]],each=2),'npc'),gp = gpar(col = '",
+          reticle_color,
+          "', lwd = 1.5));
         };
-        ")
+        "
+        )
       },
       if (isTRUE(add_dot)) {
-        paste0("perc <- pindex(mat_perc_list[['", cell_group, "']]", ", i, j);
+        paste0(
+          "perc <- pindex(mat_perc_list[['",
+          cell_group,
+          "']]",
+          ", i, j);
         grid.points(x, y,
           pch = 21,
           size = dot_size*perc,
           gp = gpar(col = 'black', lwd = 1, fill = fill)
         );
-        ")
+        "
+        )
       },
       if (isTRUE(add_violin)) {
         if (isTRUE(flip)) {
-          paste0("
-        groblist <- extractgrobs(vlnplots = vlnplots_list[[paste0('heatmap_group:', '", cell_group, "')]],
-               x_nm =  x_nm_list[[paste0('heatmap_group:', '", cell_group, "')]],
-               y_nm= y_nm_list[[paste0('heatmap_group:', '", cell_group, "')]],
+          paste0(
+            "
+        groblist <- extractgrobs(vlnplots = vlnplots_list[[paste0('heatmap_group:', '",
+            cell_group,
+            "')]],
+               x_nm =  x_nm_list[[paste0('heatmap_group:', '",
+            cell_group,
+            "')]],
+               y_nm= y_nm_list[[paste0('heatmap_group:', '",
+            cell_group,
+            "')]],
                x = j,y = i);
         grid_draw(groblist, x = x, y = y, width = width, height = height);
-        ")
+        "
+          )
         } else {
-          paste0("
-        groblist <- extractgrobs(vlnplots = vlnplots_list[[paste0('heatmap_group:', '", cell_group, "')]],
-               x_nm =  x_nm_list[[paste0('heatmap_group:', '", cell_group, "')]],
-               y_nm= y_nm_list[[paste0('heatmap_group:', '", cell_group, "')]],
+          paste0(
+            "
+        groblist <- extractgrobs(vlnplots = vlnplots_list[[paste0('heatmap_group:', '",
+            cell_group,
+            "')]],
+               x_nm =  x_nm_list[[paste0('heatmap_group:', '",
+            cell_group,
+            "')]],
+               y_nm= y_nm_list[[paste0('heatmap_group:', '",
+            cell_group,
+            "')]],
                x = i,y = j);
         grid_draw(groblist, x = x, y = y, width = width, height = height);
-        ")
+        "
+          )
         }
       }
     )
@@ -8905,24 +13669,60 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
     # ind = unique(ind_mat);
     # grid_draw(groblist,x=x[ind],y= y[ind]);
     funbody <- gsub(pattern = "\n", replacement = "", x = funbody)
-    eval(parse(text = paste("layer_fun <- function(j, i, x, y, width, height, fill) {", funbody, "}", sep = "")), envir = environment())
+    eval(
+      parse(
+        text = paste(
+          "layer_fun <- function(j, i, x, y, width, height, fill) {",
+          funbody,
+          "}",
+          sep = ""
+        )
+      ),
+      envir = environment()
+    )
     ht_args <- list(
       name = cell_group,
       matrix = if (flip) t(mat_list[[cell_group]]) else mat_list[[cell_group]],
       col = colors,
       layer_fun = getFunction("layer_fun", where = environment()),
-      row_title = row_title %||% if (flip) ifelse(cell_group != "All.groups", cell_group, "") else character(0),
+      row_title = row_title %||%
+        if (flip) {
+          ifelse(cell_group != "All.groups", cell_group, "")
+        } else {
+          character(0)
+        },
       row_title_side = row_title_side,
-      column_title = column_title %||% if (flip) character(0) else ifelse(cell_group != "All.groups", cell_group, ""),
+      column_title = column_title %||%
+        if (flip) {
+          character(0)
+        } else {
+          ifelse(cell_group != "All.groups", cell_group, "")
+        },
       column_title_side = column_title_side,
       row_title_rot = row_title_rot,
       column_title_rot = column_title_rot,
       row_split = if (flip) column_split_list[[cell_group]] else row_split,
       column_split = if (flip) row_split else column_split_list[[cell_group]],
-      cluster_rows = if (flip) cluster_columns_list[[cell_group]] else cluster_rows,
-      cluster_columns = if (flip) cluster_rows else cluster_columns_list[[cell_group]],
-      cluster_row_slices = if (flip) cluster_column_slices else cluster_row_slices,
-      cluster_column_slices = if (flip) cluster_row_slices else cluster_column_slices,
+      cluster_rows = if (flip) {
+        cluster_columns_list[[cell_group]]
+      } else {
+        cluster_rows
+      },
+      cluster_columns = if (flip) {
+        cluster_rows
+      } else {
+        cluster_columns_list[[cell_group]]
+      },
+      cluster_row_slices = if (flip) {
+        cluster_column_slices
+      } else {
+        cluster_row_slices
+      },
+      cluster_column_slices = if (flip) {
+        cluster_row_slices
+      } else {
+        cluster_column_slices
+      },
       show_row_names = show_row_names,
       show_column_names = show_column_names,
       row_names_side = row_names_side,
@@ -8930,7 +13730,11 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
       row_names_rot = row_names_rot,
       column_names_rot = column_names_rot,
       top_annotation = if (flip) left_annotation else ha_top_list[[cell_group]],
-      left_annotation = if (flip) ha_top_list[[cell_group]] else left_annotation,
+      left_annotation = if (flip) {
+        ha_top_list[[cell_group]]
+      } else {
+        left_annotation
+      },
       bottom_annotation = if (flip) right_annotation else NULL,
       right_annotation = if (flip) NULL else right_annotation,
       show_heatmap_legend = FALSE,
@@ -8938,11 +13742,24 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
       use_raster = use_raster,
       raster_device = raster_device,
       raster_by_magick = raster_by_magick,
-      width = if (is.numeric(width[cell_group])) unit(width[cell_group], units = units) else NULL,
-      height = if (is.numeric(height[cell_group])) unit(height[cell_group], units = units) else NULL
+      width = if (is.numeric(width[cell_group])) {
+        unit(width[cell_group], units = units)
+      } else {
+        NULL
+      },
+      height = if (is.numeric(height[cell_group])) {
+        unit(height[cell_group], units = units)
+      } else {
+        NULL
+      }
     )
     if (any(names(ht_params) %in% names(ht_args))) {
-      warning("ht_params: ", paste0(intersect(names(ht_params), names(ht_args)), collapse = ","), " were duplicated and will not be used.", immediate. = TRUE)
+      warning(
+        "ht_params: ",
+        paste0(intersect(names(ht_params), names(ht_args)), collapse = ","),
+        " were duplicated and will not be used.",
+        immediate. = TRUE
+      )
     }
     ht_args <- c(ht_args, ht_params[setdiff(names(ht_params), names(ht_args))])
     if (isTRUE(flip)) {
@@ -8956,18 +13773,31 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
     }
   }
 
-  if ((!is.null(row_split) && length(index) > 0) || any(c(anno_terms, anno_keys, anno_features)) || !is.null(width) || !is.null(height)) {
+  if (
+    (!is.null(row_split) && length(index) > 0) ||
+      any(c(anno_terms, anno_keys, anno_features)) ||
+      !is.null(width) ||
+      !is.null(height)
+  ) {
     fix <- TRUE
     if (is.null(width) || is.null(height)) {
-      message("\nThe size of the heatmap is fixed because certain elements are not scalable.\nThe width and height of the heatmap are determined by the size of the current viewport.\nIf you want to have more control over the size, you can manually set the parameters 'width' and 'height'.\n")
+      message(
+        "\nThe size of the heatmap is fixed because certain elements are not scalable.\nThe width and height of the heatmap are determined by the size of the current viewport.\nIf you want to have more control over the size, you can manually set the parameters 'width' and 'height'.\n"
+      )
     }
   } else {
     fix <- FALSE
   }
   rendersize <- heatmap_rendersize(
-    width = width, height = height, units = units,
-    ha_top_list = ha_top_list, ha_left = ha_left, ha_right = ha_right,
-    ht_list = ht_list, legend_list = lgd, flip = flip
+    width = width,
+    height = height,
+    units = units,
+    ha_top_list = ha_top_list,
+    ha_left = ha_left,
+    ha_right = ha_right,
+    ht_list = ht_list,
+    legend_list = lgd,
+    flip = flip
   )
   width_sum <- rendersize[["width_sum"]]
   height_sum <- rendersize[["height_sum"]]
@@ -8978,8 +13808,13 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
 
   if (isTRUE(fix)) {
     fixsize <- heatmap_fixsize(
-      width = width, width_sum = width_sum, height = height, height_sum = height_sum, units = units,
-      ht_list = ht_list, legend_list = lgd
+      width = width,
+      width_sum = width_sum,
+      height = height,
+      height_sum = height_sum,
+      units = units,
+      ht_list = ht_list,
+      legend_list = lgd
     )
     ht_width <- fixsize[["ht_width"]]
     ht_height <- fixsize[["ht_height"]]
@@ -8990,12 +13825,20 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
       {
         draw(ht_list, annotation_legend_list = lgd)
         for (enrich in db) {
-          enrich_anno <- names(ha_right)[grep(paste0("_split_", enrich), names(ha_right))]
+          enrich_anno <- names(ha_right)[grep(
+            paste0("_split_", enrich),
+            names(ha_right)
+          )]
           if (length(enrich_anno) > 0) {
             for (enrich_anno_element in enrich_anno) {
               enrich_obj <- strsplit(enrich_anno_element, "_split_")[[1]][1]
               decorate_annotation(enrich_anno_element, slice = 1, {
-                grid.text(paste0(enrich, " (", enrich_obj, ")"), x = unit(1, "npc"), y = unit(1, "npc") + unit(2.5, "mm"), just = c("left", "bottom"))
+                grid.text(
+                  paste0(enrich, " (", enrich_obj, ")"),
+                  x = unit(1, "npc"),
+                  y = unit(1, "npc") + unit(2.5, "mm"),
+                  just = c("left", "bottom")
+                )
               })
             }
           }
@@ -9013,12 +13856,20 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
       {
         draw(ht_list, annotation_legend_list = lgd)
         for (enrich in db) {
-          enrich_anno <- names(ha_right)[grep(paste0("_split_", enrich), names(ha_right))]
+          enrich_anno <- names(ha_right)[grep(
+            paste0("_split_", enrich),
+            names(ha_right)
+          )]
           if (length(enrich_anno) > 0) {
             for (enrich_anno_element in enrich_anno) {
               enrich_obj <- strsplit(enrich_anno_element, "_split_")[[1]][1]
               decorate_annotation(enrich_anno_element, slice = 1, {
-                grid.text(paste0(enrich, " (", enrich_obj, ")"), x = unit(1, "npc"), y = unit(1, "npc") + unit(2.5, "mm"), just = c("left", "bottom"))
+                grid.text(
+                  paste0(enrich, " (", enrich_obj, ")"),
+                  x = unit(1, "npc"),
+                  y = unit(1, "npc") + unit(2.5, "mm"),
+                  just = c("left", "bottom")
+                )
               })
             }
           }
@@ -9032,7 +13883,12 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
   }
 
   if (isTRUE(fix)) {
-    p <- panel_fix_overall(gTree, width = as.numeric(ht_width), height = as.numeric(ht_height), units = units)
+    p <- panel_fix_overall(
+      gTree,
+      width = as.numeric(ht_width),
+      height = as.numeric(ht_height),
+      units = units
+    )
   } else {
     p <- wrap_plots(gTree)
   }
@@ -9123,29 +13979,118 @@ GroupHeatmap <- function(srt, features = NULL, group.by = NULL, split.by = NULL,
 #' @importFrom Matrix t
 #' @importFrom proxyC dist
 #' @export
-FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, split.by = NULL, within_groups = FALSE, max_cells = 100, cell_order = NULL, border = TRUE, flip = FALSE,
-                           layer = "counts", assay = NULL, exp_method = c("zscore", "raw", "fc", "log2fc", "log1p"), exp_legend_title = NULL, limits = NULL,
-                           lib_normalize = identical(layer, "counts"), libsize = NULL,
-                           feature_split = NULL, feature_split_by = NULL, n_split = NULL, split_order = NULL,
-                           split_method = c("kmeans", "hclust", "mfuzz"), decreasing = FALSE, fuzzification = NULL,
-                           cluster_features_by = NULL, cluster_rows = FALSE, cluster_columns = FALSE, cluster_row_slices = FALSE, cluster_column_slices = FALSE,
-                           show_row_names = FALSE, show_column_names = FALSE, row_names_side = ifelse(flip, "left", "right"), column_names_side = ifelse(flip, "bottom", "top"), row_names_rot = 0, column_names_rot = 90,
-                           row_title = NULL, column_title = NULL, row_title_side = "left", column_title_side = "top", row_title_rot = 0, column_title_rot = ifelse(flip, 90, 0),
-                           anno_terms = FALSE, anno_keys = FALSE, anno_features = FALSE,
-                           terms_width = unit(4, "in"), terms_fontsize = 8,
-                           keys_width = unit(2, "in"), keys_fontsize = c(6, 10),
-                           features_width = unit(2, "in"), features_fontsize = c(6, 10),
-                           IDtype = "symbol", species = "Homo_sapiens", db_update = FALSE, db_version = "latest", db_combine = FALSE, convert_species = FALSE, Ensembl_version = 103, mirror = NULL,
-                           db = "GO_BP", TERM2GENE = NULL, TERM2NAME = NULL, minGSSize = 10, maxGSSize = 500,
-                           GO_simplify = FALSE, GO_simplify_cutoff = "p.adjust < 0.05", simplify_method = "Wang", simplify_similarityCutoff = 0.7,
-                           pvalueCutoff = NULL, padjustCutoff = 0.05, topTerm = 5, show_termid = FALSE, topWord = 20, words_excluded = NULL,
-                           nlabel = 20, features_label = NULL, label_size = 10, label_color = "black",
-                           heatmap_palette = "RdBu", heatmap_palcolor = NULL, group_palette = "Paired", group_palcolor = NULL,
-                           cell_split_palette = "simspec", cell_split_palcolor = NULL, feature_split_palette = "simspec", feature_split_palcolor = NULL,
-                           cell_annotation = NULL, cell_annotation_palette = "Paired", cell_annotation_palcolor = NULL, cell_annotation_params = if (flip) list(width = unit(5, "mm")) else list(height = unit(5, "mm")),
-                           feature_annotation = NULL, feature_annotation_palette = "Dark2", feature_annotation_palcolor = NULL, feature_annotation_params = if (flip) list(height = unit(5, "mm")) else list(width = unit(5, "mm")),
-                           use_raster = NULL, raster_device = "png", raster_by_magick = FALSE, height = NULL, width = NULL, units = "inch",
-                           seed = 11, ht_params = list(), BPPARAM = BiocParallel::bpparam()) {
+FeatureHeatmap <- function(
+  srt,
+  features = NULL,
+  cells = NULL,
+  group.by = NULL,
+  split.by = NULL,
+  within_groups = FALSE,
+  max_cells = 100,
+  cell_order = NULL,
+  border = TRUE,
+  flip = FALSE,
+  layer = "counts",
+  assay = NULL,
+  exp_method = c("zscore", "raw", "fc", "log2fc", "log1p"),
+  exp_legend_title = NULL,
+  limits = NULL,
+  lib_normalize = identical(layer, "counts"),
+  libsize = NULL,
+  feature_split = NULL,
+  feature_split_by = NULL,
+  n_split = NULL,
+  split_order = NULL,
+  split_method = c("kmeans", "hclust", "mfuzz"),
+  decreasing = FALSE,
+  fuzzification = NULL,
+  cluster_features_by = NULL,
+  cluster_rows = FALSE,
+  cluster_columns = FALSE,
+  cluster_row_slices = FALSE,
+  cluster_column_slices = FALSE,
+  show_row_names = FALSE,
+  show_column_names = FALSE,
+  row_names_side = ifelse(flip, "left", "right"),
+  column_names_side = ifelse(flip, "bottom", "top"),
+  row_names_rot = 0,
+  column_names_rot = 90,
+  row_title = NULL,
+  column_title = NULL,
+  row_title_side = "left",
+  column_title_side = "top",
+  row_title_rot = 0,
+  column_title_rot = ifelse(flip, 90, 0),
+  anno_terms = FALSE,
+  anno_keys = FALSE,
+  anno_features = FALSE,
+  terms_width = unit(4, "in"),
+  terms_fontsize = 8,
+  keys_width = unit(2, "in"),
+  keys_fontsize = c(6, 10),
+  features_width = unit(2, "in"),
+  features_fontsize = c(6, 10),
+  IDtype = "symbol",
+  species = "Homo_sapiens",
+  db_update = FALSE,
+  db_version = "latest",
+  db_combine = FALSE,
+  convert_species = FALSE,
+  Ensembl_version = 103,
+  mirror = NULL,
+  db = "GO_BP",
+  TERM2GENE = NULL,
+  TERM2NAME = NULL,
+  minGSSize = 10,
+  maxGSSize = 500,
+  GO_simplify = FALSE,
+  GO_simplify_cutoff = "p.adjust < 0.05",
+  simplify_method = "Wang",
+  simplify_similarityCutoff = 0.7,
+  pvalueCutoff = NULL,
+  padjustCutoff = 0.05,
+  topTerm = 5,
+  show_termid = FALSE,
+  topWord = 20,
+  words_excluded = NULL,
+  nlabel = 20,
+  features_label = NULL,
+  label_size = 10,
+  label_color = "black",
+  heatmap_palette = "RdBu",
+  heatmap_palcolor = NULL,
+  group_palette = "Paired",
+  group_palcolor = NULL,
+  cell_split_palette = "simspec",
+  cell_split_palcolor = NULL,
+  feature_split_palette = "simspec",
+  feature_split_palcolor = NULL,
+  cell_annotation = NULL,
+  cell_annotation_palette = "Paired",
+  cell_annotation_palcolor = NULL,
+  cell_annotation_params = if (flip) {
+    list(width = unit(5, "mm"))
+  } else {
+    list(height = unit(5, "mm"))
+  },
+  feature_annotation = NULL,
+  feature_annotation_palette = "Dark2",
+  feature_annotation_palcolor = NULL,
+  feature_annotation_params = if (flip) {
+    list(height = unit(5, "mm"))
+  } else {
+    list(width = unit(5, "mm"))
+  },
+  use_raster = NULL,
+  raster_device = "png",
+  raster_by_magick = FALSE,
+  height = NULL,
+  width = NULL,
+  units = "inch",
+  seed = 11,
+  ht_params = list(),
+  BPPARAM = BiocParallel::bpparam()
+) {
   set.seed(seed)
   if (isTRUE(raster_by_magick)) {
     check_R("magick")
@@ -9155,7 +14100,12 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
   data_nm <- c(ifelse(isTRUE(lib_normalize), "normalized", ""), layer)
   data_nm <- paste(data_nm[data_nm != ""], collapse = " ")
   if (length(exp_method) == 1 && is.function(exp_method)) {
-    exp_name <- paste0(as.character(x = formals()$exp_method), "(", data_nm, ")")
+    exp_name <- paste0(
+      as.character(x = formals()$exp_method),
+      "(",
+      data_nm,
+      ")"
+    )
   } else {
     exp_method <- match.arg(exp_method)
     exp_name <- paste0(exp_method, "(", data_nm, ")")
@@ -9171,12 +14121,18 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
     group.by <- "All.groups"
   }
   if (any(!group.by %in% colnames(srt@meta.data))) {
-    stop(group.by[!group.by %in% colnames(srt@meta.data)], " is not in the meta data of the Seurat object.")
+    stop(
+      group.by[!group.by %in% colnames(srt@meta.data)],
+      " is not in the meta data of the Seurat object."
+    )
   }
   if (!is.null(group.by)) {
     for (g in group.by) {
       if (!is.factor(srt@meta.data[[g]])) {
-        srt@meta.data[[g]] <- factor(srt@meta.data[[g]], levels = unique(srt@meta.data[[g]]))
+        srt@meta.data[[g]] <- factor(
+          srt@meta.data[[g]],
+          levels = unique(srt@meta.data[[g]])
+        )
       }
     }
   }
@@ -9184,11 +14140,17 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
     stop("'split.by' only support one variable.")
   }
   if (any(!split.by %in% colnames(srt@meta.data))) {
-    stop(split.by[!split.by %in% colnames(srt@meta.data)], " is not in the meta data of the Seurat object.")
+    stop(
+      split.by[!split.by %in% colnames(srt@meta.data)],
+      " is not in the meta data of the Seurat object."
+    )
   }
   if (!is.null(split.by)) {
     if (!is.factor(srt@meta.data[[split.by]])) {
-      srt@meta.data[[split.by]] <- factor(srt@meta.data[[split.by]], levels = unique(srt@meta.data[[split.by]]))
+      srt@meta.data[[split.by]] <- factor(
+        srt@meta.data[[split.by]],
+        levels = unique(srt@meta.data[[split.by]])
+      )
     }
   }
   if (length(group_palette) == 1) {
@@ -9207,7 +14169,10 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
       groups <- split(colnames(srt), srt[[g, drop = TRUE]])
       new.group_palette[g] <- list(rep(new.group_palette[g], length(groups)))
       for (nm in names(groups)) {
-        srt[[make.names(nm)]] <- factor(NA, levels = levels(srt[[g, drop = TRUE]]))
+        srt[[make.names(nm)]] <- factor(
+          NA,
+          levels = levels(srt[[g, drop = TRUE]])
+        )
         srt[[make.names(nm)]][colnames(srt) %in% groups[[nm]], ] <- nm
         new.group.by <- c(new.group.by, make.names(nm))
       }
@@ -9229,32 +14194,82 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
   }
   if (!is.null(cell_annotation)) {
     if (length(cell_annotation_palette) == 1) {
-      cell_annotation_palette <- rep(cell_annotation_palette, length(cell_annotation))
+      cell_annotation_palette <- rep(
+        cell_annotation_palette,
+        length(cell_annotation)
+      )
     }
     if (length(cell_annotation_palcolor) == 1) {
-      cell_annotation_palcolor <- rep(cell_annotation_palcolor, length(cell_annotation))
+      cell_annotation_palcolor <- rep(
+        cell_annotation_palcolor,
+        length(cell_annotation)
+      )
     }
-    npal <- unique(c(length(cell_annotation_palette), length(cell_annotation_palcolor), length(cell_annotation)))
+    npal <- unique(c(
+      length(cell_annotation_palette),
+      length(cell_annotation_palcolor),
+      length(cell_annotation)
+    ))
     if (length(npal[npal != 0]) > 1) {
-      stop("cell_annotation_palette and cell_annotation_palcolor must be the same length as cell_annotation")
+      stop(
+        "cell_annotation_palette and cell_annotation_palcolor must be the same length as cell_annotation"
+      )
     }
-    if (any(!cell_annotation %in% c(colnames(srt@meta.data), rownames(srt@assays[[assay]])))) {
-      stop("cell_annotation: ", paste0(cell_annotation[!cell_annotation %in% c(colnames(srt@meta.data), rownames(srt@assays[[assay]]))], collapse = ","), " is not in the Seurat object.")
+    if (
+      any(
+        !cell_annotation %in%
+          c(colnames(srt@meta.data), rownames(srt@assays[[assay]]))
+      )
+    ) {
+      stop(
+        "cell_annotation: ",
+        paste0(
+          cell_annotation[
+            !cell_annotation %in%
+              c(colnames(srt@meta.data), rownames(srt@assays[[assay]]))
+          ],
+          collapse = ","
+        ),
+        " is not in the Seurat object."
+      )
     }
   }
   if (!is.null(feature_annotation)) {
     if (length(feature_annotation_palette) == 1) {
-      feature_annotation_palette <- rep(feature_annotation_palette, length(feature_annotation))
+      feature_annotation_palette <- rep(
+        feature_annotation_palette,
+        length(feature_annotation)
+      )
     }
     if (length(feature_annotation_palcolor) == 1) {
-      feature_annotation_palcolor <- rep(feature_annotation_palcolor, length(feature_annotation))
+      feature_annotation_palcolor <- rep(
+        feature_annotation_palcolor,
+        length(feature_annotation)
+      )
     }
-    npal <- unique(c(length(feature_annotation_palette), length(feature_annotation_palcolor), length(feature_annotation)))
+    npal <- unique(c(
+      length(feature_annotation_palette),
+      length(feature_annotation_palcolor),
+      length(feature_annotation)
+    ))
     if (length(npal[npal != 0]) > 1) {
-      stop("feature_annotation_palette and feature_annotation_palcolor must be the same length as feature_annotation")
+      stop(
+        "feature_annotation_palette and feature_annotation_palcolor must be the same length as feature_annotation"
+      )
     }
     if (any(!feature_annotation %in% colnames(srt@assays[[assay]]@meta.data))) {
-      stop("feature_annotation: ", paste0(feature_annotation[!feature_annotation %in% colnames(srt@assays[[assay]]@meta.data)], collapse = ","), " is not in the meta data of the ", assay, " assay in the Seurat object.")
+      stop(
+        "feature_annotation: ",
+        paste0(
+          feature_annotation[
+            !feature_annotation %in% colnames(srt@assays[[assay]]@meta.data)
+          ],
+          collapse = ","
+        ),
+        " is not in the meta data of the ",
+        assay,
+        " assay in the Seurat object."
+      )
     }
   }
   if (length(width) == 1) {
@@ -9295,7 +14310,8 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
   if (is.null(features)) {
     features <- VariableFeatures(srt, assay = assay)
   }
-  index <- features %in% c(rownames(srt@assays[[assay]]), colnames(srt@meta.data))
+  index <- features %in%
+    c(rownames(srt@assays[[assay]]), colnames(srt@meta.data))
   features <- features[index]
   features_unique <- make.unique(features)
   if (!is.null(feature_split)) {
@@ -9306,42 +14322,89 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
   cell_groups <- list()
   for (cell_group in group.by) {
     if (!is.factor(srt@meta.data[[cell_group]])) {
-      srt@meta.data[[cell_group]] <- factor(srt@meta.data[[cell_group]], levels = unique(srt@meta.data[[cell_group]]))
+      srt@meta.data[[cell_group]] <- factor(
+        srt@meta.data[[cell_group]],
+        levels = unique(srt@meta.data[[cell_group]])
+      )
     }
     if (is.null(split.by)) {
-      cell_groups[[cell_group]] <- unlist(lapply(levels(srt@meta.data[[cell_group]]), function(x) {
-        cells_sub <- colnames(srt@assays[[1]])[which(srt@meta.data[[cell_group]] == x)]
-        cells_sub <- intersect(cells, cells_sub)
-        size <- ifelse(length(cells_sub) > max_cells, max_cells, length(cells_sub))
-        cells_sample <- sample(cells_sub, size)
-        out <- setNames(rep(x, size), cells_sample)
-        return(out)
-      }), use.names = TRUE)
+      cell_groups[[cell_group]] <- unlist(
+        lapply(levels(srt@meta.data[[cell_group]]), function(x) {
+          cells_sub <- colnames(srt@assays[[1]])[which(
+            srt@meta.data[[cell_group]] == x
+          )]
+          cells_sub <- intersect(cells, cells_sub)
+          size <- ifelse(
+            length(cells_sub) > max_cells,
+            max_cells,
+            length(cells_sub)
+          )
+          cells_sample <- sample(cells_sub, size)
+          out <- setNames(rep(x, size), cells_sample)
+          return(out)
+        }),
+        use.names = TRUE
+      )
       levels <- levels(srt@meta.data[[cell_group]])
-      cell_groups[[cell_group]] <- factor(cell_groups[[cell_group]], levels = levels[levels %in% cell_groups[[cell_group]]])
+      cell_groups[[cell_group]] <- factor(
+        cell_groups[[cell_group]],
+        levels = levels[levels %in% cell_groups[[cell_group]]]
+      )
     } else {
       if (!is.factor(srt@meta.data[[split.by]])) {
-        srt@meta.data[[split.by]] <- factor(srt@meta.data[[split.by]], levels = unique(srt@meta.data[[split.by]]))
+        srt@meta.data[[split.by]] <- factor(
+          srt@meta.data[[split.by]],
+          levels = unique(srt@meta.data[[split.by]])
+        )
       }
-      cell_groups[[cell_group]] <- unlist(lapply(levels(srt@meta.data[[cell_group]]), function(x) {
-        cells_sub <- colnames(srt@assays[[1]])[srt@meta.data[[cell_group]] == x]
-        cells_sub <- intersect(cells, cells_sub)
-        cells_tmp <- NULL
-        for (sp in levels(srt@meta.data[[split.by]])) {
-          cells_sp <- cells_sub[srt@meta.data[cells_sub, split.by] == sp]
-          size <- ifelse(length(cells_sp) > max_cells, max_cells, length(cells_sp))
-          cells_sample <- sample(cells_sp, size)
-          cells_tmp <- c(cells_tmp, setNames(rep(paste0(x, " : ", sp), size), cells_sample))
-        }
-        size <- ifelse(length(cells_tmp) > max_cells, max_cells, length(cells_tmp))
-        out <- sample(cells_tmp, size)
-        return(out)
-      }), use.names = TRUE)
-      levels <- apply(expand.grid(levels(srt@meta.data[[split.by]]), levels(srt@meta.data[[cell_group]])), 1, function(x) paste0(x[2:1], collapse = " : "))
-      cell_groups[[cell_group]] <- factor(cell_groups[[cell_group]], levels = levels[levels %in% cell_groups[[cell_group]]])
+      cell_groups[[cell_group]] <- unlist(
+        lapply(levels(srt@meta.data[[cell_group]]), function(x) {
+          cells_sub <- colnames(srt@assays[[1]])[
+            srt@meta.data[[cell_group]] == x
+          ]
+          cells_sub <- intersect(cells, cells_sub)
+          cells_tmp <- NULL
+          for (sp in levels(srt@meta.data[[split.by]])) {
+            cells_sp <- cells_sub[srt@meta.data[cells_sub, split.by] == sp]
+            size <- ifelse(
+              length(cells_sp) > max_cells,
+              max_cells,
+              length(cells_sp)
+            )
+            cells_sample <- sample(cells_sp, size)
+            cells_tmp <- c(
+              cells_tmp,
+              setNames(rep(paste0(x, " : ", sp), size), cells_sample)
+            )
+          }
+          size <- ifelse(
+            length(cells_tmp) > max_cells,
+            max_cells,
+            length(cells_tmp)
+          )
+          out <- sample(cells_tmp, size)
+          return(out)
+        }),
+        use.names = TRUE
+      )
+      levels <- apply(
+        expand.grid(
+          levels(srt@meta.data[[split.by]]),
+          levels(srt@meta.data[[cell_group]])
+        ),
+        1,
+        function(x) paste0(x[2:1], collapse = " : ")
+      )
+      cell_groups[[cell_group]] <- factor(
+        cell_groups[[cell_group]],
+        levels = levels[levels %in% cell_groups[[cell_group]]]
+      )
     }
     if (!is.null(cell_order)) {
-      cell_groups[[cell_group]] <- cell_groups[[cell_group]][intersect(cell_order, names(cell_groups[[cell_group]]))]
+      cell_groups[[cell_group]] <- cell_groups[[cell_group]][intersect(
+        cell_order,
+        names(cell_groups[[cell_group]])
+      )]
     }
   }
 
@@ -9349,20 +14412,37 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
   gene_unique <- features_unique[features %in% rownames(srt@assays[[assay]])]
   meta <- features[features %in% colnames(srt@meta.data)]
   all_cells <- unique(unlist(lapply(cell_groups, names)))
-  mat_raw <- as_matrix(rbind(LayerData(srt@assays[[assay]], layer = layer)[gene, all_cells, drop = FALSE], t(srt@meta.data[all_cells, meta, drop = FALSE])))[features, , drop = FALSE]
+  mat_raw <- as_matrix(rbind(
+    LayerData(srt@assays[[assay]], layer = layer)[
+      gene,
+      all_cells,
+      drop = FALSE
+    ],
+    t(srt@meta.data[all_cells, meta, drop = FALSE])
+  ))[features, , drop = FALSE]
   rownames(mat_raw) <- features_unique
   if (isTRUE(lib_normalize) && min(mat_raw, na.rm = TRUE) >= 0) {
     if (!is.null(libsize)) {
       libsize_use <- libsize
     } else {
-      libsize_use <- colSums(LayerData(srt@assays[[assay]], "counts")[, colnames(mat_raw), drop = FALSE])
+      libsize_use <- colSums(LayerData(srt@assays[[assay]], "counts")[,
+        colnames(mat_raw),
+        drop = FALSE
+      ])
       isfloat <- any(libsize_use %% 1 != 0, na.rm = TRUE)
       if (isTRUE(isfloat)) {
         libsize_use <- rep(1, length(libsize_use))
-        warning("The values in the 'counts' layer are non-integer. Set the library size to 1.", immediate. = TRUE)
+        warning(
+          "The values in the 'counts' layer are non-integer. Set the library size to 1.",
+          immediate. = TRUE
+        )
       }
     }
-    mat_raw[gene_unique, ] <- t(t(mat_raw[gene_unique, , drop = FALSE]) / libsize_use * median(libsize_use))
+    mat_raw[gene_unique, ] <- t(
+      t(mat_raw[gene_unique, , drop = FALSE]) /
+        libsize_use *
+        median(libsize_use)
+    )
   }
 
   # data used to plot heatmap
@@ -9370,7 +14450,11 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
   for (cell_group in group.by) {
     mat_tmp <- mat_raw[, names(cell_groups[[cell_group]])]
     mat_tmp <- matrix_process(mat_tmp, method = exp_method)
-    mat_tmp[is.infinite(mat_tmp)] <- max(abs(mat_tmp[!is.infinite(mat_tmp)]), na.rm = TRUE) * ifelse(mat_tmp[is.infinite(mat_tmp)] > 0, 1, -1)
+    mat_tmp[is.infinite(mat_tmp)] <- max(
+      abs(mat_tmp[!is.infinite(mat_tmp)]),
+      na.rm = TRUE
+    ) *
+      ifelse(mat_tmp[is.infinite(mat_tmp)] > 0, 1, -1)
     mat_tmp[is.na(mat_tmp)] <- mean(mat_tmp, na.rm = TRUE)
     mat_list[[cell_group]] <- mat_tmp
   }
@@ -9389,40 +14473,71 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
 
   if (is.null(limits)) {
     if (!is.function(exp_method) && exp_method %in% c("zscore", "log2fc")) {
-      b <- ceiling(min(abs(quantile(do.call(cbind, mat_list), c(0.01, 0.99), na.rm = TRUE)), na.rm = TRUE) * 2) / 2
-      colors <- circlize::colorRamp2(seq(-b, b, length = 100), palette_scp(palette = heatmap_palette, palcolor = heatmap_palcolor))
+      b <- ceiling(
+        min(
+          abs(quantile(do.call(cbind, mat_list), c(0.01, 0.99), na.rm = TRUE)),
+          na.rm = TRUE
+        ) *
+          2
+      ) /
+        2
+      colors <- circlize::colorRamp2(
+        seq(-b, b, length = 100),
+        palette_scp(palette = heatmap_palette, palcolor = heatmap_palcolor)
+      )
     } else {
       b <- quantile(do.call(cbind, mat_list), c(0.01, 0.99), na.rm = TRUE)
-      colors <- circlize::colorRamp2(seq(b[1], b[2], length = 100), palette_scp(palette = heatmap_palette, palcolor = heatmap_palcolor))
+      colors <- circlize::colorRamp2(
+        seq(b[1], b[2], length = 100),
+        palette_scp(palette = heatmap_palette, palcolor = heatmap_palcolor)
+      )
     }
   } else {
-    colors <- circlize::colorRamp2(seq(limits[1], limits[2], length = 100), palette_scp(palette = heatmap_palette, palcolor = heatmap_palcolor))
+    colors <- circlize::colorRamp2(
+      seq(limits[1], limits[2], length = 100),
+      palette_scp(palette = heatmap_palette, palcolor = heatmap_palcolor)
+    )
   }
-  
-  t_max <- srt@assays[[assay]]$data[intersect(cell_annotation, rownames(srt@assays[[assay]])) %||% integer(), colnames(mat_raw), drop = FALSE]
-  
+
+  t_max <- srt@assays[[assay]]$data[
+    intersect(cell_annotation, rownames(srt@assays[[assay]])) %||% integer(),
+    colnames(mat_raw),
+    drop = FALSE
+  ]
+
   if (nrow(t_max) != 0) {
     cell_metadata <- cbind.data.frame(
       data.frame(row.names = colnames(mat_raw), cells = colnames(mat_raw)),
       cbind.data.frame(
-        srt@meta.data[colnames(mat_raw), c(group.by, intersect(cell_annotation, colnames(srt@meta.data))), drop = FALSE],
+        srt@meta.data[
+          colnames(mat_raw),
+          c(group.by, intersect(cell_annotation, colnames(srt@meta.data))),
+          drop = FALSE
+        ],
         SeuratDisk::Transpose(t_max)
       )
     )
   }
-  
+
   cell_metadata <- cbind.data.frame(
     data.frame(row.names = colnames(mat_raw), cells = colnames(mat_raw)),
-    srt@meta.data[colnames(mat_raw), c(group.by, intersect(cell_annotation, colnames(srt@meta.data))), drop = FALSE]
+    srt@meta.data[
+      colnames(mat_raw),
+      c(group.by, intersect(cell_annotation, colnames(srt@meta.data))),
+      drop = FALSE
+    ]
   )
-  
 
-  
   feature_metadata <- cbind.data.frame(
-    data.frame(row.names = features_unique, features = features, features_uique = features_unique),
+    data.frame(
+      row.names = features_unique,
+      features = features,
+      features_uique = features_unique
+    ),
     srt@assays[[assay]]@meta.data[features, c(feature_annotation), drop = FALSE]
   )
-  feature_metadata[, "duplicated"] <- feature_metadata[["features"]] %in% features[duplicated(features)]
+  feature_metadata[, "duplicated"] <- feature_metadata[["features"]] %in%
+    features[duplicated(features)]
 
   lgd <- list()
   lgd[["ht"]] <- Legend(title = exp_name, col_fun = colors, border = TRUE)
@@ -9437,30 +14552,73 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
     if (isTRUE(cluster_column_slices)) {
       if (!isTRUE(cluster_columns)) {
         if (nlevels(column_split_list[[cell_group]]) == 1) {
-          stop("cluster_column_slices=TRUE can not be used when there is only one group.")
+          stop(
+            "cluster_column_slices=TRUE can not be used when there is only one group."
+          )
         }
-        dend <- cluster_within_group(mat_list[[cell_group]], column_split_list[[cell_group]])
+        dend <- cluster_within_group(
+          mat_list[[cell_group]],
+          column_split_list[[cell_group]]
+        )
         cluster_columns_list[[cell_group]] <- dend
-        column_split_list[[cell_group]] <- length(unique(column_split_list[[cell_group]]))
+        column_split_list[[cell_group]] <- length(unique(column_split_list[[
+          cell_group
+        ]]))
       }
     }
     if (cell_group != "All.groups") {
       funbody <- paste0(
         "
-        grid.rect(gp = gpar(fill = palette_scp(", paste0("c('", paste0(levels(srt@meta.data[[cell_group]]), collapse = "','"), "')"), ",palette = '", group_palette[i], "',palcolor=c(", paste0("'", paste0(group_palcolor[[i]], collapse = "','"), "'"), "))[nm]))
+        grid.rect(gp = gpar(fill = palette_scp(",
+        paste0(
+          "c('",
+          paste0(levels(srt@meta.data[[cell_group]]), collapse = "','"),
+          "')"
+        ),
+        ",palette = '",
+        group_palette[i],
+        "',palcolor=c(",
+        paste0("'", paste0(group_palcolor[[i]], collapse = "','"), "'"),
+        "))[nm]))
       "
       )
       funbody <- gsub(pattern = "\n", replacement = "", x = funbody)
-      eval(parse(text = paste("panel_fun <- function(index, nm) {", funbody, "}", sep = "")), envir = environment())
+      eval(
+        parse(
+          text = paste(
+            "panel_fun <- function(index, nm) {",
+            funbody,
+            "}",
+            sep = ""
+          )
+        ),
+        envir = environment()
+      )
 
       anno <- list()
       anno[[cell_group]] <- anno_block(
-        align_to = split(seq_along(cell_groups[[cell_group]]), gsub(pattern = " : .*", replacement = "", x = cell_groups[[cell_group]])),
+        align_to = split(
+          seq_along(cell_groups[[cell_group]]),
+          gsub(
+            pattern = " : .*",
+            replacement = "",
+            x = cell_groups[[cell_group]]
+          )
+        ),
         panel_fun = getFunction("panel_fun", where = environment()),
         which = ifelse(flip, "row", "column"),
         show_name = FALSE
       )
-      ha_cell_group <- do.call("HeatmapAnnotation", args = c(anno, which = ifelse(flip, "row", "column"), show_annotation_name = TRUE, annotation_name_side = ifelse(flip, "top", "left"), border = TRUE))
+      ha_cell_group <- do.call(
+        "HeatmapAnnotation",
+        args = c(
+          anno,
+          which = ifelse(flip, "row", "column"),
+          show_annotation_name = TRUE,
+          annotation_name_side = ifelse(flip, "top", "left"),
+          border = TRUE
+        )
+      )
       ha_top_list[[cell_group]] <- ha_cell_group
       # lgd[[cell_group]] <- Legend(
       #   title = cell_group, labels = levels(srt@meta.data[[cell_group]]),
@@ -9471,20 +14629,56 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
     if (!is.null(split.by)) {
       funbody <- paste0(
         "
-      grid.rect(gp = gpar(fill = palette_scp(", paste0("c('", paste0(levels(srt@meta.data[[split.by]]), collapse = "','"), "')"), ",palette = '", cell_split_palette, "',palcolor=c(", paste0("'", paste0(unlist(cell_split_palcolor), collapse = "','"), "'"), "))[nm]))
+      grid.rect(gp = gpar(fill = palette_scp(",
+        paste0(
+          "c('",
+          paste0(levels(srt@meta.data[[split.by]]), collapse = "','"),
+          "')"
+        ),
+        ",palette = '",
+        cell_split_palette,
+        "',palcolor=c(",
+        paste0("'", paste0(unlist(cell_split_palcolor), collapse = "','"), "'"),
+        "))[nm]))
     "
       )
       funbody <- gsub(pattern = "\n", replacement = "", x = funbody)
-      eval(parse(text = paste("panel_fun <- function(index, nm) {", funbody, "}", sep = "")), envir = environment())
+      eval(
+        parse(
+          text = paste(
+            "panel_fun <- function(index, nm) {",
+            funbody,
+            "}",
+            sep = ""
+          )
+        ),
+        envir = environment()
+      )
 
       anno <- list()
       anno[[split.by]] <- anno_block(
-        align_to = split(seq_along(cell_groups[[cell_group]]), gsub(pattern = ".* : ", replacement = "", x = cell_groups[[cell_group]])),
+        align_to = split(
+          seq_along(cell_groups[[cell_group]]),
+          gsub(
+            pattern = ".* : ",
+            replacement = "",
+            x = cell_groups[[cell_group]]
+          )
+        ),
         panel_fun = getFunction("panel_fun", where = environment()),
         which = ifelse(flip, "row", "column"),
         show_name = i == 1
       )
-      ha_split_by <- do.call("HeatmapAnnotation", args = c(anno, which = ifelse(flip, "row", "column"), show_annotation_name = TRUE, annotation_name_side = ifelse(flip, "top", "left"), border = TRUE))
+      ha_split_by <- do.call(
+        "HeatmapAnnotation",
+        args = c(
+          anno,
+          which = ifelse(flip, "row", "column"),
+          show_annotation_name = TRUE,
+          annotation_name_side = ifelse(flip, "top", "left"),
+          border = TRUE
+        )
+      )
       if (is.null(ha_top_list[[cell_group]])) {
         ha_top_list[[cell_group]] <- ha_split_by
       } else {
@@ -9496,15 +14690,31 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
     cell_group <- raw.group.by[i]
     if (cell_group != "All.groups") {
       lgd[[cell_group]] <- Legend(
-        title = cell_group, labels = levels(srt@meta.data[[cell_group]]),
-        legend_gp = gpar(fill = palette_scp(levels(srt@meta.data[[cell_group]]), palette = raw.group_palette[i], palcolor = group_palcolor[[i]])), border = TRUE
+        title = cell_group,
+        labels = levels(srt@meta.data[[cell_group]]),
+        legend_gp = gpar(
+          fill = palette_scp(
+            levels(srt@meta.data[[cell_group]]),
+            palette = raw.group_palette[i],
+            palcolor = group_palcolor[[i]]
+          )
+        ),
+        border = TRUE
       )
     }
   }
   if (!is.null(split.by)) {
     lgd[[split.by]] <- Legend(
-      title = split.by, labels = levels(srt@meta.data[[split.by]]),
-      legend_gp = gpar(fill = palette_scp(levels(srt@meta.data[[split.by]]), palette = cell_split_palette, palcolor = cell_split_palcolor)), border = TRUE
+      title = split.by,
+      labels = levels(srt@meta.data[[split.by]]),
+      legend_gp = gpar(
+        fill = palette_scp(
+          levels(srt@meta.data[[split.by]]),
+          palette = cell_split_palette,
+          palcolor = cell_split_palcolor
+        )
+      ),
+      border = TRUE
     )
   }
 
@@ -9525,17 +14735,28 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
           ha_cell <- list()
           ha_cell[[cellan]] <- anno_simple(
             x = as.character(cell_anno[names(cell_groups[[cell_group]])]),
-            col = palette_scp(cell_anno, palette = palette, palcolor = palcolor),
+            col = palette_scp(
+              cell_anno,
+              palette = palette,
+              palcolor = palcolor
+            ),
             which = ifelse(flip, "row", "column"),
             na_col = "transparent",
             border = TRUE
           )
-          anno_args <- c(ha_cell,
+          anno_args <- c(
+            ha_cell,
             which = ifelse(flip, "row", "column"),
             show_annotation_name = cell_group == group.by[1],
             annotation_name_side = ifelse(flip, "top", "left")
           )
-          anno_args <- c(anno_args, cell_annotation_params[setdiff(names(cell_annotation_params), names(anno_args))])
+          anno_args <- c(
+            anno_args,
+            cell_annotation_params[setdiff(
+              names(cell_annotation_params),
+              names(anno_args)
+            )]
+          )
           ha_top <- do.call(HeatmapAnnotation, args = anno_args)
           if (is.null(ha_top_list[[cell_group]])) {
             ha_top_list[[cell_group]] <- ha_top
@@ -9544,12 +14765,24 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
           }
         }
         lgd[[cellan]] <- Legend(
-          title = cellan, labels = levels(cell_anno),
-          legend_gp = gpar(fill = palette_scp(cell_anno, palette = palette, palcolor = palcolor)), border = TRUE
+          title = cellan,
+          labels = levels(cell_anno),
+          legend_gp = gpar(
+            fill = palette_scp(
+              cell_anno,
+              palette = palette,
+              palcolor = palcolor
+            )
+          ),
+          border = TRUE
         )
       } else {
         col_fun <- circlize::colorRamp2(
-          breaks = seq(min(cell_anno, na.rm = TRUE), max(cell_anno, na.rm = TRUE), length = 100),
+          breaks = seq(
+            min(cell_anno, na.rm = TRUE),
+            max(cell_anno, na.rm = TRUE),
+            length = 100
+          ),
           colors = palette_scp(palette = palette, palcolor = palcolor)
         )
         for (cell_group in group.by) {
@@ -9561,12 +14794,19 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
             na_col = "transparent",
             border = TRUE
           )
-          anno_args <- c(ha_cell,
+          anno_args <- c(
+            ha_cell,
             which = ifelse(flip, "row", "column"),
             show_annotation_name = cell_group == group.by[1],
             annotation_name_side = ifelse(flip, "top", "left")
           )
-          anno_args <- c(anno_args, cell_annotation_params[setdiff(names(cell_annotation_params), names(anno_args))])
+          anno_args <- c(
+            anno_args,
+            cell_annotation_params[setdiff(
+              names(cell_annotation_params),
+              names(anno_args)
+            )]
+          )
           ha_top <- do.call(HeatmapAnnotation, args = anno_args)
           if (is.null(ha_top_list[[cell_group]])) {
             ha_top_list[[cell_group]] <- ha_top
@@ -9575,7 +14815,9 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
           }
         }
         lgd[[cellan]] <- Legend(
-          title = cellan, col_fun = col_fun, border = TRUE
+          title = cellan,
+          col_fun = col_fun,
+          border = TRUE
         )
       }
     }
@@ -9586,12 +14828,18 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
       row_split_raw <- row_split <- feature_split <- NULL
     } else {
       if (n_split == 1) {
-        row_split_raw <- row_split <- feature_split <- setNames(rep(1, nrow(mat_split)), rownames(mat_split))
+        row_split_raw <- row_split <- feature_split <- setNames(
+          rep(1, nrow(mat_split)),
+          rownames(mat_split)
+        )
       } else {
         if (split_method == "mfuzz") {
           status <- tryCatch(check_R("e1071"), error = identity)
           if (inherits(status, "error")) {
-            warning("The e1071 package was not found. Switch split_method to 'kmeans'", immediate. = TRUE)
+            warning(
+              "The e1071 package was not found. Switch split_method to 'kmeans'",
+              immediate. = TRUE
+            )
             split_method <- "kmeans"
           } else {
             mat_split_tmp <- mat_split
@@ -9602,19 +14850,37 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
               fuzzification <- min_fuzzification + 0.1
             } else {
               if (fuzzification <= min_fuzzification) {
-                warning("fuzzification value is samller than estimated:", round(min_fuzzification, 2), immediate. = TRUE)
+                warning(
+                  "fuzzification value is samller than estimated:",
+                  round(min_fuzzification, 2),
+                  immediate. = TRUE
+                )
               }
             }
-            cl <- e1071::cmeans(mat_split_tmp, centers = n_split, method = "cmeans", m = fuzzification)
+            cl <- e1071::cmeans(
+              mat_split_tmp,
+              centers = n_split,
+              method = "cmeans",
+              m = fuzzification
+            )
             if (length(cl$cluster) == 0) {
-              stop("Clustering with mfuzz failed (fuzzification=", round(fuzzification, 2), "). Please set a larger fuzzification parameter manually.")
+              stop(
+                "Clustering with mfuzz failed (fuzzification=",
+                round(fuzzification, 2),
+                "). Please set a larger fuzzification parameter manually."
+              )
             }
             # mfuzz.plot(eset, cl,new.window = FALSE)
             row_split <- feature_split <- cl$cluster
           }
         }
         if (split_method == "kmeans") {
-          km <- kmeans(mat_split, centers = n_split, iter.max = 1e4, nstart = 20)
+          km <- kmeans(
+            mat_split,
+            centers = n_split,
+            iter.max = 1e4,
+            nstart = 20
+          )
           row_split <- feature_split <- km$cluster
         }
         if (split_method == "hclust") {
@@ -9622,13 +14888,32 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
           row_split <- feature_split <- cutree(hc, k = n_split)
         }
       }
-      groupmean <- aggregate(t(mat_split), by = list(unlist(cell_groups[feature_split_by])), mean)
-      maxgroup <- groupmean[, 1][apply(groupmean[, names(row_split)], 2, which.max)]
+      groupmean <- aggregate(
+        t(mat_split),
+        by = list(unlist(cell_groups[feature_split_by])),
+        mean
+      )
+      maxgroup <- groupmean[, 1][apply(
+        groupmean[, names(row_split)],
+        2,
+        which.max
+      )]
       df <- data.frame(row_split = row_split, order_by = maxgroup)
-      df_order <- aggregate(df[["order_by"]], by = list(df[, "row_split"]), FUN = function(x) names(sort(table(x), decreasing = TRUE))[1])
+      df_order <- aggregate(
+        df[["order_by"]],
+        by = list(df[, "row_split"]),
+        FUN = function(x) names(sort(table(x), decreasing = TRUE))[1]
+      )
       df_order[, "row_split"] <- df_order[, "Group.1"]
-      df_order[["order_by"]] <- as.numeric(factor(df_order[["x"]], levels = levels(maxgroup)))
-      df_order <- df_order[order(df_order[["order_by"]], decreasing = decreasing), , drop = FALSE]
+      df_order[["order_by"]] <- as.numeric(factor(
+        df_order[["x"]],
+        levels = levels(maxgroup)
+      ))
+      df_order <- df_order[
+        order(df_order[["order_by"]], decreasing = decreasing),
+        ,
+        drop = FALSE
+      ]
       if (!is.null(split_order)) {
         df_order <- df_order[split_order, , drop = FALSE]
       }
@@ -9641,10 +14926,15 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
         split_levels <- c(split_levels, level)
       }
       row_split_raw <- row_split <- factor(row_split, levels = split_levels)
-      feature_split <- factor(feature_split, levels = paste0("C", seq_len(nrow(df_order))))
+      feature_split <- factor(
+        feature_split,
+        levels = paste0("C", seq_len(nrow(df_order)))
+      )
     }
   } else {
-    row_split_raw <- row_split <- feature_split <- feature_split[row.names(mat_split)]
+    row_split_raw <- row_split <- feature_split <- feature_split[row.names(
+      mat_split
+    )]
   }
   if (!is.null(feature_split)) {
     feature_metadata[["feature_split"]] <- feature_split
@@ -9663,11 +14953,31 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
     }
     funbody <- paste0(
       "
-      grid.rect(gp = gpar(fill = palette_scp(", paste0("c('", paste0(levels(row_split_raw), collapse = "','"), "')"), ",palette = '", feature_split_palette, "',palcolor=c(", paste0("'", paste0(unlist(feature_split_palcolor), collapse = "','"), "'"), "))[nm]))
+      grid.rect(gp = gpar(fill = palette_scp(",
+      paste0("c('", paste0(levels(row_split_raw), collapse = "','"), "')"),
+      ",palette = '",
+      feature_split_palette,
+      "',palcolor=c(",
+      paste0(
+        "'",
+        paste0(unlist(feature_split_palcolor), collapse = "','"),
+        "'"
+      ),
+      "))[nm]))
     "
     )
     funbody <- gsub(pattern = "\n", replacement = "", x = funbody)
-    eval(parse(text = paste("panel_fun <- function(index, nm) {", funbody, "}", sep = "")), envir = environment())
+    eval(
+      parse(
+        text = paste(
+          "panel_fun <- function(index, nm) {",
+          funbody,
+          "}",
+          sep = ""
+        )
+      ),
+      envir = environment()
+    )
     ha_clusters <- HeatmapAnnotation(
       features_split = anno_block(
         align_to = split(seq_along(row_split_raw), row_split_raw),
@@ -9686,8 +14996,18 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
       ha_left <- c(ha_left, ha_clusters)
     }
     lgd[["Cluster"]] <- Legend(
-      title = "Cluster", labels = intersect(levels(row_split_raw), row_split_raw),
-      legend_gp = gpar(fill = palette_scp(intersect(levels(row_split_raw), row_split_raw), type = "discrete", palette = feature_split_palette, palcolor = feature_split_palcolor, matched = TRUE)), border = TRUE
+      title = "Cluster",
+      labels = intersect(levels(row_split_raw), row_split_raw),
+      legend_gp = gpar(
+        fill = palette_scp(
+          intersect(levels(row_split_raw), row_split_raw),
+          type = "discrete",
+          palette = feature_split_palette,
+          palcolor = feature_split_palcolor,
+          matched = TRUE
+        )
+      ),
+      border = TRUE
     )
   }
 
@@ -9695,7 +15015,11 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
     mat_cluster <- do.call(cbind, mat_list[cluster_features_by])
     if (is.null(row_split)) {
       dend <- as.dendrogram(hclust(as.dist(dist(mat_cluster))))
-      dend_ordered <- reorder(dend, wts = colMeans(mat_cluster), agglo.FUN = mean)
+      dend_ordered <- reorder(
+        dend,
+        wts = colMeans(mat_cluster),
+        agglo.FUN = mean
+      )
       cluster_rows <- dend_ordered
     } else {
       row_split <- length(unique(row_split_raw))
@@ -9719,15 +15043,24 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
   )
   ht_args <- c(ht_args, ht_params[setdiff(names(ht_params), names(ht_args))])
   ht_list <- do.call(Heatmap, args = ht_args)
-  features_ordered <- rownames(mat_list[[1]])[unlist(suppressWarnings(row_order(ht_list)))]
-  feature_metadata[["index"]] <- setNames(object = seq_along(features_ordered), nm = features_ordered)[rownames(feature_metadata)]
+  features_ordered <- rownames(mat_list[[1]])[unlist(suppressWarnings(row_order(
+    ht_list
+  )))]
+  feature_metadata[["index"]] <- setNames(
+    object = seq_along(features_ordered),
+    nm = features_ordered
+  )[rownames(feature_metadata)]
 
   if (is.null(features_label)) {
     if (nlabel > 0) {
       if (length(features) > nlabel) {
         index_from <- ceiling((length(features_ordered) / nlabel) / 2)
         index_to <- length(features_ordered)
-        index <- unique(round(seq(from = index_from, to = index_to, length.out = nlabel)))
+        index <- unique(round(seq(
+          from = index_from,
+          to = index_to,
+          length.out = nlabel
+        )))
       } else {
         index <- seq_along(features_ordered)
       }
@@ -9738,20 +15071,27 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
     index <- which(features_ordered %in% features_label)
     drop <- setdiff(features_label, features_ordered)
     if (length(drop) > 0) {
-      warning(paste0(paste0(drop, collapse = ","), "was not found in the features"), immediate. = TRUE)
+      warning(
+        paste0(paste0(drop, collapse = ","), "was not found in the features"),
+        immediate. = TRUE
+      )
     }
   }
   if (length(index) > 0) {
     ha_mark <- HeatmapAnnotation(
       gene = anno_mark(
         at = which(rownames(feature_metadata) %in% features_ordered[index]),
-        labels = feature_metadata[which(rownames(feature_metadata) %in% features_ordered[index]), "features"],
+        labels = feature_metadata[
+          which(rownames(feature_metadata) %in% features_ordered[index]),
+          "features"
+        ],
         side = ifelse(flip, "top", "left"),
         labels_gp = gpar(fontsize = label_size, col = label_color),
         link_gp = gpar(fontsize = label_size, col = label_color),
         which = ifelse(flip, "column", "row")
       ),
-      which = ifelse(flip, "column", "row"), show_annotation_name = FALSE
+      which = ifelse(flip, "column", "row"),
+      show_annotation_name = FALSE
     )
     if (is.null(ha_left)) {
       ha_left <- ha_mark
@@ -9776,13 +15116,29 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
         ha_feature <- list()
         ha_feature[[featan]] <- anno_simple(
           x = as.character(featan_values),
-          col = palette_scp(featan_values, palette = palette, palcolor = palcolor),
+          col = palette_scp(
+            featan_values,
+            palette = palette,
+            palcolor = palcolor
+          ),
           which = ifelse(flip, "column", "row"),
           na_col = "transparent",
           border = TRUE
         )
-        anno_args <- c(ha_feature, which = ifelse(flip, "column", "row"), show_annotation_name = TRUE, annotation_name_side = ifelse(flip, "left", "top"), border = TRUE)
-        anno_args <- c(anno_args, feature_annotation_params[setdiff(names(feature_annotation_params), names(anno_args))])
+        anno_args <- c(
+          ha_feature,
+          which = ifelse(flip, "column", "row"),
+          show_annotation_name = TRUE,
+          annotation_name_side = ifelse(flip, "left", "top"),
+          border = TRUE
+        )
+        anno_args <- c(
+          anno_args,
+          feature_annotation_params[setdiff(
+            names(feature_annotation_params),
+            names(anno_args)
+          )]
+        )
         ha_feature <- do.call(HeatmapAnnotation, args = anno_args)
         if (is.null(ha_right)) {
           ha_right <- ha_feature
@@ -9790,12 +15146,24 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
           ha_right <- c(ha_right, ha_feature)
         }
         lgd[[featan]] <- Legend(
-          title = featan, labels = levels(featan_values),
-          legend_gp = gpar(fill = palette_scp(featan_values, palette = palette, palcolor = palcolor)), border = TRUE
+          title = featan,
+          labels = levels(featan_values),
+          legend_gp = gpar(
+            fill = palette_scp(
+              featan_values,
+              palette = palette,
+              palcolor = palcolor
+            )
+          ),
+          border = TRUE
         )
       } else {
         col_fun <- circlize::colorRamp2(
-          breaks = seq(min(featan_values, na.rm = TRUE), max(featan_values, na.rm = TRUE), length = 100),
+          breaks = seq(
+            min(featan_values, na.rm = TRUE),
+            max(featan_values, na.rm = TRUE),
+            length = 100
+          ),
           colors = palette_scp(palette = palette, palcolor = palcolor)
         )
         ha_feature <- list()
@@ -9806,8 +15174,20 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
           na_col = "transparent",
           border = TRUE
         )
-        anno_args <- c(ha_feature, which = ifelse(flip, "column", "row"), show_annotation_name = TRUE, annotation_name_side = ifelse(flip, "left", "top"), border = TRUE)
-        anno_args <- c(anno_args, feature_annotation_params[setdiff(names(feature_annotation_params), names(anno_args))])
+        anno_args <- c(
+          ha_feature,
+          which = ifelse(flip, "column", "row"),
+          show_annotation_name = TRUE,
+          annotation_name_side = ifelse(flip, "left", "top"),
+          border = TRUE
+        )
+        anno_args <- c(
+          anno_args,
+          feature_annotation_params[setdiff(
+            names(feature_annotation_params),
+            names(anno_args)
+          )]
+        )
         ha_feature <- do.call(HeatmapAnnotation, args = anno_args)
         if (is.null(ha_right)) {
           ha_right <- ha_feature
@@ -9815,24 +15195,54 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
           ha_right <- c(ha_right, ha_feature)
         }
         lgd[[featan]] <- Legend(
-          title = featan, col_fun = col_fun, border = TRUE
+          title = featan,
+          col_fun = col_fun,
+          border = TRUE
         )
       }
     }
   }
 
   enrichment <- heatmap_enrichment(
-    geneID = feature_metadata[["features"]], geneID_groups = feature_metadata[["feature_split"]],
-    feature_split_palette = feature_split_palette, feature_split_palcolor = feature_split_palcolor,
-    ha_right = ha_right, flip = flip,
-    anno_terms = anno_terms, anno_keys = anno_keys, anno_features = anno_features,
-    terms_width = terms_width, terms_fontsize = terms_fontsize,
-    keys_width = keys_width, keys_fontsize = keys_fontsize,
-    features_width = features_width, features_fontsize = features_fontsize,
-    IDtype = IDtype, species = species, db_update = db_update, db_version = db_version, db_combine = db_combine, convert_species = convert_species, Ensembl_version = Ensembl_version, mirror = mirror,
-    db = db, TERM2GENE = TERM2GENE, TERM2NAME = TERM2NAME, minGSSize = minGSSize, maxGSSize = maxGSSize,
-    GO_simplify = GO_simplify, GO_simplify_cutoff = GO_simplify_cutoff, simplify_method = simplify_method, simplify_similarityCutoff = simplify_similarityCutoff,
-    pvalueCutoff = pvalueCutoff, padjustCutoff = padjustCutoff, topTerm = topTerm, show_termid = show_termid, topWord = topWord, words_excluded = words_excluded, BPPARAM = BPPARAM
+    geneID = feature_metadata[["features"]],
+    geneID_groups = feature_metadata[["feature_split"]],
+    feature_split_palette = feature_split_palette,
+    feature_split_palcolor = feature_split_palcolor,
+    ha_right = ha_right,
+    flip = flip,
+    anno_terms = anno_terms,
+    anno_keys = anno_keys,
+    anno_features = anno_features,
+    terms_width = terms_width,
+    terms_fontsize = terms_fontsize,
+    keys_width = keys_width,
+    keys_fontsize = keys_fontsize,
+    features_width = features_width,
+    features_fontsize = features_fontsize,
+    IDtype = IDtype,
+    species = species,
+    db_update = db_update,
+    db_version = db_version,
+    db_combine = db_combine,
+    convert_species = convert_species,
+    Ensembl_version = Ensembl_version,
+    mirror = mirror,
+    db = db,
+    TERM2GENE = TERM2GENE,
+    TERM2NAME = TERM2NAME,
+    minGSSize = minGSSize,
+    maxGSSize = maxGSSize,
+    GO_simplify = GO_simplify,
+    GO_simplify_cutoff = GO_simplify_cutoff,
+    simplify_method = simplify_method,
+    simplify_similarityCutoff = simplify_similarityCutoff,
+    pvalueCutoff = pvalueCutoff,
+    padjustCutoff = padjustCutoff,
+    topTerm = topTerm,
+    show_termid = show_termid,
+    topWord = topWord,
+    words_excluded = words_excluded,
+    BPPARAM = BPPARAM
   )
   res <- enrichment$res
   ha_right <- enrichment$ha_right
@@ -9854,18 +15264,44 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
       name = cell_group,
       matrix = if (flip) t(mat_list[[cell_group]]) else mat_list[[cell_group]],
       col = colors,
-      row_title = row_title %||% if (flip) ifelse(cell_group != "All.groups", cell_group, "") else character(0),
+      row_title = row_title %||%
+        if (flip) {
+          ifelse(cell_group != "All.groups", cell_group, "")
+        } else {
+          character(0)
+        },
       row_title_side = row_title_side,
-      column_title = column_title %||% if (flip) character(0) else ifelse(cell_group != "All.groups", cell_group, ""),
+      column_title = column_title %||%
+        if (flip) {
+          character(0)
+        } else {
+          ifelse(cell_group != "All.groups", cell_group, "")
+        },
       column_title_side = column_title_side,
       row_title_rot = row_title_rot,
       column_title_rot = column_title_rot,
       row_split = if (flip) column_split_list[[cell_group]] else row_split,
       column_split = if (flip) row_split else column_split_list[[cell_group]],
-      cluster_rows = if (flip) cluster_columns_list[[cell_group]] else cluster_rows,
-      cluster_columns = if (flip) cluster_rows else cluster_columns_list[[cell_group]],
-      cluster_row_slices = if (flip) cluster_column_slices else cluster_row_slices,
-      cluster_column_slices = if (flip) cluster_row_slices else cluster_column_slices,
+      cluster_rows = if (flip) {
+        cluster_columns_list[[cell_group]]
+      } else {
+        cluster_rows
+      },
+      cluster_columns = if (flip) {
+        cluster_rows
+      } else {
+        cluster_columns_list[[cell_group]]
+      },
+      cluster_row_slices = if (flip) {
+        cluster_column_slices
+      } else {
+        cluster_row_slices
+      },
+      cluster_column_slices = if (flip) {
+        cluster_row_slices
+      } else {
+        cluster_column_slices
+      },
       show_row_names = show_row_names,
       show_column_names = show_column_names,
       row_names_side = row_names_side,
@@ -9873,7 +15309,11 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
       row_names_rot = row_names_rot,
       column_names_rot = column_names_rot,
       top_annotation = if (flip) left_annotation else ha_top_list[[cell_group]],
-      left_annotation = if (flip) ha_top_list[[cell_group]] else left_annotation,
+      left_annotation = if (flip) {
+        ha_top_list[[cell_group]]
+      } else {
+        left_annotation
+      },
       bottom_annotation = if (flip) right_annotation else NULL,
       right_annotation = if (flip) NULL else right_annotation,
       show_heatmap_legend = FALSE,
@@ -9881,14 +15321,32 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
       use_raster = use_raster,
       raster_device = raster_device,
       raster_by_magick = raster_by_magick,
-      width = if (is.numeric(width[cell_group])) unit(width[cell_group], units = units) else NULL,
-      height = if (is.numeric(height[cell_group])) unit(height[cell_group], units = units) else NULL
+      width = if (is.numeric(width[cell_group])) {
+        unit(width[cell_group], units = units)
+      } else {
+        NULL
+      },
+      height = if (is.numeric(height[cell_group])) {
+        unit(height[cell_group], units = units)
+      } else {
+        NULL
+      }
     )
     if (!is.null(split.by) && !isTRUE(cluster_column_slices)) {
-      groups_order <- sapply(strsplit(levels(column_split_list[[cell_group]]), " : "), function(x) x[[1]])
-      gaps_order <- paste(groups_order[2:length(groups_order)], groups_order[1:(length(groups_order) - 1)], sep = "->")
+      groups_order <- sapply(
+        strsplit(levels(column_split_list[[cell_group]]), " : "),
+        function(x) x[[1]]
+      )
+      gaps_order <- paste(
+        groups_order[2:length(groups_order)],
+        groups_order[1:(length(groups_order) - 1)],
+        sep = "->"
+      )
       gaps <- rep(unit(1, "mm"), length(gaps_order))
-      gaps[groups_order[2:length(groups_order)] == groups_order[1:(length(groups_order) - 1)]] <- unit(0, "mm")
+      gaps[
+        groups_order[2:length(groups_order)] ==
+          groups_order[1:(length(groups_order) - 1)]
+      ] <- unit(0, "mm")
       if (isTRUE(flip)) {
         ht_args[["row_gap"]] <- gaps
       } else {
@@ -9896,7 +15354,12 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
       }
     }
     if (any(names(ht_params) %in% names(ht_args))) {
-      warning("ht_params: ", paste0(intersect(names(ht_params), names(ht_args)), collapse = ","), " were duplicated and will not be used.", immediate. = TRUE)
+      warning(
+        "ht_params: ",
+        paste0(intersect(names(ht_params), names(ht_args)), collapse = ","),
+        " were duplicated and will not be used.",
+        immediate. = TRUE
+      )
     }
     ht_args <- c(ht_args, ht_params[setdiff(names(ht_params), names(ht_args))])
     if (isTRUE(flip)) {
@@ -9910,18 +15373,31 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
     }
   }
 
-  if ((!is.null(row_split) && length(index) > 0) || any(c(anno_terms, anno_keys, anno_features)) || !is.null(width) || !is.null(height)) {
+  if (
+    (!is.null(row_split) && length(index) > 0) ||
+      any(c(anno_terms, anno_keys, anno_features)) ||
+      !is.null(width) ||
+      !is.null(height)
+  ) {
     fix <- TRUE
     if (is.null(width) || is.null(height)) {
-      message("\nThe size of the heatmap is fixed because certain elements are not scalable.\nThe width and height of the heatmap are determined by the size of the current viewport.\nIf you want to have more control over the size, you can manually set the parameters 'width' and 'height'.\n")
+      message(
+        "\nThe size of the heatmap is fixed because certain elements are not scalable.\nThe width and height of the heatmap are determined by the size of the current viewport.\nIf you want to have more control over the size, you can manually set the parameters 'width' and 'height'.\n"
+      )
     }
   } else {
     fix <- FALSE
   }
   rendersize <- heatmap_rendersize(
-    width = width, height = height, units = units,
-    ha_top_list = ha_top_list, ha_left = ha_left, ha_right = ha_right,
-    ht_list = ht_list, legend_list = lgd, flip = flip
+    width = width,
+    height = height,
+    units = units,
+    ha_top_list = ha_top_list,
+    ha_left = ha_left,
+    ha_right = ha_right,
+    ht_list = ht_list,
+    legend_list = lgd,
+    flip = flip
   )
   width_sum <- rendersize[["width_sum"]]
   height_sum <- rendersize[["height_sum"]]
@@ -9932,8 +15408,13 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
 
   if (isTRUE(fix)) {
     fixsize <- heatmap_fixsize(
-      width = width, width_sum = width_sum, height = height, height_sum = height_sum, units = units,
-      ht_list = ht_list, legend_list = lgd
+      width = width,
+      width_sum = width_sum,
+      height = height,
+      height_sum = height_sum,
+      units = units,
+      ht_list = ht_list,
+      legend_list = lgd
     )
     ht_width <- fixsize[["ht_width"]]
     ht_height <- fixsize[["ht_height"]]
@@ -9944,12 +15425,20 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
       {
         draw(ht_list, annotation_legend_list = lgd)
         for (enrich in db) {
-          enrich_anno <- names(ha_right)[grep(paste0("_split_", enrich), names(ha_right))]
+          enrich_anno <- names(ha_right)[grep(
+            paste0("_split_", enrich),
+            names(ha_right)
+          )]
           if (length(enrich_anno) > 0) {
             for (enrich_anno_element in enrich_anno) {
               enrich_obj <- strsplit(enrich_anno_element, "_split_")[[1]][1]
               decorate_annotation(enrich_anno_element, slice = 1, {
-                grid.text(paste0(enrich, " (", enrich_obj, ")"), x = unit(1, "npc"), y = unit(1, "npc") + unit(2.5, "mm"), just = c("left", "bottom"))
+                grid.text(
+                  paste0(enrich, " (", enrich_obj, ")"),
+                  x = unit(1, "npc"),
+                  y = unit(1, "npc") + unit(2.5, "mm"),
+                  just = c("left", "bottom")
+                )
               })
             }
           }
@@ -9967,12 +15456,20 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
       {
         draw(ht_list, annotation_legend_list = lgd)
         for (enrich in db) {
-          enrich_anno <- names(ha_right)[grep(paste0("_split_", enrich), names(ha_right))]
+          enrich_anno <- names(ha_right)[grep(
+            paste0("_split_", enrich),
+            names(ha_right)
+          )]
           if (length(enrich_anno) > 0) {
             for (enrich_anno_element in enrich_anno) {
               enrich_obj <- strsplit(enrich_anno_element, "_split_")[[1]][1]
               decorate_annotation(enrich_anno_element, slice = 1, {
-                grid.text(paste0(enrich, " (", enrich_obj, ")"), x = unit(1, "npc"), y = unit(1, "npc") + unit(2.5, "mm"), just = c("left", "bottom"))
+                grid.text(
+                  paste0(enrich, " (", enrich_obj, ")"),
+                  x = unit(1, "npc"),
+                  y = unit(1, "npc") + unit(2.5, "mm"),
+                  just = c("left", "bottom")
+                )
               })
             }
           }
@@ -9986,7 +15483,12 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
   }
 
   if (isTRUE(fix)) {
-    p <- panel_fix_overall(gTree, width = as.numeric(ht_width), height = as.numeric(ht_height), units = units)
+    p <- panel_fix_overall(
+      gTree,
+      width = as.numeric(ht_width),
+      height = as.numeric(ht_height),
+      units = units
+    )
   } else {
     p <- wrap_plots(gTree)
   }
@@ -10001,9 +15503,7 @@ FeatureHeatmap <- function(srt, features = NULL, cells = NULL, group.by = NULL, 
   ))
 }
 
-FeatureCorHeatmap <- function(srt, features, cells) {
-
-}
+FeatureCorHeatmap <- function(srt, features, cells) {}
 
 #' CellCorHeatmap
 #'
@@ -10134,29 +15634,83 @@ FeatureCorHeatmap <- function(srt, features, cells) {
 #' @importFrom dplyr %>% filter group_by arrange desc across mutate distinct n .data "%>%"
 #' @importFrom Matrix t
 #' @export
-CellCorHeatmap <- function(srt_query, srt_ref = NULL, bulk_ref = NULL,
-                           query_group = NULL, ref_group = NULL,
-                           query_assay = NULL, ref_assay = NULL,
-                           query_reduction = NULL, ref_reduction = NULL,
-                           query_dims = 1:30, ref_dims = 1:30,
-                           query_collapsing = !is.null(query_group), ref_collapsing = TRUE,
-                           features = NULL, features_type = c("HVF", "DE"), feature_source = "both", nfeatures = 2000,
-                           DEtest_param = list(max.cells.per.ident = 200, test.use = "wilcox"),
-                           DE_threshold = "p_val_adj < 0.05",
-                           distance_metric = "cosine", k = 30,
-                           filter_lowfreq = 0, prefix = "KNNPredict", exp_legend_title = NULL,
-                           border = TRUE, flip = FALSE, limits = NULL,
-                           cluster_rows = FALSE, cluster_columns = FALSE,
-                           show_row_names = FALSE, show_column_names = FALSE, row_names_side = "left", column_names_side = "top", row_names_rot = 0, column_names_rot = 90,
-                           row_title = NULL, column_title = NULL, row_title_side = "left", column_title_side = "top", row_title_rot = 90, column_title_rot = 0,
-                           nlabel = 0, label_cutoff = 0, label_by = "row", label_size = 10,
-                           heatmap_palette = "RdBu", heatmap_palcolor = NULL,
-                           query_group_palette = "Paired", query_group_palcolor = NULL,
-                           ref_group_palette = "simspec", ref_group_palcolor = NULL,
-                           query_cell_annotation = NULL, query_cell_annotation_palette = "Paired", query_cell_annotation_palcolor = NULL, query_cell_annotation_params = if (flip) list(height = unit(10, "mm")) else list(width = unit(10, "mm")),
-                           ref_cell_annotation = NULL, ref_cell_annotation_palette = "Paired", ref_cell_annotation_palcolor = NULL, ref_cell_annotation_params = if (flip) list(width = unit(10, "mm")) else list(height = unit(10, "mm")),
-                           use_raster = NULL, raster_device = "png", raster_by_magick = FALSE, height = NULL, width = NULL, units = "inch",
-                           seed = 11, ht_params = list()) {
+CellCorHeatmap <- function(
+  srt_query,
+  srt_ref = NULL,
+  bulk_ref = NULL,
+  query_group = NULL,
+  ref_group = NULL,
+  query_assay = NULL,
+  ref_assay = NULL,
+  query_reduction = NULL,
+  ref_reduction = NULL,
+  query_dims = 1:30,
+  ref_dims = 1:30,
+  query_collapsing = !is.null(query_group),
+  ref_collapsing = TRUE,
+  features = NULL,
+  features_type = c("HVF", "DE"),
+  feature_source = "both",
+  nfeatures = 2000,
+  DEtest_param = list(max.cells.per.ident = 200, test.use = "wilcox"),
+  DE_threshold = "p_val_adj < 0.05",
+  distance_metric = "cosine",
+  k = 30,
+  filter_lowfreq = 0,
+  prefix = "KNNPredict",
+  exp_legend_title = NULL,
+  border = TRUE,
+  flip = FALSE,
+  limits = NULL,
+  cluster_rows = FALSE,
+  cluster_columns = FALSE,
+  show_row_names = FALSE,
+  show_column_names = FALSE,
+  row_names_side = "left",
+  column_names_side = "top",
+  row_names_rot = 0,
+  column_names_rot = 90,
+  row_title = NULL,
+  column_title = NULL,
+  row_title_side = "left",
+  column_title_side = "top",
+  row_title_rot = 90,
+  column_title_rot = 0,
+  nlabel = 0,
+  label_cutoff = 0,
+  label_by = "row",
+  label_size = 10,
+  heatmap_palette = "RdBu",
+  heatmap_palcolor = NULL,
+  query_group_palette = "Paired",
+  query_group_palcolor = NULL,
+  ref_group_palette = "simspec",
+  ref_group_palcolor = NULL,
+  query_cell_annotation = NULL,
+  query_cell_annotation_palette = "Paired",
+  query_cell_annotation_palcolor = NULL,
+  query_cell_annotation_params = if (flip) {
+    list(height = unit(10, "mm"))
+  } else {
+    list(width = unit(10, "mm"))
+  },
+  ref_cell_annotation = NULL,
+  ref_cell_annotation_palette = "Paired",
+  ref_cell_annotation_palcolor = NULL,
+  ref_cell_annotation_params = if (flip) {
+    list(width = unit(10, "mm"))
+  } else {
+    list(height = unit(10, "mm"))
+  },
+  use_raster = NULL,
+  raster_device = "png",
+  raster_by_magick = FALSE,
+  height = NULL,
+  width = NULL,
+  units = "inch",
+  seed = 11,
+  ht_params = list()
+) {
   set.seed(seed)
   if (isTRUE(raster_by_magick)) {
     check_R("magick")
@@ -10164,12 +15718,27 @@ CellCorHeatmap <- function(srt_query, srt_ref = NULL, bulk_ref = NULL,
 
   ref_legend <- TRUE
   simil_method <- c(
-    "cosine", "pearson", "spearman", "correlation", "jaccard", "ejaccard", "dice", "edice",
-    "hamman", "simple matching", "faith"
+    "cosine",
+    "pearson",
+    "spearman",
+    "correlation",
+    "jaccard",
+    "ejaccard",
+    "dice",
+    "edice",
+    "hamman",
+    "simple matching",
+    "faith"
   )
   dist_method <- c(
-    "euclidean", "chisquared", "kullback", "manhattan", "maximum", "canberra",
-    "minkowski", "hamming"
+    "euclidean",
+    "chisquared",
+    "kullback",
+    "manhattan",
+    "maximum",
+    "canberra",
+    "minkowski",
+    "hamming"
   )
   if (is.null(srt_ref) && is.null(bulk_ref)) {
     srt_ref <- srt_query
@@ -10186,7 +15755,11 @@ CellCorHeatmap <- function(srt_query, srt_ref = NULL, bulk_ref = NULL,
     ref_legend <- FALSE
   }
   if (!is.null(bulk_ref)) {
-    srt_ref <- CreateSeuratObject(counts = bulk_ref, meta.data = data.frame(celltype = colnames(bulk_ref)), assay = "RNA")
+    srt_ref <- CreateSeuratObject(
+      counts = bulk_ref,
+      meta.data = data.frame(celltype = colnames(bulk_ref)),
+      assay = "RNA"
+    )
     ref_group <- "CellType"
     ref_assay <- "RNA"
     ref_reduction <- NULL
@@ -10195,35 +15768,79 @@ CellCorHeatmap <- function(srt_query, srt_ref = NULL, bulk_ref = NULL,
   query_assay <- query_assay %||% DefaultAssay(srt_query)
   ref_assay <- ref_assay %||% DefaultAssay(srt_ref)
   other_params <- list(
-    query_group = query_group, query_reduction = query_reduction, query_assay = query_assay, query_dims = query_dims, query_collapsing = query_collapsing,
-    ref_group = ref_group, ref_reduction = ref_reduction, ref_assay = ref_assay, ref_dims = ref_dims, ref_collapsing = ref_collapsing
+    query_group = query_group,
+    query_reduction = query_reduction,
+    query_assay = query_assay,
+    query_dims = query_dims,
+    query_collapsing = query_collapsing,
+    ref_group = ref_group,
+    ref_reduction = ref_reduction,
+    ref_assay = ref_assay,
+    ref_dims = ref_dims,
+    ref_collapsing = ref_collapsing
   )
-  if (is.null(srt_query@tools[[paste0(prefix, "_classification")]][["distance_matrix"]]) ||
-    !identical(other_params, srt_query@tools[[paste0(prefix, "_classification")]][["other_params"]])) {
+  if (
+    is.null(srt_query@tools[[paste0(prefix, "_classification")]][[
+      "distance_matrix"
+    ]]) ||
+      !identical(
+        other_params,
+        srt_query@tools[[paste0(prefix, "_classification")]][["other_params"]]
+      )
+  ) {
     srt_query <- RunKNNPredict(
-      srt_query = srt_query, srt_ref = srt_ref,
-      query_group = query_group, ref_group = ref_group,
-      query_assay = query_assay, ref_assay = ref_assay,
-      query_reduction = query_reduction, ref_reduction = ref_reduction, query_dims = query_dims, ref_dims = ref_dims,
-      query_collapsing = query_collapsing, ref_collapsing = ref_collapsing,
-      features = features, features_type = features_type, feature_source = feature_source, nfeatures = nfeatures,
+      srt_query = srt_query,
+      srt_ref = srt_ref,
+      query_group = query_group,
+      ref_group = ref_group,
+      query_assay = query_assay,
+      ref_assay = ref_assay,
+      query_reduction = query_reduction,
+      ref_reduction = ref_reduction,
+      query_dims = query_dims,
+      ref_dims = ref_dims,
+      query_collapsing = query_collapsing,
+      ref_collapsing = ref_collapsing,
+      features = features,
+      features_type = features_type,
+      feature_source = feature_source,
+      nfeatures = nfeatures,
       DEtest_param = DEtest_param,
       DE_threshold = DE_threshold,
-      distance_metric = distance_metric, k = k,
-      filter_lowfreq = filter_lowfreq, prefix = prefix,
-      nn_method = "raw", return_full_distance_matrix = TRUE
+      distance_metric = distance_metric,
+      k = k,
+      filter_lowfreq = filter_lowfreq,
+      prefix = prefix,
+      nn_method = "raw",
+      return_full_distance_matrix = TRUE
     )
   }
-  distance_matrix <- srt_query@tools[[paste0(prefix, "_classification")]][["distance_matrix"]]
-  distance_metric <- srt_query@tools[[paste0(prefix, "_classification")]][["distance_metric"]]
+  distance_matrix <- srt_query@tools[[paste0(prefix, "_classification")]][[
+    "distance_matrix"
+  ]]
+  distance_metric <- srt_query@tools[[paste0(prefix, "_classification")]][[
+    "distance_metric"
+  ]]
   if (distance_metric %in% simil_method) {
     simil_matrix <- t(as_matrix(1 - distance_matrix))
     simil_name <- paste0(capitalize(distance_metric), " similarity")
   } else if (distance_metric %in% dist_method) {
-    simil_matrix <- t(as_matrix(1 - distance_matrix / max(distance_matrix, na.rm = TRUE)))
-    simil_name <- paste0("1-dist[", distance_metric, "]/max(dist[", distance_metric, "])")
+    simil_matrix <- t(as_matrix(
+      1 - distance_matrix / max(distance_matrix, na.rm = TRUE)
+    ))
+    simil_name <- paste0(
+      "1-dist[",
+      distance_metric,
+      "]/max(dist[",
+      distance_metric,
+      "])"
+    )
   }
-  simil_matrix[is.infinite(simil_matrix)] <- max(abs(simil_matrix[!is.infinite(simil_matrix)]), na.rm = TRUE) * ifelse(simil_matrix[is.infinite(simil_matrix)] > 0, 1, -1)
+  simil_matrix[is.infinite(simil_matrix)] <- max(
+    abs(simil_matrix[!is.infinite(simil_matrix)]),
+    na.rm = TRUE
+  ) *
+    ifelse(simil_matrix[is.infinite(simil_matrix)] > 0, 1, -1)
   simil_matrix[is.na(simil_matrix)] <- 0
   exp_name <- exp_legend_title %||% simil_name
 
@@ -10237,67 +15854,159 @@ CellCorHeatmap <- function(srt_query, srt_ref = NULL, bulk_ref = NULL,
     ref_group <- "All.groups"
   }
   if (!is.factor(srt_query[[query_group, drop = TRUE]])) {
-    srt_query@meta.data[[query_group]] <- factor(srt_query[[query_group, drop = TRUE]], levels = unique(srt_query[[query_group, drop = TRUE]]))
+    srt_query@meta.data[[query_group]] <- factor(
+      srt_query[[query_group, drop = TRUE]],
+      levels = unique(srt_query[[query_group, drop = TRUE]])
+    )
   }
-  cell_groups[["query_group"]] <- unlist(lapply(levels(srt_query[[query_group, drop = TRUE]]), function(x) {
-    cells_sub <- colnames(srt_query)[which(srt_query[[query_group, drop = TRUE]] == x)]
-    out <- setNames(object = rep(x, length(cells_sub)), nm = cells_sub)
-    return(out)
-  }), use.names = TRUE)
+  cell_groups[["query_group"]] <- unlist(
+    lapply(levels(srt_query[[query_group, drop = TRUE]]), function(x) {
+      cells_sub <- colnames(srt_query)[which(
+        srt_query[[query_group, drop = TRUE]] == x
+      )]
+      out <- setNames(object = rep(x, length(cells_sub)), nm = cells_sub)
+      return(out)
+    }),
+    use.names = TRUE
+  )
   levels <- levels(srt_query[[query_group, drop = TRUE]])
-  cell_groups[["query_group"]] <- factor(cell_groups[["query_group"]], levels = levels[levels %in% cell_groups[["query_group"]]])
-
+  cell_groups[["query_group"]] <- factor(
+    cell_groups[["query_group"]],
+    levels = levels[levels %in% cell_groups[["query_group"]]]
+  )
 
   if (!is.factor(srt_ref[[ref_group, drop = TRUE]])) {
-    srt_ref@meta.data[[ref_group]] <- factor(srt_ref[[ref_group, drop = TRUE]], levels = unique(srt_ref[[ref_group, drop = TRUE]]))
+    srt_ref@meta.data[[ref_group]] <- factor(
+      srt_ref[[ref_group, drop = TRUE]],
+      levels = unique(srt_ref[[ref_group, drop = TRUE]])
+    )
   }
-  cell_groups[["ref_group"]] <- unlist(lapply(levels(srt_ref[[ref_group, drop = TRUE]]), function(x) {
-    cells_sub <- colnames(srt_ref)[which(srt_ref[[ref_group, drop = TRUE]] == x)]
-    out <- setNames(object = rep(x, length(cells_sub)), nm = cells_sub)
-    return(out)
-  }), use.names = TRUE)
+  cell_groups[["ref_group"]] <- unlist(
+    lapply(levels(srt_ref[[ref_group, drop = TRUE]]), function(x) {
+      cells_sub <- colnames(srt_ref)[which(
+        srt_ref[[ref_group, drop = TRUE]] == x
+      )]
+      out <- setNames(object = rep(x, length(cells_sub)), nm = cells_sub)
+      return(out)
+    }),
+    use.names = TRUE
+  )
   levels <- levels(srt_ref[[ref_group, drop = TRUE]])
-  cell_groups[["ref_group"]] <- factor(cell_groups[["ref_group"]], levels = levels[levels %in% cell_groups[["ref_group"]]])
+  cell_groups[["ref_group"]] <- factor(
+    cell_groups[["ref_group"]],
+    levels = levels[levels %in% cell_groups[["ref_group"]]]
+  )
 
   if (isTRUE(query_collapsing)) {
-    simil_matrix <- simil_matrix[levels(cell_groups[["query_group"]]), , drop = FALSE]
+    simil_matrix <- simil_matrix[
+      levels(cell_groups[["query_group"]]),
+      ,
+      drop = FALSE
+    ]
   } else {
-    simil_matrix <- simil_matrix[names(cell_groups[["query_group"]]), , drop = FALSE]
+    simil_matrix <- simil_matrix[
+      names(cell_groups[["query_group"]]),
+      ,
+      drop = FALSE
+    ]
   }
   if (isTRUE(ref_collapsing)) {
-    simil_matrix <- simil_matrix[, levels(cell_groups[["ref_group"]]), drop = FALSE]
+    simil_matrix <- simil_matrix[,
+      levels(cell_groups[["ref_group"]]),
+      drop = FALSE
+    ]
   } else {
-    simil_matrix <- simil_matrix[, names(cell_groups[["ref_group"]]), drop = FALSE]
+    simil_matrix <- simil_matrix[,
+      names(cell_groups[["ref_group"]]),
+      drop = FALSE
+    ]
   }
 
   if (!is.null(query_cell_annotation)) {
     if (length(query_cell_annotation_palette) == 1) {
-      query_cell_annotation_palette <- rep(query_cell_annotation_palette, length(query_cell_annotation))
+      query_cell_annotation_palette <- rep(
+        query_cell_annotation_palette,
+        length(query_cell_annotation)
+      )
     }
     if (length(query_cell_annotation_palcolor) == 1) {
-      query_cell_annotation_palcolor <- rep(query_cell_annotation_palcolor, length(query_cell_annotation))
+      query_cell_annotation_palcolor <- rep(
+        query_cell_annotation_palcolor,
+        length(query_cell_annotation)
+      )
     }
-    npal <- unique(c(length(query_cell_annotation_palette), length(query_cell_annotation_palcolor), length(query_cell_annotation)))
+    npal <- unique(c(
+      length(query_cell_annotation_palette),
+      length(query_cell_annotation_palcolor),
+      length(query_cell_annotation)
+    ))
     if (length(npal[npal != 0]) > 1) {
-      stop("query_cell_annotation_palette and query_cell_annotation_palcolor must be the same length as query_cell_annotation")
+      stop(
+        "query_cell_annotation_palette and query_cell_annotation_palcolor must be the same length as query_cell_annotation"
+      )
     }
-    if (any(!query_cell_annotation %in% c(colnames(srt_query@meta.data), rownames(srt_query[[query_assay]])))) {
-      stop("query_cell_annotation: ", paste0(query_cell_annotation[!query_cell_annotation %in% c(colnames(srt_query@meta.data), rownames(srt_query[[query_assay]]))], collapse = ","), " is not in the Seurat object.")
+    if (
+      any(
+        !query_cell_annotation %in%
+          c(colnames(srt_query@meta.data), rownames(srt_query[[query_assay]]))
+      )
+    ) {
+      stop(
+        "query_cell_annotation: ",
+        paste0(
+          query_cell_annotation[
+            !query_cell_annotation %in%
+              c(
+                colnames(srt_query@meta.data),
+                rownames(srt_query[[query_assay]])
+              )
+          ],
+          collapse = ","
+        ),
+        " is not in the Seurat object."
+      )
     }
   }
   if (!is.null(ref_cell_annotation)) {
     if (length(ref_cell_annotation_palette) == 1) {
-      ref_cell_annotation_palette <- rep(ref_cell_annotation_palette, length(ref_cell_annotation))
+      ref_cell_annotation_palette <- rep(
+        ref_cell_annotation_palette,
+        length(ref_cell_annotation)
+      )
     }
     if (length(ref_cell_annotation_palcolor) == 1) {
-      ref_cell_annotation_palcolor <- rep(ref_cell_annotation_palcolor, length(ref_cell_annotation))
+      ref_cell_annotation_palcolor <- rep(
+        ref_cell_annotation_palcolor,
+        length(ref_cell_annotation)
+      )
     }
-    npal <- unique(c(length(ref_cell_annotation_palette), length(ref_cell_annotation_palcolor), length(ref_cell_annotation)))
+    npal <- unique(c(
+      length(ref_cell_annotation_palette),
+      length(ref_cell_annotation_palcolor),
+      length(ref_cell_annotation)
+    ))
     if (length(npal[npal != 0]) > 1) {
-      stop("ref_cell_annotation_palette and ref_cell_annotation_palcolor must be the same length as ref_cell_annotation")
+      stop(
+        "ref_cell_annotation_palette and ref_cell_annotation_palcolor must be the same length as ref_cell_annotation"
+      )
     }
-    if (any(!ref_cell_annotation %in% c(colnames(srt_ref@meta.data), rownames(srt_ref[[ref_assay]])))) {
-      stop("ref_cell_annotation: ", paste0(ref_cell_annotation[!ref_cell_annotation %in% c(colnames(srt_ref@meta.data), rownames(srt_ref[[ref_assay]]))], collapse = ","), " is not in the Seurat object.")
+    if (
+      any(
+        !ref_cell_annotation %in%
+          c(colnames(srt_ref@meta.data), rownames(srt_ref[[ref_assay]]))
+      )
+    ) {
+      stop(
+        "ref_cell_annotation: ",
+        paste0(
+          ref_cell_annotation[
+            !ref_cell_annotation %in%
+              c(colnames(srt_ref@meta.data), rownames(srt_ref[[ref_assay]]))
+          ],
+          collapse = ","
+        ),
+        " is not in the Seurat object."
+      )
     }
   }
 
@@ -10308,106 +16017,258 @@ CellCorHeatmap <- function(srt_query, srt_ref = NULL, bulk_ref = NULL,
     cluster_columns <- cluster_rows_raw
   }
   if (is.null(limits)) {
-    colors <- circlize::colorRamp2(seq(min(simil_matrix, na.rm = TRUE), max(simil_matrix, na.rm = TRUE), length = 100), palette_scp(palette = heatmap_palette, palcolor = heatmap_palcolor))
+    colors <- circlize::colorRamp2(
+      seq(
+        min(simil_matrix, na.rm = TRUE),
+        max(simil_matrix, na.rm = TRUE),
+        length = 100
+      ),
+      palette_scp(palette = heatmap_palette, palcolor = heatmap_palcolor)
+    )
   } else {
-    colors <- circlize::colorRamp2(seq(limits[1], limits[2], length = 100), palette_scp(palette = heatmap_palette, palcolor = heatmap_palcolor))
+    colors <- circlize::colorRamp2(
+      seq(limits[1], limits[2], length = 100),
+      palette_scp(palette = heatmap_palette, palcolor = heatmap_palcolor)
+    )
   }
 
   cell_metadata <- data.frame(
-    row.names = c(paste0("query_", colnames(srt_query)), paste0("ref_", colnames(srt_ref))),
+    row.names = c(
+      paste0("query_", colnames(srt_query)),
+      paste0("ref_", colnames(srt_ref))
+    ),
     cells = c(colnames(srt_query), colnames(srt_ref))
   )
   query_metadata <- cbind.data.frame(
-    srt_query@meta.data[cell_metadata[["cells"]], c(query_group, intersect(query_cell_annotation, colnames(srt_query@meta.data))), drop = FALSE],
-    as.data.frame(t(srt_query[[query_assay]]@data[intersect(query_cell_annotation, rownames(srt_query[[query_assay]])) %||% integer(), , drop = FALSE]))[cell_metadata[["cells"]], , drop = FALSE]
+    srt_query@meta.data[
+      cell_metadata[["cells"]],
+      c(
+        query_group,
+        intersect(query_cell_annotation, colnames(srt_query@meta.data))
+      ),
+      drop = FALSE
+    ],
+    as.data.frame(t(srt_query[[query_assay]]@data[
+      intersect(query_cell_annotation, rownames(srt_query[[query_assay]])) %||%
+        integer(),
+      ,
+      drop = FALSE
+    ]))[cell_metadata[["cells"]], , drop = FALSE]
   )
   colnames(query_metadata) <- paste0("query_", colnames(query_metadata))
   ref_metadata <- cbind.data.frame(
-    srt_ref@meta.data[cell_metadata[["cells"]], c(ref_group, intersect(ref_cell_annotation, colnames(srt_ref@meta.data))), drop = FALSE],
-    as.data.frame(t(srt_ref[[ref_assay]]@data[intersect(ref_cell_annotation, rownames(srt_ref[[ref_assay]])) %||% integer(), , drop = FALSE]))[cell_metadata[["cells"]], , drop = FALSE]
+    srt_ref@meta.data[
+      cell_metadata[["cells"]],
+      c(ref_group, intersect(ref_cell_annotation, colnames(srt_ref@meta.data))),
+      drop = FALSE
+    ],
+    as.data.frame(t(srt_ref[[ref_assay]]@data[
+      intersect(ref_cell_annotation, rownames(srt_ref[[ref_assay]])) %||%
+        integer(),
+      ,
+      drop = FALSE
+    ]))[cell_metadata[["cells"]], , drop = FALSE]
   )
   colnames(ref_metadata) <- paste0("ref_", colnames(ref_metadata))
-  cell_metadata <- cbind.data.frame(cell_metadata, cbind.data.frame(query_metadata, ref_metadata))
+  cell_metadata <- cbind.data.frame(
+    cell_metadata,
+    cbind.data.frame(query_metadata, ref_metadata)
+  )
 
   lgd <- list()
   lgd[["ht"]] <- Legend(title = exp_name, col_fun = colors, border = TRUE)
 
   ha_query_list <- NULL
   if (query_group != "All.groups") {
-    if (isFALSE(query_collapsing) && ((isFALSE(flip) & isTRUE(cluster_rows)) || (isTRUE(flip) & isTRUE(cluster_columns)))) {
+    if (
+      isFALSE(query_collapsing) &&
+        ((isFALSE(flip) & isTRUE(cluster_rows)) ||
+          (isTRUE(flip) & isTRUE(cluster_columns)))
+    ) {
       query_cell_annotation <- c(query_group, query_cell_annotation)
-      query_cell_annotation_palette <- c(query_group_palette, query_cell_annotation_palette)
-      query_cell_annotation_palcolor <- c(list(query_group_palcolor), query_cell_annotation_palcolor %||% list(NULL))
+      query_cell_annotation_palette <- c(
+        query_group_palette,
+        query_cell_annotation_palette
+      )
+      query_cell_annotation_palcolor <- c(
+        list(query_group_palcolor),
+        query_cell_annotation_palcolor %||% list(NULL)
+      )
     } else {
       funbody <- paste0(
         "
-        grid.rect(gp = gpar(fill = palette_scp(", paste0("c('", paste0(levels(srt_query[[query_group, drop = TRUE]]), collapse = "','"), "')"), ",palette = '", query_group_palette, "',palcolor=c(", paste0("'", paste0(query_group_palcolor, collapse = "','"), "'"), "))[nm]))
+        grid.rect(gp = gpar(fill = palette_scp(",
+        paste0(
+          "c('",
+          paste0(
+            levels(srt_query[[query_group, drop = TRUE]]),
+            collapse = "','"
+          ),
+          "')"
+        ),
+        ",palette = '",
+        query_group_palette,
+        "',palcolor=c(",
+        paste0("'", paste0(query_group_palcolor, collapse = "','"), "'"),
+        "))[nm]))
       "
       )
       funbody <- gsub(pattern = "\n", replacement = "", x = funbody)
-      eval(parse(text = paste("panel_fun <- function(index, nm) {", funbody, "}", sep = "")), envir = environment())
+      eval(
+        parse(
+          text = paste(
+            "panel_fun <- function(index, nm) {",
+            funbody,
+            "}",
+            sep = ""
+          )
+        ),
+        envir = environment()
+      )
 
       anno <- list()
       if (isTRUE(query_collapsing)) {
         anno[[paste0(c("Query", query_group), collapse = ":")]] <- anno_block(
-          align_to = split(seq_along(levels(cell_groups[["query_group"]])), levels(cell_groups[["query_group"]])),
+          align_to = split(
+            seq_along(levels(cell_groups[["query_group"]])),
+            levels(cell_groups[["query_group"]])
+          ),
           panel_fun = getFunction("panel_fun", where = environment()),
           which = ifelse(flip, "column", "row"),
           show_name = FALSE
         )
       } else {
         anno[[paste0(c("Query", query_group), collapse = ":")]] <- anno_block(
-          align_to = split(seq_along(cell_groups[["query_group"]]), cell_groups[["query_group"]]),
+          align_to = split(
+            seq_along(cell_groups[["query_group"]]),
+            cell_groups[["query_group"]]
+          ),
           panel_fun = getFunction("panel_fun", where = environment()),
           which = ifelse(flip, "column", "row"),
           show_name = FALSE
         )
       }
-      ha_cell_group <- do.call("HeatmapAnnotation", args = c(anno, which = ifelse(flip, "column", "row"), show_annotation_name = TRUE, annotation_name_side = ifelse(flip, "left", "bottom"), border = TRUE))
-      ha_query_list[[paste0(c("Query", query_group), collapse = ":")]] <- ha_cell_group
+      ha_cell_group <- do.call(
+        "HeatmapAnnotation",
+        args = c(
+          anno,
+          which = ifelse(flip, "column", "row"),
+          show_annotation_name = TRUE,
+          annotation_name_side = ifelse(flip, "left", "bottom"),
+          border = TRUE
+        )
+      )
+      ha_query_list[[paste0(
+        c("Query", query_group),
+        collapse = ":"
+      )]] <- ha_cell_group
       lgd[[paste0(c("Query", query_group), collapse = ":")]] <- Legend(
-        title = paste0(c("Query", query_group), collapse = ":"), labels = levels(srt_query[[query_group, drop = TRUE]]),
-        legend_gp = gpar(fill = palette_scp(levels(srt_query[[query_group, drop = TRUE]]), palette = query_group_palette, palcolor = query_group_palcolor)), border = TRUE
+        title = paste0(c("Query", query_group), collapse = ":"),
+        labels = levels(srt_query[[query_group, drop = TRUE]]),
+        legend_gp = gpar(
+          fill = palette_scp(
+            levels(srt_query[[query_group, drop = TRUE]]),
+            palette = query_group_palette,
+            palcolor = query_group_palcolor
+          )
+        ),
+        border = TRUE
       )
     }
   }
 
   ha_ref_list <- NULL
   if (ref_group != "All.groups") {
-    if (isFALSE(ref_collapsing) && ((isFALSE(flip) & isTRUE(cluster_columns)) || (isTRUE(flip) & isTRUE(cluster_rows)))) {
+    if (
+      isFALSE(ref_collapsing) &&
+        ((isFALSE(flip) & isTRUE(cluster_columns)) ||
+          (isTRUE(flip) & isTRUE(cluster_rows)))
+    ) {
       ref_cell_annotation <- c(ref_group, ref_cell_annotation)
-      ref_cell_annotation_palette <- c(ref_group_palette, ref_cell_annotation_palette)
-      ref_cell_annotation_palcolor <- c(list(ref_group_palcolor), ref_cell_annotation_palcolor %||% list(NULL))
+      ref_cell_annotation_palette <- c(
+        ref_group_palette,
+        ref_cell_annotation_palette
+      )
+      ref_cell_annotation_palcolor <- c(
+        list(ref_group_palcolor),
+        ref_cell_annotation_palcolor %||% list(NULL)
+      )
     } else {
       funbody <- paste0(
         "
-        grid.rect(gp = gpar(fill = palette_scp(", paste0("c('", paste0(levels(srt_ref[[ref_group, drop = TRUE]]), collapse = "','"), "')"), ",palette = '", ref_group_palette, "',palcolor=c(", paste0("'", paste0(ref_group_palcolor, collapse = "','"), "'"), "))[nm]))
+        grid.rect(gp = gpar(fill = palette_scp(",
+        paste0(
+          "c('",
+          paste0(levels(srt_ref[[ref_group, drop = TRUE]]), collapse = "','"),
+          "')"
+        ),
+        ",palette = '",
+        ref_group_palette,
+        "',palcolor=c(",
+        paste0("'", paste0(ref_group_palcolor, collapse = "','"), "'"),
+        "))[nm]))
       "
       )
       funbody <- gsub(pattern = "\n", replacement = "", x = funbody)
-      eval(parse(text = paste("panel_fun <- function(index, nm) {", funbody, "}", sep = "")), envir = environment())
+      eval(
+        parse(
+          text = paste(
+            "panel_fun <- function(index, nm) {",
+            funbody,
+            "}",
+            sep = ""
+          )
+        ),
+        envir = environment()
+      )
 
       anno <- list()
       if (isTRUE(ref_collapsing)) {
         anno[[paste0(c("Ref", ref_group), collapse = ":")]] <- anno_block(
-          align_to = split(seq_along(levels(cell_groups[["ref_group"]])), levels(cell_groups[["ref_group"]])),
+          align_to = split(
+            seq_along(levels(cell_groups[["ref_group"]])),
+            levels(cell_groups[["ref_group"]])
+          ),
           panel_fun = getFunction("panel_fun", where = environment()),
           which = ifelse(!flip, "column", "row"),
           show_name = FALSE
         )
       } else {
         anno[[paste0(c("Ref", ref_group), collapse = ":")]] <- anno_block(
-          align_to = split(seq_along(cell_groups[["ref_group"]]), cell_groups[["ref_group"]]),
+          align_to = split(
+            seq_along(cell_groups[["ref_group"]]),
+            cell_groups[["ref_group"]]
+          ),
           panel_fun = getFunction("panel_fun", where = environment()),
           which = ifelse(!flip, "column", "row"),
           show_name = FALSE
         )
       }
-      ha_cell_group <- do.call("HeatmapAnnotation", args = c(anno, which = ifelse(!flip, "column", "row"), show_annotation_name = TRUE, annotation_name_side = ifelse(!flip, "left", "bottom"), border = TRUE))
-      ha_ref_list[[paste0(c("Ref", ref_group), collapse = ":")]] <- ha_cell_group
+      ha_cell_group <- do.call(
+        "HeatmapAnnotation",
+        args = c(
+          anno,
+          which = ifelse(!flip, "column", "row"),
+          show_annotation_name = TRUE,
+          annotation_name_side = ifelse(!flip, "left", "bottom"),
+          border = TRUE
+        )
+      )
+      ha_ref_list[[paste0(
+        c("Ref", ref_group),
+        collapse = ":"
+      )]] <- ha_cell_group
       lgd[[paste0(c("Ref", ref_group), collapse = ":")]] <- Legend(
-        title = paste0(c("Ref", ref_group), collapse = ":"), labels = levels(srt_ref[[ref_group, drop = TRUE]]),
-        legend_gp = gpar(fill = palette_scp(levels(srt_ref[[ref_group, drop = TRUE]]), palette = ref_group_palette, palcolor = ref_group_palcolor)), border = TRUE
+        title = paste0(c("Ref", ref_group), collapse = ":"),
+        labels = levels(srt_ref[[ref_group, drop = TRUE]]),
+        legend_gp = gpar(
+          fill = palette_scp(
+            levels(srt_ref[[ref_group, drop = TRUE]]),
+            palette = ref_group_palette,
+            palcolor = ref_group_palcolor
+          )
+        ),
+        border = TRUE
       )
     }
   }
@@ -10427,33 +16288,60 @@ CellCorHeatmap <- function(srt_query, srt_ref = NULL, bulk_ref = NULL,
           cell_anno <- factor(cell_anno, levels = unique(cell_anno))
         }
         if (isTRUE(query_collapsing)) {
-          subplots <- CellStatPlot(srt_query,
+          subplots <- CellStatPlot(
+            srt_query,
             flip = !flip,
-            cells = gsub("query_", "", names(cell_groups[["query_group"]])), plot_type = "pie",
-            group.by = query_group, stat.by = cellan,
-            palette = palette, palcolor = palcolor,
-            individual = TRUE, combine = FALSE
+            cells = gsub("query_", "", names(cell_groups[["query_group"]])),
+            plot_type = "pie",
+            group.by = query_group,
+            stat.by = cellan,
+            palette = palette,
+            palcolor = palcolor,
+            individual = TRUE,
+            combine = FALSE
           )
           query_subplots_list[[paste0(cellan, ":", query_group)]] <- subplots
           graphics <- list()
           for (nm in names(subplots)) {
             funbody <- paste0(
               "
-              g <- cowplot::as_grob(query_subplots_list[['", cellan, ":", query_group, "']]", "[['", nm, "']] + theme_void() + theme(plot.title = element_blank(), plot.subtitle = element_blank(), legend.position = 'none'));
-              g$name <- '", paste0(cellan, ":", query_group, "-", nm), "';
+              g <- cowplot::as_grob(query_subplots_list[['",
+              cellan,
+              ":",
+              query_group,
+              "']]",
+              "[['",
+              nm,
+              "']] + theme_void() + theme(plot.title = element_blank(), plot.subtitle = element_blank(), legend.position = 'none'));
+              g$name <- '",
+              paste0(cellan, ":", query_group, "-", nm),
+              "';
               grid.draw(g)
               "
             )
             funbody <- gsub(pattern = "\n", replacement = "", x = funbody)
-            eval(parse(text = paste("graphics[[nm]] <- function(x, y, w, h) {", funbody, "}", sep = "")), envir = environment())
+            eval(
+              parse(
+                text = paste(
+                  "graphics[[nm]] <- function(x, y, w, h) {",
+                  funbody,
+                  "}",
+                  sep = ""
+                )
+              ),
+              envir = environment()
+            )
           }
-          x_nm <- sapply(strsplit(levels(cell_groups[["query_group"]]), " : "), function(x) {
-            if (length(x) == 2) {
-              paste0(c(query_group, x[1], x[2]), collapse = ":")
-            } else {
-              paste0(c(query_group, x[1], ""), collapse = ":")
+          x_nm <- sapply(
+            strsplit(levels(cell_groups[["query_group"]]), " : "),
+            function(x) {
+              if (length(x) == 2) {
+                paste0(c(query_group, x[1], x[2]), collapse = ":")
+              } else {
+                paste0(c(query_group, x[1], ""), collapse = ":")
+              }
             }
-          })
+          )
 
           ha_cell <- list()
           ha_cell[[cellan]] <- anno_customize(
@@ -10463,75 +16351,160 @@ CellCorHeatmap <- function(srt_query, srt_ref = NULL, bulk_ref = NULL,
             border = TRUE,
             verbose = FALSE
           )
-          anno_args <- c(ha_cell,
+          anno_args <- c(
+            ha_cell,
             which = ifelse(flip, "column", "row"),
             show_annotation_name = TRUE,
             annotation_name_side = ifelse(flip, "left", "bottom")
           )
-          anno_args <- c(anno_args, query_cell_annotation_params[setdiff(names(query_cell_annotation_params), names(anno_args))])
+          anno_args <- c(
+            anno_args,
+            query_cell_annotation_params[setdiff(
+              names(query_cell_annotation_params),
+              names(anno_args)
+            )]
+          )
           ha_query <- do.call(HeatmapAnnotation, args = anno_args)
-          if (is.null(ha_query_list[[paste0(c("Query", query_group), collapse = ":")]])) {
-            ha_query_list[[paste0(c("Query", query_group), collapse = ":")]] <- ha_query
+          if (
+            is.null(ha_query_list[[paste0(
+              c("Query", query_group),
+              collapse = ":"
+            )]])
+          ) {
+            ha_query_list[[paste0(
+              c("Query", query_group),
+              collapse = ":"
+            )]] <- ha_query
           } else {
-            ha_query_list[[paste0(c("Query", query_group), collapse = ":")]] <- c(ha_query_list[[paste0(c("Query", query_group), collapse = ":")]], ha_query)
+            ha_query_list[[paste0(
+              c("Query", query_group),
+              collapse = ":"
+            )]] <- c(
+              ha_query_list[[paste0(c("Query", query_group), collapse = ":")]],
+              ha_query
+            )
           }
         } else {
           ha_cell <- list()
           ha_cell[[cellan]] <- anno_simple(
-            x = as.character(cell_anno[paste0("query_", names(cell_groups[["query_group"]]))]),
-            col = palette_scp(cell_anno, palette = palette, palcolor = palcolor),
+            x = as.character(cell_anno[paste0(
+              "query_",
+              names(cell_groups[["query_group"]])
+            )]),
+            col = palette_scp(
+              cell_anno,
+              palette = palette,
+              palcolor = palcolor
+            ),
             which = ifelse(flip, "column", "row"),
             na_col = "transparent",
             border = TRUE
           )
-          anno_args <- c(ha_cell,
+          anno_args <- c(
+            ha_cell,
             which = ifelse(flip, "column", "row"),
             show_annotation_name = TRUE,
             annotation_name_side = ifelse(flip, "left", "bottom")
           )
-          anno_args <- c(anno_args, query_cell_annotation_params[setdiff(names(query_cell_annotation_params), names(anno_args))])
+          anno_args <- c(
+            anno_args,
+            query_cell_annotation_params[setdiff(
+              names(query_cell_annotation_params),
+              names(anno_args)
+            )]
+          )
           ha_query <- do.call(HeatmapAnnotation, args = anno_args)
-          if (is.null(ha_query_list[[paste0(c("Query", query_group), collapse = ":")]])) {
-            ha_query_list[[paste0(c("Query", query_group), collapse = ":")]] <- ha_query
+          if (
+            is.null(ha_query_list[[paste0(
+              c("Query", query_group),
+              collapse = ":"
+            )]])
+          ) {
+            ha_query_list[[paste0(
+              c("Query", query_group),
+              collapse = ":"
+            )]] <- ha_query
           } else {
-            ha_query_list[[paste0(c("Query", query_group), collapse = ":")]] <- c(ha_query_list[[paste0(c("Query", query_group), collapse = ":")]], ha_query)
+            ha_query_list[[paste0(
+              c("Query", query_group),
+              collapse = ":"
+            )]] <- c(
+              ha_query_list[[paste0(c("Query", query_group), collapse = ":")]],
+              ha_query
+            )
           }
         }
         lgd[[paste0(c("Query", cellan), collapse = ":")]] <- Legend(
-          title = paste0(c("Query", cellan), collapse = ":"), labels = levels(cell_anno),
-          legend_gp = gpar(fill = palette_scp(cell_anno, palette = palette, palcolor = palcolor)), border = TRUE
+          title = paste0(c("Query", cellan), collapse = ":"),
+          labels = levels(cell_anno),
+          legend_gp = gpar(
+            fill = palette_scp(
+              cell_anno,
+              palette = palette,
+              palcolor = palcolor
+            )
+          ),
+          border = TRUE
         )
       } else {
         if (isTRUE(query_collapsing)) {
-          subplots <- FeatureStatPlot(srt_query,
-            assay = query_assay, layer = "data", flip = !flip,
-            stat.by = cellan, cells = gsub("query_", "", names(cell_groups[["query_group"]])),
+          subplots <- FeatureStatPlot(
+            srt_query,
+            assay = query_assay,
+            layer = "data",
+            flip = !flip,
+            stat.by = cellan,
+            cells = gsub("query_", "", names(cell_groups[["query_group"]])),
             group.by = query_group,
             palette = query_group_palette,
             palcolor = query_group_palcolor,
-            fill.by = "group", same.y.lims = TRUE,
-            individual = TRUE, combine = FALSE
+            fill.by = "group",
+            same.y.lims = TRUE,
+            individual = TRUE,
+            combine = FALSE
           )
           query_subplots_list[[paste0(cellan, ":", query_group)]] <- subplots
           graphics <- list()
           for (nm in names(subplots)) {
             funbody <- paste0(
               "
-              g <- cowplot::as_grob(query_subplots_list[['", cellan, ":", query_group, "']]", "[['", nm, "']]  + facet_null() + theme_void() + theme(plot.title = element_blank(), plot.subtitle = element_blank(), legend.position = 'none'));
-              g$name <- '", paste0(cellan, ":", query_group, "-", nm), "';
+              g <- cowplot::as_grob(query_subplots_list[['",
+              cellan,
+              ":",
+              query_group,
+              "']]",
+              "[['",
+              nm,
+              "']]  + facet_null() + theme_void() + theme(plot.title = element_blank(), plot.subtitle = element_blank(), legend.position = 'none'));
+              g$name <- '",
+              paste0(cellan, ":", query_group, "-", nm),
+              "';
               grid.draw(g)
               "
             )
             funbody <- gsub(pattern = "\n", replacement = "", x = funbody)
-            eval(parse(text = paste("graphics[[nm]] <- function(x, y, w, h) {", funbody, "}", sep = "")), envir = environment())
+            eval(
+              parse(
+                text = paste(
+                  "graphics[[nm]] <- function(x, y, w, h) {",
+                  funbody,
+                  "}",
+                  sep = ""
+                )
+              ),
+              envir = environment()
+            )
           }
-          x_nm <- sapply(strsplit(levels(cell_groups[["query_group"]]), " : "), function(x) {
-            if (length(x) == 2) {
-              paste0(c(cellan, query_group, x[1], x[2]), collapse = ":")
-            } else {
-              paste0(c(cellan, query_group, x[1], ""), collapse = ":")
+          x_nm <- sapply(
+            strsplit(levels(cell_groups[["query_group"]]), " : "),
+            function(x) {
+              if (length(x) == 2) {
+                paste0(c(cellan, query_group, x[1], x[2]), collapse = ":")
+              } else {
+                paste0(c(cellan, query_group, x[1], ""), collapse = ":")
+              }
             }
-          })
+          )
           ha_cell <- list()
           ha_cell[[cellan]] <- anno_customize(
             x = x_nm,
@@ -10540,45 +16513,96 @@ CellCorHeatmap <- function(srt_query, srt_ref = NULL, bulk_ref = NULL,
             border = TRUE,
             verbose = FALSE
           )
-          anno_args <- c(ha_cell,
+          anno_args <- c(
+            ha_cell,
             which = ifelse(flip, "column", "row"),
             show_annotation_name = TRUE,
             annotation_name_side = ifelse(flip, "left", "bottom")
           )
-          anno_args <- c(anno_args, query_cell_annotation_params[setdiff(names(query_cell_annotation_params), names(anno_args))])
+          anno_args <- c(
+            anno_args,
+            query_cell_annotation_params[setdiff(
+              names(query_cell_annotation_params),
+              names(anno_args)
+            )]
+          )
           ha_query <- do.call(HeatmapAnnotation, args = anno_args)
-          if (is.null(ha_query_list[[paste0(c("Query", query_group), collapse = ":")]])) {
-            ha_query_list[[paste0(c("Query", query_group), collapse = ":")]] <- ha_query
+          if (
+            is.null(ha_query_list[[paste0(
+              c("Query", query_group),
+              collapse = ":"
+            )]])
+          ) {
+            ha_query_list[[paste0(
+              c("Query", query_group),
+              collapse = ":"
+            )]] <- ha_query
           } else {
-            ha_query_list[[paste0(c("Query", query_group), collapse = ":")]] <- c(ha_query_list[[paste0(c("Query", query_group), collapse = ":")]], ha_query)
+            ha_query_list[[paste0(
+              c("Query", query_group),
+              collapse = ":"
+            )]] <- c(
+              ha_query_list[[paste0(c("Query", query_group), collapse = ":")]],
+              ha_query
+            )
           }
         } else {
           col_fun <- circlize::colorRamp2(
-            breaks = seq(min(cell_anno, na.rm = TRUE), max(cell_anno, na.rm = TRUE), length = 100),
+            breaks = seq(
+              min(cell_anno, na.rm = TRUE),
+              max(cell_anno, na.rm = TRUE),
+              length = 100
+            ),
             colors = palette_scp(palette = palette, palcolor = palcolor)
           )
           ha_cell <- list()
           ha_cell[[cellan]] <- anno_simple(
-            x = cell_anno[paste0("query_", names(cell_groups[["query_group"]]))],
+            x = cell_anno[paste0(
+              "query_",
+              names(cell_groups[["query_group"]])
+            )],
             col = col_fun,
             which = ifelse(flip, "column", "row"),
             na_col = "transparent",
             border = TRUE
           )
-          anno_args <- c(ha_cell,
+          anno_args <- c(
+            ha_cell,
             which = ifelse(flip, "column", "row"),
             show_annotation_name = TRUE,
             annotation_name_side = ifelse(flip, "left", "bottom")
           )
-          anno_args <- c(anno_args, query_cell_annotation_params[setdiff(names(query_cell_annotation_params), names(anno_args))])
+          anno_args <- c(
+            anno_args,
+            query_cell_annotation_params[setdiff(
+              names(query_cell_annotation_params),
+              names(anno_args)
+            )]
+          )
           ha_query <- do.call(HeatmapAnnotation, args = anno_args)
-          if (is.null(ha_query_list[[paste0(c("Query", query_group), collapse = ":")]])) {
-            ha_query_list[[paste0(c("Query", query_group), collapse = ":")]] <- ha_query
+          if (
+            is.null(ha_query_list[[paste0(
+              c("Query", query_group),
+              collapse = ":"
+            )]])
+          ) {
+            ha_query_list[[paste0(
+              c("Query", query_group),
+              collapse = ":"
+            )]] <- ha_query
           } else {
-            ha_query_list[[paste0(c("Query", query_group), collapse = ":")]] <- c(ha_query_list[[paste0(c("Query", query_group), collapse = ":")]], ha_query)
+            ha_query_list[[paste0(
+              c("Query", query_group),
+              collapse = ":"
+            )]] <- c(
+              ha_query_list[[paste0(c("Query", query_group), collapse = ":")]],
+              ha_query
+            )
           }
           lgd[[paste0(c("Query", cellan), collapse = ":")]] <- Legend(
-            title = paste0(c("Query", cellan), collapse = ":"), col_fun = col_fun, border = TRUE
+            title = paste0(c("Query", cellan), collapse = ":"),
+            col_fun = col_fun,
+            border = TRUE
           )
         }
       }
@@ -10600,33 +16624,60 @@ CellCorHeatmap <- function(srt_query, srt_ref = NULL, bulk_ref = NULL,
           cell_anno <- factor(cell_anno, levels = unique(cell_anno))
         }
         if (isTRUE(ref_collapsing)) {
-          subplots <- CellStatPlot(srt_ref,
+          subplots <- CellStatPlot(
+            srt_ref,
             flip = flip,
-            cells = gsub("ref_", "", names(cell_groups[["ref_group"]])), plot_type = "pie",
-            group.by = ref_group, stat.by = cellan,
-            palette = palette, palcolor = palcolor,
-            individual = TRUE, combine = FALSE
+            cells = gsub("ref_", "", names(cell_groups[["ref_group"]])),
+            plot_type = "pie",
+            group.by = ref_group,
+            stat.by = cellan,
+            palette = palette,
+            palcolor = palcolor,
+            individual = TRUE,
+            combine = FALSE
           )
           ref_subplots_list[[paste0(cellan, ":", ref_group)]] <- subplots
           graphics <- list()
           for (nm in names(subplots)) {
             funbody <- paste0(
               "
-              g <- cowplot::as_grob(ref_subplots_list[['", cellan, ":", ref_group, "']]", "[['", nm, "']] + theme_void() + theme(plot.title = element_blank(), plot.subtitle = element_blank(), legend.position = 'none'));
-              g$name <- '", paste0(cellan, ":", ref_group, "-", nm), "';
+              g <- cowplot::as_grob(ref_subplots_list[['",
+              cellan,
+              ":",
+              ref_group,
+              "']]",
+              "[['",
+              nm,
+              "']] + theme_void() + theme(plot.title = element_blank(), plot.subtitle = element_blank(), legend.position = 'none'));
+              g$name <- '",
+              paste0(cellan, ":", ref_group, "-", nm),
+              "';
               grid.draw(g)
               "
             )
             funbody <- gsub(pattern = "\n", replacement = "", x = funbody)
-            eval(parse(text = paste("graphics[[nm]] <- function(x, y, w, h) {", funbody, "}", sep = "")), envir = environment())
+            eval(
+              parse(
+                text = paste(
+                  "graphics[[nm]] <- function(x, y, w, h) {",
+                  funbody,
+                  "}",
+                  sep = ""
+                )
+              ),
+              envir = environment()
+            )
           }
-          x_nm <- sapply(strsplit(levels(cell_groups[["ref_group"]]), " : "), function(x) {
-            if (length(x) == 2) {
-              paste0(c(ref_group, x[1], x[2]), collapse = ":")
-            } else {
-              paste0(c(ref_group, x[1], ""), collapse = ":")
+          x_nm <- sapply(
+            strsplit(levels(cell_groups[["ref_group"]]), " : "),
+            function(x) {
+              if (length(x) == 2) {
+                paste0(c(ref_group, x[1], x[2]), collapse = ":")
+              } else {
+                paste0(c(ref_group, x[1], ""), collapse = ":")
+              }
             }
-          })
+          )
 
           ha_cell <- list()
           ha_cell[[cellan]] <- anno_customize(
@@ -10636,75 +16687,142 @@ CellCorHeatmap <- function(srt_query, srt_ref = NULL, bulk_ref = NULL,
             border = TRUE,
             verbose = FALSE
           )
-          anno_args <- c(ha_cell,
+          anno_args <- c(
+            ha_cell,
             which = ifelse(!flip, "column", "row"),
             show_annotation_name = TRUE,
             annotation_name_side = ifelse(!flip, "left", "bottom")
           )
-          anno_args <- c(anno_args, ref_cell_annotation_params[setdiff(names(ref_cell_annotation_params), names(anno_args))])
+          anno_args <- c(
+            anno_args,
+            ref_cell_annotation_params[setdiff(
+              names(ref_cell_annotation_params),
+              names(anno_args)
+            )]
+          )
           ha_ref <- do.call(HeatmapAnnotation, args = anno_args)
-          if (is.null(ha_ref_list[[paste0(c("Ref", ref_group), collapse = ":")]])) {
+          if (
+            is.null(ha_ref_list[[paste0(c("Ref", ref_group), collapse = ":")]])
+          ) {
             ha_ref_list[[paste0(c("Ref", ref_group), collapse = ":")]] <- ha_ref
           } else {
-            ha_ref_list[[paste0(c("Ref", ref_group), collapse = ":")]] <- c(ha_ref_list[[paste0(c("Ref", ref_group), collapse = ":")]], ha_ref)
+            ha_ref_list[[paste0(c("Ref", ref_group), collapse = ":")]] <- c(
+              ha_ref_list[[paste0(c("Ref", ref_group), collapse = ":")]],
+              ha_ref
+            )
           }
         } else {
           ha_cell <- list()
           ha_cell[[cellan]] <- anno_simple(
-            x = as.character(cell_anno[paste0("ref_", names(cell_groups[["ref_group"]]))]),
-            col = palette_scp(cell_anno, palette = palette, palcolor = palcolor),
+            x = as.character(cell_anno[paste0(
+              "ref_",
+              names(cell_groups[["ref_group"]])
+            )]),
+            col = palette_scp(
+              cell_anno,
+              palette = palette,
+              palcolor = palcolor
+            ),
             which = ifelse(!flip, "column", "row"),
             na_col = "transparent",
             border = TRUE
           )
-          anno_args <- c(ha_cell,
+          anno_args <- c(
+            ha_cell,
             which = ifelse(!flip, "column", "row"),
             show_annotation_name = TRUE,
             annotation_name_side = ifelse(!flip, "left", "bottom")
           )
-          anno_args <- c(anno_args, ref_cell_annotation_params[setdiff(names(ref_cell_annotation_params), names(anno_args))])
+          anno_args <- c(
+            anno_args,
+            ref_cell_annotation_params[setdiff(
+              names(ref_cell_annotation_params),
+              names(anno_args)
+            )]
+          )
           ha_ref <- do.call(HeatmapAnnotation, args = anno_args)
-          if (is.null(ha_ref_list[[paste0(c("Ref", ref_group), collapse = ":")]])) {
+          if (
+            is.null(ha_ref_list[[paste0(c("Ref", ref_group), collapse = ":")]])
+          ) {
             ha_ref_list[[paste0(c("Ref", ref_group), collapse = ":")]] <- ha_ref
           } else {
-            ha_ref_list[[paste0(c("Ref", ref_group), collapse = ":")]] <- c(ha_ref_list[[paste0(c("Ref", ref_group), collapse = ":")]], ha_ref)
+            ha_ref_list[[paste0(c("Ref", ref_group), collapse = ":")]] <- c(
+              ha_ref_list[[paste0(c("Ref", ref_group), collapse = ":")]],
+              ha_ref
+            )
           }
         }
         lgd[[paste0(c("Ref", cellan), collapse = ":")]] <- Legend(
-          title = paste0(c("Ref", cellan), collapse = ":"), labels = levels(cell_anno),
-          legend_gp = gpar(fill = palette_scp(cell_anno, palette = palette, palcolor = palcolor)), border = TRUE
+          title = paste0(c("Ref", cellan), collapse = ":"),
+          labels = levels(cell_anno),
+          legend_gp = gpar(
+            fill = palette_scp(
+              cell_anno,
+              palette = palette,
+              palcolor = palcolor
+            )
+          ),
+          border = TRUE
         )
       } else {
         if (isTRUE(ref_collapsing)) {
-          subplots <- FeatureStatPlot(srt_ref,
-            assay = ref_assay, layer = "data", flip = flip,
-            stat.by = cellan, cells = gsub("ref_", "", names(cell_groups[["ref_group"]])),
+          subplots <- FeatureStatPlot(
+            srt_ref,
+            assay = ref_assay,
+            layer = "data",
+            flip = flip,
+            stat.by = cellan,
+            cells = gsub("ref_", "", names(cell_groups[["ref_group"]])),
             group.by = ref_group,
             palette = ref_group_palette,
             palcolor = ref_group_palcolor,
-            fill.by = "group", same.y.lims = TRUE,
-            individual = TRUE, combine = FALSE
+            fill.by = "group",
+            same.y.lims = TRUE,
+            individual = TRUE,
+            combine = FALSE
           )
           ref_subplots_list[[paste0(cellan, ":", ref_group)]] <- subplots
           graphics <- list()
           for (nm in names(subplots)) {
             funbody <- paste0(
               "
-              g <- cowplot::as_grob(ref_subplots_list[['", cellan, ":", ref_group, "']]", "[['", nm, "']]  + facet_null() + theme_void() + theme(plot.title = element_blank(), plot.subtitle = element_blank(), legend.position = 'none'));
-              g$name <- '", paste0(cellan, ":", ref_group, "-", nm), "';
+              g <- cowplot::as_grob(ref_subplots_list[['",
+              cellan,
+              ":",
+              ref_group,
+              "']]",
+              "[['",
+              nm,
+              "']]  + facet_null() + theme_void() + theme(plot.title = element_blank(), plot.subtitle = element_blank(), legend.position = 'none'));
+              g$name <- '",
+              paste0(cellan, ":", ref_group, "-", nm),
+              "';
               grid.draw(g)
               "
             )
             funbody <- gsub(pattern = "\n", replacement = "", x = funbody)
-            eval(parse(text = paste("graphics[[nm]] <- function(x, y, w, h) {", funbody, "}", sep = "")), envir = environment())
+            eval(
+              parse(
+                text = paste(
+                  "graphics[[nm]] <- function(x, y, w, h) {",
+                  funbody,
+                  "}",
+                  sep = ""
+                )
+              ),
+              envir = environment()
+            )
           }
-          x_nm <- sapply(strsplit(levels(cell_groups[["ref_group"]]), " : "), function(x) {
-            if (length(x) == 2) {
-              paste0(c(cellan, ref_group, x[1], x[2]), collapse = ":")
-            } else {
-              paste0(c(cellan, ref_group, x[1], ""), collapse = ":")
+          x_nm <- sapply(
+            strsplit(levels(cell_groups[["ref_group"]]), " : "),
+            function(x) {
+              if (length(x) == 2) {
+                paste0(c(cellan, ref_group, x[1], x[2]), collapse = ":")
+              } else {
+                paste0(c(cellan, ref_group, x[1], ""), collapse = ":")
+              }
             }
-          })
+          )
           ha_cell <- list()
           ha_cell[[cellan]] <- anno_customize(
             x = x_nm,
@@ -10713,21 +16831,37 @@ CellCorHeatmap <- function(srt_query, srt_ref = NULL, bulk_ref = NULL,
             border = TRUE,
             verbose = FALSE
           )
-          anno_args <- c(ha_cell,
+          anno_args <- c(
+            ha_cell,
             which = ifelse(!flip, "column", "row"),
             show_annotation_name = TRUE,
             annotation_name_side = ifelse(!flip, "left", "bottom")
           )
-          anno_args <- c(anno_args, ref_cell_annotation_params[setdiff(names(ref_cell_annotation_params), names(anno_args))])
+          anno_args <- c(
+            anno_args,
+            ref_cell_annotation_params[setdiff(
+              names(ref_cell_annotation_params),
+              names(anno_args)
+            )]
+          )
           ha_ref <- do.call(HeatmapAnnotation, args = anno_args)
-          if (is.null(ha_ref_list[[paste0(c("Ref", ref_group), collapse = ":")]])) {
+          if (
+            is.null(ha_ref_list[[paste0(c("Ref", ref_group), collapse = ":")]])
+          ) {
             ha_ref_list[[paste0(c("Ref", ref_group), collapse = ":")]] <- ha_ref
           } else {
-            ha_ref_list[[paste0(c("Ref", ref_group), collapse = ":")]] <- c(ha_ref_list[[paste0(c("Ref", ref_group), collapse = ":")]], ha_ref)
+            ha_ref_list[[paste0(c("Ref", ref_group), collapse = ":")]] <- c(
+              ha_ref_list[[paste0(c("Ref", ref_group), collapse = ":")]],
+              ha_ref
+            )
           }
         } else {
           col_fun <- circlize::colorRamp2(
-            breaks = seq(min(cell_anno, na.rm = TRUE), max(cell_anno, na.rm = TRUE), length = 100),
+            breaks = seq(
+              min(cell_anno, na.rm = TRUE),
+              max(cell_anno, na.rm = TRUE),
+              length = 100
+            ),
             colors = palette_scp(palette = palette, palcolor = palcolor)
           )
           ha_cell <- list()
@@ -10738,20 +16872,34 @@ CellCorHeatmap <- function(srt_query, srt_ref = NULL, bulk_ref = NULL,
             na_col = "transparent",
             border = TRUE
           )
-          anno_args <- c(ha_cell,
+          anno_args <- c(
+            ha_cell,
             which = ifelse(!flip, "column", "row"),
             show_annotation_name = TRUE,
             annotation_name_side = ifelse(!flip, "left", "bottom")
           )
-          anno_args <- c(anno_args, ref_cell_annotation_params[setdiff(names(ref_cell_annotation_params), names(anno_args))])
+          anno_args <- c(
+            anno_args,
+            ref_cell_annotation_params[setdiff(
+              names(ref_cell_annotation_params),
+              names(anno_args)
+            )]
+          )
           ha_ref <- do.call(HeatmapAnnotation, args = anno_args)
-          if (is.null(ha_ref_list[[paste0(c("Ref", ref_group), collapse = ":")]])) {
+          if (
+            is.null(ha_ref_list[[paste0(c("Ref", ref_group), collapse = ":")]])
+          ) {
             ha_ref_list[[paste0(c("Ref", ref_group), collapse = ":")]] <- ha_ref
           } else {
-            ha_ref_list[[paste0(c("Ref", ref_group), collapse = ":")]] <- c(ha_ref_list[[paste0(c("Ref", ref_group), collapse = ":")]], ha_ref)
+            ha_ref_list[[paste0(c("Ref", ref_group), collapse = ":")]] <- c(
+              ha_ref_list[[paste0(c("Ref", ref_group), collapse = ":")]],
+              ha_ref
+            )
           }
           lgd[[paste0(c("Ref", cellan), collapse = ":")]] <- Legend(
-            title = paste0(c("Ref", cellan), collapse = ":"), col_fun = col_fun, border = TRUE
+            title = paste0(c("Ref", cellan), collapse = ":"),
+            col_fun = col_fun,
+            border = TRUE
           )
         }
       }
@@ -10776,14 +16924,28 @@ CellCorHeatmap <- function(srt_query, srt_ref = NULL, bulk_ref = NULL,
       if (label_by %in% c("row", "both")) {
         for (row in 1:nrow(ind_mat)) {
           ind <- ind_mat[row, ]
-          ind <- ind[which(value[ind] >= max(c(sort(value[ind], decreasing = TRUE)[nlabel]), na.rm = TRUE) & value[ind] >= label_cutoff)]
+          ind <- ind[which(
+            value[ind] >=
+              max(
+                c(sort(value[ind], decreasing = TRUE)[nlabel]),
+                na.rm = TRUE
+              ) &
+              value[ind] >= label_cutoff
+          )]
           inds <- c(inds, ind)
         }
       }
       if (label_by %in% c("column", "both")) {
         for (column in 1:ncol(ind_mat)) {
           ind <- ind_mat[, column]
-          ind <- ind[which(value[ind] >= max(c(sort(value[ind], decreasing = TRUE)[nlabel]), na.rm = TRUE) & value[ind] >= label_cutoff)]
+          ind <- ind[which(
+            value[ind] >=
+              max(
+                c(sort(value[ind], decreasing = TRUE)[nlabel]),
+                na.rm = TRUE
+              ) &
+              value[ind] >= label_cutoff
+          )]
           inds <- c(inds, ind)
         }
       }
@@ -10795,9 +16957,19 @@ CellCorHeatmap <- function(srt_query, srt_ref = NULL, bulk_ref = NULL,
         lapply(theta, function(i) {
           x_out <- x[inds] + unit(cos(i) * label_size / 30, "mm")
           y_out <- y[inds] + unit(sin(i) * label_size / 30, "mm")
-          grid.text(round(value[inds], 2), x = x_out, y = y_out, gp = gpar(fontsize = label_size, col = "white"))
+          grid.text(
+            round(value[inds], 2),
+            x = x_out,
+            y = y_out,
+            gp = gpar(fontsize = label_size, col = "white")
+          )
         })
-        grid.text(round(value[inds], 2), x[inds], y[inds], gp = gpar(fontsize = label_size, col = "black"))
+        grid.text(
+          round(value[inds], 2),
+          x[inds],
+          y[inds],
+          gp = gpar(fontsize = label_size, col = "black")
+        )
       }
     }
   }
@@ -10808,9 +16980,19 @@ CellCorHeatmap <- function(srt_query, srt_ref = NULL, bulk_ref = NULL,
     matrix = if (flip) t(simil_matrix) else simil_matrix,
     col = colors,
     layer_fun = layer_fun,
-    row_title = row_title %||% if (flip) paste0(c("Ref", ref_group), collapse = ":") else paste0(c("Query", query_group), collapse = ":"),
+    row_title = row_title %||%
+      if (flip) {
+        paste0(c("Ref", ref_group), collapse = ":")
+      } else {
+        paste0(c("Query", query_group), collapse = ":")
+      },
     row_title_side = row_title_side,
-    column_title = column_title %||% if (flip) paste0(c("Query", query_group), collapse = ":") else paste0(c("Ref", ref_group), collapse = ":"),
+    column_title = column_title %||%
+      if (flip) {
+        paste0(c("Query", query_group), collapse = ":")
+      } else {
+        paste0(c("Ref", ref_group), collapse = ":")
+      },
     column_title_side = column_title_side,
     row_title_rot = row_title_rot,
     column_title_rot = column_title_rot,
@@ -10833,7 +17015,12 @@ CellCorHeatmap <- function(srt_query, srt_ref = NULL, bulk_ref = NULL,
     height = if (is.numeric(height)) unit(height, units = units) else NULL
   )
   if (any(names(ht_params) %in% names(ht_args))) {
-    warning("ht_params: ", paste0(intersect(names(ht_params), names(ht_args)), collapse = ","), " were duplicated and will not be used.", immediate. = TRUE)
+    warning(
+      "ht_params: ",
+      paste0(intersect(names(ht_params), names(ht_args)), collapse = ","),
+      " were duplicated and will not be used.",
+      immediate. = TRUE
+    )
   }
   ht_args <- c(ht_args, ht_params[setdiff(names(ht_params), names(ht_args))])
   if (isTRUE(flip)) {
@@ -10852,9 +17039,15 @@ CellCorHeatmap <- function(srt_query, srt_ref = NULL, bulk_ref = NULL,
     fix <- FALSE
   }
   rendersize <- heatmap_rendersize(
-    width = width, height = height, units = units,
-    ha_top_list = ha_ref_list, ha_left = ha_query_list[[1]], ha_right = NULL,
-    ht_list = ht_list, legend_list = lgd, flip = flip
+    width = width,
+    height = height,
+    units = units,
+    ha_top_list = ha_ref_list,
+    ha_left = ha_query_list[[1]],
+    ha_right = NULL,
+    ht_list = ht_list,
+    legend_list = lgd,
+    flip = flip
   )
   width_sum <- rendersize[["width_sum"]]
   height_sum <- rendersize[["height_sum"]]
@@ -10865,8 +17058,13 @@ CellCorHeatmap <- function(srt_query, srt_ref = NULL, bulk_ref = NULL,
 
   if (isTRUE(fix)) {
     fixsize <- heatmap_fixsize(
-      width = width, width_sum = width_sum, height = height, height_sum = height_sum, units = units,
-      ht_list = ht_list, legend_list = lgd
+      width = width,
+      width_sum = width_sum,
+      height = height,
+      height_sum = height_sum,
+      units = units,
+      ht_list = ht_list,
+      legend_list = lgd
     )
     ht_width <- fixsize[["ht_width"]]
     ht_height <- fixsize[["ht_height"]]
@@ -10897,7 +17095,12 @@ CellCorHeatmap <- function(srt_query, srt_ref = NULL, bulk_ref = NULL,
   }
 
   if (isTRUE(fix)) {
-    p <- panel_fix_overall(gTree, width = as.numeric(ht_width), height = as.numeric(ht_height), units = units)
+    p <- panel_fix_overall(
+      gTree,
+      width = as.numeric(ht_width),
+      height = as.numeric(ht_height),
+      units = units
+    )
   } else {
     p <- wrap_plots(gTree)
   }
@@ -11041,35 +17244,139 @@ CellCorHeatmap <- function(srt_query, srt_ref = NULL, bulk_ref = NULL,
 #' @importFrom dplyr %>% filter group_by arrange desc across mutate reframe distinct n .data
 #' @importFrom proxyC dist
 #' @export
-DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, border = TRUE, flip = FALSE,
-                           min_expcells = 20, r.sq = 0.2, dev.expl = 0.2, padjust = 0.05, num_intersections = NULL,
-                           cell_density = 1, cell_bins = 100, order_by = c("peaktime", "valleytime"),
-                           layer = "counts", assay = NULL, exp_method = c("zscore", "raw", "fc", "log2fc", "log1p"), exp_legend_title = NULL, limits = NULL,
-                           lib_normalize = identical(layer, "counts"), libsize = NULL, family = NULL,
-                           cluster_features_by = NULL, cluster_rows = FALSE, cluster_row_slices = FALSE, cluster_columns = FALSE, cluster_column_slices = FALSE,
-                           show_row_names = FALSE, show_column_names = FALSE, row_names_side = ifelse(flip, "left", "right"), column_names_side = ifelse(flip, "bottom", "top"), row_names_rot = 0, column_names_rot = 90,
-                           row_title = NULL, column_title = NULL, row_title_side = "left", column_title_side = "top", row_title_rot = 0, column_title_rot = ifelse(flip, 90, 0),
-                           feature_split = NULL, feature_split_by = NULL, n_split = NULL, split_order = NULL,
-                           split_method = c("mfuzz", "kmeans", "kmeans-peaktime", "hclust", "hclust-peaktime"), decreasing = FALSE,
-                           fuzzification = NULL,
-                           anno_terms = FALSE, anno_keys = FALSE, anno_features = FALSE,
-                           terms_width = unit(4, "in"), terms_fontsize = 8,
-                           keys_width = unit(2, "in"), keys_fontsize = c(6, 10),
-                           features_width = unit(2, "in"), features_fontsize = c(6, 10),
-                           IDtype = "symbol", species = "Homo_sapiens", db_update = FALSE, db_version = "latest", db_combine = FALSE, convert_species = FALSE, Ensembl_version = 103, mirror = NULL,
-                           db = "GO_BP", TERM2GENE = NULL, TERM2NAME = NULL, minGSSize = 10, maxGSSize = 500,
-                           GO_simplify = FALSE, GO_simplify_cutoff = "p.adjust < 0.05", simplify_method = "Wang", simplify_similarityCutoff = 0.7,
-                           pvalueCutoff = NULL, padjustCutoff = 0.05, topTerm = 5, show_termid = FALSE, topWord = 20, words_excluded = NULL,
-                           nlabel = 20, features_label = NULL, label_size = 10, label_color = "black",
-                           pseudotime_label = NULL, pseudotime_label_color = "black", pseudotime_label_linetype = 2, pseudotime_label_linewidth = 3,
-                           heatmap_palette = "viridis", heatmap_palcolor = NULL,
-                           pseudotime_palette = "cividis", pseudotime_palcolor = NULL,
-                           feature_split_palette = "simspec", feature_split_palcolor = NULL,
-                           cell_annotation = NULL, cell_annotation_palette = "Paired", cell_annotation_palcolor = NULL, cell_annotation_params = if (flip) list(width = unit(5, "mm")) else list(height = unit(5, "mm")),
-                           feature_annotation = NULL, feature_annotation_palette = "Dark2", feature_annotation_palcolor = NULL, feature_annotation_params = if (flip) list(height = unit(5, "mm")) else list(width = unit(5, "mm")),
-                           separate_annotation = NULL, separate_annotation_palette = "Paired", separate_annotation_palcolor = NULL, separate_annotation_params = if (flip) list(width = unit(10, "mm")) else list(height = unit(10, "mm")),
-                           reverse_ht = NULL, use_raster = NULL, raster_device = "png", raster_by_magick = FALSE, height = NULL, width = NULL, units = "inch",
-                           seed = 11, ht_params = list()) {
+DynamicHeatmap <- function(
+  srt,
+  lineages,
+  features = NULL,
+  use_fitted = FALSE,
+  border = TRUE,
+  flip = FALSE,
+  min_expcells = 20,
+  r.sq = 0.2,
+  dev.expl = 0.2,
+  padjust = 0.05,
+  num_intersections = NULL,
+  cell_density = 1,
+  cell_bins = 100,
+  order_by = c("peaktime", "valleytime"),
+  layer = "counts",
+  assay = NULL,
+  exp_method = c("zscore", "raw", "fc", "log2fc", "log1p"),
+  exp_legend_title = NULL,
+  limits = NULL,
+  lib_normalize = identical(layer, "counts"),
+  libsize = NULL,
+  family = NULL,
+  cluster_features_by = NULL,
+  cluster_rows = FALSE,
+  cluster_row_slices = FALSE,
+  cluster_columns = FALSE,
+  cluster_column_slices = FALSE,
+  show_row_names = FALSE,
+  show_column_names = FALSE,
+  row_names_side = ifelse(flip, "left", "right"),
+  column_names_side = ifelse(flip, "bottom", "top"),
+  row_names_rot = 0,
+  column_names_rot = 90,
+  row_title = NULL,
+  column_title = NULL,
+  row_title_side = "left",
+  column_title_side = "top",
+  row_title_rot = 0,
+  column_title_rot = ifelse(flip, 90, 0),
+  feature_split = NULL,
+  feature_split_by = NULL,
+  n_split = NULL,
+  split_order = NULL,
+  split_method = c(
+    "mfuzz",
+    "kmeans",
+    "kmeans-peaktime",
+    "hclust",
+    "hclust-peaktime"
+  ),
+  decreasing = FALSE,
+  fuzzification = NULL,
+  anno_terms = FALSE,
+  anno_keys = FALSE,
+  anno_features = FALSE,
+  terms_width = unit(4, "in"),
+  terms_fontsize = 8,
+  keys_width = unit(2, "in"),
+  keys_fontsize = c(6, 10),
+  features_width = unit(2, "in"),
+  features_fontsize = c(6, 10),
+  IDtype = "symbol",
+  species = "Homo_sapiens",
+  db_update = FALSE,
+  db_version = "latest",
+  db_combine = FALSE,
+  convert_species = FALSE,
+  Ensembl_version = 103,
+  mirror = NULL,
+  db = "GO_BP",
+  TERM2GENE = NULL,
+  TERM2NAME = NULL,
+  minGSSize = 10,
+  maxGSSize = 500,
+  GO_simplify = FALSE,
+  GO_simplify_cutoff = "p.adjust < 0.05",
+  simplify_method = "Wang",
+  simplify_similarityCutoff = 0.7,
+  pvalueCutoff = NULL,
+  padjustCutoff = 0.05,
+  topTerm = 5,
+  show_termid = FALSE,
+  topWord = 20,
+  words_excluded = NULL,
+  nlabel = 20,
+  features_label = NULL,
+  label_size = 10,
+  label_color = "black",
+  pseudotime_label = NULL,
+  pseudotime_label_color = "black",
+  pseudotime_label_linetype = 2,
+  pseudotime_label_linewidth = 3,
+  heatmap_palette = "viridis",
+  heatmap_palcolor = NULL,
+  pseudotime_palette = "cividis",
+  pseudotime_palcolor = NULL,
+  feature_split_palette = "simspec",
+  feature_split_palcolor = NULL,
+  cell_annotation = NULL,
+  cell_annotation_palette = "Paired",
+  cell_annotation_palcolor = NULL,
+  cell_annotation_params = if (flip) {
+    list(width = unit(5, "mm"))
+  } else {
+    list(height = unit(5, "mm"))
+  },
+  feature_annotation = NULL,
+  feature_annotation_palette = "Dark2",
+  feature_annotation_palcolor = NULL,
+  feature_annotation_params = if (flip) {
+    list(height = unit(5, "mm"))
+  } else {
+    list(width = unit(5, "mm"))
+  },
+  separate_annotation = NULL,
+  separate_annotation_palette = "Paired",
+  separate_annotation_palcolor = NULL,
+  separate_annotation_params = if (flip) {
+    list(width = unit(10, "mm"))
+  } else {
+    list(height = unit(10, "mm"))
+  },
+  reverse_ht = NULL,
+  use_raster = NULL,
+  raster_device = "png",
+  raster_by_magick = FALSE,
+  height = NULL,
+  width = NULL,
+  units = "inch",
+  seed = 11,
+  ht_params = list()
+) {
   set.seed(seed)
   if (isTRUE(raster_by_magick)) {
     check_R("magick")
@@ -11080,7 +17387,12 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
   data_nm <- c(ifelse(isTRUE(lib_normalize), "normalized", ""), layer)
   data_nm <- paste(data_nm[data_nm != ""], collapse = " ")
   if (length(exp_method) == 1 && is.function(exp_method)) {
-    exp_name <- paste0(as.character(x = formals()$exp_method), "(", data_nm, ")")
+    exp_name <- paste0(
+      as.character(x = formals()$exp_method),
+      "(",
+      data_nm,
+      ")"
+    )
   } else {
     exp_method <- match.arg(exp_method)
     exp_name <- paste0(exp_method, "(", data_nm, ")")
@@ -11105,8 +17417,13 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
   if (any(!feature_split_by %in% lineages)) {
     stop("'feature_split_by' must be a subset of lineages.")
   }
-  if (!split_method %in% c("mfuzz", "kmeans", "kmeans-peaktime", "hclust", "hclust-peaktime")) {
-    stop("'split_method' must be one of 'mfuzz', 'kmeans', 'kmeans-peaktime', 'hclust', 'hclust-peaktime'.")
+  if (
+    !split_method %in%
+      c("mfuzz", "kmeans", "kmeans-peaktime", "hclust", "hclust-peaktime")
+  ) {
+    stop(
+      "'split_method' must be one of 'mfuzz', 'kmeans', 'kmeans-peaktime', 'hclust', 'hclust-peaktime'."
+    )
   }
   if (!is.null(feature_split) && is.null(names(feature_split))) {
     stop("'feature_split' must be named.")
@@ -11116,62 +17433,155 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
   }
   if (is.numeric(pseudotime_label)) {
     if (length(pseudotime_label_color) == 1) {
-      pseudotime_label_color <- rep(pseudotime_label_color, length(pseudotime_label))
+      pseudotime_label_color <- rep(
+        pseudotime_label_color,
+        length(pseudotime_label)
+      )
     }
     if (length(pseudotime_label_linetype) == 1) {
-      pseudotime_label_linetype <- rep(pseudotime_label_linetype, length(pseudotime_label))
+      pseudotime_label_linetype <- rep(
+        pseudotime_label_linetype,
+        length(pseudotime_label)
+      )
     }
     if (length(pseudotime_label_linewidth) == 1) {
-      pseudotime_label_linewidth <- rep(pseudotime_label_linewidth, length(pseudotime_label))
+      pseudotime_label_linewidth <- rep(
+        pseudotime_label_linewidth,
+        length(pseudotime_label)
+      )
     }
-    npal <- unique(c(length(pseudotime_label), length(pseudotime_label_color), length(pseudotime_label_linetype), length(pseudotime_label_linewidth)))
+    npal <- unique(c(
+      length(pseudotime_label),
+      length(pseudotime_label_color),
+      length(pseudotime_label_linetype),
+      length(pseudotime_label_linewidth)
+    ))
     if (length(npal[npal != 0]) > 1) {
       stop("Parameters for the pseudotime_label must be the same length!")
     }
   }
   if (!is.null(cell_annotation)) {
     if (length(cell_annotation_palette) == 1) {
-      cell_annotation_palette <- rep(cell_annotation_palette, length(cell_annotation))
+      cell_annotation_palette <- rep(
+        cell_annotation_palette,
+        length(cell_annotation)
+      )
     }
     if (length(cell_annotation_palcolor) == 1) {
-      cell_annotation_palcolor <- rep(cell_annotation_palcolor, length(cell_annotation))
+      cell_annotation_palcolor <- rep(
+        cell_annotation_palcolor,
+        length(cell_annotation)
+      )
     }
-    npal <- unique(c(length(cell_annotation_palette), length(cell_annotation_palcolor), length(cell_annotation)))
+    npal <- unique(c(
+      length(cell_annotation_palette),
+      length(cell_annotation_palcolor),
+      length(cell_annotation)
+    ))
     if (length(npal[npal != 0]) > 1) {
-      stop("cell_annotation_palette and cell_annotation_palcolor must be the same length as cell_annotation")
+      stop(
+        "cell_annotation_palette and cell_annotation_palcolor must be the same length as cell_annotation"
+      )
     }
-    if (any(!cell_annotation %in% c(colnames(srt@meta.data), rownames(srt@assays[[assay]])))) {
-      stop("cell_annotation: ", paste0(cell_annotation[!cell_annotation %in% c(colnames(srt@meta.data), rownames(srt@assays[[assay]]))], collapse = ","), " is not in the Seurat object.")
+    if (
+      any(
+        !cell_annotation %in%
+          c(colnames(srt@meta.data), rownames(srt@assays[[assay]]))
+      )
+    ) {
+      stop(
+        "cell_annotation: ",
+        paste0(
+          cell_annotation[
+            !cell_annotation %in%
+              c(colnames(srt@meta.data), rownames(srt@assays[[assay]]))
+          ],
+          collapse = ","
+        ),
+        " is not in the Seurat object."
+      )
     }
   }
   if (!is.null(feature_annotation)) {
     if (length(feature_annotation_palette) == 1) {
-      feature_annotation_palette <- rep(feature_annotation_palette, length(feature_annotation))
+      feature_annotation_palette <- rep(
+        feature_annotation_palette,
+        length(feature_annotation)
+      )
     }
     if (length(feature_annotation_palcolor) == 1) {
-      feature_annotation_palcolor <- rep(feature_annotation_palcolor, length(feature_annotation))
+      feature_annotation_palcolor <- rep(
+        feature_annotation_palcolor,
+        length(feature_annotation)
+      )
     }
-    npal <- unique(c(length(feature_annotation_palette), length(feature_annotation_palcolor), length(feature_annotation)))
+    npal <- unique(c(
+      length(feature_annotation_palette),
+      length(feature_annotation_palcolor),
+      length(feature_annotation)
+    ))
     if (length(npal[npal != 0]) > 1) {
-      stop("feature_annotation_palette and feature_annotation_palcolor must be the same length as feature_annotation")
+      stop(
+        "feature_annotation_palette and feature_annotation_palcolor must be the same length as feature_annotation"
+      )
     }
-    if (any(!feature_annotation %in% colnames(srt@assays[[assay]]@meta.features))) {
-      stop("feature_annotation: ", paste0(feature_annotation[!feature_annotation %in% colnames(srt@assays[[assay]]@meta.features)], collapse = ","), " is not in the meta data of the ", assay, " assay in the Seurat object.")
+    if (
+      any(!feature_annotation %in% colnames(srt@assays[[assay]]@meta.features))
+    ) {
+      stop(
+        "feature_annotation: ",
+        paste0(
+          feature_annotation[
+            !feature_annotation %in% colnames(srt@assays[[assay]]@meta.features)
+          ],
+          collapse = ","
+        ),
+        " is not in the meta data of the ",
+        assay,
+        " assay in the Seurat object."
+      )
     }
   }
   if (!is.null(separate_annotation)) {
     if (length(separate_annotation_palette) == 1) {
-      separate_annotation_palette <- rep(separate_annotation_palette, length(separate_annotation))
+      separate_annotation_palette <- rep(
+        separate_annotation_palette,
+        length(separate_annotation)
+      )
     }
     if (length(separate_annotation_palcolor) == 1) {
-      separate_annotation_palcolor <- rep(separate_annotation_palcolor, length(separate_annotation))
+      separate_annotation_palcolor <- rep(
+        separate_annotation_palcolor,
+        length(separate_annotation)
+      )
     }
-    npal <- unique(c(length(separate_annotation_palette), length(separate_annotation_palcolor), length(separate_annotation)))
+    npal <- unique(c(
+      length(separate_annotation_palette),
+      length(separate_annotation_palcolor),
+      length(separate_annotation)
+    ))
     if (length(npal[npal != 0]) > 1) {
-      stop("separate_annotation_palette and separate_annotation_palcolor must be the same length as separate_annotation")
+      stop(
+        "separate_annotation_palette and separate_annotation_palcolor must be the same length as separate_annotation"
+      )
     }
-    if (any(!unique(unlist(separate_annotation)) %in% c(colnames(srt@meta.data), rownames(srt@assays[[assay]])))) {
-      stop("separate_annotation: ", paste0(unique(unlist(separate_annotation))[!unique(unlist(separate_annotation)) %in% c(colnames(srt@meta.data), rownames(srt@assays[[assay]]))], collapse = ","), " is not in the Seurat object.")
+    if (
+      any(
+        !unique(unlist(separate_annotation)) %in%
+          c(colnames(srt@meta.data), rownames(srt@assays[[assay]]))
+      )
+    ) {
+      stop(
+        "separate_annotation: ",
+        paste0(
+          unique(unlist(separate_annotation))[
+            !unique(unlist(separate_annotation)) %in%
+              c(colnames(srt@meta.data), rownames(srt@assays[[assay]]))
+          ],
+          collapse = ","
+        ),
+        " is not in the Seurat object."
+      )
     }
   }
   if (length(width) == 1) {
@@ -11199,14 +17609,30 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
     cluster_column_slices <- cluster_row_slices_raw
   }
 
-  cell_union <- unique(colnames(srt@assays[[1]])[apply(srt@meta.data[, lineages, drop = FALSE], 1, function(x) !all(is.na(x)))])
-  Pseudotime_assign <- rowMeans(srt@meta.data[cell_union, lineages, drop = FALSE], na.rm = TRUE)
-  cell_metadata <- cbind.data.frame(data.frame(row.names = cell_union, cells = cell_union),
+  cell_union <- unique(colnames(srt@assays[[1]])[apply(
+    srt@meta.data[, lineages, drop = FALSE],
+    1,
+    function(x) !all(is.na(x))
+  )])
+  Pseudotime_assign <- rowMeans(
+    srt@meta.data[cell_union, lineages, drop = FALSE],
+    na.rm = TRUE
+  )
+  cell_metadata <- cbind.data.frame(
+    data.frame(row.names = cell_union, cells = cell_union),
     Pseudotime_assign = Pseudotime_assign,
     srt@meta.data[cell_union, lineages, drop = FALSE]
   )
   if (cell_density != 1) {
-    bins <- cut(Pseudotime_assign, breaks = seq(min(Pseudotime_assign, na.rm = TRUE), max(Pseudotime_assign, na.rm = TRUE), length.out = cell_bins), include.lowest = TRUE)
+    bins <- cut(
+      Pseudotime_assign,
+      breaks = seq(
+        min(Pseudotime_assign, na.rm = TRUE),
+        max(Pseudotime_assign, na.rm = TRUE),
+        length.out = cell_bins
+      ),
+      include.lowest = TRUE
+    )
     ncells <- ceiling(max(table(bins), na.rm = TRUE) * cell_density)
     message("ncell/bin=", ncells, "(", cell_bins, "bins)")
     cell_keep <- unlist(sapply(levels(bins), function(x) {
@@ -11218,68 +17644,156 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
   }
   cell_order_list <- list()
   for (l in lineages) {
-    if (!is.null(reverse_ht) && (l %in% lineages[reverse_ht] || l %in% reverse_ht)) {
+    if (
+      !is.null(reverse_ht) && (l %in% lineages[reverse_ht] || l %in% reverse_ht)
+    ) {
       cell_metadata_sub <- na.omit(cell_metadata[, l, drop = FALSE])
-      cell_metadata_sub <- cell_metadata_sub[order(cell_metadata_sub[[l]], decreasing = TRUE), , drop = FALSE]
+      cell_metadata_sub <- cell_metadata_sub[
+        order(cell_metadata_sub[[l]], decreasing = TRUE),
+        ,
+        drop = FALSE
+      ]
     } else {
       cell_metadata_sub <- na.omit(cell_metadata[, l, drop = FALSE])
-      cell_metadata_sub <- cell_metadata_sub[order(cell_metadata_sub[[l]], decreasing = FALSE), , drop = FALSE]
+      cell_metadata_sub <- cell_metadata_sub[
+        order(cell_metadata_sub[[l]], decreasing = FALSE),
+        ,
+        drop = FALSE
+      ]
     }
     cell_order_list[[l]] <- paste0(rownames(cell_metadata_sub), l)
   }
-  
-  t_matx <- srt@assays[[assay]]$data[intersect(cell_annotation, rownames(srt@assays[[assay]])) %||% integer(), rownames(cell_metadata), drop = FALSE]
+
+  t_matx <- srt@assays[[assay]]$data[
+    intersect(cell_annotation, rownames(srt@assays[[assay]])) %||% integer(),
+    rownames(cell_metadata),
+    drop = FALSE
+  ]
   if (nrow(t_matx) != 0) {
     if (!is.null(cell_annotation)) {
       cell_metadata <- cbind.data.frame(
         cell_metadata,
         cbind.data.frame(
-          srt@meta.data[rownames(cell_metadata), c(intersect(cell_annotation, colnames(srt@meta.data))), drop = FALSE],
-          SeuratDisk::Transpose(srt@assays[[assay]]$data[intersect(cell_annotation, rownames(srt@assays[[assay]])) %||% integer(), rownames(cell_metadata), drop = FALSE])
+          srt@meta.data[
+            rownames(cell_metadata),
+            c(intersect(cell_annotation, colnames(srt@meta.data))),
+            drop = FALSE
+          ],
+          SeuratDisk::Transpose(srt@assays[[assay]]$data[
+            intersect(cell_annotation, rownames(srt@assays[[assay]])) %||%
+              integer(),
+            rownames(cell_metadata),
+            drop = FALSE
+          ])
         )
       )
     }
   }
-  
+
   cell_metadata <- cbind.data.frame(
     cell_metadata,
-    srt@meta.data[rownames(cell_metadata), c(intersect(cell_annotation, colnames(srt@meta.data))), drop = FALSE]
+    srt@meta.data[
+      rownames(cell_metadata),
+      c(intersect(cell_annotation, colnames(srt@meta.data))),
+      drop = FALSE
+    ]
   )
-  
 
   dynamic <- list()
   if (is.null(features)) {
     for (l in lineages) {
-      DynamicFeatures <- srt@tools[[paste0("DynamicFeatures_", l)]][["DynamicFeatures"]]
+      DynamicFeatures <- srt@tools[[paste0("DynamicFeatures_", l)]][[
+        "DynamicFeatures"
+      ]]
       if (is.null(DynamicFeatures)) {
-        stop("DynamicFeatures result for ", l, " found in the srt object. Should perform RunDynamicFeatures first!")
+        stop(
+          "DynamicFeatures result for ",
+          l,
+          " found in the srt object. Should perform RunDynamicFeatures first!"
+        )
       }
-      DynamicFeatures <- DynamicFeatures[DynamicFeatures$exp_ncells > min_expcells & DynamicFeatures$r.sq > r.sq & DynamicFeatures$dev.expl > dev.expl & DynamicFeatures$padjust < padjust, , drop = FALSE]
+      DynamicFeatures <- DynamicFeatures[
+        DynamicFeatures$exp_ncells > min_expcells &
+          DynamicFeatures$r.sq > r.sq &
+          DynamicFeatures$dev.expl > dev.expl &
+          DynamicFeatures$padjust < padjust,
+        ,
+        drop = FALSE
+      ]
       dynamic[[l]] <- DynamicFeatures
       features <- c(features, DynamicFeatures[["features"]])
     }
-    message(length(unique(features)), " features from ", paste0(lineages, collapse = ","), " passed the threshold (exp_ncells>", min_expcells, " & r.sq>", r.sq, " & dev.expl>", dev.expl, " & padjust<", padjust, "): \n", paste0(head(features, 10), collapse = ","), "...")
+    message(
+      length(unique(features)),
+      " features from ",
+      paste0(lineages, collapse = ","),
+      " passed the threshold (exp_ncells>",
+      min_expcells,
+      " & r.sq>",
+      r.sq,
+      " & dev.expl>",
+      dev.expl,
+      " & padjust<",
+      padjust,
+      "): \n",
+      paste0(head(features, 10), collapse = ","),
+      "..."
+    )
   } else {
     for (l in lineages) {
-      DynamicFeatures <- srt@tools[[paste0("DynamicFeatures_", l)]][["DynamicFeatures"]]
+      DynamicFeatures <- srt@tools[[paste0("DynamicFeatures_", l)]][[
+        "DynamicFeatures"
+      ]]
       if (is.null(DynamicFeatures)) {
-        srt <- RunDynamicFeatures(srt, lineages = l, features = features, assay = assay, layer = layer, family = family, libsize = libsize)
-        DynamicFeatures <- srt@tools[[paste0("DynamicFeatures_", l)]][["DynamicFeatures"]]
+        srt <- RunDynamicFeatures(
+          srt,
+          lineages = l,
+          features = features,
+          assay = assay,
+          layer = layer,
+          family = family,
+          libsize = libsize
+        )
+        DynamicFeatures <- srt@tools[[paste0("DynamicFeatures_", l)]][[
+          "DynamicFeatures"
+        ]]
       }
       if (any(!features %in% rownames(DynamicFeatures))) {
-        srt <- RunDynamicFeatures(srt, lineages = l, features = features[!features %in% rownames(DynamicFeatures)], assay = assay, layer = layer, family = family, libsize = libsize)
-        DynamicFeatures <- rbind(DynamicFeatures, srt@tools[[paste0("DynamicFeatures_", l)]][["DynamicFeatures"]])
+        srt <- RunDynamicFeatures(
+          srt,
+          lineages = l,
+          features = features[!features %in% rownames(DynamicFeatures)],
+          assay = assay,
+          layer = layer,
+          family = family,
+          libsize = libsize
+        )
+        DynamicFeatures <- rbind(
+          DynamicFeatures,
+          srt@tools[[paste0("DynamicFeatures_", l)]][["DynamicFeatures"]]
+        )
       }
       DynamicFeatures <- DynamicFeatures[features, , drop = FALSE]
       dynamic[[l]] <- DynamicFeatures
     }
   }
 
-  all_calculated <- Reduce(intersect, lapply(lineages, function(l) rownames(srt@tools[[paste0("DynamicFeatures_", l)]][["DynamicFeatures"]])))
+  all_calculated <- Reduce(
+    intersect,
+    lapply(lineages, function(l) {
+      rownames(srt@tools[[paste0("DynamicFeatures_", l)]][["DynamicFeatures"]])
+    })
+  )
   features_tab <- table(features)
-  features <- names(features_tab)[which(features_tab %in% (num_intersections %||% seq_along(lineages)))]
+  features <- names(features_tab)[which(
+    features_tab %in% (num_intersections %||% seq_along(lineages))
+  )]
   if (!all(features %in% all_calculated)) {
-    message("Some features were missing in at least one lineage: \n", paste0(head(features[!features %in% all_calculated], 10), collapse = ","), "...")
+    message(
+      "Some features were missing in at least one lineage: \n",
+      paste0(head(features[!features %in% all_calculated], 10), collapse = ","),
+      "..."
+    )
     features <- intersect(features, all_calculated)
   }
   gene <- features[features %in% rownames(srt@assays[[assay]])]
@@ -11289,24 +17803,57 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
   }
   feature_metadata <- data.frame(row.names = features, features = features)
   for (l in lineages) {
-    feature_metadata[rownames(dynamic[[l]]), paste0(l, order_by)] <- dynamic[[l]][, order_by]
-    feature_metadata[rownames(dynamic[[l]]), paste0(l, "exp_ncells")] <- dynamic[[l]][, "exp_ncells"]
-    feature_metadata[rownames(dynamic[[l]]), paste0(l, "r.sq")] <- dynamic[[l]][, "r.sq"]
-    feature_metadata[rownames(dynamic[[l]]), paste0(l, "dev.expl")] <- dynamic[[l]][, "dev.expl"]
-    feature_metadata[rownames(dynamic[[l]]), paste0(l, "padjust")] <- dynamic[[l]][, "padjust"]
+    feature_metadata[rownames(dynamic[[l]]), paste0(l, order_by)] <- dynamic[[
+      l
+    ]][, order_by]
+    feature_metadata[
+      rownames(dynamic[[l]]),
+      paste0(l, "exp_ncells")
+    ] <- dynamic[[l]][, "exp_ncells"]
+    feature_metadata[rownames(dynamic[[l]]), paste0(l, "r.sq")] <- dynamic[[
+      l
+    ]][, "r.sq"]
+    feature_metadata[rownames(dynamic[[l]]), paste0(l, "dev.expl")] <- dynamic[[
+      l
+    ]][, "dev.expl"]
+    feature_metadata[rownames(dynamic[[l]]), paste0(l, "padjust")] <- dynamic[[
+      l
+    ]][, "padjust"]
   }
-  feature_metadata[, order_by] <- apply(feature_metadata[, paste0(lineages, order_by), drop = FALSE], 1, max, na.rm = TRUE)
-  feature_metadata <- feature_metadata[order(feature_metadata[, order_by], decreasing = decreasing), , drop = FALSE]
-  feature_metadata <- feature_metadata[rownames(feature_metadata) %in% features, , drop = FALSE]
+  feature_metadata[, order_by] <- apply(
+    feature_metadata[, paste0(lineages, order_by), drop = FALSE],
+    1,
+    max,
+    na.rm = TRUE
+  )
+  feature_metadata <- feature_metadata[
+    order(feature_metadata[, order_by], decreasing = decreasing),
+    ,
+    drop = FALSE
+  ]
+  feature_metadata <- feature_metadata[
+    rownames(feature_metadata) %in% features,
+    ,
+    drop = FALSE
+  ]
   features <- rownames(feature_metadata)
   if (!is.null(feature_annotation)) {
-    feature_metadata <- cbind.data.frame(feature_metadata, srt@assays[[assay]]@meta.features[rownames(feature_metadata), feature_annotation, drop = FALSE])
+    feature_metadata <- cbind.data.frame(
+      feature_metadata,
+      srt@assays[[assay]]@meta.features[
+        rownames(feature_metadata),
+        feature_annotation,
+        drop = FALSE
+      ]
+    )
   }
 
   if (isTRUE(use_fitted)) {
     mat_list <- list()
     for (l in lineages) {
-      fitted_matrix <- srt@tools[[paste0("DynamicFeatures_", l)]][["fitted_matrix"]][, -1]
+      fitted_matrix <- srt@tools[[paste0("DynamicFeatures_", l)]][[
+        "fitted_matrix"
+      ]][, -1]
       rownames(fitted_matrix) <- paste0(rownames(fitted_matrix), l)
       mat_list[[l]] <- t(fitted_matrix[, features])
     }
@@ -11316,7 +17863,14 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
     Y_libsize <- colSums(LayerData(srt@assays[[assay]], "counts"))
     for (l in lineages) {
       cells <- gsub(pattern = l, replacement = "", x = cell_order_list[[l]])
-      mat_tmp <- as_matrix(rbind(LayerData(srt@assays[[assay]], layer = layer)[gene, cells, drop = FALSE], t(srt@meta.data[cells, meta, drop = FALSE])))[features, , drop = FALSE]
+      mat_tmp <- as_matrix(rbind(
+        LayerData(srt@assays[[assay]], layer = layer)[
+          gene,
+          cells,
+          drop = FALSE
+        ],
+        t(srt@meta.data[cells, meta, drop = FALSE])
+      ))[features, , drop = FALSE]
       if (isTRUE(lib_normalize) && min(mat_tmp, na.rm = TRUE) >= 0) {
         if (!is.null(libsize)) {
           libsize_use <- libsize
@@ -11325,10 +17879,15 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
           isfloat <- any(libsize_use %% 1 != 0, na.rm = TRUE)
           if (isTRUE(isfloat)) {
             libsize_use <- rep(1, length(libsize_use))
-            warning("The values in the 'counts' layer are non-integer. Set the library size to 1.", immediate. = TRUE)
+            warning(
+              "The values in the 'counts' layer are non-integer. Set the library size to 1.",
+              immediate. = TRUE
+            )
           }
         }
-        mat_tmp[gene, ] <- t(t(mat_tmp[gene, , drop = FALSE]) / libsize_use * median(Y_libsize))
+        mat_tmp[gene, ] <- t(
+          t(mat_tmp[gene, , drop = FALSE]) / libsize_use * median(Y_libsize)
+        )
       }
       colnames(mat_tmp) <- paste0(colnames(mat_tmp), l)
       mat_list[[l]] <- mat_tmp
@@ -11338,7 +17897,8 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
 
   # data used to plot heatmap
   mat <- matrix_process(mat_raw, method = exp_method)
-  mat[is.infinite(mat)] <- max(abs(mat[!is.infinite(mat)]), na.rm = TRUE) * ifelse(mat[is.infinite(mat)] > 0, 1, -1)
+  mat[is.infinite(mat)] <- max(abs(mat[!is.infinite(mat)]), na.rm = TRUE) *
+    ifelse(mat[is.infinite(mat)] > 0, 1, -1)
   mat[is.na(mat)] <- mean(mat, na.rm = TRUE)
 
   # data used to do spliting
@@ -11354,14 +17914,26 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
 
   if (is.null(limits)) {
     if (!is.function(exp_method) && exp_method %in% c("zscore", "log2fc")) {
-      b <- ceiling(min(abs(quantile(mat, c(0.01, 0.99), na.rm = TRUE)), na.rm = TRUE) * 2) / 2
-      colors <- circlize::colorRamp2(seq(-b, b, length = 100), palette_scp(palette = heatmap_palette, palcolor = heatmap_palcolor))
+      b <- ceiling(
+        min(abs(quantile(mat, c(0.01, 0.99), na.rm = TRUE)), na.rm = TRUE) * 2
+      ) /
+        2
+      colors <- circlize::colorRamp2(
+        seq(-b, b, length = 100),
+        palette_scp(palette = heatmap_palette, palcolor = heatmap_palcolor)
+      )
     } else {
       b <- quantile(mat, c(0.01, 0.99), na.rm = TRUE)
-      colors <- circlize::colorRamp2(seq(b[1], b[2], length = 100), palette_scp(palette = heatmap_palette, palcolor = heatmap_palcolor))
+      colors <- circlize::colorRamp2(
+        seq(b[1], b[2], length = 100),
+        palette_scp(palette = heatmap_palette, palcolor = heatmap_palcolor)
+      )
     }
   } else {
-    colors <- circlize::colorRamp2(seq(limits[1], limits[2], length = 100), palette_scp(palette = heatmap_palette, palcolor = heatmap_palcolor))
+    colors <- circlize::colorRamp2(
+      seq(limits[1], limits[2], length = 100),
+      palette_scp(palette = heatmap_palette, palcolor = heatmap_palcolor)
+    )
   }
 
   lgd <- list()
@@ -11370,21 +17942,38 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
   ha_top_list <- list()
   pseudotime <- na.omit(unlist(cell_metadata[, lineages]))
   pseudotime_col <- circlize::colorRamp2(
-    breaks = seq(min(pseudotime, na.rm = TRUE), max(pseudotime, na.rm = TRUE), length = 100),
-    colors = palette_scp(palette = pseudotime_palette, palcolor = pseudotime_palcolor)
+    breaks = seq(
+      min(pseudotime, na.rm = TRUE),
+      max(pseudotime, na.rm = TRUE),
+      length = 100
+    ),
+    colors = palette_scp(
+      palette = pseudotime_palette,
+      palcolor = pseudotime_palcolor
+    )
   )
   for (l in lineages) {
     ha_top_list[[l]] <- HeatmapAnnotation(
       Pseudotime = anno_simple(
-        x = cell_metadata[gsub(pattern = l, replacement = "", x = cell_order_list[[l]]), l],
+        x = cell_metadata[
+          gsub(pattern = l, replacement = "", x = cell_order_list[[l]]),
+          l
+        ],
         col = pseudotime_col,
         which = ifelse(flip, "row", "column"),
         na_col = "transparent",
         border = TRUE
-      ), which = ifelse(flip, "row", "column"), show_annotation_name = l == lineages[1], annotation_name_side = ifelse(flip, "top", "left")
+      ),
+      which = ifelse(flip, "row", "column"),
+      show_annotation_name = l == lineages[1],
+      annotation_name_side = ifelse(flip, "top", "left")
     )
   }
-  lgd[["pseudotime"]] <- Legend(title = "Pseudotime", col_fun = pseudotime_col, border = TRUE)
+  lgd[["pseudotime"]] <- Legend(
+    title = "Pseudotime",
+    col_fun = pseudotime_col,
+    border = TRUE
+  )
 
   if (!is.null(cell_annotation)) {
     for (i in seq_along(cell_annotation)) {
@@ -11400,17 +17989,36 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
           cell_anno <- factor(cell_anno, levels = unique(cell_anno))
         }
         for (l in lineages) {
-          lineage_cells <- gsub(pattern = l, replacement = "", x = cell_order_list[[l]])
+          lineage_cells <- gsub(
+            pattern = l,
+            replacement = "",
+            x = cell_order_list[[l]]
+          )
           ha_cell <- list()
           ha_cell[[cellan]] <- anno_simple(
             x = as.character(cell_anno[lineage_cells]),
-            col = palette_scp(cell_anno, palette = palette, palcolor = palcolor),
+            col = palette_scp(
+              cell_anno,
+              palette = palette,
+              palcolor = palcolor
+            ),
             which = ifelse(flip, "row", "column"),
             na_col = "transparent",
             border = TRUE
           )
-          anno_args <- c(ha_cell, which = ifelse(flip, "row", "column"), show_annotation_name = l == lineages[1], annotation_name_side = ifelse(flip, "top", "left"))
-          anno_args <- c(anno_args, cell_annotation_params[setdiff(names(cell_annotation_params), names(anno_args))])
+          anno_args <- c(
+            ha_cell,
+            which = ifelse(flip, "row", "column"),
+            show_annotation_name = l == lineages[1],
+            annotation_name_side = ifelse(flip, "top", "left")
+          )
+          anno_args <- c(
+            anno_args,
+            cell_annotation_params[setdiff(
+              names(cell_annotation_params),
+              names(anno_args)
+            )]
+          )
           ha_top <- do.call(HeatmapAnnotation, args = anno_args)
           if (is.null(ha_top_list[[l]])) {
             ha_top_list[[l]] <- ha_top
@@ -11419,16 +18027,32 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
           }
         }
         lgd[[cellan]] <- Legend(
-          title = cellan, labels = levels(cell_anno),
-          legend_gp = gpar(fill = palette_scp(cell_anno, palette = palette, palcolor = palcolor)), border = TRUE
+          title = cellan,
+          labels = levels(cell_anno),
+          legend_gp = gpar(
+            fill = palette_scp(
+              cell_anno,
+              palette = palette,
+              palcolor = palcolor
+            )
+          ),
+          border = TRUE
         )
       } else {
         col_fun <- circlize::colorRamp2(
-          breaks = seq(min(cell_anno, na.rm = TRUE), max(cell_anno, na.rm = TRUE), length = 100),
+          breaks = seq(
+            min(cell_anno, na.rm = TRUE),
+            max(cell_anno, na.rm = TRUE),
+            length = 100
+          ),
           colors = palette_scp(palette = palette, palcolor = palcolor)
         )
         for (l in lineages) {
-          lineage_cells <- gsub(pattern = l, replacement = "", x = cell_order_list[[l]])
+          lineage_cells <- gsub(
+            pattern = l,
+            replacement = "",
+            x = cell_order_list[[l]]
+          )
           ha_cell <- list()
           ha_cell[[cellan]] <- anno_simple(
             x = cell_anno[lineage_cells],
@@ -11437,8 +18061,19 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
             na_col = "transparent",
             border = TRUE
           )
-          anno_args <- c(ha_cell, which = ifelse(flip, "row", "column"), show_annotation_name = l == lineages[1], annotation_name_side = ifelse(flip, "top", "left"))
-          anno_args <- c(anno_args, cell_annotation_params[setdiff(names(cell_annotation_params), names(anno_args))])
+          anno_args <- c(
+            ha_cell,
+            which = ifelse(flip, "row", "column"),
+            show_annotation_name = l == lineages[1],
+            annotation_name_side = ifelse(flip, "top", "left")
+          )
+          anno_args <- c(
+            anno_args,
+            cell_annotation_params[setdiff(
+              names(cell_annotation_params),
+              names(anno_args)
+            )]
+          )
           ha_top <- do.call(HeatmapAnnotation, args = anno_args)
           if (is.null(ha_top_list[[l]])) {
             ha_top_list[[l]] <- ha_top
@@ -11447,7 +18082,9 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
           }
         }
         lgd[[cellan]] <- Legend(
-          title = cellan, col_fun = col_fun, border = TRUE
+          title = cellan,
+          col_fun = col_fun,
+          border = TRUE
         )
       }
     }
@@ -11471,26 +18108,51 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
           cell_anno <- factor(cell_anno, levels = unique(cell_anno))
         }
         for (l in lineages) {
-          lineage_cells <- gsub(pattern = l, replacement = "", x = cell_order_list[[l]])
+          lineage_cells <- gsub(
+            pattern = l,
+            replacement = "",
+            x = cell_order_list[[l]]
+          )
           subplots <- CellDensityPlot(
-            srt = srt, cells = lineage_cells, group.by = cellan, features = l,
-            decreasing = TRUE, x_order = "rank",
-            palette = palette, palcolor = palcolor,
-            flip = flip, reverse = l %in% lineages[reverse_ht] || l %in% reverse_ht
-          ) + theme_void()
+            srt = srt,
+            cells = lineage_cells,
+            group.by = cellan,
+            features = l,
+            decreasing = TRUE,
+            x_order = "rank",
+            palette = palette,
+            palcolor = palcolor,
+            flip = flip,
+            reverse = l %in% lineages[reverse_ht] || l %in% reverse_ht
+          ) +
+            theme_void()
           subplots_list[[paste0(cellan, ":", l)]] <- subplots
           graphics <- list()
           nm <- paste0(cellan, ":", l)
           funbody <- paste0(
             "
-            g <- cowplot::as_grob(subplots_list[['", nm, "']] + theme_void() + theme(plot.title = element_blank(), plot.subtitle = element_blank(), legend.position = 'none'));
-            g$name <- '", nm, "';
+            g <- cowplot::as_grob(subplots_list[['",
+            nm,
+            "']] + theme_void() + theme(plot.title = element_blank(), plot.subtitle = element_blank(), legend.position = 'none'));
+            g$name <- '",
+            nm,
+            "';
             grid.draw(g);
             grid.rect(gp = gpar(fill = 'transparent', col = 'black'));
             "
           )
           funbody <- gsub(pattern = "\n", replacement = "", x = funbody)
-          eval(parse(text = paste("block_graphics <- function(index, levels) {", funbody, "}", sep = "")), envir = environment())
+          eval(
+            parse(
+              text = paste(
+                "block_graphics <- function(index, levels) {",
+                funbody,
+                "}",
+                sep = ""
+              )
+            ),
+            envir = environment()
+          )
 
           ha_cell <- list()
           ha_cell[[paste0(cellan, "\n(separate)")]] <- anno_block(
@@ -11498,12 +18160,19 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
             which = ifelse(flip, "row", "column"),
             show_name = l == lineages[1]
           )
-          anno_args <- c(ha_cell,
+          anno_args <- c(
+            ha_cell,
             which = ifelse(flip, "row", "column"),
             show_annotation_name = l == lineages[1],
             annotation_name_side = ifelse(flip, "top", "left")
           )
-          anno_args <- c(anno_args, separate_annotation_params[setdiff(names(separate_annotation_params), names(anno_args))])
+          anno_args <- c(
+            anno_args,
+            separate_annotation_params[setdiff(
+              names(separate_annotation_params),
+              names(anno_args)
+            )]
+          )
           ha_top <- do.call(HeatmapAnnotation, args = anno_args)
           if (is.null(ha_top_list[[l]])) {
             ha_top_list[[l]] <- ha_top
@@ -11512,44 +18181,94 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
           }
         }
         lgd[[paste0("separate:", cellan)]] <- Legend(
-          title = paste0(cellan, "\n(separate)"), labels = levels(cell_anno),
-          legend_gp = gpar(fill = palette_scp(cell_anno, palette = palette, palcolor = palcolor)), border = TRUE
+          title = paste0(cellan, "\n(separate)"),
+          labels = levels(cell_anno),
+          legend_gp = gpar(
+            fill = palette_scp(
+              cell_anno,
+              palette = palette,
+              palcolor = palcolor
+            )
+          ),
+          border = TRUE
         )
       } else {
         for (l in lineages) {
-          lineage_cells <- gsub(pattern = l, replacement = "", x = cell_order_list[[l]])
+          lineage_cells <- gsub(
+            pattern = l,
+            replacement = "",
+            x = cell_order_list[[l]]
+          )
           subplots <- DynamicPlot(
-            srt = srt, cells = lineage_cells, lineages = l, group.by = NULL, features = cellan,
-            line_palette = palette, line_palcolor = palcolor,
-            add_rug = FALSE, legend.position = "none", compare_features = TRUE, x_order = "rank",
-            flip = flip, reverse = l %in% lineages[reverse_ht] || l %in% reverse_ht
-          ) + theme_void()
-          subplots_list[[paste0(paste0(cellan, collapse = ","), ":", l)]] <- subplots
+            srt = srt,
+            cells = lineage_cells,
+            lineages = l,
+            group.by = NULL,
+            features = cellan,
+            line_palette = palette,
+            line_palcolor = palcolor,
+            add_rug = FALSE,
+            legend.position = "none",
+            compare_features = TRUE,
+            x_order = "rank",
+            flip = flip,
+            reverse = l %in% lineages[reverse_ht] || l %in% reverse_ht
+          ) +
+            theme_void()
+          subplots_list[[paste0(
+            paste0(cellan, collapse = ","),
+            ":",
+            l
+          )]] <- subplots
           graphics <- list()
           nm <- paste0(paste0(cellan, collapse = ","), ":", l)
           funbody <- paste0(
             "
-            g <- cowplot::as_grob(subplots_list[['", nm, "']] + theme_void() + theme(plot.title = element_blank(), plot.subtitle = element_blank(), legend.position = 'none'));
-            g$name <- '", nm, "';
+            g <- cowplot::as_grob(subplots_list[['",
+            nm,
+            "']] + theme_void() + theme(plot.title = element_blank(), plot.subtitle = element_blank(), legend.position = 'none'));
+            g$name <- '",
+            nm,
+            "';
             grid.draw(g);
             grid.rect(gp = gpar(fill = 'transparent', col = 'black'));
             "
           )
           funbody <- gsub(pattern = "\n", replacement = "", x = funbody)
-          eval(parse(text = paste("block_graphics <- function(index, levels) {", funbody, "}", sep = "")), envir = environment())
+          eval(
+            parse(
+              text = paste(
+                "block_graphics <- function(index, levels) {",
+                funbody,
+                "}",
+                sep = ""
+              )
+            ),
+            envir = environment()
+          )
 
           ha_cell <- list()
-          ha_cell[[paste0(paste0(cellan, collapse = ","), "\n(separate)")]] <- anno_block(
+          ha_cell[[paste0(
+            paste0(cellan, collapse = ","),
+            "\n(separate)"
+          )]] <- anno_block(
             panel_fun = block_graphics,
             which = ifelse(flip, "row", "column"),
             show_name = l == lineages[1]
           )
-          anno_args <- c(ha_cell,
+          anno_args <- c(
+            ha_cell,
             which = ifelse(flip, "row", "column"),
             show_annotation_name = l == lineages[1],
             annotation_name_side = ifelse(flip, "top", "left")
           )
-          anno_args <- c(anno_args, separate_annotation_params[setdiff(names(separate_annotation_params), names(anno_args))])
+          anno_args <- c(
+            anno_args,
+            separate_annotation_params[setdiff(
+              names(separate_annotation_params),
+              names(anno_args)
+            )]
+          )
           ha_top <- do.call(HeatmapAnnotation, args = anno_args)
           if (is.null(ha_top_list[[l]])) {
             ha_top_list[[l]] <- ha_top
@@ -11558,8 +18277,12 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
           }
         }
         lgd[[paste0("separate:", paste0(cellan, collapse = ","))]] <- Legend(
-          title = "Features\n(separate)", labels = cellan,
-          legend_gp = gpar(fill = palette_scp(cellan, palette = palette, palcolor = palcolor)), border = TRUE
+          title = "Features\n(separate)",
+          labels = cellan,
+          legend_gp = gpar(
+            fill = palette_scp(cellan, palette = palette, palcolor = palcolor)
+          ),
+          border = TRUE
         )
       }
     }
@@ -11570,12 +18293,18 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
       row_split_raw <- row_split <- feature_split <- NULL
     } else {
       if (n_split == 1) {
-        row_split_raw <- row_split <- feature_split <- setNames(rep(1, nrow(mat_split)), rownames(mat_split))
+        row_split_raw <- row_split <- feature_split <- setNames(
+          rep(1, nrow(mat_split)),
+          rownames(mat_split)
+        )
       } else {
         if (split_method == "mfuzz") {
           status <- tryCatch(check_R("e1071"), error = identity)
           if (inherits(status, "error")) {
-            warning("The e1071 package was not found. Switch split_method to 'kmeans'", immediate. = TRUE)
+            warning(
+              "The e1071 package was not found. Switch split_method to 'kmeans'",
+              immediate. = TRUE
+            )
             split_method <- "kmeans"
           } else {
             mat_split_tmp <- mat_split
@@ -11586,25 +18315,48 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
               fuzzification <- min_fuzzification + 0.1
             } else {
               if (fuzzification <= min_fuzzification) {
-                warning("fuzzification value is samller than estimated:", round(min_fuzzification, 2), immediate. = TRUE)
+                warning(
+                  "fuzzification value is samller than estimated:",
+                  round(min_fuzzification, 2),
+                  immediate. = TRUE
+                )
               }
             }
-            cl <- e1071::cmeans(mat_split_tmp, centers = n_split, method = "cmeans", m = fuzzification)
+            cl <- e1071::cmeans(
+              mat_split_tmp,
+              centers = n_split,
+              method = "cmeans",
+              m = fuzzification
+            )
             if (length(cl$cluster) == 0) {
-              stop("Clustering with mfuzz failed (fuzzification=", round(fuzzification, 2), "). Please set a larger fuzzification parameter manually.")
+              stop(
+                "Clustering with mfuzz failed (fuzzification=",
+                round(fuzzification, 2),
+                "). Please set a larger fuzzification parameter manually."
+              )
             }
             # mfuzz.plot(eset, cl,new.window = FALSE)
             row_split <- feature_split <- cl$cluster
           }
         }
         if (split_method == "kmeans") {
-          km <- kmeans(mat_split, centers = n_split, iter.max = 1e4, nstart = 20)
+          km <- kmeans(
+            mat_split,
+            centers = n_split,
+            iter.max = 1e4,
+            nstart = 20
+          )
           row_split <- feature_split <- km$cluster
         }
         if (split_method == "kmeans-peaktime") {
           feature_y <- feature_metadata[rownames(mat_split), order_by]
           names(feature_y) <- rownames(mat_split)
-          km <- kmeans(feature_y, centers = n_split, iter.max = 1e4, nstart = 20)
+          km <- kmeans(
+            feature_y,
+            centers = n_split,
+            iter.max = 1e4,
+            nstart = 20
+          )
           row_split <- feature_split <- km$cluster
         }
         if (split_method == "hclust") {
@@ -11618,9 +18370,16 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
           row_split <- feature_split <- cutree(hc, k = n_split)
         }
       }
-      df <- data.frame(row_split = row_split, order_by = feature_metadata[names(row_split), order_by])
+      df <- data.frame(
+        row_split = row_split,
+        order_by = feature_metadata[names(row_split), order_by]
+      )
       df_order <- aggregate(df, by = list(row_split), FUN = mean)
-      df_order <- df_order[order(df_order[["order_by"]], decreasing = decreasing), , drop = FALSE]
+      df_order <- df_order[
+        order(df_order[["order_by"]], decreasing = decreasing),
+        ,
+        drop = FALSE
+      ]
       if (!is.null(split_order)) {
         df_order <- df_order[split_order, , drop = FALSE]
       }
@@ -11633,7 +18392,10 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
         split_levels <- c(split_levels, level)
       }
       row_split_raw <- row_split <- factor(row_split, levels = split_levels)
-      feature_split <- factor(feature_split, levels = paste0("C", seq_len(nrow(df_order))))
+      feature_split <- factor(
+        feature_split,
+        levels = paste0("C", seq_len(nrow(df_order)))
+      )
     }
   } else {
     row_split_raw <- row_split <- feature_split <- feature_split[row.names(mat)]
@@ -11655,11 +18417,31 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
     }
     funbody <- paste0(
       "
-      grid.rect(gp = gpar(fill = palette_scp(", paste0("c('", paste0(levels(row_split_raw), collapse = "','"), "')"), ",palette = '", feature_split_palette, "',palcolor=c(", paste0("'", paste0(unlist(feature_split_palcolor), collapse = "','"), "'"), "))[nm]))
+      grid.rect(gp = gpar(fill = palette_scp(",
+      paste0("c('", paste0(levels(row_split_raw), collapse = "','"), "')"),
+      ",palette = '",
+      feature_split_palette,
+      "',palcolor=c(",
+      paste0(
+        "'",
+        paste0(unlist(feature_split_palcolor), collapse = "','"),
+        "'"
+      ),
+      "))[nm]))
     "
     )
     funbody <- gsub(pattern = "\n", replacement = "", x = funbody)
-    eval(parse(text = paste("panel_fun <- function(index, nm) {", funbody, "}", sep = "")), envir = environment())
+    eval(
+      parse(
+        text = paste(
+          "panel_fun <- function(index, nm) {",
+          funbody,
+          "}",
+          sep = ""
+        )
+      ),
+      envir = environment()
+    )
     ha_clusters <- HeatmapAnnotation(
       features_split = anno_block(
         align_to = split(seq_along(row_split_raw), row_split_raw),
@@ -11678,16 +18460,33 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
       ha_left <- c(ha_left, ha_clusters)
     }
     lgd[["Cluster"]] <- Legend(
-      title = "Cluster", labels = intersect(levels(row_split_raw), row_split_raw),
-      legend_gp = gpar(fill = palette_scp(intersect(levels(row_split_raw), row_split_raw), type = "discrete", palette = feature_split_palette, palcolor = feature_split_palcolor, matched = TRUE)), border = TRUE
+      title = "Cluster",
+      labels = intersect(levels(row_split_raw), row_split_raw),
+      legend_gp = gpar(
+        fill = palette_scp(
+          intersect(levels(row_split_raw), row_split_raw),
+          type = "discrete",
+          palette = feature_split_palette,
+          palcolor = feature_split_palcolor,
+          matched = TRUE
+        )
+      ),
+      border = TRUE
     )
   }
 
   if (isTRUE(cluster_rows) && !is.null(cluster_features_by)) {
-    mat_cluster <- mat[, unlist(cell_order_list[cluster_features_by]), drop = FALSE]
+    mat_cluster <- mat[,
+      unlist(cell_order_list[cluster_features_by]),
+      drop = FALSE
+    ]
     if (is.null(row_split)) {
       dend <- as.dendrogram(hclust(as.dist(dist(mat_cluster))))
-      dend_ordered <- reorder(dend, wts = colMeans(mat_cluster), agglo.FUN = mean)
+      dend_ordered <- reorder(
+        dend,
+        wts = colMeans(mat_cluster),
+        agglo.FUN = mean
+      )
       cluster_rows <- dend_ordered
     } else {
       row_split <- length(unique(row_split_raw))
@@ -11710,15 +18509,24 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
   )
   ht_args <- c(ht_args, ht_params[setdiff(names(ht_params), names(ht_args))])
   ht_list <- do.call(Heatmap, args = ht_args)
-  features_ordered <- rownames(mat)[unlist(suppressWarnings(row_order(ht_list)))]
-  feature_metadata[["index"]] <- setNames(object = seq_along(features_ordered), nm = features_ordered)[rownames(feature_metadata)]
+  features_ordered <- rownames(mat)[unlist(suppressWarnings(row_order(
+    ht_list
+  )))]
+  feature_metadata[["index"]] <- setNames(
+    object = seq_along(features_ordered),
+    nm = features_ordered
+  )[rownames(feature_metadata)]
 
   if (is.null(features_label)) {
     if (nlabel > 0) {
       if (length(features) > nlabel) {
         index_from <- ceiling((length(features_ordered) / nlabel) / 2)
         index_to <- length(features_ordered)
-        index <- unique(round(seq(from = index_from, to = index_to, length.out = nlabel)))
+        index <- unique(round(seq(
+          from = index_from,
+          to = index_to,
+          length.out = nlabel
+        )))
       } else {
         index <- seq_along(features_ordered)
       }
@@ -11729,20 +18537,27 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
     index <- which(features_ordered %in% features_label)
     drop <- setdiff(features_label, features_ordered)
     if (length(drop) > 0) {
-      warning(paste0(paste0(drop, collapse = ","), "was not found in the features"), immediate. = TRUE)
+      warning(
+        paste0(paste0(drop, collapse = ","), "was not found in the features"),
+        immediate. = TRUE
+      )
     }
   }
   if (length(index) > 0) {
     ha_mark <- HeatmapAnnotation(
       gene = anno_mark(
         at = which(rownames(feature_metadata) %in% features_ordered[index]),
-        labels = feature_metadata[which(rownames(feature_metadata) %in% features_ordered[index]), "features"],
+        labels = feature_metadata[
+          which(rownames(feature_metadata) %in% features_ordered[index]),
+          "features"
+        ],
         side = ifelse(flip, "top", "left"),
         labels_gp = gpar(fontsize = label_size, col = label_color),
         link_gp = gpar(fontsize = label_size, col = label_color),
         which = ifelse(flip, "column", "row")
       ),
-      which = ifelse(flip, "column", "row"), show_annotation_name = FALSE
+      which = ifelse(flip, "column", "row"),
+      show_annotation_name = FALSE
     )
     if (is.null(ha_left)) {
       ha_left <- ha_mark
@@ -11763,7 +18578,15 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
         which = ifelse(flip, "column", "row")
       )
     }
-    ha_lineage <- do.call("HeatmapAnnotation", args = c(ha_list, which = ifelse(flip, "column", "row"), annotation_name_side = ifelse(flip, "left", "top"), border = TRUE))
+    ha_lineage <- do.call(
+      "HeatmapAnnotation",
+      args = c(
+        ha_list,
+        which = ifelse(flip, "column", "row"),
+        annotation_name_side = ifelse(flip, "left", "top"),
+        border = TRUE
+      )
+    )
     if (is.null(ha_right)) {
       ha_right <- ha_lineage
     } else {
@@ -11785,13 +18608,29 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
         ha_feature <- list()
         ha_feature[[featan]] <- anno_simple(
           x = as.character(featan_values),
-          col = palette_scp(featan_values, palette = palette, palcolor = palcolor),
+          col = palette_scp(
+            featan_values,
+            palette = palette,
+            palcolor = palcolor
+          ),
           which = ifelse(flip, "column", "row"),
           na_col = "transparent",
           border = TRUE
         )
-        anno_args <- c(ha_feature, which = ifelse(flip, "column", "row"), show_annotation_name = TRUE, annotation_name_side = ifelse(flip, "left", "top"), border = TRUE)
-        anno_args <- c(anno_args, feature_annotation_params[setdiff(names(feature_annotation_params), names(anno_args))])
+        anno_args <- c(
+          ha_feature,
+          which = ifelse(flip, "column", "row"),
+          show_annotation_name = TRUE,
+          annotation_name_side = ifelse(flip, "left", "top"),
+          border = TRUE
+        )
+        anno_args <- c(
+          anno_args,
+          feature_annotation_params[setdiff(
+            names(feature_annotation_params),
+            names(anno_args)
+          )]
+        )
         ha_feature <- do.call(HeatmapAnnotation, args = anno_args)
         if (is.null(ha_right)) {
           ha_right <- ha_feature
@@ -11799,12 +18638,24 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
           ha_right <- c(ha_right, ha_feature)
         }
         lgd[[featan]] <- Legend(
-          title = featan, labels = levels(featan_values),
-          legend_gp = gpar(fill = palette_scp(featan_values, palette = palette, palcolor = palcolor)), border = TRUE
+          title = featan,
+          labels = levels(featan_values),
+          legend_gp = gpar(
+            fill = palette_scp(
+              featan_values,
+              palette = palette,
+              palcolor = palcolor
+            )
+          ),
+          border = TRUE
         )
       } else {
         col_fun <- circlize::colorRamp2(
-          breaks = seq(min(featan_values, na.rm = TRUE), max(featan_values, na.rm = TRUE), length = 100),
+          breaks = seq(
+            min(featan_values, na.rm = TRUE),
+            max(featan_values, na.rm = TRUE),
+            length = 100
+          ),
           colors = palette_scp(palette = palette, palcolor = palcolor)
         )
         ha_feature <- list()
@@ -11815,8 +18666,20 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
           na_col = "transparent",
           border = TRUE
         )
-        anno_args <- c(ha_feature, which = ifelse(flip, "column", "row"), show_annotation_name = TRUE, annotation_name_side = ifelse(flip, "left", "top"), border = TRUE)
-        anno_args <- c(anno_args, feature_annotation_params[setdiff(names(feature_annotation_params), names(anno_args))])
+        anno_args <- c(
+          ha_feature,
+          which = ifelse(flip, "column", "row"),
+          show_annotation_name = TRUE,
+          annotation_name_side = ifelse(flip, "left", "top"),
+          border = TRUE
+        )
+        anno_args <- c(
+          anno_args,
+          feature_annotation_params[setdiff(
+            names(feature_annotation_params),
+            names(anno_args)
+          )]
+        )
         ha_feature <- do.call(HeatmapAnnotation, args = anno_args)
         if (is.null(ha_right)) {
           ha_right <- ha_feature
@@ -11824,24 +18687,53 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
           ha_right <- c(ha_right, ha_feature)
         }
         lgd[[featan]] <- Legend(
-          title = featan, col_fun = col_fun, border = TRUE
+          title = featan,
+          col_fun = col_fun,
+          border = TRUE
         )
       }
     }
   }
 
   enrichment <- heatmap_enrichment(
-    geneID = feature_metadata[["features"]], geneID_groups = feature_metadata[["feature_split"]],
-    feature_split_palette = feature_split_palette, feature_split_palcolor = feature_split_palcolor,
-    ha_right = ha_right, flip = flip,
-    anno_terms = anno_terms, anno_keys = anno_keys, anno_features = anno_features,
-    terms_width = terms_width, terms_fontsize = terms_fontsize,
-    keys_width = keys_width, keys_fontsize = keys_fontsize,
-    features_width = features_width, features_fontsize = features_fontsize,
-    IDtype = IDtype, species = species, db_update = db_update, db_version = db_version, db_combine = db_combine, convert_species = convert_species, Ensembl_version = Ensembl_version, mirror = mirror,
-    db = db, TERM2GENE = TERM2GENE, TERM2NAME = TERM2NAME, minGSSize = minGSSize, maxGSSize = maxGSSize,
-    GO_simplify = GO_simplify, GO_simplify_cutoff = GO_simplify_cutoff, simplify_method = simplify_method, simplify_similarityCutoff = simplify_similarityCutoff,
-    pvalueCutoff = pvalueCutoff, padjustCutoff = padjustCutoff, topTerm = topTerm, show_termid = show_termid, topWord = topWord, words_excluded = words_excluded
+    geneID = feature_metadata[["features"]],
+    geneID_groups = feature_metadata[["feature_split"]],
+    feature_split_palette = feature_split_palette,
+    feature_split_palcolor = feature_split_palcolor,
+    ha_right = ha_right,
+    flip = flip,
+    anno_terms = anno_terms,
+    anno_keys = anno_keys,
+    anno_features = anno_features,
+    terms_width = terms_width,
+    terms_fontsize = terms_fontsize,
+    keys_width = keys_width,
+    keys_fontsize = keys_fontsize,
+    features_width = features_width,
+    features_fontsize = features_fontsize,
+    IDtype = IDtype,
+    species = species,
+    db_update = db_update,
+    db_version = db_version,
+    db_combine = db_combine,
+    convert_species = convert_species,
+    Ensembl_version = Ensembl_version,
+    mirror = mirror,
+    db = db,
+    TERM2GENE = TERM2GENE,
+    TERM2NAME = TERM2NAME,
+    minGSSize = minGSSize,
+    maxGSSize = maxGSSize,
+    GO_simplify = GO_simplify,
+    GO_simplify_cutoff = GO_simplify_cutoff,
+    simplify_method = simplify_method,
+    simplify_similarityCutoff = simplify_similarityCutoff,
+    pvalueCutoff = pvalueCutoff,
+    padjustCutoff = padjustCutoff,
+    topTerm = topTerm,
+    show_termid = show_termid,
+    topWord = topWord,
+    words_excluded = words_excluded
   )
   res <- enrichment$res
   ha_right <- enrichment$ha_right
@@ -11860,7 +18752,11 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
     }
     ht_args <- list(
       name = l,
-      matrix = if (flip) t(mat[, cell_order_list[[l]], drop = FALSE]) else mat[, cell_order_list[[l]], drop = FALSE],
+      matrix = if (flip) {
+        t(mat[, cell_order_list[[l]], drop = FALSE])
+      } else {
+        mat[, cell_order_list[[l]], drop = FALSE]
+      },
       col = colors,
       row_title = row_title %||% if (flip) l else character(0),
       row_title_side = row_title_side,
@@ -11872,8 +18768,16 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
       column_split = if (flip) row_split else column_split,
       cluster_rows = if (flip) cluster_columns else cluster_rows,
       cluster_columns = if (flip) cluster_rows else cluster_columns,
-      cluster_row_slices = if (flip) cluster_column_slices else cluster_row_slices,
-      cluster_column_slices = if (flip) cluster_row_slices else cluster_column_slices,
+      cluster_row_slices = if (flip) {
+        cluster_column_slices
+      } else {
+        cluster_row_slices
+      },
+      cluster_column_slices = if (flip) {
+        cluster_row_slices
+      } else {
+        cluster_column_slices
+      },
       show_row_names = show_row_names,
       show_column_names = show_column_names,
       row_names_side = row_names_side,
@@ -11890,10 +18794,19 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
       raster_device = raster_device,
       raster_by_magick = raster_by_magick,
       width = if (is.numeric(width[l])) unit(width[l], units = units) else NULL,
-      height = if (is.numeric(height[l])) unit(height[l], units = units) else NULL
+      height = if (is.numeric(height[l])) {
+        unit(height[l], units = units)
+      } else {
+        NULL
+      }
     )
     if (any(names(ht_params) %in% names(ht_args))) {
-      warning("ht_params: ", paste0(intersect(names(ht_params), names(ht_args)), collapse = ","), " were duplicated and will not be used.", immediate. = TRUE)
+      warning(
+        "ht_params: ",
+        paste0(intersect(names(ht_params), names(ht_args)), collapse = ","),
+        " were duplicated and will not be used.",
+        immediate. = TRUE
+      )
     }
     ht_args <- c(ht_args, ht_params[setdiff(names(ht_params), names(ht_args))])
     if (isTRUE(flip)) {
@@ -11907,18 +18820,31 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
     }
   }
 
-  if ((!is.null(row_split) && length(index) > 0) || any(c(anno_terms, anno_keys, anno_features)) || !is.null(width) || !is.null(height)) {
+  if (
+    (!is.null(row_split) && length(index) > 0) ||
+      any(c(anno_terms, anno_keys, anno_features)) ||
+      !is.null(width) ||
+      !is.null(height)
+  ) {
     fix <- TRUE
     if (is.null(width) || is.null(height)) {
-      message("\nThe size of the heatmap is fixed because certain elements are not scalable.\nThe width and height of the heatmap are determined by the size of the current viewport.\nIf you want to have more control over the size, you can manually set the parameters 'width' and 'height'.\n")
+      message(
+        "\nThe size of the heatmap is fixed because certain elements are not scalable.\nThe width and height of the heatmap are determined by the size of the current viewport.\nIf you want to have more control over the size, you can manually set the parameters 'width' and 'height'.\n"
+      )
     }
   } else {
     fix <- FALSE
   }
   rendersize <- heatmap_rendersize(
-    width = width, height = height, units = units,
-    ha_top_list = ha_top_list, ha_left = ha_left, ha_right = ha_right,
-    ht_list = ht_list, legend_list = lgd, flip = flip
+    width = width,
+    height = height,
+    units = units,
+    ha_top_list = ha_top_list,
+    ha_left = ha_left,
+    ha_right = ha_right,
+    ht_list = ht_list,
+    legend_list = lgd,
+    flip = flip
   )
   width_sum <- rendersize[["width_sum"]]
   height_sum <- rendersize[["height_sum"]]
@@ -11929,8 +18855,13 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
 
   if (isTRUE(fix)) {
     fixsize <- heatmap_fixsize(
-      width = width, width_sum = width_sum, height = height, height_sum = height_sum, units = units,
-      ht_list = ht_list, legend_list = lgd
+      width = width,
+      width_sum = width_sum,
+      height = height,
+      height_sum = height_sum,
+      units = units,
+      ht_list = ht_list,
+      legend_list = lgd
     )
     ht_width <- fixsize[["ht_width"]]
     ht_height <- fixsize[["ht_height"]]
@@ -11941,12 +18872,20 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
       {
         draw(ht_list, annotation_legend_list = lgd)
         for (enrich in db) {
-          enrich_anno <- names(ha_right)[grep(paste0("_split_", enrich), names(ha_right))]
+          enrich_anno <- names(ha_right)[grep(
+            paste0("_split_", enrich),
+            names(ha_right)
+          )]
           if (length(enrich_anno) > 0) {
             for (enrich_anno_element in enrich_anno) {
               enrich_obj <- strsplit(enrich_anno_element, "_split_")[[1]][1]
               decorate_annotation(enrich_anno_element, slice = 1, {
-                grid.text(paste0(enrich, " (", enrich_obj, ")"), x = unit(1, "npc"), y = unit(1, "npc") + unit(2.5, "mm"), just = c("left", "bottom"))
+                grid.text(
+                  paste0(enrich, " (", enrich_obj, ")"),
+                  x = unit(1, "npc"),
+                  y = unit(1, "npc") + unit(2.5, "mm"),
+                  just = c("left", "bottom")
+                )
               })
             }
           }
@@ -11959,17 +18898,33 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
             lwd <- pseudotime_label_linewidth[n]
             for (l in lineages) {
               for (slice in 1:max(nlevels(row_split), 1)) {
-                decorate_heatmap_body(l,
+                decorate_heatmap_body(
+                  l,
                   {
-                    pseudotime <- cell_metadata[gsub(pattern = l, replacement = "", x = cell_order_list[[l]]), l]
+                    pseudotime <- cell_metadata[
+                      gsub(
+                        pattern = l,
+                        replacement = "",
+                        x = cell_order_list[[l]]
+                      ),
+                      l
+                    ]
                     i <- which.min(abs(pseudotime - pse))
                     if (flip) {
                       x <- 1 - (i / length(pseudotime))
-                      grid.lines(c(0, 1), c(x, x), gp = gpar(lty = lty, lwd = lwd, col = col))
+                      grid.lines(
+                        c(0, 1),
+                        c(x, x),
+                        gp = gpar(lty = lty, lwd = lwd, col = col)
+                      )
                     } else {
                       i <- which.min(abs(pseudotime - pse))
                       x <- i / length(pseudotime)
-                      grid.lines(c(x, x), c(0, 1), gp = gpar(lty = lty, lwd = lwd, col = col))
+                      grid.lines(
+                        c(x, x),
+                        c(0, 1),
+                        gp = gpar(lty = lty, lwd = lwd, col = col)
+                      )
                     }
                   },
                   row_slice = ifelse(flip, 1, slice),
@@ -11992,12 +18947,20 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
       {
         draw(ht_list, annotation_legend_list = lgd)
         for (enrich in db) {
-          enrich_anno <- names(ha_right)[grep(paste0("_split_", enrich), names(ha_right))]
+          enrich_anno <- names(ha_right)[grep(
+            paste0("_split_", enrich),
+            names(ha_right)
+          )]
           if (length(enrich_anno) > 0) {
             for (enrich_anno_element in enrich_anno) {
               enrich_obj <- strsplit(enrich_anno_element, "_split_")[[1]][1]
               decorate_annotation(enrich_anno_element, slice = 1, {
-                grid.text(paste0(enrich, " (", enrich_obj, ")"), x = unit(1, "npc"), y = unit(1, "npc") + unit(2.5, "mm"), just = c("left", "bottom"))
+                grid.text(
+                  paste0(enrich, " (", enrich_obj, ")"),
+                  x = unit(1, "npc"),
+                  y = unit(1, "npc") + unit(2.5, "mm"),
+                  just = c("left", "bottom")
+                )
               })
             }
           }
@@ -12010,17 +18973,33 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
             lwd <- pseudotime_label_linewidth[n]
             for (l in lineages) {
               for (slice in 1:max(nlevels(row_split), 1)) {
-                decorate_heatmap_body(l,
+                decorate_heatmap_body(
+                  l,
                   {
-                    pseudotime <- cell_metadata[gsub(pattern = l, replacement = "", x = cell_order_list[[l]]), l]
+                    pseudotime <- cell_metadata[
+                      gsub(
+                        pattern = l,
+                        replacement = "",
+                        x = cell_order_list[[l]]
+                      ),
+                      l
+                    ]
                     i <- which.min(abs(pseudotime - pse))
                     if (flip) {
                       x <- 1 - (i / length(pseudotime))
-                      grid.lines(c(0, 1), c(x, x), gp = gpar(lty = lty, lwd = lwd, col = col))
+                      grid.lines(
+                        c(0, 1),
+                        c(x, x),
+                        gp = gpar(lty = lty, lwd = lwd, col = col)
+                      )
                     } else {
                       i <- which.min(abs(pseudotime - pse))
                       x <- i / length(pseudotime)
-                      grid.lines(c(x, x), c(0, 1), gp = gpar(lty = lty, lwd = lwd, col = col))
+                      grid.lines(
+                        c(x, x),
+                        c(0, 1),
+                        gp = gpar(lty = lty, lwd = lwd, col = col)
+                      )
                     }
                   },
                   row_slice = ifelse(flip, 1, slice),
@@ -12039,7 +19018,12 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
   }
 
   if (isTRUE(fix)) {
-    p <- panel_fix_overall(gTree, width = as.numeric(ht_width), height = as.numeric(ht_height), units = units)
+    p <- panel_fix_overall(
+      gTree,
+      width = as.numeric(ht_width),
+      height = as.numeric(ht_height),
+      units = units
+    )
   } else {
     p <- wrap_plots(gTree)
   }
@@ -12133,16 +19117,44 @@ DynamicHeatmap <- function(srt, lineages, features = NULL, use_fitted = FALSE, b
 #' @importFrom stats runif
 #' @importFrom reshape2 melt
 #' @export
-DynamicPlot <- function(srt, lineages, features, group.by = NULL, cells = NULL, layer = "counts", assay = NULL, family = NULL,
-                        exp_method = c("log1p", "raw", "zscore", "fc", "log2fc"), lib_normalize = identical(layer, "counts"), libsize = NULL,
-                        compare_lineages = TRUE, compare_features = FALSE,
-                        add_line = TRUE, add_interval = TRUE, line.size = 1, line_palette = "Dark2", line_palcolor = NULL,
-                        add_point = TRUE, pt.size = 1, point_palette = "Paired", point_palcolor = NULL,
-                        add_rug = TRUE, flip = FALSE, reverse = FALSE, x_order = c("value", "rank"),
-                        aspect.ratio = NULL,
-                        legend.position = "right", legend.direction = "vertical",
-                        theme_use = "theme_scp", theme_args = list(),
-                        combine = TRUE, nrow = NULL, ncol = NULL, byrow = TRUE, seed = 11) {
+DynamicPlot <- function(
+  srt,
+  lineages,
+  features,
+  group.by = NULL,
+  cells = NULL,
+  layer = "counts",
+  assay = NULL,
+  family = NULL,
+  exp_method = c("log1p", "raw", "zscore", "fc", "log2fc"),
+  lib_normalize = identical(layer, "counts"),
+  libsize = NULL,
+  compare_lineages = TRUE,
+  compare_features = FALSE,
+  add_line = TRUE,
+  add_interval = TRUE,
+  line.size = 1,
+  line_palette = "Dark2",
+  line_palcolor = NULL,
+  add_point = TRUE,
+  pt.size = 1,
+  point_palette = "Paired",
+  point_palcolor = NULL,
+  add_rug = TRUE,
+  flip = FALSE,
+  reverse = FALSE,
+  x_order = c("value", "rank"),
+  aspect.ratio = NULL,
+  legend.position = "right",
+  legend.direction = "vertical",
+  theme_use = "theme_scp",
+  theme_args = list(),
+  combine = TRUE,
+  nrow = NULL,
+  ncol = NULL,
+  byrow = TRUE,
+  seed = 11
+) {
   set.seed(seed)
 
   check_R("MatrixGenerics")
@@ -12154,7 +19166,12 @@ DynamicPlot <- function(srt, lineages, features, group.by = NULL, cells = NULL, 
   data_nm <- c(ifelse(isTRUE(lib_normalize), "normalized", ""), layer)
   data_nm <- paste(data_nm[data_nm != ""], collapse = " ")
   if (length(exp_method) == 1 && is.function(exp_method)) {
-    exp_name <- paste0(as.character(x = formals()$exp_method), "(", data_nm, ")")
+    exp_name <- paste0(
+      as.character(x = formals()$exp_method),
+      "(",
+      data_nm,
+      ")"
+    )
   } else {
     exp_method <- match.arg(exp_method)
     exp_name <- paste0(exp_method, "(", data_nm, ")")
@@ -12177,32 +19194,85 @@ DynamicPlot <- function(srt, lineages, features, group.by = NULL, cells = NULL, 
     features_exist <- c()
     raw_matrix <- NULL
     if (paste0("DynamicFeatures_", l) %in% names(srt@tools)) {
-      raw_matrix <- srt@tools[[paste0("DynamicFeatures_", l)]][["raw_matrix"]][, -1]
-      fitted_matrix <- srt@tools[[paste0("DynamicFeatures_", l)]][["fitted_matrix"]][, -1]
-      upr_matrix <- srt@tools[[paste0("DynamicFeatures_", l)]][["upr_matrix"]][, -1]
-      lwr_matrix <- srt@tools[[paste0("DynamicFeatures_", l)]][["lwr_matrix"]][, -1]
+      raw_matrix <- srt@tools[[paste0("DynamicFeatures_", l)]][["raw_matrix"]][,
+        -1
+      ]
+      fitted_matrix <- srt@tools[[paste0("DynamicFeatures_", l)]][[
+        "fitted_matrix"
+      ]][, -1]
+      upr_matrix <- srt@tools[[paste0("DynamicFeatures_", l)]][["upr_matrix"]][,
+        -1
+      ]
+      lwr_matrix <- srt@tools[[paste0("DynamicFeatures_", l)]][["lwr_matrix"]][,
+        -1
+      ]
       features_exist <- colnames(raw_matrix)
     }
     feature_calcu <- features[!features %in% features_exist]
     if (length(feature_calcu) > 0) {
-      srt_tmp <- RunDynamicFeatures(srt, lineages = l, features = feature_calcu, assay = assay, layer = layer, family = family, libsize = libsize)
+      srt_tmp <- RunDynamicFeatures(
+        srt,
+        lineages = l,
+        features = feature_calcu,
+        assay = assay,
+        layer = layer,
+        family = family,
+        libsize = libsize
+      )
       if (is.null(raw_matrix)) {
-        raw_matrix <- fitted_matrix <- upr_matrix <- lwr_matrix <- matrix(NA, nrow = nrow(srt_tmp@tools[[paste0("DynamicFeatures_", l)]][["raw_matrix"]]), ncol = 0)
+        raw_matrix <- fitted_matrix <- upr_matrix <- lwr_matrix <- matrix(
+          NA,
+          nrow = nrow(srt_tmp@tools[[paste0("DynamicFeatures_", l)]][[
+            "raw_matrix"
+          ]]),
+          ncol = 0
+        )
       }
-      raw_matrix <- cbind(raw_matrix, srt_tmp@tools[[paste0("DynamicFeatures_", l)]][["raw_matrix"]][, feature_calcu, drop = FALSE])
-      fitted_matrix <- cbind(fitted_matrix, srt_tmp@tools[[paste0("DynamicFeatures_", l)]][["fitted_matrix"]][, feature_calcu, drop = FALSE])
-      upr_matrix <- cbind(upr_matrix, srt_tmp@tools[[paste0("DynamicFeatures_", l)]][["upr_matrix"]][, feature_calcu, drop = FALSE])
-      lwr_matrix <- cbind(lwr_matrix, srt_tmp@tools[[paste0("DynamicFeatures_", l)]][["lwr_matrix"]][, feature_calcu, drop = FALSE])
+      raw_matrix <- cbind(
+        raw_matrix,
+        srt_tmp@tools[[paste0("DynamicFeatures_", l)]][["raw_matrix"]][,
+          feature_calcu,
+          drop = FALSE
+        ]
+      )
+      fitted_matrix <- cbind(
+        fitted_matrix,
+        srt_tmp@tools[[paste0("DynamicFeatures_", l)]][["fitted_matrix"]][,
+          feature_calcu,
+          drop = FALSE
+        ]
+      )
+      upr_matrix <- cbind(
+        upr_matrix,
+        srt_tmp@tools[[paste0("DynamicFeatures_", l)]][["upr_matrix"]][,
+          feature_calcu,
+          drop = FALSE
+        ]
+      )
+      lwr_matrix <- cbind(
+        lwr_matrix,
+        srt_tmp@tools[[paste0("DynamicFeatures_", l)]][["lwr_matrix"]][,
+          feature_calcu,
+          drop = FALSE
+        ]
+      )
     }
     raw_matrix_list[[l]] <- as_matrix(raw_matrix[, features, drop = FALSE])
-    fitted_matrix_list[[l]] <- as_matrix(fitted_matrix[, features, drop = FALSE])
+    fitted_matrix_list[[l]] <- as_matrix(fitted_matrix[,
+      features,
+      drop = FALSE
+    ])
     upr_matrix_list[[l]] <- as_matrix(upr_matrix[, features, drop = FALSE])
     lwr_matrix_list[[l]] <- as_matrix(lwr_matrix[, features, drop = FALSE])
     cell_union <- unique(c(cell_union, rownames(raw_matrix)))
   }
 
-  x_assign <- rowMeans(srt@meta.data[cell_union, lineages, drop = FALSE], na.rm = TRUE)
-  cell_metadata <- cbind.data.frame(data.frame(row.names = cell_union),
+  x_assign <- rowMeans(
+    srt@meta.data[cell_union, lineages, drop = FALSE],
+    na.rm = TRUE
+  )
+  cell_metadata <- cbind.data.frame(
+    data.frame(row.names = cell_union),
     x_assign = x_assign,
     srt@meta.data[cell_union, lineages, drop = FALSE]
   )
@@ -12210,7 +19280,11 @@ DynamicPlot <- function(srt, lineages, features, group.by = NULL, cells = NULL, 
   cell_order_list <- list()
   for (l in lineages) {
     cell_metadata_sub <- na.omit(cell_metadata[, l, drop = FALSE])
-    cell_metadata_sub <- cell_metadata_sub[order(cell_metadata_sub[[l]], decreasing = FALSE), , drop = FALSE]
+    cell_metadata_sub <- cell_metadata_sub[
+      order(cell_metadata_sub[[l]], decreasing = FALSE),
+      ,
+      drop = FALSE
+    ]
     cell_order_list[[l]] <- paste0(rownames(cell_metadata_sub), l)
   }
 
@@ -12229,10 +19303,15 @@ DynamicPlot <- function(srt, lineages, features, group.by = NULL, cells = NULL, 
         isfloat <- any(libsize_use %% 1 != 0, na.rm = TRUE)
         if (isTRUE(isfloat)) {
           libsize_use <- rep(1, length(libsize_use))
-          warning("The values in the 'counts' layer are non-integer. Set the library size to 1.", immediate. = TRUE)
+          warning(
+            "The values in the 'counts' layer are non-integer. Set the library size to 1.",
+            immediate. = TRUE
+          )
         }
       }
-      raw_matrix[, gene] <- raw_matrix[, gene, drop = FALSE] / libsize_use * median(Y_libsize)
+      raw_matrix[, gene] <- raw_matrix[, gene, drop = FALSE] /
+        libsize_use *
+        median(Y_libsize)
     }
 
     if (is.function(exp_method)) {
@@ -12270,34 +19349,81 @@ DynamicPlot <- function(srt, lineages, features, group.by = NULL, cells = NULL, 
       upr_matrix <- log1p(upr_matrix)
       lwr_matrix <- log1p(lwr_matrix)
     }
-    raw_matrix[is.infinite(raw_matrix)] <- max(abs(raw_matrix[!is.infinite(raw_matrix)]), na.rm = TRUE) * ifelse(raw_matrix[is.infinite(raw_matrix)] > 0, 1, -1)
-    fitted_matrix[is.infinite(fitted_matrix)] <- max(abs(fitted_matrix[!is.infinite(fitted_matrix)])) * ifelse(fitted_matrix[is.infinite(fitted_matrix)] > 0, 1, -1)
-    upr_matrix[is.infinite(upr_matrix)] <- max(abs(upr_matrix[!is.infinite(upr_matrix)]), na.rm = TRUE) * ifelse(upr_matrix[is.infinite(upr_matrix)] > 0, 1, -1)
-    lwr_matrix[is.infinite(lwr_matrix)] <- max(abs(lwr_matrix[!is.infinite(lwr_matrix)]), na.rm = TRUE) * ifelse(lwr_matrix[is.infinite(lwr_matrix)] > 0, 1, -1)
+    raw_matrix[is.infinite(raw_matrix)] <- max(
+      abs(raw_matrix[!is.infinite(raw_matrix)]),
+      na.rm = TRUE
+    ) *
+      ifelse(raw_matrix[is.infinite(raw_matrix)] > 0, 1, -1)
+    fitted_matrix[is.infinite(fitted_matrix)] <- max(abs(fitted_matrix[
+      !is.infinite(fitted_matrix)
+    ])) *
+      ifelse(fitted_matrix[is.infinite(fitted_matrix)] > 0, 1, -1)
+    upr_matrix[is.infinite(upr_matrix)] <- max(
+      abs(upr_matrix[!is.infinite(upr_matrix)]),
+      na.rm = TRUE
+    ) *
+      ifelse(upr_matrix[is.infinite(upr_matrix)] > 0, 1, -1)
+    lwr_matrix[is.infinite(lwr_matrix)] <- max(
+      abs(lwr_matrix[!is.infinite(lwr_matrix)]),
+      na.rm = TRUE
+    ) *
+      ifelse(lwr_matrix[is.infinite(lwr_matrix)] > 0, 1, -1)
 
-    raw <- as.data.frame(cbind(cell_metadata[rownames(raw_matrix), c(l, "x_assign")], raw_matrix))
+    raw <- as.data.frame(cbind(
+      cell_metadata[rownames(raw_matrix), c(l, "x_assign")],
+      raw_matrix
+    ))
     colnames(raw)[1] <- "Pseudotime"
     raw[["Cell"]] <- rownames(raw)
     raw[["Value"]] <- "raw"
-    raw <- melt(raw, id.vars = c("Cell", "Pseudotime", "x_assign", "Value"), value.name = "exp", variable.name = "Features")
+    raw <- melt(
+      raw,
+      id.vars = c("Cell", "Pseudotime", "x_assign", "Value"),
+      value.name = "exp",
+      variable.name = "Features"
+    )
 
-    fitted <- as.data.frame(cbind(cell_metadata[rownames(fitted_matrix), c(l, "x_assign")], fitted_matrix))
+    fitted <- as.data.frame(cbind(
+      cell_metadata[rownames(fitted_matrix), c(l, "x_assign")],
+      fitted_matrix
+    ))
     colnames(fitted)[1] <- "Pseudotime"
     fitted[["Cell"]] <- rownames(fitted)
     fitted[["Value"]] <- "fitted"
-    fitted <- melt(fitted, id.vars = c("Cell", "Pseudotime", "x_assign", "Value"), value.name = "exp", variable.name = "Features")
+    fitted <- melt(
+      fitted,
+      id.vars = c("Cell", "Pseudotime", "x_assign", "Value"),
+      value.name = "exp",
+      variable.name = "Features"
+    )
 
-    upr <- as.data.frame(cbind(cell_metadata[rownames(upr_matrix), c(l, "x_assign")], upr_matrix))
+    upr <- as.data.frame(cbind(
+      cell_metadata[rownames(upr_matrix), c(l, "x_assign")],
+      upr_matrix
+    ))
     colnames(upr)[1] <- "Pseudotime"
     upr[["Cell"]] <- rownames(upr)
     upr[["Value"]] <- "upr"
-    upr <- melt(upr, id.vars = c("Cell", "Pseudotime", "x_assign", "Value"), value.name = "exp", variable.name = "Features")
+    upr <- melt(
+      upr,
+      id.vars = c("Cell", "Pseudotime", "x_assign", "Value"),
+      value.name = "exp",
+      variable.name = "Features"
+    )
 
-    lwr <- as.data.frame(cbind(cell_metadata[rownames(lwr_matrix), c(l, "x_assign")], lwr_matrix))
+    lwr <- as.data.frame(cbind(
+      cell_metadata[rownames(lwr_matrix), c(l, "x_assign")],
+      lwr_matrix
+    ))
     colnames(lwr)[1] <- "Pseudotime"
     lwr[["Cell"]] <- rownames(lwr)
     lwr[["Value"]] <- "lwr"
-    lwr <- melt(lwr, id.vars = c("Cell", "Pseudotime", "x_assign", "Value"), value.name = "exp", variable.name = "Features")
+    lwr <- melt(
+      lwr,
+      id.vars = c("Cell", "Pseudotime", "x_assign", "Value"),
+      value.name = "exp",
+      variable.name = "Features"
+    )
 
     raw[["upr"]] <- NA
     raw[["lwr"]] <- NA
@@ -12314,11 +19440,18 @@ DynamicPlot <- function(srt, lineages, features, group.by = NULL, cells = NULL, 
   if (!is.null(group.by)) {
     cell_group <- srt@meta.data[df_all[["Cell"]], group.by, drop = FALSE]
     if (!is.factor(cell_group[, group.by])) {
-      cell_group[, group.by] <- factor(cell_group[, group.by], levels = unique(cell_group[, group.by]))
+      cell_group[, group.by] <- factor(
+        cell_group[, group.by],
+        levels = unique(cell_group[, group.by])
+      )
     }
     df_all <- cbind(df_all, cell_group)
   }
-  df_all[["LineagesFeatures"]] <- paste(df_all[["Lineages"]], df_all[["Features"]], sep = "-")
+  df_all[["LineagesFeatures"]] <- paste(
+    df_all[["Lineages"]],
+    df_all[["Features"]],
+    sep = "-"
+  )
 
   if (!is.null(cells)) {
     df_all <- df_all[df_all[["Cell"]] %in% cells, , drop = FALSE]
@@ -12359,27 +19492,58 @@ DynamicPlot <- function(srt, lineages, features, group.by = NULL, cells = NULL, 
 
   for (l in lineages_use) {
     for (f in features_use) {
-      df <- subset(df_all, df_all[["Lineages"]] %in% l & df_all[["Features"]] %in% f)
+      df <- subset(
+        df_all,
+        df_all[["Lineages"]] %in% l & df_all[["Features"]] %in% f
+      )
       if (x_order == "rank") {
         df[, "x_assign"] <- rank(df[, "x_assign"])
         df[, "Pseudotime"] <- rank(df[, "Pseudotime"])
       }
-      df_point <- unique(df[df[["Value"]] == "raw", c("Cell", "x_assign", "exp", group.by)])
+      df_point <- unique(df[
+        df[["Value"]] == "raw",
+        c("Cell", "x_assign", "exp", group.by)
+      ])
       if (isTRUE(compare_features)) {
         raw_point <- NULL
       } else {
         if (isTRUE(add_point)) {
           if (is.null(group.by)) {
-            raw_point <- geom_point(data = df_point, mapping = aes(x = .data[["x_assign"]], y = .data[["exp"]]), size = pt.size, alpha = 0.8)
+            raw_point <- geom_point(
+              data = df_point,
+              mapping = aes(x = .data[["x_assign"]], y = .data[["exp"]]),
+              size = pt.size,
+              alpha = 0.8
+            )
           } else {
             raw_point <- list(
-              geom_point(data = df_point, mapping = aes(x = .data[["x_assign"]], y = .data[["exp"]], color = .data[[group.by]]), size = pt.size, alpha = 0.8),
+              geom_point(
+                data = df_point,
+                mapping = aes(
+                  x = .data[["x_assign"]],
+                  y = .data[["exp"]],
+                  color = .data[[group.by]]
+                ),
+                size = pt.size,
+                alpha = 0.8
+              ),
               scale_color_manual(
-                values = palette_scp(df[[group.by]], palette = point_palette, palcolor = point_palcolor)
+                values = palette_scp(
+                  df[[group.by]],
+                  palette = point_palette,
+                  palcolor = point_palcolor
+                )
               ),
               scale_fill_manual(
-                values = palette_scp(df[[group.by]], palette = point_palette, palcolor = point_palcolor),
-                guide = guide_legend(override.aes = list(alpha = 1, size = 3), order = 1)
+                values = palette_scp(
+                  df[[group.by]],
+                  palette = point_palette,
+                  palcolor = point_palcolor
+                ),
+                guide = guide_legend(
+                  override.aes = list(alpha = 1, size = 3),
+                  order = 1
+                )
               ),
               new_scale_color(),
               new_scale_fill()
@@ -12391,12 +19555,28 @@ DynamicPlot <- function(srt, lineages, features, group.by = NULL, cells = NULL, 
       }
       if (isTRUE(add_rug)) {
         if (is.null(group.by)) {
-          rug <- list(geom_rug(data = df_point, mapping = aes(x = .data[["x_assign"]]), alpha = 1, length = unit(0.05, "npc"), show.legend = FALSE))
+          rug <- list(geom_rug(
+            data = df_point,
+            mapping = aes(x = .data[["x_assign"]]),
+            alpha = 1,
+            length = unit(0.05, "npc"),
+            show.legend = FALSE
+          ))
         } else {
           rug <- list(
-            geom_rug(data = df_point, mapping = aes(x = .data[["x_assign"]], color = .data[[group.by]]), alpha = 1, length = unit(0.05, "npc"), show.legend = isTRUE(compare_features)),
+            geom_rug(
+              data = df_point,
+              mapping = aes(x = .data[["x_assign"]], color = .data[[group.by]]),
+              alpha = 1,
+              length = unit(0.05, "npc"),
+              show.legend = isTRUE(compare_features)
+            ),
             scale_color_manual(
-              values = palette_scp(df[[group.by]], palette = point_palette, palcolor = point_palcolor)
+              values = palette_scp(
+                df[[group.by]],
+                palette = point_palette,
+                palcolor = point_palcolor
+              )
             ),
             new_scale_color()
           )
@@ -12410,14 +19590,29 @@ DynamicPlot <- function(srt, lineages, features, group.by = NULL, cells = NULL, 
           geom_ribbon(
             data = subset(df, df[["Value"]] == "fitted"),
             mapping = aes(
-              x = .data[["Pseudotime"]], y = .data[["exp"]], ymin = .data[["lwr"]], ymax = .data[["upr"]],
-              fill = .data[[fill_by]], group = .data[["LineagesFeatures"]]
+              x = .data[["Pseudotime"]],
+              y = .data[["exp"]],
+              ymin = .data[["lwr"]],
+              ymax = .data[["upr"]],
+              fill = .data[[fill_by]],
+              group = .data[["LineagesFeatures"]]
             ),
-            alpha = 0.4, color = "grey90"
+            alpha = 0.4,
+            color = "grey90"
           ),
           scale_fill_manual(
-            values = palette_scp(df[[fill_by]], palette = line_palette, palcolor = line_palcolor),
-            guide = if (fill_by == "Features" || lineages_guide || length(l) == 1) "none" else guide_legend()
+            values = palette_scp(
+              df[[fill_by]],
+              palette = line_palette,
+              palcolor = line_palcolor
+            ),
+            guide = if (
+              fill_by == "Features" || lineages_guide || length(l) == 1
+            ) {
+              "none"
+            } else {
+              guide_legend()
+            }
           ),
           new_scale_fill()
         )
@@ -12429,14 +19624,25 @@ DynamicPlot <- function(srt, lineages, features, group.by = NULL, cells = NULL, 
           geom_line(
             data = subset(df, df[["Value"]] == "fitted"),
             mapping = aes(
-              x = .data[["Pseudotime"]], y = .data[["exp"]],
-              color = .data[["Features"]], group = .data[["LineagesFeatures"]]
+              x = .data[["Pseudotime"]],
+              y = .data[["exp"]],
+              color = .data[["Features"]],
+              group = .data[["LineagesFeatures"]]
             ),
-            linewidth = line.size, alpha = 0.8
+            linewidth = line.size,
+            alpha = 0.8
           ),
           scale_color_manual(
-            values = palette_scp(df[["Features"]], palette = line_palette, palcolor = line_palcolor),
-            guide = if (features_guide) guide_legend(override.aes = list(alpha = 1, size = 2), order = 2) else "none"
+            values = palette_scp(
+              df[["Features"]],
+              palette = line_palette,
+              palcolor = line_palcolor
+            ),
+            guide = if (features_guide) {
+              guide_legend(override.aes = list(alpha = 1, size = 2), order = 2)
+            } else {
+              "none"
+            }
           ),
           new_scale_color()
         )
@@ -12445,11 +19651,29 @@ DynamicPlot <- function(srt, lineages, features, group.by = NULL, cells = NULL, 
           line <- list(
             geom_line(
               data = subset(df, df[["Value"]] == "fitted"),
-              mapping = aes(x = .data[["Pseudotime"]], y = .data[["exp"]], color = .data[["Lineages"]], group = .data[["LineagesFeatures"]]), linewidth = line.size, alpha = 0.8
+              mapping = aes(
+                x = .data[["Pseudotime"]],
+                y = .data[["exp"]],
+                color = .data[["Lineages"]],
+                group = .data[["LineagesFeatures"]]
+              ),
+              linewidth = line.size,
+              alpha = 0.8
             ),
             scale_color_manual(
-              values = palette_scp(df[["Lineages"]], palette = line_palette, palcolor = line_palcolor),
-              guide = if (lineages_guide) guide_legend(override.aes = list(alpha = 1, size = 2), order = 2) else "none"
+              values = palette_scp(
+                df[["Lineages"]],
+                palette = line_palette,
+                palcolor = line_palcolor
+              ),
+              guide = if (lineages_guide) {
+                guide_legend(
+                  override.aes = list(alpha = 1, size = 2),
+                  order = 2
+                )
+              } else {
+                "none"
+              }
             ),
             new_scale_color()
           )
@@ -12459,7 +19683,11 @@ DynamicPlot <- function(srt, lineages, features, group.by = NULL, cells = NULL, 
       }
 
       x_trans <- ifelse(flip, "reverse", "identity")
-      x_trans <- ifelse(reverse, setdiff(c("reverse", "identity"), x_trans), x_trans)
+      x_trans <- ifelse(
+        reverse,
+        setdiff(c("reverse", "identity"), x_trans),
+        x_trans
+      )
       p <- ggplot() +
         scale_x_continuous(trans = x_trans, expand = expansion(c(0, 0))) +
         scale_y_continuous(expand = expansion(c(0.1, 0.05))) +
@@ -12467,7 +19695,10 @@ DynamicPlot <- function(srt, lineages, features, group.by = NULL, cells = NULL, 
         rug +
         interval +
         line +
-        labs(x = ifelse(x_order == "rank", "Pseudotime(rank)", "Pseudotime"), y = exp_name) +
+        labs(
+          x = ifelse(x_order == "rank", "Pseudotime(rank)", "Pseudotime"),
+          y = exp_name
+        ) +
         facet_grid(formula(formula), scales = "free") +
         do.call(theme_use, theme_args) +
         theme(
@@ -12482,13 +19713,22 @@ DynamicPlot <- function(srt, lineages, features, group.by = NULL, cells = NULL, 
       if (is.null(legend)) {
         legend <- ggpubr::get_legend(p + theme(legend.position = "bottom"))
       }
-      plist[[paste(paste0(l, collapse = "_"), paste0(f, collapse = "_"), sep = ".")]] <- p + theme(legend.position = "none")
+      plist[[paste(
+        paste0(l, collapse = "_"),
+        paste0(f, collapse = "_"),
+        sep = "."
+      )]] <- p + theme(legend.position = "none")
     }
   }
 
   if (isTRUE(combine)) {
     if (length(plist) > 1) {
-      plot <- wrap_plots(plotlist = plist, nrow = nrow, ncol = ncol, byrow = byrow)
+      plot <- wrap_plots(
+        plotlist = plist,
+        nrow = nrow,
+        ncol = ncol,
+        byrow = byrow
+      )
     } else {
       plot <- plist[[1]]
     }
@@ -12503,9 +19743,7 @@ DynamicPlot <- function(srt, lineages, features, group.by = NULL, cells = NULL, 
   }
 }
 
-GroupTreePlot <- function() {
-
-}
+GroupTreePlot <- function() {}
 
 #' Projection Plot
 #'
@@ -12542,11 +19780,21 @@ GroupTreePlot <- function() {
 #' @importFrom rlang  %||%
 #' @importFrom patchwork wrap_plots
 #' @export
-ProjectionPlot <- function(srt_query, srt_ref,
-                           query_group = NULL, ref_group = NULL,
-                           query_reduction = "ref.embeddings", ref_reduction = srt_query[[query_reduction]]@misc[["reduction.model"]] %||% NULL,
-                           query_param = list(palette = "Set1", cells.highlight = TRUE), ref_param = list(palette = "Paired"),
-                           xlim = NULL, ylim = NULL, pt.size = 0.8, stroke.highlight = 0.5) {
+ProjectionPlot <- function(
+  srt_query,
+  srt_ref,
+  query_group = NULL,
+  ref_group = NULL,
+  query_reduction = "ref.embeddings",
+  ref_reduction = srt_query[[query_reduction]]@misc[["reduction.model"]] %||%
+    NULL,
+  query_param = list(palette = "Set1", cells.highlight = TRUE),
+  ref_param = list(palette = "Paired"),
+  xlim = NULL,
+  ylim = NULL,
+  pt.size = 0.8,
+  stroke.highlight = 0.5
+) {
   if (is.null(ref_reduction)) {
     stop("Please specify the ref_reduction.")
   }
@@ -12564,28 +19812,50 @@ ProjectionPlot <- function(srt_query, srt_ref,
     ylim <- range(c(ref_ylim, query_ylim))
   }
 
-  p1 <- do.call(CellDimPlot, args = c(
-    srt = srt_ref, reduction = ref_reduction, group.by = ref_group,
-    ref_param
-  )) +
-    guides(color = guide_legend(title = paste0("Ref: ", ref_group), override.aes = list(size = 4)))
+  p1 <- do.call(
+    CellDimPlot,
+    args = c(
+      srt = srt_ref,
+      reduction = ref_reduction,
+      group.by = ref_group,
+      ref_param
+    )
+  ) +
+    guides(
+      color = guide_legend(
+        title = paste0("Ref: ", ref_group),
+        override.aes = list(size = 4)
+      )
+    )
   p1legend <- ggpubr::get_legend(p1)
   # p1legend <- gtable_filter(ggplot_gtable(ggplot_build(p1)), "guide-box")
 
-
-  p2 <- do.call(CellDimPlot, args = c(
-    srt = srt_query, reduction = query_reduction, group.by = query_group,
-    query_param
-  )) +
+  p2 <- do.call(
+    CellDimPlot,
+    args = c(
+      srt = srt_query,
+      reduction = query_reduction,
+      group.by = query_group,
+      query_param
+    )
+  ) +
     scale_x_continuous(limits = xlim) +
     scale_y_continuous(limits = ylim)
   p2data <- ggplot_build(p2)$data[[1]]
   color <- p2data$colour
   names(color) <- p2$data$group.by
-  p2 <- p2 + guides(color = guide_legend(
-    title = paste0("Query: ", query_group),
-    override.aes = list(size = 4, shape = 21, color = "black", fill = na.omit(color[levels(p2$data$group.by)]))
-  ))
+  p2 <- p2 +
+    guides(
+      color = guide_legend(
+        title = paste0("Query: ", query_group),
+        override.aes = list(
+          size = 4,
+          shape = 21,
+          color = "black",
+          fill = na.omit(color[levels(p2$data$group.by)])
+        )
+      )
+    )
   p2legend <- ggpubr::get_legend(p2)
   # p2legend <- gtable_filter(ggplot_gtable(ggplot_build(p2)), "guide-box")
 
@@ -12595,17 +19865,23 @@ ProjectionPlot <- function(srt_query, srt_ref,
     legend <- p1legend %||% p2legend
   }
 
-  p3 <- p1 + new_scale_fill() + new_scale_color() +
+  p3 <- p1 +
+    new_scale_fill() +
+    new_scale_color() +
     geom_point(
-      data = p2data, aes(x = x, y = y), color = "black",
+      data = p2data,
+      aes(x = x, y = y),
+      color = "black",
       size = pt.size + stroke.highlight
     ) +
     geom_point(
-      data = p2data, aes(x = x, y = y, color = colour),
+      data = p2data,
+      aes(x = x, y = y, color = colour),
       size = pt.size
     ) +
     scale_color_identity() +
-    facet_null() + theme(legend.position = "none")
+    facet_null() +
+    theme(legend.position = "none")
   if (is.null(legend)) {
     return(p3)
   } else {
@@ -12758,21 +20034,62 @@ ProjectionPlot <- function(srt_query, srt_ref,
 #' @importFrom igraph as_data_frame graph_from_data_frame V layout_with_dh layout_with_drl layout_with_fr layout_with_gem layout_with_graphopt layout_with_kk layout_with_lgl layout_with_mds layout_in_circle layout_as_tree layout_on_grid cluster_fast_greedy cluster_infomap cluster_leiden cluster_louvain cluster_spinglass cluster_walktrap cluster_fluid_communities
 #' @export
 #'
-EnrichmentPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilcox", res = NULL,
-                           plot_type = c("bar", "dot", "lollipop", "network", "enrichmap", "wordcloud", "comparison"),
-                           split_by = c("Database", "Groups"), color_by = "Database",
-                           group_use = NULL, id_use = NULL, pvalueCutoff = NULL, padjustCutoff = 0.05,
-                           topTerm = ifelse(plot_type == "enrichmap", 100, 6), compare_only_sig = FALSE,
-                           topWord = 100, word_type = c("term", "feature"), word_size = c(2, 8), words_excluded = NULL,
-                           network_layout = "fr", network_labelsize = 5, network_blendmode = "blend",
-                           network_layoutadjust = TRUE, network_adjscale = 60, network_adjiter = 100,
-                           enrichmap_layout = "fr", enrichmap_cluster = "fast_greedy", enrichmap_label = c("term", "feature"), enrichmap_labelsize = 5,
-                           enrlichmap_nlabel = 4, enrichmap_show_keyword = FALSE, enrichmap_mark = c("ellipse", "hull"), enrichmap_expand = c(0.5, 0.5),
-                           character_width = 50, lineheight = 0.5,
-                           palette = "Spectral", palcolor = NULL,
-                           aspect.ratio = 1, legend.position = "right", legend.direction = "vertical",
-                           theme_use = "theme_scp", theme_args = list(),
-                           combine = TRUE, nrow = NULL, ncol = NULL, byrow = TRUE, seed = 11) {
+EnrichmentPlot <- function(
+  srt,
+  db = "GO_BP",
+  group_by = NULL,
+  test.use = "wilcox",
+  res = NULL,
+  plot_type = c(
+    "bar",
+    "dot",
+    "lollipop",
+    "network",
+    "enrichmap",
+    "wordcloud",
+    "comparison"
+  ),
+  split_by = c("Database", "Groups"),
+  color_by = "Database",
+  group_use = NULL,
+  id_use = NULL,
+  pvalueCutoff = NULL,
+  padjustCutoff = 0.05,
+  topTerm = ifelse(plot_type == "enrichmap", 100, 6),
+  compare_only_sig = FALSE,
+  topWord = 100,
+  word_type = c("term", "feature"),
+  word_size = c(2, 8),
+  words_excluded = NULL,
+  network_layout = "fr",
+  network_labelsize = 5,
+  network_blendmode = "blend",
+  network_layoutadjust = TRUE,
+  network_adjscale = 60,
+  network_adjiter = 100,
+  enrichmap_layout = "fr",
+  enrichmap_cluster = "fast_greedy",
+  enrichmap_label = c("term", "feature"),
+  enrichmap_labelsize = 5,
+  enrlichmap_nlabel = 4,
+  enrichmap_show_keyword = FALSE,
+  enrichmap_mark = c("ellipse", "hull"),
+  enrichmap_expand = c(0.5, 0.5),
+  character_width = 50,
+  lineheight = 0.5,
+  palette = "Spectral",
+  palcolor = NULL,
+  aspect.ratio = 1,
+  legend.position = "right",
+  legend.direction = "vertical",
+  theme_use = "theme_scp",
+  theme_args = list(),
+  combine = TRUE,
+  nrow = NULL,
+  ncol = NULL,
+  byrow = TRUE,
+  seed = 11
+) {
   set.seed(seed)
   plot_type <- match.arg(plot_type)
   word_type <- match.arg(word_type)
@@ -12784,7 +20101,10 @@ EnrichmentPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilco
     stop("'split_by' must be either 'Database', 'Groups', or both of them")
   }
   if (plot_type %in% c("network", "enrichmap") & length(split_by) == 1) {
-    warning("When 'plot_type' is 'network' or 'enrichmap', the 'split_by' parameter does not take effect.", immediate. = TRUE)
+    warning(
+      "When 'plot_type' is 'network' or 'enrichmap', the 'split_by' parameter does not take effect.",
+      immediate. = TRUE
+    )
     split_by <- c("Database", "Groups")
   }
 
@@ -12805,16 +20125,29 @@ EnrichmentPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilco
     stop("One of 'pvalueCutoff' or 'padjustCutoff' must be specified")
   }
   if (!is.factor(enrichment["Groups"])) {
-    enrichment[["Groups"]] <- factor(enrichment[["Groups"]], levels = unique(enrichment[["Groups"]]))
+    enrichment[["Groups"]] <- factor(
+      enrichment[["Groups"]],
+      levels = unique(enrichment[["Groups"]])
+    )
   }
   if (length(db[!db %in% enrichment[["Database"]]]) > 0) {
-    stop(paste0(db[!db %in% enrichment[["Database"]]], " is not in the enrichment result."))
+    stop(paste0(
+      db[!db %in% enrichment[["Database"]]],
+      " is not in the enrichment result."
+    ))
   }
   if (!is.factor(enrichment[["Database"]])) {
-    enrichment[["Database"]] <- factor(enrichment[["Database"]], levels = unique(enrichment[["Database"]]))
+    enrichment[["Database"]] <- factor(
+      enrichment[["Database"]],
+      levels = unique(enrichment[["Database"]])
+    )
   }
   if (!is.null(group_use)) {
-    enrichment <- enrichment[enrichment[["Groups"]] %in% group_use, , drop = FALSE]
+    enrichment <- enrichment[
+      enrichment[["Groups"]] %in% group_use,
+      ,
+      drop = FALSE
+    ]
   }
   if (length(id_use) > 0) {
     topTerm <- Inf
@@ -12823,15 +20156,31 @@ EnrichmentPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilco
         stop("'id_use' must be named when it is a list.")
       }
       if (!all(names(id_use) %in% enrichment[["Groups"]])) {
-        stop(paste0("Names in 'id_use' is invalid: ", paste0(names(id_use)[!names(id_use) %in% enrichment[["Groups"]]], collapse = ",")))
+        stop(paste0(
+          "Names in 'id_use' is invalid: ",
+          paste0(
+            names(id_use)[!names(id_use) %in% enrichment[["Groups"]]],
+            collapse = ","
+          )
+        ))
       }
       enrichment_list <- list()
       for (i in seq_along(id_use)) {
-        enrichment_list[[i]] <- enrichment[enrichment[["ID"]] %in% id_use[[i]] & enrichment[["Groups"]] %in% names(id_use)[i], , drop = FALSE]
+        enrichment_list[[i]] <- enrichment[
+          enrichment[["ID"]] %in%
+            id_use[[i]] &
+            enrichment[["Groups"]] %in% names(id_use)[i],
+          ,
+          drop = FALSE
+        ]
       }
       enrichment <- do.call(rbind, enrichment_list)
     } else {
-      enrichment <- enrichment[enrichment[["ID"]] %in% unlist(id_use), , drop = FALSE]
+      enrichment <- enrichment[
+        enrichment[["ID"]] %in% unlist(id_use),
+        ,
+        drop = FALSE
+      ]
     }
   }
 
@@ -12842,23 +20191,41 @@ EnrichmentPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilco
   padjustCutoff <- ifelse(is.null(padjustCutoff), Inf, padjustCutoff)
 
   if (any(db %in% c("GO_sim", "GO_BP_sim", "GO_CC_sim", "GO_MF_sim"))) {
-    enrichment_sim <- enrichment[enrichment[["Database"]] %in% gsub("_sim", "", db), , drop = FALSE]
+    enrichment_sim <- enrichment[
+      enrichment[["Database"]] %in% gsub("_sim", "", db),
+      ,
+      drop = FALSE
+    ]
   }
   enrichment <- enrichment[enrichment[["Database"]] %in% db, , drop = FALSE]
 
-  enrichment_sig <- enrichment[enrichment[[metric]] < metric_value | enrichment[["ID"]] %in% unlist(id_use), , drop = FALSE]
-  enrichment_sig <- enrichment_sig[order(enrichment_sig[[metric]]), , drop = FALSE]
+  enrichment_sig <- enrichment[
+    enrichment[[metric]] < metric_value |
+      enrichment[["ID"]] %in% unlist(id_use),
+    ,
+    drop = FALSE
+  ]
+  enrichment_sig <- enrichment_sig[
+    order(enrichment_sig[[metric]]),
+    ,
+    drop = FALSE
+  ]
   if (nrow(enrichment_sig) == 0) {
     stop(
       "No term enriched using the threshold: ",
-      paste0("pvalueCutoff = ", pvalueCutoff), "; ",
+      paste0("pvalueCutoff = ", pvalueCutoff),
+      "; ",
       paste0("padjustCutoff = ", padjustCutoff)
     )
   }
-  df_list <- split(enrichment_sig, formula(paste0("~", split_by, collapse = "+")))
+  df_list <- split(
+    enrichment_sig,
+    formula(paste0("~", split_by, collapse = "+"))
+  )
   df_list <- df_list[lapply(df_list, nrow) > 0]
 
-  facet <- switch(paste0(split_by, collapse = "~"),
+  facet <- switch(
+    paste0(split_by, collapse = "~"),
     "Groups" = formula(paste0("Database ~ Groups")),
     "Database" = formula(paste0("Groups ~ Database")),
     formula(paste0(split_by, collapse = "~"))
@@ -12871,7 +20238,11 @@ EnrichmentPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilco
       df <- df_list[[i]]
       df_groups <- split(df, list(df$Database, df$Groups))
       df_groups <- lapply(df_groups, function(group) {
-        filtered_group <- group[head(seq_len(nrow(group)), topTerm), , drop = FALSE]
+        filtered_group <- group[
+          head(seq_len(nrow(group)), topTerm),
+          ,
+          drop = FALSE
+        ]
         return(filtered_group)
       })
       df <- do.call(rbind, df_groups)
@@ -12879,42 +20250,97 @@ EnrichmentPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilco
     }
     if (any(db %in% c("GO_sim", "GO_BP_sim", "GO_CC_sim", "GO_MF_sim"))) {
       enrichment_sub <- subset(enrichment_sim, ID %in% ids)
-      enrichment_sub[["Database"]][enrichment_sub[["Database"]] %in% c("GO", "GO_BP", "GO_CC", "GO_MF")] <- paste0(enrichment_sub[["Database"]][enrichment_sub[["Database"]] %in% c("GO", "GO_BP", "GO_CC", "GO_MF")], "_sim")
+      enrichment_sub[["Database"]][
+        enrichment_sub[["Database"]] %in% c("GO", "GO_BP", "GO_CC", "GO_MF")
+      ] <- paste0(
+        enrichment_sub[["Database"]][
+          enrichment_sub[["Database"]] %in% c("GO", "GO_BP", "GO_CC", "GO_MF")
+        ],
+        "_sim"
+      )
     } else {
       enrichment_sub <- subset(enrichment, ID %in% ids)
     }
-    enrichment_sub[["Database"]] <- factor(enrichment_sub[["Database"]], levels = db)
-    enrichment_sub[["GeneRatio"]] <- sapply(enrichment_sub[["GeneRatio"]], function(x) {
-      sp <- strsplit(x, "/")[[1]]
-      GeneRatio <- as.numeric(sp[1]) / as.numeric(sp[2])
-    })
-    enrichment_sub[["BgRatio"]] <- sapply(enrichment_sub[["BgRatio"]], function(x) {
-      sp <- strsplit(x, "/")[[1]]
-      BgRatio <- as.numeric(sp[1]) / as.numeric(sp[2])
-      return(BgRatio)
-    })
-    enrichment_sub[["EnrichmentScore"]] <- enrichment_sub[["GeneRatio"]] / enrichment_sub[["BgRatio"]]
-    enrichment_sub[["Description"]] <- capitalize(enrichment_sub[["Description"]])
-    enrichment_sub[["Description"]] <- str_wrap(enrichment_sub[["Description"]], width = character_width)
+    enrichment_sub[["Database"]] <- factor(
+      enrichment_sub[["Database"]],
+      levels = db
+    )
+    enrichment_sub[["GeneRatio"]] <- sapply(
+      enrichment_sub[["GeneRatio"]],
+      function(x) {
+        sp <- strsplit(x, "/")[[1]]
+        GeneRatio <- as.numeric(sp[1]) / as.numeric(sp[2])
+      }
+    )
+    enrichment_sub[["BgRatio"]] <- sapply(
+      enrichment_sub[["BgRatio"]],
+      function(x) {
+        sp <- strsplit(x, "/")[[1]]
+        BgRatio <- as.numeric(sp[1]) / as.numeric(sp[2])
+        return(BgRatio)
+      }
+    )
+    enrichment_sub[["EnrichmentScore"]] <- enrichment_sub[["GeneRatio"]] /
+      enrichment_sub[["BgRatio"]]
+    enrichment_sub[["Description"]] <- capitalize(enrichment_sub[[
+      "Description"
+    ]])
+    enrichment_sub[["Description"]] <- str_wrap(
+      enrichment_sub[["Description"]],
+      width = character_width
+    )
     terms <- setNames(enrichment_sub[["Description"]], enrichment_sub[["ID"]])
-    enrichment_sub[["Description"]] <- factor(enrichment_sub[["Description"]], levels = unique(rev(terms[ids])))
+    enrichment_sub[["Description"]] <- factor(
+      enrichment_sub[["Description"]],
+      levels = unique(rev(terms[ids]))
+    )
     if (isTRUE(compare_only_sig)) {
-      enrichment_sub <- enrichment_sub[enrichment_sub[[metric]] < metric_value, , drop = FALSE]
+      enrichment_sub <- enrichment_sub[
+        enrichment_sub[[metric]] < metric_value,
+        ,
+        drop = FALSE
+      ]
     }
     p <- ggplot(enrichment_sub, aes(x = Groups, y = Description)) +
-      geom_point(aes(size = GeneRatio, fill = .data[[metric]], color = ""), shape = 21) +
+      geom_point(
+        aes(size = GeneRatio, fill = .data[[metric]], color = NA),
+        shape = 21
+      ) +
       scale_size_area(name = "GeneRatio", max_size = 6, n.breaks = 4) +
-      guides(size = guide_legend(override.aes = list(fill = "grey30", shape = 21), order = 1)) +
+      guides(
+        size = guide_legend(
+          override.aes = list(fill = "grey30", shape = 21),
+          order = 1
+        )
+      ) +
       scale_fill_gradientn(
         name = paste0(metric),
         limits = c(0, min(metric_value, 1)),
         n.breaks = 3,
-        colors = palette_scp(palette = palette, palcolor = palcolor, reverse = TRUE),
+        colors = palette_scp(
+          palette = palette,
+          palcolor = palcolor,
+          reverse = TRUE
+        ),
         na.value = "grey80",
-        guide = guide_colorbar(frame.colour = "black", ticks.colour = "black", title.hjust = 0, order = 2)
+        guide = guide_colorbar(
+          frame.colour = "black",
+          ticks.colour = "black",
+          title.hjust = 0,
+          order = 2
+        )
       ) +
       scale_color_manual(values = NA, na.value = "black") +
-      guides(colour = if (isTRUE(compare_only_sig)) guide_none() else guide_legend("Non-sig", override.aes = list(colour = "black", fill = "grey80", size = 3))) +
+      guides(
+        colour = if (isTRUE(compare_only_sig)) {
+          guide_none()
+        } else {
+          guide_legend(
+            "Non-sig",
+            override.aes = list(colour = "black", fill = "grey80", size = 3)
+          )
+        }
+      ) +
       facet_grid(Database ~ ., scales = "free") +
       do.call(theme_use, theme_args) +
       theme(
@@ -12924,8 +20350,13 @@ EnrichmentPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilco
         panel.grid.major = element_line(colour = "grey80", linetype = 2),
         axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1),
         axis.text.y = element_text(
-          lineheight = lineheight, hjust = 1,
-          face = ifelse(grepl("\n", levels(enrichment_sub[["Description"]])), "italic", "plain")
+          lineheight = lineheight,
+          hjust = 1,
+          face = ifelse(
+            grepl("\n", levels(enrichment_sub[["Description"]])),
+            "italic",
+            "plain"
+          )
         )
       )
     plist <- list(p)
@@ -12934,30 +20365,57 @@ EnrichmentPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilco
     plist <- suppressWarnings(lapply(df_list, function(df) {
       df_groups <- split(df, list(df$Database, df$Groups))
       df_groups <- lapply(df_groups, function(group) {
-        filtered_group <- group[head(seq_len(nrow(group)), topTerm), , drop = FALSE]
+        filtered_group <- group[
+          head(seq_len(nrow(group)), topTerm),
+          ,
+          drop = FALSE
+        ]
         return(filtered_group)
       })
       df <- do.call(rbind, df_groups)
 
       df[["metric"]] <- -log10(df[[metric]])
       df[["Description"]] <- capitalize(df[["Description"]])
-      df[["Description"]] <- str_wrap(df[["Description"]], width = character_width)
-      df[["Description"]] <- factor(df[["Description"]], levels = unique(rev(df[["Description"]])))
+      df[["Description"]] <- str_wrap(
+        df[["Description"]],
+        width = character_width
+      )
+      df[["Description"]] <- factor(
+        df[["Description"]],
+        levels = unique(rev(df[["Description"]]))
+      )
 
-      p <- ggplot(df, aes(
-        x = .data[["Description"]], y = .data[["metric"]],
-        fill = .data[[color_by]], label = .data[["Count"]]
-      )) +
+      p <- ggplot(
+        df,
+        aes(
+          x = .data[["Description"]],
+          y = .data[["metric"]],
+          fill = .data[[color_by]],
+          label = .data[["Count"]]
+        )
+      ) +
         geom_bar(width = 0.9, stat = "identity", color = "black") +
-        geom_text(hjust = -0.5, size = 3.5, color = "white", fontface = "bold") +
+        geom_text(
+          hjust = -0.5,
+          size = 3.5,
+          color = "white",
+          fontface = "bold"
+        ) +
         geom_text(hjust = -0.5, size = 3.5) +
         labs(x = "", y = paste0("-log10(", metric, ")")) +
         scale_fill_manual(
-          values = palette_scp(levels(df[[color_by]]), palette = palette, palcolor = palcolor),
+          values = palette_scp(
+            levels(df[[color_by]]),
+            palette = palette,
+            palcolor = palcolor
+          ),
           na.value = "grey80",
           guide = "none"
         ) +
-        scale_y_continuous(limits = c(0, 1.3 * max(df[["metric"]], na.rm = TRUE)), expand = expansion(0, 0)) +
+        scale_y_continuous(
+          limits = c(0, 1.3 * max(df[["metric"]], na.rm = TRUE)),
+          expand = expansion(0, 0)
+        ) +
         facet_grid(facet, scales = "free") +
         coord_flip() +
         do.call(theme_use, theme_args) +
@@ -12967,8 +20425,13 @@ EnrichmentPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilco
           legend.direction = legend.direction,
           panel.grid.major = element_line(colour = "grey80", linetype = 2),
           axis.text.y = element_text(
-            lineheight = lineheight, hjust = 1,
-            face = ifelse(grepl("\n", levels(df[["Description"]])), "italic", "plain")
+            lineheight = lineheight,
+            hjust = 1,
+            face = ifelse(
+              grepl("\n", levels(df[["Description"]])),
+              "italic",
+              "plain"
+            )
           )
         )
       return(p)
@@ -12978,7 +20441,11 @@ EnrichmentPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilco
     plist <- suppressWarnings(lapply(df_list, function(df) {
       df_groups <- split(df, list(df$Database, df$Groups))
       df_groups <- lapply(df_groups, function(group) {
-        filtered_group <- group[head(seq_len(nrow(group)), topTerm), , drop = FALSE]
+        filtered_group <- group[
+          head(seq_len(nrow(group)), topTerm),
+          ,
+          drop = FALSE
+        ]
         return(filtered_group)
       })
       df <- do.call(rbind, df_groups)
@@ -12990,24 +20457,54 @@ EnrichmentPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilco
       df <- df[order(df[["GeneRatio"]], decreasing = TRUE), ]
       df[["metric"]] <- -log10(df[[metric]])
       df[["Description"]] <- capitalize(df[["Description"]])
-      df[["Description"]] <- str_wrap(df[["Description"]], width = character_width)
-      df[["Description"]] <- factor(df[["Description"]], levels = unique(rev(df[["Description"]])))
+      df[["Description"]] <- str_wrap(
+        df[["Description"]],
+        width = character_width
+      )
+      df[["Description"]] <- factor(
+        df[["Description"]],
+        levels = unique(rev(df[["Description"]]))
+      )
 
-      p <- ggplot(df, aes(
-        x = .data[["Description"]], y = .data[["GeneRatio"]]
-      )) +
-        geom_point(aes(fill = .data[["metric"]], size = .data[["Count"]]), color = "black", shape = 21) +
+      p <- ggplot(
+        df,
+        aes(
+          x = .data[["Description"]],
+          y = .data[["GeneRatio"]]
+        )
+      ) +
+        geom_point(
+          aes(fill = .data[["metric"]], size = .data[["Count"]]),
+          color = "black",
+          shape = 21
+        ) +
         labs(x = "", y = "GeneRatio") +
-        scale_size(name = "Count", range = c(3, 6), scales::breaks_extended(n = 4)) +
-        guides(size = guide_legend(override.aes = list(fill = "grey30", shape = 21), order = 1)) +
+        scale_size(
+          name = "Count",
+          range = c(3, 6),
+          scales::breaks_extended(n = 4)
+        ) +
+        guides(
+          size = guide_legend(
+            override.aes = list(fill = "grey30", shape = 21),
+            order = 1
+          )
+        ) +
         scale_fill_gradientn(
           name = paste0("-log10(", metric, ")"),
           n.breaks = 3,
           colors = palette_scp(palette = palette, palcolor = palcolor),
           na.value = "grey80",
-          guide = guide_colorbar(frame.colour = "black", ticks.colour = "black", title.hjust = 0)
+          guide = guide_colorbar(
+            frame.colour = "black",
+            ticks.colour = "black",
+            title.hjust = 0
+          )
         ) +
-        scale_y_continuous(limits = c(0, 1.3 * max(df[["GeneRatio"]], na.rm = TRUE)), expand = expansion(0, 0)) +
+        scale_y_continuous(
+          limits = c(0, 1.3 * max(df[["GeneRatio"]], na.rm = TRUE)),
+          expand = expansion(0, 0)
+        ) +
         facet_grid(facet, scales = "free") +
         coord_flip() +
         do.call(theme_use, theme_args) +
@@ -13018,8 +20515,13 @@ EnrichmentPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilco
           panel.grid.major = element_line(colour = "grey80", linetype = 2),
           axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1),
           axis.text.y = element_text(
-            lineheight = lineheight, hjust = 1,
-            face = ifelse(grepl("\n", levels(df[["Description"]])), "italic", "plain")
+            lineheight = lineheight,
+            hjust = 1,
+            face = ifelse(
+              grepl("\n", levels(df[["Description"]])),
+              "italic",
+              "plain"
+            )
           )
         )
       return(p)
@@ -13029,7 +20531,11 @@ EnrichmentPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilco
     plist <- suppressWarnings(lapply(df_list, function(df) {
       df_groups <- split(df, list(df$Database, df$Groups))
       df_groups <- lapply(df_groups, function(group) {
-        filtered_group <- group[head(seq_len(nrow(group)), topTerm), , drop = FALSE]
+        filtered_group <- group[
+          head(seq_len(nrow(group)), topTerm),
+          ,
+          drop = FALSE
+        ]
         return(filtered_group)
       })
       df <- do.call(rbind, df_groups)
@@ -13046,33 +20552,73 @@ EnrichmentPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilco
       df[["FoldEnrichment"]] <- df[["GeneRatio"]] / df[["BgRatio"]]
       df[["metric"]] <- -log10(df[[metric]])
       df[["Description"]] <- capitalize(df[["Description"]])
-      df[["Description"]] <- str_wrap(df[["Description"]], width = character_width)
-      df[["Description"]] <- factor(df[["Description"]], levels = unique(df[order(df[["FoldEnrichment"]]), "Description"]))
+      df[["Description"]] <- str_wrap(
+        df[["Description"]],
+        width = character_width
+      )
+      df[["Description"]] <- factor(
+        df[["Description"]],
+        levels = unique(df[order(df[["FoldEnrichment"]]), "Description"])
+      )
 
-      p <- ggplot(df, aes(
-        x = .data[["Description"]], y = .data[["FoldEnrichment"]],
-        fill = .data[["metric"]]
-      )) +
+      p <- ggplot(
+        df,
+        aes(
+          x = .data[["Description"]],
+          y = .data[["FoldEnrichment"]],
+          fill = .data[["metric"]]
+        )
+      ) +
         geom_blank() +
         geom_segment(
-          aes(y = 0, xend = .data[["Description"]], yend = .data[["FoldEnrichment"]]),
-          color = "black", linewidth = 2
+          aes(
+            y = 0,
+            xend = .data[["Description"]],
+            yend = .data[["FoldEnrichment"]]
+          ),
+          color = "black",
+          linewidth = 2
         ) +
         geom_segment(
-          aes(y = 0, xend = .data[["Description"]], yend = .data[["FoldEnrichment"]], color = .data[["metric"]]),
+          aes(
+            y = 0,
+            xend = .data[["Description"]],
+            yend = .data[["FoldEnrichment"]],
+            color = .data[["metric"]]
+          ),
           linewidth = 1
         ) +
-        geom_point(aes(size = .data[["GeneRatio"]]), shape = 21, color = "black") +
-        scale_size(name = "GeneRatio", range = c(3, 6), scales::breaks_extended(n = 4)) +
-        guides(size = guide_legend(override.aes = list(fill = "grey30", shape = 21), order = 1)) +
-        scale_y_continuous(limits = c(0, 1.2 * max(df[["FoldEnrichment"]], na.rm = TRUE)), expand = expansion(0, 0)) +
+        geom_point(
+          aes(size = .data[["GeneRatio"]]),
+          shape = 21,
+          color = "black"
+        ) +
+        scale_size(
+          name = "GeneRatio",
+          range = c(3, 6),
+          scales::breaks_extended(n = 4)
+        ) +
+        guides(
+          size = guide_legend(
+            override.aes = list(fill = "grey30", shape = 21),
+            order = 1
+          )
+        ) +
+        scale_y_continuous(
+          limits = c(0, 1.2 * max(df[["FoldEnrichment"]], na.rm = TRUE)),
+          expand = expansion(0, 0)
+        ) +
         labs(x = "", y = "Fold Enrichment") +
         scale_fill_gradientn(
           name = paste0("-log10(", metric, ")"),
           n.breaks = 3,
           colors = palette_scp(palette = palette, palcolor = palcolor),
           na.value = "grey80",
-          guide = guide_colorbar(frame.colour = "black", ticks.colour = "black", title.hjust = 0),
+          guide = guide_colorbar(
+            frame.colour = "black",
+            ticks.colour = "black",
+            title.hjust = 0
+          ),
           aesthetics = c("color", "fill")
         ) +
         facet_grid(facet, scales = "free") +
@@ -13084,8 +20630,13 @@ EnrichmentPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilco
           legend.direction = legend.direction,
           panel.grid.major = element_line(colour = "grey80", linetype = 2),
           axis.text.y = element_text(
-            lineheight = lineheight, hjust = 1,
-            face = ifelse(grepl("\n", levels(df[["Description"]])), "italic", "plain")
+            lineheight = lineheight,
+            hjust = 1,
+            face = ifelse(
+              grepl("\n", levels(df[["Description"]])),
+              "italic",
+              "plain"
+            )
           )
         )
       return(p)
@@ -13095,20 +20646,34 @@ EnrichmentPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilco
     plist <- suppressWarnings(lapply(df_list, function(df) {
       df_groups <- split(df, list(df$Database, df$Groups))
       df_groups <- lapply(df_groups, function(group) {
-        filtered_group <- group[head(seq_len(nrow(group)), topTerm), , drop = FALSE]
+        filtered_group <- group[
+          head(seq_len(nrow(group)), topTerm),
+          ,
+          drop = FALSE
+        ]
         return(filtered_group)
       })
       df <- do.call(rbind, df_groups)
 
       df[["metric"]] <- -log10(df[[metric]])
       df[["Description"]] <- capitalize(df[["Description"]])
-      df[["Description"]] <- str_wrap(df[["Description"]], width = character_width)
-      df[["Description"]] <- factor(df[["Description"]], levels = unique(df[["Description"]]))
+      df[["Description"]] <- str_wrap(
+        df[["Description"]],
+        width = character_width
+      )
+      df[["Description"]] <- factor(
+        df[["Description"]],
+        levels = unique(df[["Description"]])
+      )
       df$geneID <- strsplit(df$geneID, "/")
       df_unnest <- unnest(df, cols = "geneID")
 
       nodes <- rbind(
-        data.frame("ID" = df[["Description"]], class = "term", metric = df[["metric"]]),
+        data.frame(
+          "ID" = df[["Description"]],
+          class = "term",
+          metric = df[["metric"]]
+        ),
         data.frame("ID" = unique(df_unnest$geneID), class = "gene", metric = 0)
       )
       nodes$Database <- df$Database[1]
@@ -13116,9 +20681,14 @@ EnrichmentPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilco
       edges <- as.data.frame(df_unnest[, c("Description", "geneID")])
       colnames(edges) <- c("from", "to")
       edges[["weight"]] <- 1
-      graph <- graph_from_data_frame(d = edges, vertices = nodes, directed = FALSE)
+      graph <- graph_from_data_frame(
+        d = edges,
+        vertices = nodes,
+        directed = FALSE
+      )
       if (network_layout %in% c("circle", "tree", "grid")) {
-        layout <- switch(network_layout,
+        layout <- switch(
+          network_layout,
           "circle" = layout_in_circle(graph),
           "tree" = layout_as_tree(graph),
           "grid" = layout_on_grid(graph)
@@ -13133,8 +20703,12 @@ EnrichmentPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilco
         width <- nchar(df_nodes$name)
         width[df_nodes$class == "term"] <- 8
         layout <- adjustlayout(
-          graph = graph, layout = layout, width = width, height = 2,
-          scale = network_adjscale, iter = network_adjiter
+          graph = graph,
+          layout = layout,
+          width = width,
+          height = 2,
+          scale = network_adjscale,
+          iter = network_adjiter
         )
       }
       df_nodes[["dim1"]] <- layout[, 1]
@@ -13146,45 +20720,121 @@ EnrichmentPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilco
       df_edges[["to_dim1"]] <- df_nodes[df_edges[["to"]], "dim1"]
       df_edges[["to_dim2"]] <- df_nodes[df_edges[["to"]], "dim2"]
 
-      colors <- palette_scp(levels(df[["Description"]]), palette = palette, palcolor = palcolor)
+      colors <- palette_scp(
+        levels(df[["Description"]]),
+        palette = palette,
+        palcolor = palcolor
+      )
       df_edges[["color"]] <- colors[df_edges$from]
-      node_colors <- aggregate(df_unnest$Description, by = list(df_unnest$geneID), FUN = function(x) blendcolors(colors = colors[x], mode = network_blendmode))
+      node_colors <- aggregate(
+        df_unnest$Description,
+        by = list(df_unnest$geneID),
+        FUN = function(x) {
+          blendcolors(colors = colors[x], mode = network_blendmode)
+        }
+      )
       colors <- c(colors, setNames(node_colors[, 2], node_colors[, 1]))
-      label_colors <- ifelse(colSums(col2rgb(colors)) > 255 * 2, "black", "white")
+      label_colors <- ifelse(
+        colSums(col2rgb(colors)) > 255 * 2,
+        "black",
+        "white"
+      )
       df_nodes[["color"]] <- colors[df_nodes$name]
       df_nodes[["label_color"]] <- label_colors[df_nodes$name]
       df_nodes[["label"]] <- NA
-      df_nodes[levels(df[["Description"]]), "label"] <- seq_len(nlevels(df[["Description"]]))
+      df_nodes[levels(df[["Description"]]), "label"] <- seq_len(nlevels(df[[
+        "Description"
+      ]]))
 
       draw_key_cust <- function(data, params, size) {
         data_text <- data
-        data_text$label <- which(levels(df[["Description"]]) %in% names(colors)[colors == data_text$fill])
+        data_text$label <- which(
+          levels(df[["Description"]]) %in%
+            names(colors)[colors == data_text$fill]
+        )
         data_text$colour <- "black"
         data_text$alpha <- 1
         data_text$size <- 11 / .pt
         grobTree(
           draw_key_point(data, list(color = "white", shape = 21)),
-          ggrepel:::shadowtextGrob(label = data_text$label, bg.colour = "black", bg.r = 0.1, gp = gpar(col = "white", fontface = "bold"))
+          ggrepel:::shadowtextGrob(
+            label = data_text$label,
+            bg.colour = "black",
+            bg.r = 0.1,
+            gp = gpar(col = "white", fontface = "bold")
+          )
         )
       }
 
       p <- ggplot() +
-        geom_segment(data = df_edges, aes(x = from_dim1, y = from_dim2, xend = to_dim1, yend = to_dim2, color = color), alpha = 1, lineend = "round", show.legend = FALSE) +
-        geom_label(data = df_nodes[df_nodes$class == "gene", ], aes(x = dim1, y = dim2, label = name, fill = color, color = label_color), size = 3, show.legend = FALSE) +
-        geom_point(data = df_nodes[df_nodes$class == "term", ], aes(x = dim1, y = dim2), size = 8, color = "black", fill = "black", stroke = 1, shape = 21, show.legend = FALSE) +
-        geom_point(data = df_nodes[df_nodes$class == "term", ], aes(x = dim1, y = dim2, fill = color), size = 7, color = "white", stroke = 1, shape = 21, key_glyph = draw_key_cust) +
+        geom_segment(
+          data = df_edges,
+          aes(
+            x = from_dim1,
+            y = from_dim2,
+            xend = to_dim1,
+            yend = to_dim2,
+            color = color
+          ),
+          alpha = 1,
+          lineend = "round",
+          show.legend = FALSE
+        ) +
+        geom_label(
+          data = df_nodes[df_nodes$class == "gene", ],
+          aes(
+            x = dim1,
+            y = dim2,
+            label = name,
+            fill = color,
+            color = label_color
+          ),
+          size = 3,
+          show.legend = FALSE
+        ) +
+        geom_point(
+          data = df_nodes[df_nodes$class == "term", ],
+          aes(x = dim1, y = dim2),
+          size = 8,
+          color = "black",
+          fill = "black",
+          stroke = 1,
+          shape = 21,
+          show.legend = FALSE
+        ) +
+        geom_point(
+          data = df_nodes[df_nodes$class == "term", ],
+          aes(x = dim1, y = dim2, fill = color),
+          size = 7,
+          color = "white",
+          stroke = 1,
+          shape = 21,
+          key_glyph = draw_key_cust
+        ) +
         geom_text_repel(
-          data = df_nodes[df_nodes$class == "term", ], aes(x = dim1, y = dim2, label = label),
-          fontface = "bold", min.segment.length = 0, segment.color = "black",
-          point.size = NA, max.overlaps = 100, force = 0, color = "white", bg.color = "black", bg.r = 0.1, size = network_labelsize
+          data = df_nodes[df_nodes$class == "term", ],
+          aes(x = dim1, y = dim2, label = label),
+          fontface = "bold",
+          min.segment.length = 0,
+          segment.color = "black",
+          point.size = NA,
+          max.overlaps = 100,
+          force = 0,
+          color = "white",
+          bg.color = "black",
+          bg.r = 0.1,
+          size = network_labelsize
         ) +
         scale_color_identity(guide = "none") +
         scale_fill_identity(
-          name = "Term:", guide = "legend",
+          name = "Term:",
+          guide = "legend",
           labels = levels(df[["Description"]]),
           breaks = colors[levels(df[["Description"]])]
         ) +
-        guides(color = guide_legend(override.aes = list(color = "transparent"))) +
+        guides(
+          color = guide_legend(override.aes = list(color = "transparent"))
+        ) +
         labs(x = "", y = "") +
         facet_grid(facet, scales = "free") +
         do.call(theme_use, theme_args) +
@@ -13200,25 +20850,41 @@ EnrichmentPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilco
     plist <- suppressWarnings(lapply(df_list, function(df) {
       df_groups <- split(df, list(df$Database, df$Groups))
       df_groups <- lapply(df_groups, function(group) {
-        filtered_group <- group[head(seq_len(nrow(group)), topTerm), , drop = FALSE]
+        filtered_group <- group[
+          head(seq_len(nrow(group)), topTerm),
+          ,
+          drop = FALSE
+        ]
         return(filtered_group)
       })
       df <- do.call(rbind, df_groups)
 
       df[["metric"]] <- -log10(df[[metric]])
       df[["Description"]] <- capitalize(df[["Description"]])
-      df[["Description"]] <- factor(df[["Description"]], levels = unique(df[["Description"]]))
+      df[["Description"]] <- factor(
+        df[["Description"]],
+        levels = unique(df[["Description"]])
+      )
       df$geneID <- strsplit(df$geneID, "/")
       rownames(df) <- df[["ID"]]
 
       nodes <- df
       edges <- as.data.frame(t(combn(nodes$ID, 2)))
       colnames(edges) <- c("from", "to")
-      edges[["weight"]] <- mapply(function(x, y) length(intersect(df[[x, "geneID"]], df[[y, "geneID"]])), edges$from, edges$to)
+      edges[["weight"]] <- mapply(
+        function(x, y) length(intersect(df[[x, "geneID"]], df[[y, "geneID"]])),
+        edges$from,
+        edges$to
+      )
       edges <- edges[edges[["weight"]] > 0, , drop = FALSE]
-      graph <- graph_from_data_frame(d = edges, vertices = nodes, directed = FALSE)
+      graph <- graph_from_data_frame(
+        d = edges,
+        vertices = nodes,
+        directed = FALSE
+      )
       if (enrichmap_layout %in% c("circle", "tree", "grid")) {
-        layout <- switch(enrichmap_layout,
+        layout <- switch(
+          enrichmap_layout,
           "circle" = layout_in_circle(graph),
           "tree" = layout_as_tree(graph),
           "grid" = layout_on_grid(graph)
@@ -13232,11 +20898,20 @@ EnrichmentPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilco
       df_nodes <- df_graph$vertices
       df_nodes[["dim1"]] <- layout[, 1]
       df_nodes[["dim2"]] <- layout[, 2]
-      df_nodes[["clusters"]] <- factor(paste0("C", clusters$membership), paste0("C", unique(sort(clusters$membership))))
+      df_nodes[["clusters"]] <- factor(
+        paste0("C", clusters$membership),
+        paste0("C", unique(sort(clusters$membership)))
+      )
 
       if (isTRUE(enrichmap_show_keyword)) {
         df_keyword1 <- df_nodes %>%
-          mutate(keyword = strsplit(tolower(as.character(.data[["Description"]])), "\\s|\\n", perl = TRUE)) %>%
+          mutate(
+            keyword = strsplit(
+              tolower(as.character(.data[["Description"]])),
+              "\\s|\\n",
+              perl = TRUE
+            )
+          ) %>%
           unnest(cols = "keyword") %>%
           group_by(.data[["keyword"]], Database, Groups, clusters) %>%
           reframe(
@@ -13257,11 +20932,21 @@ EnrichmentPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilco
           reframe(keyword = paste0(.data[["keyword"]], collapse = " ")) %>%
           as.data.frame()
         rownames(df_keyword1) <- as.character(df_keyword1[["clusters"]])
-        df_keyword1[["keyword"]] <- str_wrap(df_keyword1[["keyword"]], width = character_width)
-        df_keyword1[["label"]] <- paste0(df_keyword1[["clusters"]], ":\n", df_keyword1[["keyword"]])
+        df_keyword1[["keyword"]] <- str_wrap(
+          df_keyword1[["keyword"]],
+          width = character_width
+        )
+        df_keyword1[["label"]] <- paste0(
+          df_keyword1[["clusters"]],
+          ":\n",
+          df_keyword1[["keyword"]]
+        )
       } else {
         if (enrichmap_label == "term") {
-          df_nodes[["Description"]] <- str_wrap(df_nodes[["Description"]], width = character_width)
+          df_nodes[["Description"]] <- str_wrap(
+            df_nodes[["Description"]],
+            width = character_width
+          )
         }
         df_keyword1 <- df_nodes %>%
           group_by(Database, Groups, clusters) %>%
@@ -13273,7 +20958,11 @@ EnrichmentPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilco
           reframe(keyword = paste0(.data[["keyword"]], collapse = "\n")) %>%
           as.data.frame()
         rownames(df_keyword1) <- as.character(df_keyword1[["clusters"]])
-        df_keyword1[["label"]] <- paste0(df_keyword1[["clusters"]], ":\n", df_keyword1[["keyword"]])
+        df_keyword1[["label"]] <- paste0(
+          df_keyword1[["clusters"]],
+          ":\n",
+          df_keyword1[["keyword"]]
+        )
       }
 
       df_keyword2 <- df_nodes %>%
@@ -13295,11 +20984,24 @@ EnrichmentPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilco
         reframe(keyword = paste0(.data[["keyword"]], collapse = " ")) %>%
         as.data.frame()
       rownames(df_keyword2) <- as.character(df_keyword2[["clusters"]])
-      df_keyword2[["keyword"]] <- str_wrap(df_keyword2[["keyword"]], width = character_width)
-      df_keyword2[["label"]] <- paste0(df_keyword2[["clusters"]], ":\n", df_keyword2[["keyword"]])
+      df_keyword2[["keyword"]] <- str_wrap(
+        df_keyword2[["keyword"]],
+        width = character_width
+      )
+      df_keyword2[["label"]] <- paste0(
+        df_keyword2[["clusters"]],
+        ":\n",
+        df_keyword2[["keyword"]]
+      )
 
-      df_nodes[["keyword1"]] <- df_keyword1[as.character(df_nodes$clusters), "keyword"]
-      df_nodes[["keyword2"]] <- df_keyword2[as.character(df_nodes$clusters), "keyword"]
+      df_nodes[["keyword1"]] <- df_keyword1[
+        as.character(df_nodes$clusters),
+        "keyword"
+      ]
+      df_nodes[["keyword2"]] <- df_keyword2[
+        as.character(df_nodes$clusters),
+        "keyword"
+      ]
 
       df_edges <- df_graph$edges
       df_edges[["from_dim1"]] <- df_nodes[df_edges[["from"]], "dim1"]
@@ -13311,14 +21013,20 @@ EnrichmentPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilco
         check_R("concaveman")
       }
       mark_layer <- do.call(
-        switch(enrichmap_mark,
+        switch(
+          enrichmap_mark,
           "ellipse" = "geom_mark_ellipse",
           "hull" = "geom_mark_hull"
         ),
         list(
-          data = df_nodes, aes(
-            x = dim1, y = dim2, color = clusters, fill = clusters,
-            label = clusters, description = if (enrichmap_label == "term") keyword1 else keyword2
+          data = df_nodes,
+          aes(
+            x = dim1,
+            y = dim2,
+            color = clusters,
+            fill = clusters,
+            label = clusters,
+            description = if (enrichmap_label == "term") keyword1 else keyword2
           ),
           expand = unit(3, "mm"),
           alpha = 0.1,
@@ -13334,27 +21042,80 @@ EnrichmentPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilco
 
       p <- ggplot() +
         mark_layer +
-        geom_segment(data = df_edges, aes(x = from_dim1, y = from_dim2, xend = to_dim1, yend = to_dim2, linewidth = weight), alpha = 0.1, lineend = "round") +
-        geom_point(data = df_nodes, aes(x = dim1, y = dim2, size = Count, fill = clusters), color = "black", shape = 21) +
+        geom_segment(
+          data = df_edges,
+          aes(
+            x = from_dim1,
+            y = from_dim2,
+            xend = to_dim1,
+            yend = to_dim2,
+            linewidth = weight
+          ),
+          alpha = 0.1,
+          lineend = "round"
+        ) +
+        geom_point(
+          data = df_nodes,
+          aes(x = dim1, y = dim2, size = Count, fill = clusters),
+          color = "black",
+          shape = 21
+        ) +
         labs(x = "", y = "") +
-        scale_size(name = "Count", range = c(2, 6), scales::breaks_extended(n = 4)) +
-        guides(size = guide_legend(override.aes = list(fill = "grey30", shape = 21), order = 1)) +
-        scale_linewidth(name = "Intersection", range = c(0.3, 3), scales::breaks_extended(n = 4)) +
-        guides(linewidth = guide_legend(override.aes = list(alpha = 1, color = "grey"), order = 2)) +
+        scale_size(
+          name = "Count",
+          range = c(2, 6),
+          scales::breaks_extended(n = 4)
+        ) +
+        guides(
+          size = guide_legend(
+            override.aes = list(fill = "grey30", shape = 21),
+            order = 1
+          )
+        ) +
+        scale_linewidth(
+          name = "Intersection",
+          range = c(0.3, 3),
+          scales::breaks_extended(n = 4)
+        ) +
+        guides(
+          linewidth = guide_legend(
+            override.aes = list(alpha = 1, color = "grey"),
+            order = 2
+          )
+        ) +
         scale_fill_manual(
-          name = switch(enrichmap_label,
+          name = switch(
+            enrichmap_label,
             "term" = "Feature:",
             "feature" = "Term:"
           ),
-          values = palette_scp(levels(df_nodes[["clusters"]]), palette = palette, palcolor = palcolor),
-          labels = if (enrichmap_label == "term") df_keyword2[levels(df_nodes[["clusters"]]), "label"] else df_keyword1[levels(df_nodes[["clusters"]]), "label"],
+          values = palette_scp(
+            levels(df_nodes[["clusters"]]),
+            palette = palette,
+            palcolor = palcolor
+          ),
+          labels = if (enrichmap_label == "term") {
+            df_keyword2[levels(df_nodes[["clusters"]]), "label"]
+          } else {
+            df_keyword1[levels(df_nodes[["clusters"]]), "label"]
+          },
           na.value = "grey80",
           aesthetics = c("colour", "fill")
         ) +
-        guides(fill = guide_legend(override.aes = list(alpha = 1, color = "black", shape = NA), byrow = TRUE, order = 3)) +
+        guides(
+          fill = guide_legend(
+            override.aes = list(alpha = 1, color = "black", shape = NA),
+            byrow = TRUE,
+            order = 3
+          )
+        ) +
         guides(color = guide_none()) +
-        scale_x_continuous(expand = expansion(c(enrichmap_expand[1], enrichmap_expand[1]), 0)) +
-        scale_y_continuous(expand = expansion(c(enrichmap_expand[2], enrichmap_expand[2]), 0)) +
+        scale_x_continuous(
+          expand = expansion(c(enrichmap_expand[1], enrichmap_expand[1]), 0)
+        ) +
+        scale_y_continuous(
+          expand = expansion(c(enrichmap_expand[2], enrichmap_expand[2]), 0)
+        ) +
         facet_grid(facet, scales = "free") +
         do.call(theme_use, theme_args) +
         theme(
@@ -13375,7 +21136,9 @@ EnrichmentPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilco
         for (i in seq_along(df_groups)) {
           df_sub <- df_groups[[i]]
           if (all(df_sub$Database %in% c("GO", "GO_BP", "GO_CC", "GO_MF"))) {
-            df0 <- simplifyEnrichment::keyword_enrichment_from_GO(df_sub[["ID"]])
+            df0 <- simplifyEnrichment::keyword_enrichment_from_GO(df_sub[[
+              "ID"
+            ]])
             if (nrow(df0 > 0)) {
               df_sub <- df0 %>%
                 reframe(
@@ -13387,17 +21150,31 @@ EnrichmentPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilco
                 ) %>%
                 filter(!grepl(pattern = "\\[.*\\]", x = .data[["keyword"]])) %>%
                 filter(nchar(.data[["keyword"]]) >= 1) %>%
-                filter(!tolower(.data[["keyword"]]) %in% tolower(words_excluded)) %>%
+                filter(
+                  !tolower(.data[["keyword"]]) %in% tolower(words_excluded)
+                ) %>%
                 distinct() %>%
-                mutate(angle = 90 * sample(c(0, 1), n(), replace = TRUE, prob = c(60, 40))) %>%
+                mutate(
+                  angle = 90 *
+                    sample(c(0, 1), n(), replace = TRUE, prob = c(60, 40))
+                ) %>%
                 as.data.frame()
-              df_sub <- df_sub[head(order(df_sub[["score"]], decreasing = TRUE), topWord), , drop = FALSE]
+              df_sub <- df_sub[
+                head(order(df_sub[["score"]], decreasing = TRUE), topWord),
+                ,
+                drop = FALSE
+              ]
             } else {
               df_sub <- NULL
             }
           } else {
             df_sub <- df_sub %>%
-              mutate(keyword = strsplit(tolower(as.character(.data[["Description"]])), " ")) %>%
+              mutate(
+                keyword = strsplit(
+                  tolower(as.character(.data[["Description"]])),
+                  " "
+                )
+              ) %>%
               unnest(cols = "keyword") %>%
               group_by(.data[["keyword"]], Database, Groups) %>%
               reframe(
@@ -13410,11 +21187,20 @@ EnrichmentPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilco
               ) %>%
               filter(!grepl(pattern = "\\[.*\\]", x = .data[["keyword"]])) %>%
               filter(nchar(.data[["keyword"]]) >= 1) %>%
-              filter(!tolower(.data[["keyword"]]) %in% tolower(words_excluded)) %>%
+              filter(
+                !tolower(.data[["keyword"]]) %in% tolower(words_excluded)
+              ) %>%
               distinct() %>%
-              mutate(angle = 90 * sample(c(0, 1), n(), replace = TRUE, prob = c(60, 40))) %>%
+              mutate(
+                angle = 90 *
+                  sample(c(0, 1), n(), replace = TRUE, prob = c(60, 40))
+              ) %>%
               as.data.frame()
-            df_sub <- df_sub[head(order(df_sub[["score"]], decreasing = TRUE), topWord), , drop = FALSE]
+            df_sub <- df_sub[
+              head(order(df_sub[["score"]], decreasing = TRUE), topWord),
+              ,
+              drop = FALSE
+            ]
           }
           df_groups[[i]] <- df_sub
         }
@@ -13433,20 +21219,69 @@ EnrichmentPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilco
             .groups = "keep"
           ) %>%
           distinct() %>%
-          mutate(angle = 90 * sample(c(0, 1), n(), replace = TRUE, prob = c(60, 40))) %>%
+          mutate(
+            angle = 90 * sample(c(0, 1), n(), replace = TRUE, prob = c(60, 40))
+          ) %>%
           as.data.frame()
-        df <- df[head(order(df[["score"]], decreasing = TRUE), topWord), , drop = FALSE]
+        df <- df[
+          head(order(df[["score"]], decreasing = TRUE), topWord),
+          ,
+          drop = FALSE
+        ]
       }
-      colors <- palette_scp(df[["score"]], type = "continuous", palette = palette, palcolor = palcolor, matched = FALSE)
-      colors_value <- seq(min(df[["score"]], na.rm = TRUE), quantile(df[["score"]], 0.99, na.rm = TRUE) + 0.001, length.out = 100)
-      p <- ggplot(df, aes(label = .data[["keyword"]], size = .data[["count"]], color = .data[["score"]], angle = .data[["angle"]])) +
-        ggwordcloud::geom_text_wordcloud(rm_outside = TRUE, eccentricity = 1, shape = "square", show.legend = TRUE, grid_margin = 3) +
-        scale_color_gradientn(
-          name = "Score:", colours = colors, values = rescale(colors_value),
-          guide = guide_colorbar(frame.colour = "black", ticks.colour = "black", title.hjust = 0)
+      colors <- palette_scp(
+        df[["score"]],
+        type = "continuous",
+        palette = palette,
+        palcolor = palcolor,
+        matched = FALSE
+      )
+      colors_value <- seq(
+        min(df[["score"]], na.rm = TRUE),
+        quantile(df[["score"]], 0.99, na.rm = TRUE) + 0.001,
+        length.out = 100
+      )
+      p <- ggplot(
+        df,
+        aes(
+          label = .data[["keyword"]],
+          size = .data[["count"]],
+          color = .data[["score"]],
+          angle = .data[["angle"]]
+        )
+      ) +
+        ggwordcloud::geom_text_wordcloud(
+          rm_outside = TRUE,
+          eccentricity = 1,
+          shape = "square",
+          show.legend = TRUE,
+          grid_margin = 3
         ) +
-        scale_size(name = "Count", range = word_size, breaks = ceiling(seq(min(df[["count"]], na.rm = TRUE), max(df[["count"]], na.rm = TRUE), length.out = 3))) +
-        guides(size = guide_legend(override.aes = list(colour = "black", label = "G"), order = 1)) +
+        scale_color_gradientn(
+          name = "Score:",
+          colours = colors,
+          values = rescale(colors_value),
+          guide = guide_colorbar(
+            frame.colour = "black",
+            ticks.colour = "black",
+            title.hjust = 0
+          )
+        ) +
+        scale_size(
+          name = "Count",
+          range = word_size,
+          breaks = ceiling(seq(
+            min(df[["count"]], na.rm = TRUE),
+            max(df[["count"]], na.rm = TRUE),
+            length.out = 3
+          ))
+        ) +
+        guides(
+          size = guide_legend(
+            override.aes = list(colour = "black", label = "G"),
+            order = 1
+          )
+        ) +
         facet_grid(facet, scales = "free") +
         coord_flip() +
         do.call(theme_use, theme_args) +
@@ -13461,7 +21296,12 @@ EnrichmentPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilco
 
   if (isTRUE(combine)) {
     if (length(plist) > 1) {
-      plot <- wrap_plots(plotlist = plist, nrow = nrow, ncol = ncol, byrow = byrow)
+      plot <- wrap_plots(
+        plotlist = plist,
+        nrow = nrow,
+        ncol = ncol,
+        byrow = byrow
+      )
     } else {
       plot <- plist[[1]]
     }
@@ -13472,7 +21312,14 @@ EnrichmentPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilco
 }
 
 #' @importFrom igraph degree neighbors
-adjustlayout <- function(graph, layout, width, height = 2, scale = 100, iter = 100) {
+adjustlayout <- function(
+  graph,
+  layout,
+  width,
+  height = 2,
+  scale = 100,
+  iter = 100
+) {
   w <- width / 2
   layout[, 1] <- layout[, 1] / diff(range(layout[, 1])) * scale
   layout[, 2] <- layout[, 2] / diff(range(layout[, 2])) * scale
@@ -13505,7 +21352,12 @@ adjustlayout <- function(graph, layout, width, height = 2, scale = 100, iter = 1
 
   for (i in seq_len(iter)) {
     dist_matrix <- as_matrix(dist(layout))
-    nearest_neighbors <- apply(dist_matrix, 2, function(x) which(x == min(x[x > 0])), simplify = FALSE)
+    nearest_neighbors <- apply(
+      dist_matrix,
+      2,
+      function(x) which(x == min(x[x > 0])),
+      simplify = FALSE
+    )
     # nearest_neighbors <- apply(dist_matrix, 2, function(x) {
     #   head(order(x), 3)[-1]
     # }, simplify = FALSE)
@@ -13594,23 +21446,70 @@ adjustlayout <- function(graph, layout, width, height = 2, scale = 100, iter = 1
 #' @importFrom gtable gtable_add_rows gtable_add_grob
 #' @importFrom grid textGrob
 #' @export
-GSEAPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilcox", res = NULL,
-                     plot_type = c("line", "bar", "network", "enrichmap", "wordcloud", "comparison"),
-                     group_use = NULL, id_use = NULL, pvalueCutoff = NULL, padjustCutoff = 0.05,
-                     topTerm = ifelse(plot_type == "enrichmap", 100, 6), direction = c("pos", "neg", "both"), compare_only_sig = FALSE,
-                     topWord = 100, word_type = c("term", "feature"), word_size = c(2, 8), words_excluded = NULL,
-                     line_width = 1.5, line_alpha = 1, line_color = "#6BB82D",
-                     n_coregene = 10, sample_coregene = FALSE, features_label = NULL,
-                     label.fg = "black", label.bg = "white", label.bg.r = 0.1, label.size = 4,
-                     network_layout = "fr", network_labelsize = 5, network_blendmode = "blend",
-                     network_layoutadjust = TRUE, network_adjscale = 60, network_adjiter = 100,
-                     enrichmap_layout = "fr", enrichmap_cluster = "fast_greedy", enrichmap_label = c("term", "feature"), enrichmap_labelsize = 5,
-                     enrlichmap_nlabel = 4, enrichmap_show_keyword = FALSE, enrichmap_mark = c("ellipse", "hull"), enrichmap_expand = c(0.5, 0.5),
-                     character_width = 50, lineheight = 0.5,
-                     palette = "Spectral", palcolor = NULL,
-                     aspect.ratio = NULL, legend.position = "right", legend.direction = "vertical",
-                     theme_use = "theme_scp", theme_args = list(),
-                     combine = TRUE, nrow = NULL, ncol = NULL, byrow = TRUE, seed = 11) {
+GSEAPlot <- function(
+  srt,
+  db = "GO_BP",
+  group_by = NULL,
+  test.use = "wilcox",
+  res = NULL,
+  plot_type = c(
+    "line",
+    "bar",
+    "network",
+    "enrichmap",
+    "wordcloud",
+    "comparison"
+  ),
+  group_use = NULL,
+  id_use = NULL,
+  pvalueCutoff = NULL,
+  padjustCutoff = 0.05,
+  topTerm = ifelse(plot_type == "enrichmap", 100, 6),
+  direction = c("pos", "neg", "both"),
+  compare_only_sig = FALSE,
+  topWord = 100,
+  word_type = c("term", "feature"),
+  word_size = c(2, 8),
+  words_excluded = NULL,
+  line_width = 1.5,
+  line_alpha = 1,
+  line_color = "#6BB82D",
+  n_coregene = 10,
+  sample_coregene = FALSE,
+  features_label = NULL,
+  label.fg = "black",
+  label.bg = "white",
+  label.bg.r = 0.1,
+  label.size = 4,
+  network_layout = "fr",
+  network_labelsize = 5,
+  network_blendmode = "blend",
+  network_layoutadjust = TRUE,
+  network_adjscale = 60,
+  network_adjiter = 100,
+  enrichmap_layout = "fr",
+  enrichmap_cluster = "fast_greedy",
+  enrichmap_label = c("term", "feature"),
+  enrichmap_labelsize = 5,
+  enrlichmap_nlabel = 4,
+  enrichmap_show_keyword = FALSE,
+  enrichmap_mark = c("ellipse", "hull"),
+  enrichmap_expand = c(0.5, 0.5),
+  character_width = 50,
+  lineheight = 0.5,
+  palette = "Spectral",
+  palcolor = NULL,
+  aspect.ratio = NULL,
+  legend.position = "right",
+  legend.direction = "vertical",
+  theme_use = "theme_scp",
+  theme_args = list(),
+  combine = TRUE,
+  nrow = NULL,
+  ncol = NULL,
+  byrow = TRUE,
+  seed = 11
+) {
   set.seed(seed)
   plot_type <- match.arg(plot_type)
   word_type <- match.arg(word_type)
@@ -13644,19 +21543,32 @@ GSEAPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilcox", re
     stop(paste0(db, " is not in the enrichment result."))
   }
   res <- res[use]
-  enrichment <- enrichment[enrichment[["Groups"]] %in% group_use, , drop = FALSE]
+  enrichment <- enrichment[
+    enrichment[["Groups"]] %in% group_use,
+    ,
+    drop = FALSE
+  ]
 
   if (is.null(pvalueCutoff) && is.null(padjustCutoff)) {
     stop("One of 'pvalueCutoff' or 'padjustCutoff' must be specified")
   }
   if (!is.factor(enrichment[["Database"]])) {
-    enrichment[["Database"]] <- factor(enrichment[["Database"]], levels = unique(enrichment[["Database"]]))
+    enrichment[["Database"]] <- factor(
+      enrichment[["Database"]],
+      levels = unique(enrichment[["Database"]])
+    )
   }
   if (!is.factor(enrichment["Groups"])) {
-    enrichment[["Groups"]] <- factor(enrichment[["Groups"]], levels = unique(enrichment[["Groups"]]))
+    enrichment[["Groups"]] <- factor(
+      enrichment[["Groups"]],
+      levels = unique(enrichment[["Groups"]])
+    )
   }
   if (length(db[!db %in% enrichment[["Database"]]]) > 0) {
-    stop(paste0(db[!db %in% enrichment[["Database"]]], " is not in the enrichment result."))
+    stop(paste0(
+      db[!db %in% enrichment[["Database"]]],
+      " is not in the enrichment result."
+    ))
   }
   if (length(id_use) > 0) {
     topTerm <- Inf
@@ -13665,15 +21577,31 @@ GSEAPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilcox", re
         stop("'id_use' must be named when it is a list.")
       }
       if (!all(names(id_use) %in% enrichment[["Groups"]])) {
-        stop(paste0("Names in 'id_use' is invalid: ", paste0(names(id_use)[!names(id_use) %in% enrichment[["Groups"]]], collapse = ",")))
+        stop(paste0(
+          "Names in 'id_use' is invalid: ",
+          paste0(
+            names(id_use)[!names(id_use) %in% enrichment[["Groups"]]],
+            collapse = ","
+          )
+        ))
       }
       enrichment_list <- list()
       for (i in seq_along(id_use)) {
-        enrichment_list[[i]] <- enrichment[enrichment[["ID"]] %in% id_use[[i]] & enrichment[["Groups"]] %in% names(id_use)[i], , drop = FALSE]
+        enrichment_list[[i]] <- enrichment[
+          enrichment[["ID"]] %in%
+            id_use[[i]] &
+            enrichment[["Groups"]] %in% names(id_use)[i],
+          ,
+          drop = FALSE
+        ]
       }
       enrichment <- do.call(rbind, enrichment_list)
     } else {
-      enrichment <- enrichment[enrichment[["ID"]] %in% unlist(id_use), , drop = FALSE]
+      enrichment <- enrichment[
+        enrichment[["ID"]] %in% unlist(id_use),
+        ,
+        drop = FALSE
+      ]
     }
   }
 
@@ -13684,7 +21612,11 @@ GSEAPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilcox", re
   padjustCutoff <- ifelse(is.null(padjustCutoff), 1, padjustCutoff)
 
   if (any(db %in% c("GO_sim", "GO_BP_sim", "GO_CC_sim", "GO_MF_sim"))) {
-    enrichment_sim <- enrichment[enrichment[["Database"]] %in% gsub("_sim", "", db), , drop = FALSE]
+    enrichment_sim <- enrichment[
+      enrichment[["Database"]] %in% gsub("_sim", "", db),
+      ,
+      drop = FALSE
+    ]
   }
   enrichment <- enrichment[enrichment[["Database"]] %in% db, , drop = FALSE]
 
@@ -13703,56 +21635,111 @@ GSEAPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilcox", re
         ID_up <- df_up[head(order(df_up[[metric]]), topTerm), "ID"]
         df_down <- df[df[["NES"]] < 0, , drop = FALSE]
         ID_down <- df_down[head(order(df_down[[metric]]), topTerm), "ID"]
-        ids <- switch(direction,
+        ids <- switch(
+          direction,
           "pos" = unique(c(ids, head(ID_up, topTerm))),
           "neg" = unique(c(ids, head(ID_down, topTerm))),
-          "both" = unique(c(ids, head(
-            c(
-              head(ID_up, ceiling(topTerm / 2)),
-              head(ID_down, ceiling(topTerm / 2))
-            ),
-            topTerm
-          )))
+          "both" = unique(c(
+            ids,
+            head(
+              c(
+                head(ID_up, ceiling(topTerm / 2)),
+                head(ID_down, ceiling(topTerm / 2))
+              ),
+              topTerm
+            )
+          ))
         )
       }
     }
 
     if (any(db %in% c("GO_sim", "GO_BP_sim", "GO_CC_sim", "GO_MF_sim"))) {
       enrichment_sub <- subset(enrichment_sim, ID %in% ids)
-      enrichment_sub[["Database"]][enrichment_sub[["Database"]] %in% c("GO", "GO_BP", "GO_CC", "GO_MF")] <- paste0(enrichment_sub[["Database"]][enrichment_sub[["Database"]] %in% c("GO", "GO_BP", "GO_CC", "GO_MF")], "_sim")
+      enrichment_sub[["Database"]][
+        enrichment_sub[["Database"]] %in% c("GO", "GO_BP", "GO_CC", "GO_MF")
+      ] <- paste0(
+        enrichment_sub[["Database"]][
+          enrichment_sub[["Database"]] %in% c("GO", "GO_BP", "GO_CC", "GO_MF")
+        ],
+        "_sim"
+      )
     } else {
       enrichment_sub <- subset(enrichment, ID %in% ids)
     }
-    enrichment_sub[["Database"]] <- factor(enrichment_sub[["Database"]], levels = db)
-    enrichment_sub[["Description"]] <- capitalize(enrichment_sub[["Description"]])
-    enrichment_sub[["Description"]] <- str_wrap(enrichment_sub[["Description"]], width = character_width)
+    enrichment_sub[["Database"]] <- factor(
+      enrichment_sub[["Database"]],
+      levels = db
+    )
+    enrichment_sub[["Description"]] <- capitalize(enrichment_sub[[
+      "Description"
+    ]])
+    enrichment_sub[["Description"]] <- str_wrap(
+      enrichment_sub[["Description"]],
+      width = character_width
+    )
     terms <- setNames(enrichment_sub[["Description"]], enrichment_sub[["ID"]])
-    enrichment_sub[["Description"]] <- factor(enrichment_sub[["Description"]], levels = unique(rev(terms[ids])))
+    enrichment_sub[["Description"]] <- factor(
+      enrichment_sub[["Description"]],
+      levels = unique(rev(terms[ids]))
+    )
     enrichment_sub[["Significant"]] <- enrichment_sub[[metric]] < metric_value
-    enrichment_sub[["Significant"]] <- factor(enrichment_sub[["Significant"]], levels = c("TRUE", "FALSE"))
+    enrichment_sub[["Significant"]] <- factor(
+      enrichment_sub[["Significant"]],
+      levels = c("TRUE", "FALSE")
+    )
     if (isTRUE(compare_only_sig)) {
-      enrichment_sub <- enrichment_sub[enrichment_sub[["Significant"]] == "TRUE", , drop = FALSE]
+      enrichment_sub <- enrichment_sub[
+        enrichment_sub[["Significant"]] == "TRUE",
+        ,
+        drop = FALSE
+      ]
     }
-    enrichment_sub <- switch(direction,
+    enrichment_sub <- switch(
+      direction,
       "pos" = enrichment_sub[enrichment_sub[["NES"]] > 0, , drop = FALSE],
       "neg" = enrichment_sub[enrichment_sub[["NES"]] < 0, , drop = FALSE],
       "both" = enrichment_sub
     )
 
     p <- ggplot(enrichment_sub, aes(x = Groups, y = Description)) +
-      geom_point(aes(size = setSize, fill = NES, color = Significant), shape = 21, stroke = 0.8) +
+      geom_point(
+        aes(size = setSize, fill = NES, color = Significant),
+        shape = 21,
+        stroke = 0.8
+      ) +
       scale_size_area(name = "setSize", max_size = 6, n.breaks = 4) +
-      guides(size = guide_legend(override.aes = list(fill = "grey30", shape = 21), order = 2)) +
+      guides(
+        size = guide_legend(
+          override.aes = list(fill = "grey30", shape = 21),
+          order = 2
+        )
+      ) +
       scale_alpha_manual(values = c("TRUE" = 1, "FALSE" = 0.5)) +
       scale_fill_gradientn(
         name = "NES",
         n.breaks = 4,
-        limits = c(-max(abs(enrichment_sub[["NES"]])), max(abs(enrichment_sub[["NES"]]))),
+        limits = c(
+          -max(abs(enrichment_sub[["NES"]])),
+          max(abs(enrichment_sub[["NES"]]))
+        ),
         colors = palette_scp(palette = palette, palcolor = palcolor),
-        guide = guide_colorbar(frame.colour = "black", ticks.colour = "black", title.hjust = 0, order = 1)
+        guide = guide_colorbar(
+          frame.colour = "black",
+          ticks.colour = "black",
+          title.hjust = 0,
+          order = 1
+        )
       ) +
       scale_color_manual(
-        name = paste0("Significant\n(", metric, "<", metric_value, ")", collapse = ""), values = c("TRUE" = "black", "FALSE" = "grey90"),
+        name = paste0(
+          "Significant\n(",
+          metric,
+          "<",
+          metric_value,
+          ")",
+          collapse = ""
+        ),
+        values = c("TRUE" = "black", "FALSE" = "grey90"),
         guide = if (isTRUE(compare_only_sig)) guide_none() else guide_legend()
       ) +
       facet_grid(Database ~ ., scales = "free") +
@@ -13764,8 +21751,13 @@ GSEAPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilcox", re
         panel.grid.major = element_line(colour = "grey80", linetype = 2),
         axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1),
         axis.text.y = element_text(
-          lineheight = lineheight, hjust = 1,
-          face = ifelse(grepl("\n", levels(enrichment_sub[["Description"]])), "italic", "plain")
+          lineheight = lineheight,
+          hjust = 1,
+          face = ifelse(
+            grepl("\n", levels(enrichment_sub[["Description"]])),
+            "italic",
+            "plain"
+          )
         )
       )
     plist <- list(p)
@@ -13774,13 +21766,36 @@ GSEAPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilcox", re
     for (nm in names(res)) {
       res_enrich <- res[[nm]]
       if (is.null(id_use)) {
-        geneSetID_filter <- res_enrich@result[res_enrich@result[[metric]] < metric_value, , drop = FALSE]
-        geneSetID_filter <- geneSetID_filter[order(geneSetID_filter[[metric]]), , drop = FALSE]
-        geneSetID_up <- geneSetID_filter[geneSetID_filter[["NES"]] > 0, , drop = FALSE]
-        geneSetID_up <- geneSetID_up[head(order(geneSetID_up[[metric]]), topTerm), "ID"]
-        geneSetID_down <- geneSetID_filter[geneSetID_filter[["NES"]] < 0, , drop = FALSE]
-        geneSetID_down <- geneSetID_down[head(order(geneSetID_down[[metric]]), topTerm), "ID"]
-        geneSetID_use <- switch(direction,
+        geneSetID_filter <- res_enrich@result[
+          res_enrich@result[[metric]] < metric_value,
+          ,
+          drop = FALSE
+        ]
+        geneSetID_filter <- geneSetID_filter[
+          order(geneSetID_filter[[metric]]),
+          ,
+          drop = FALSE
+        ]
+        geneSetID_up <- geneSetID_filter[
+          geneSetID_filter[["NES"]] > 0,
+          ,
+          drop = FALSE
+        ]
+        geneSetID_up <- geneSetID_up[
+          head(order(geneSetID_up[[metric]]), topTerm),
+          "ID"
+        ]
+        geneSetID_down <- geneSetID_filter[
+          geneSetID_filter[["NES"]] < 0,
+          ,
+          drop = FALSE
+        ]
+        geneSetID_down <- geneSetID_down[
+          head(order(geneSetID_down[[metric]]), topTerm),
+          "ID"
+        ]
+        geneSetID_use <- switch(
+          direction,
           "pos" = unique(head(geneSetID_up, topTerm)),
           "neg" = unique(head(geneSetID_down, topTerm)),
           "both" = unique(head(
@@ -13793,7 +21808,10 @@ GSEAPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilcox", re
         )
       } else {
         if (is.list(id_use)) {
-          geneSetID_use <- intersect(res_enrich@result[["ID"]], id_use[[unique(res_enrich@result$Groups)]])
+          geneSetID_use <- intersect(
+            res_enrich@result[["ID"]],
+            id_use[[unique(res_enrich@result$Groups)]]
+          )
         } else {
           geneSetID_use <- id_use
         }
@@ -13801,7 +21819,10 @@ GSEAPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilcox", re
       if (length(geneSetID_use) == 1) {
         gsdata <- gsInfo(object = res_enrich, id_use = geneSetID_use)
       } else {
-        gsdata <- do.call(rbind, lapply(geneSetID_use, gsInfo, object = res_enrich))
+        gsdata <- do.call(
+          rbind,
+          lapply(geneSetID_use, gsInfo, object = res_enrich)
+        )
       }
       if (length(geneSetID_use) == 0) {
         plist[[nm]] <- NULL
@@ -13820,9 +21841,26 @@ GSEAPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilcox", re
       gsdata[[metric]] <- stat[gsdata$Description, metric]
       gsdata[["p.sig"]] <- stat[gsdata$Description, "p.sig"]
       gsdata[["DescriptionP"]] <- capitalize(gsdata[["Description"]])
-      gsdata[["DescriptionP"]] <- str_wrap(gsdata[["DescriptionP"]], width = character_width)
-      gsdata[["DescriptionP"]] <- paste0(gsdata[["DescriptionP"]], "\n(NES=", round(gsdata[["NES"]], 3), ", ", metric, "=", format(gsdata[[metric]], digits = 3, scientific = TRUE), ", ", gsdata[["p.sig"]], ")")
-      gsdata[["DescriptionP"]] <- factor(gsdata[["DescriptionP"]], levels = unique(gsdata[["DescriptionP"]]))
+      gsdata[["DescriptionP"]] <- str_wrap(
+        gsdata[["DescriptionP"]],
+        width = character_width
+      )
+      gsdata[["DescriptionP"]] <- paste0(
+        gsdata[["DescriptionP"]],
+        "\n(NES=",
+        round(gsdata[["NES"]], 3),
+        ", ",
+        metric,
+        "=",
+        format(gsdata[[metric]], digits = 3, scientific = TRUE),
+        ", ",
+        gsdata[["p.sig"]],
+        ")"
+      )
+      gsdata[["DescriptionP"]] <- factor(
+        gsdata[["DescriptionP"]],
+        levels = unique(gsdata[["DescriptionP"]])
+      )
       p <- ggplot(gsdata, aes(x = x)) +
         xlab(NULL) +
         theme_classic(base_size = 12) +
@@ -13831,12 +21869,30 @@ GSEAPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilcox", re
           panel.grid.minor = element_line(colour = "grey90", linetype = 2)
         ) +
         scale_x_continuous(expand = c(0.01, 0))
-      es_layer <- geom_line(aes(y = runningScore, color = DescriptionP),
-        linewidth = line_width, alpha = line_alpha
+      es_layer <- geom_line(
+        aes(y = runningScore, color = DescriptionP),
+        linewidth = line_width,
+        alpha = line_alpha
       )
-      bg_dat <- data.frame(xmin = -Inf, xmax = Inf, ymin = c(0, -Inf), ymax = c(Inf, 0), fill = c(alpha("#C40003", 0.2), alpha("#1D008F", 0.2)))
+      bg_dat <- data.frame(
+        xmin = -Inf,
+        xmax = Inf,
+        ymin = c(0, -Inf),
+        ymax = c(Inf, 0),
+        fill = c(alpha("#C40003", 0.2), alpha("#1D008F", 0.2))
+      )
       p1 <- p +
-        geom_rect(data = bg_dat, mapping = aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax, fill = I(fill)), inherit.aes = FALSE) +
+        geom_rect(
+          data = bg_dat,
+          mapping = aes(
+            xmin = xmin,
+            xmax = xmax,
+            ymin = ymin,
+            ymax = ymax,
+            fill = I(fill)
+          ),
+          inherit.aes = FALSE
+        ) +
         geom_hline(yintercept = 0, linetype = 1, color = "grey40") +
         es_layer +
         ylab("Enrichment Score") +
@@ -13844,7 +21900,11 @@ GSEAPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilcox", re
           axis.text.x = element_blank(),
           axis.ticks.x = element_blank(),
           axis.line = element_blank(),
-          panel.border = element_rect(color = "black", fill = "transparent", linewidth = 1),
+          panel.border = element_rect(
+            color = "black",
+            fill = "transparent",
+            linewidth = 1
+          ),
           plot.margin = margin(t = 0.2, r = 0.2, b = 0, l = 0.2, unit = "cm"),
           legend.position = "right",
           legend.title = element_blank(),
@@ -13853,74 +21913,131 @@ GSEAPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilcox", re
 
       i <- 0
       for (term in rev(levels(gsdata$DescriptionP))) {
-        idx <- which(gsdata$ymin != 0 & gsdata$DescriptionP ==
-          term)
+        idx <- which(gsdata$ymin != 0 & gsdata$DescriptionP == term)
         gsdata[idx, "ymin"] <- i
         gsdata[idx, "ymax"] <- i + 1
         i <- i + 1
       }
       p2 <- ggplot(gsdata, aes(x = x)) +
-        geom_linerange(aes(ymin = ymin, ymax = ymax, color = DescriptionP), alpha = line_alpha) +
+        geom_linerange(
+          aes(ymin = ymin, ymax = ymax, color = DescriptionP),
+          alpha = line_alpha
+        ) +
         xlab(NULL) +
         ylab(NULL) +
         theme_classic(base_size = 12) +
         theme(
           legend.position = "none",
           plot.margin = margin(t = -0.1, b = 0, r = 0.2, l = 0.2, unit = "cm"),
-          panel.border = element_rect(color = "black", fill = "transparent", linewidth = 1),
-          axis.line.y = element_blank(), axis.line.x = element_blank(),
-          axis.ticks = element_blank(), axis.text = element_blank()
+          panel.border = element_rect(
+            color = "black",
+            fill = "transparent",
+            linewidth = 1
+          ),
+          axis.line.y = element_blank(),
+          axis.line.x = element_blank(),
+          axis.ticks = element_blank(),
+          axis.text = element_blank()
         ) +
         scale_x_continuous(expand = c(0.01, 0)) +
         scale_y_continuous(expand = c(0, 0))
       if (length(geneSetID_use) == 1) {
-        subtitle_use <- paste0("(NES=", round(stat[["NES"]], 3), ", ", metric, "=", format(stat[[metric]], digits = 3, scientific = TRUE), ", ", stat[["p.sig"]], ")")
+        subtitle_use <- paste0(
+          "(NES=",
+          round(stat[["NES"]], 3),
+          ", ",
+          metric,
+          "=",
+          format(stat[[metric]], digits = 3, scientific = TRUE),
+          ", ",
+          stat[["p.sig"]],
+          ")"
+        )
         p1 <- p1 +
           annotate(
-            geom = "segment", x = 0, xend = p$data$x[which.max(abs(p$data$runningScore))],
-            y = p$data$runningScore[which.max(abs(p$data$runningScore))], yend = p$data$runningScore[which.max(abs(p$data$runningScore))], linetype = 2
-          ) +
-          annotate(
-            geom = "segment", x = p$data$x[which.max(abs(p$data$runningScore))], xend = p$data$x[which.max(abs(p$data$runningScore))],
-            y = 0, yend = p$data$runningScore[which.max(abs(p$data$runningScore))], linetype = 2
-          ) +
-          annotate(
-            geom = "point", x = p$data$x[which.max(abs(p$data$runningScore))],
+            geom = "segment",
+            x = 0,
+            xend = p$data$x[which.max(abs(p$data$runningScore))],
             y = p$data$runningScore[which.max(abs(p$data$runningScore))],
-            fill = ifelse(stat[["NES"]] < 0, "#5E34F5", "#F52323"), color = "black", size = 2.5,
+            yend = p$data$runningScore[which.max(abs(p$data$runningScore))],
+            linetype = 2
+          ) +
+          annotate(
+            geom = "segment",
+            x = p$data$x[which.max(abs(p$data$runningScore))],
+            xend = p$data$x[which.max(abs(p$data$runningScore))],
+            y = 0,
+            yend = p$data$runningScore[which.max(abs(p$data$runningScore))],
+            linetype = 2
+          ) +
+          annotate(
+            geom = "point",
+            x = p$data$x[which.max(abs(p$data$runningScore))],
+            y = p$data$runningScore[which.max(abs(p$data$runningScore))],
+            fill = ifelse(stat[["NES"]] < 0, "#5E34F5", "#F52323"),
+            color = "black",
+            size = 2.5,
             shape = ifelse(stat[["NES"]] < 0, 25, 24)
           ) +
           labs(subtitle = subtitle_use) +
           theme(plot.subtitle = element_text(face = "italic"))
 
-        if ((is.numeric(n_coregene) && n_coregene > 1) || length(features_label) > 0) {
+        if (
+          (is.numeric(n_coregene) && n_coregene > 1) ||
+            length(features_label) > 0
+        ) {
           if (length(features_label) == 0) {
             features_label_tmp <- unlist(strsplit(gsdata$CoreGene[1], "/"))
             n_coregene <- min(n_coregene, length(features_label_tmp))
             if (isTRUE(sample_coregene)) {
-              features_label_tmp <- sample(features_label_tmp, n_coregene, replace = FALSE)
+              features_label_tmp <- sample(
+                features_label_tmp,
+                n_coregene,
+                replace = FALSE
+              )
             } else {
-              features_label_tmp <- gsdata$GeneName[gsdata$GeneName %in% features_label_tmp][1:n_coregene]
+              features_label_tmp <- gsdata$GeneName[
+                gsdata$GeneName %in% features_label_tmp
+              ][1:n_coregene]
             }
           } else {
             features_label_tmp <- features_label
           }
-          df_gene <- gsdata[gsdata$position == 1 & gsdata$GeneName %in% features_label_tmp, , drop = FALSE]
-          gene_drop <- features_label_tmp[!features_label_tmp %in% df_gene$GeneName]
+          df_gene <- gsdata[
+            gsdata$position == 1 & gsdata$GeneName %in% features_label_tmp,
+            ,
+            drop = FALSE
+          ]
+          gene_drop <- features_label_tmp[
+            !features_label_tmp %in% df_gene$GeneName
+          ]
           if (length(gene_drop) > 0) {
-            warning("Gene ", paste(gene_drop, collapse = ","), " is not in the geneset of the ", gsdata$Description[1], immediate. = TRUE)
+            warning(
+              "Gene ",
+              paste(gene_drop, collapse = ","),
+              " is not in the geneset of the ",
+              gsdata$Description[1],
+              immediate. = TRUE
+            )
           }
           x_nudge <- diff(range(gsdata$x)) * 0.05
           y_nudge <- diff(range(gsdata$runningScore)) * 0.05
-          p1 <- p1 + geom_point(
-            data = df_gene,
-            mapping = aes(y = runningScore), color = "black"
-          ) +
+          p1 <- p1 +
+            geom_point(
+              data = df_gene,
+              mapping = aes(y = runningScore),
+              color = "black"
+            ) +
             geom_text_repel(
               data = df_gene,
               mapping = aes(y = runningScore, label = GeneName),
-              min.segment.length = 0, max.overlaps = 100, segment.colour = "grey40",
-              color = label.fg, bg.color = label.bg, bg.r = label.bg.r, size = label.size,
+              min.segment.length = 0,
+              max.overlaps = 100,
+              segment.colour = "grey40",
+              color = label.fg,
+              bg.color = label.bg,
+              bg.r = label.bg.r,
+              size = label.size,
               nudge_x = ifelse(df_gene$runningScore >= 0, x_nudge, -x_nudge),
               nudge_y = ifelse(df_gene$runningScore > 0, -y_nudge, y_nudge)
             )
@@ -13933,8 +22050,13 @@ GSEAPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilcox", re
         col <- rep("white", length(y))
         y_pos <- which(y > 0)
         if (length(y_pos) > 0) {
-          y_pos_i <- cut(y[y_pos],
-            breaks = seq(min(y[y_pos], na.rm = TRUE), max(y[y_pos], na.rm = TRUE), len = 100),
+          y_pos_i <- cut(
+            y[y_pos],
+            breaks = seq(
+              min(y[y_pos], na.rm = TRUE),
+              max(y[y_pos], na.rm = TRUE),
+              len = 100
+            ),
             include.lowest = TRUE
           )
           col[y_pos] <- colorRampPalette(c("#F5DCDC", "#C40003"))(100)[y_pos_i]
@@ -13942,8 +22064,13 @@ GSEAPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilcox", re
 
         y_neg <- which(y < 0)
         if (length(y_neg) > 0) {
-          y_neg_i <- cut(y[y_neg],
-            breaks = seq(min(y[y_neg], na.rm = TRUE), max(y[y_neg], na.rm = TRUE), len = 100),
+          y_neg_i <- cut(
+            y[y_neg],
+            breaks = seq(
+              min(y[y_neg], na.rm = TRUE),
+              max(y[y_neg], na.rm = TRUE),
+              len = 100
+            ),
             include.lowest = TRUE
           )
           col[y_neg] <- colorRampPalette(c("#1D008F", "#DDDCF5"))(100)[y_neg_i]
@@ -13954,48 +22081,108 @@ GSEAPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilcox", re
         xmin <- which(!duplicated(col))
         xmax <- xmin + as.numeric(table(col)[as.character(unique(col))])
         d <- data.frame(
-          ymin = ymin, ymax = ymax, xmin = xmin,
-          xmax = xmax, col = unique(col)
+          ymin = ymin,
+          ymax = ymax,
+          xmin = xmin,
+          xmax = xmax,
+          col = unique(col)
         )
-        p2 <- p2 + geom_rect(
-          aes(
-            xmin = xmin, xmax = xmax,
-            ymin = ymin, ymax = ymax, fill = I(col)
-          ),
-          data = d,
-          alpha = 0.95, inherit.aes = FALSE
-        )
+        p2 <- p2 +
+          geom_rect(
+            aes(
+              xmin = xmin,
+              xmax = xmax,
+              ymin = ymin,
+              ymax = ymax,
+              fill = I(col)
+            ),
+            data = d,
+            alpha = 0.95,
+            inherit.aes = FALSE
+          )
       }
       df2 <- p$data
       df2$y <- p$data$geneList[df2$x]
       min_y <- df2$y[which.min(abs(df2$y))]
       corss_x <- median(df2$x[df2$y == min_y])
-      p3 <- p + geom_segment(data = df2, aes(
-        x = x, xend = x,
-        y = y, yend = 0
-      ), color = "grey30")
+      p3 <- p +
+        geom_segment(
+          data = df2,
+          aes(
+            x = x,
+            xend = x,
+            y = y,
+            yend = 0
+          ),
+          color = "grey30"
+        )
 
       if (max(df2$y) > 0) {
-        p3 <- p3 + annotate(geom = "text", x = 0, y = Inf, vjust = 1.3, hjust = 0, color = "#C81A1F", size = 4, label = " Positively correlated")
+        p3 <- p3 +
+          annotate(
+            geom = "text",
+            x = 0,
+            y = Inf,
+            vjust = 1.3,
+            hjust = 0,
+            color = "#C81A1F",
+            size = 4,
+            label = " Positively correlated"
+          )
       }
       if (min(df2$y) < 0) {
-        p3 <- p3 + annotate(geom = "text", x = Inf, y = -Inf, vjust = -0.3, hjust = 1, color = "#3C298C", size = 4, label = "Negtively correlated ")
+        p3 <- p3 +
+          annotate(
+            geom = "text",
+            x = Inf,
+            y = -Inf,
+            vjust = -0.3,
+            hjust = 1,
+            color = "#3C298C",
+            size = 4,
+            label = "Negtively correlated "
+          )
       }
       if (max(df2$y) > 0 && min(df2$y) < 0) {
-        p3 <- p3 + geom_vline(xintercept = corss_x, linetype = 2, color = "black") +
-          annotate(geom = "text", y = 0, x = corss_x, vjust = ifelse(diff(abs(range(df2$y))) > 0, -0.3, 1.3), size = 4, label = paste0("Zero cross at ", corss_x))
+        p3 <- p3 +
+          geom_vline(xintercept = corss_x, linetype = 2, color = "black") +
+          annotate(
+            geom = "text",
+            y = 0,
+            x = corss_x,
+            vjust = ifelse(diff(abs(range(df2$y))) > 0, -0.3, 1.3),
+            size = 4,
+            label = paste0("Zero cross at ", corss_x)
+          )
       }
-      p3 <- p3 + ylab("Ranked List Metric") + xlab("Rank in Ordered Dataset") +
+      p3 <- p3 +
+        ylab("Ranked List Metric") +
+        xlab("Rank in Ordered Dataset") +
         theme(
-          plot.margin = margin(t = -0.1, r = 0.2, b = 0.2, l = 0.2, unit = "cm"),
-          axis.line = element_blank(), axis.line.x = element_blank(),
-          panel.border = element_rect(color = "black", fill = "transparent", linewidth = 1)
+          plot.margin = margin(
+            t = -0.1,
+            r = 0.2,
+            b = 0.2,
+            l = 0.2,
+            unit = "cm"
+          ),
+          axis.line = element_blank(),
+          axis.line.x = element_blank(),
+          panel.border = element_rect(
+            color = "black",
+            fill = "transparent",
+            linewidth = 1
+          )
         )
       if (length(geneSetID_use) == 1) {
         p1 <- p1 + ggtitle(gsdata$Description[1], subtitle = subtitle_use)
       }
       if (length(line_color) != length(geneSetID_use)) {
-        color_use <- palette_scp(levels(gsdata$DescriptionP), palette = palette, palcolor = palcolor)
+        color_use <- palette_scp(
+          levels(gsdata$DescriptionP),
+          palette = palette,
+          palcolor = palcolor
+        )
       } else {
         color_use <- line_color
       }
@@ -14017,16 +22204,37 @@ GSEAPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilcox", re
       )
       plotlist <- list(p1 + theme(legend.position = "none"), p2, p3)[subplots]
       if (length(subplots) == 1) {
-        plist[[nm]] <- plotlist[[1]] + theme(
-          aspect.ratio = rel_heights[subplots] / rel_width,
-          plot.margin = margin(t = 0.2, r = 0.2, b = 0.2, l = 0.2, unit = "cm")
-        )
+        plist[[nm]] <- plotlist[[1]] +
+          theme(
+            aspect.ratio = rel_heights[subplots] / rel_width,
+            plot.margin = margin(
+              t = 0.2,
+              r = 0.2,
+              b = 0.2,
+              l = 0.2,
+              unit = "cm"
+            )
+          )
       } else {
         plotlist <- lapply(plotlist[subplots], as_grob)
         rel_heights <- rel_heights[subplots]
         for (i in seq_along(plotlist)) {
-          plotlist[[i]] <- panel_fix_overall(plotlist[[i]], height = rel_heights[i], units = "null", margin = 0, respect = TRUE, return_grob = TRUE)
-          plotlist[[i]] <- panel_fix_overall(plotlist[[i]], width = rel_width, units = "null", margin = 0, respect = TRUE, return_grob = TRUE)
+          plotlist[[i]] <- panel_fix_overall(
+            plotlist[[i]],
+            height = rel_heights[i],
+            units = "null",
+            margin = 0,
+            respect = TRUE,
+            return_grob = TRUE
+          )
+          plotlist[[i]] <- panel_fix_overall(
+            plotlist[[i]],
+            width = rel_width,
+            units = "null",
+            margin = 0,
+            respect = TRUE,
+            return_grob = TRUE
+          )
         }
         p_out <- do.call(rbind, c(plotlist, size = "first"))
 
@@ -14044,13 +22252,36 @@ GSEAPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilcox", re
     for (nm in names(res)) {
       res_enrich <- res[[nm]]
       if (is.null(id_use)) {
-        geneSetID_filter <- res_enrich@result[res_enrich@result[[metric]] < metric_value, , drop = FALSE]
-        geneSetID_filter <- geneSetID_filter[order(geneSetID_filter[[metric]]), , drop = FALSE]
-        geneSetID_up <- geneSetID_filter[geneSetID_filter[["NES"]] > 0, , drop = FALSE]
-        geneSetID_up <- geneSetID_up[head(order(geneSetID_up[[metric]]), topTerm), "ID"]
-        geneSetID_down <- geneSetID_filter[geneSetID_filter[["NES"]] < 0, , drop = FALSE]
-        geneSetID_down <- geneSetID_down[head(order(geneSetID_down[[metric]]), topTerm), "ID"]
-        geneSetID_use <- switch(direction,
+        geneSetID_filter <- res_enrich@result[
+          res_enrich@result[[metric]] < metric_value,
+          ,
+          drop = FALSE
+        ]
+        geneSetID_filter <- geneSetID_filter[
+          order(geneSetID_filter[[metric]]),
+          ,
+          drop = FALSE
+        ]
+        geneSetID_up <- geneSetID_filter[
+          geneSetID_filter[["NES"]] > 0,
+          ,
+          drop = FALSE
+        ]
+        geneSetID_up <- geneSetID_up[
+          head(order(geneSetID_up[[metric]]), topTerm),
+          "ID"
+        ]
+        geneSetID_down <- geneSetID_filter[
+          geneSetID_filter[["NES"]] < 0,
+          ,
+          drop = FALSE
+        ]
+        geneSetID_down <- geneSetID_down[
+          head(order(geneSetID_down[[metric]]), topTerm),
+          "ID"
+        ]
+        geneSetID_use <- switch(
+          direction,
           "pos" = unique(head(geneSetID_up, topTerm)),
           "neg" = unique(head(geneSetID_down, topTerm)),
           "both" = unique(head(
@@ -14063,7 +22294,10 @@ GSEAPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilcox", re
         )
       } else {
         if (is.list(id_use)) {
-          geneSetID_use <- intersect(res_enrich@result[["ID"]], id_use[[unique(res_enrich@result$Groups)]])
+          geneSetID_use <- intersect(
+            res_enrich@result[["ID"]],
+            id_use[[unique(res_enrich@result$Groups)]]
+          )
         } else {
           geneSetID_use <- id_use
         }
@@ -14076,31 +22310,63 @@ GSEAPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilcox", re
       stat <- stat[order(stat[["NES"]]), , drop = FALSE]
       rownames(stat) <- stat[, "Description"]
       stat[["Description"]] <- capitalize(stat[["Description"]])
-      stat[["Description"]] <- str_wrap(stat[["Description"]], width = character_width)
-      stat[["Description"]] <- factor(stat[["Description"]], levels = unique(stat[["Description"]]))
+      stat[["Description"]] <- str_wrap(
+        stat[["Description"]],
+        width = character_width
+      )
+      stat[["Description"]] <- factor(
+        stat[["Description"]],
+        levels = unique(stat[["Description"]])
+      )
       stat[["Direction"]] <- ifelse(stat[["NES"]] > 0, "Pos", "Neg")
-      stat[["Direction"]] <- factor(stat[["Direction"]], levels = c("Pos", "Neg"))
+      stat[["Direction"]] <- factor(
+        stat[["Direction"]],
+        levels = c("Pos", "Neg")
+      )
 
-      p <- ggplot(stat, aes(
-        x = .data[["NES"]], y = .data[["Description"]]
-      )) +
+      p <- ggplot(
+        stat,
+        aes(
+          x = .data[["NES"]],
+          y = .data[["Description"]]
+        )
+      ) +
         geom_vline(xintercept = 0) +
-        geom_col(aes(fill = .data[["Direction"]], alpha = -log10(.data[[metric]])), color = "black") +
+        geom_col(
+          aes(fill = .data[["Direction"]], alpha = -log10(.data[[metric]])),
+          color = "black"
+        ) +
         geom_text(
           aes(
-            x = 0, y = .data[["Description"]], label = .data[["Description"]],
+            x = 0,
+            y = .data[["Description"]],
+            label = .data[["Description"]],
             hjust = ifelse(.data[["NES"]] > 0, 1, 0),
           ),
           nudge_x = ifelse(stat[["NES"]] > 0, -0.05, 0.05),
           lineheight = lineheight,
-          fontface = ifelse(grepl("\n", levels(stat[["Description"]])), "italic", "plain")
+          fontface = ifelse(
+            grepl("\n", levels(stat[["Description"]])),
+            "italic",
+            "plain"
+          )
         ) +
         scale_fill_manual(
-          values = palette_scp(x = rev(levels(stat[["Direction"]])), palette = palette, palcolor = rev(palcolor)),
-          guide = if (direction == "both") guide_legend(order = 1) else guide_none()
+          values = palette_scp(
+            x = rev(levels(stat[["Direction"]])),
+            palette = palette,
+            palcolor = rev(palcolor)
+          ),
+          guide = if (direction == "both") {
+            guide_legend(order = 1)
+          } else {
+            guide_none()
+          }
         ) +
         facet_grid(Database ~ Groups, scales = "free") +
-        coord_cartesian(xlim = c(-max(abs(stat[["NES"]])), max(abs(stat[["NES"]])))) +
+        coord_cartesian(
+          xlim = c(-max(abs(stat[["NES"]])), max(abs(stat[["NES"]])))
+        ) +
         do.call(theme_use, theme_args) +
         theme(
           aspect.ratio = aspect.ratio,
@@ -14116,13 +22382,36 @@ GSEAPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilcox", re
     for (nm in names(res)) {
       res_enrich <- res[[nm]]
       if (is.null(id_use)) {
-        geneSetID_filter <- res_enrich@result[res_enrich@result[[metric]] < metric_value, , drop = FALSE]
-        geneSetID_filter <- geneSetID_filter[order(geneSetID_filter[[metric]]), , drop = FALSE]
-        geneSetID_up <- geneSetID_filter[geneSetID_filter[["NES"]] > 0, , drop = FALSE]
-        geneSetID_up <- geneSetID_up[head(order(geneSetID_up[[metric]]), topTerm), "ID"]
-        geneSetID_down <- geneSetID_filter[geneSetID_filter[["NES"]] < 0, , drop = FALSE]
-        geneSetID_down <- geneSetID_down[head(order(geneSetID_down[[metric]]), topTerm), "ID"]
-        geneSetID_use <- switch(direction,
+        geneSetID_filter <- res_enrich@result[
+          res_enrich@result[[metric]] < metric_value,
+          ,
+          drop = FALSE
+        ]
+        geneSetID_filter <- geneSetID_filter[
+          order(geneSetID_filter[[metric]]),
+          ,
+          drop = FALSE
+        ]
+        geneSetID_up <- geneSetID_filter[
+          geneSetID_filter[["NES"]] > 0,
+          ,
+          drop = FALSE
+        ]
+        geneSetID_up <- geneSetID_up[
+          head(order(geneSetID_up[[metric]]), topTerm),
+          "ID"
+        ]
+        geneSetID_down <- geneSetID_filter[
+          geneSetID_filter[["NES"]] < 0,
+          ,
+          drop = FALSE
+        ]
+        geneSetID_down <- geneSetID_down[
+          head(order(geneSetID_down[[metric]]), topTerm),
+          "ID"
+        ]
+        geneSetID_use <- switch(
+          direction,
           "pos" = unique(head(geneSetID_up, topTerm)),
           "neg" = unique(head(geneSetID_down, topTerm)),
           "both" = unique(head(
@@ -14135,7 +22424,10 @@ GSEAPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilcox", re
         )
       } else {
         if (is.list(id_use)) {
-          geneSetID_use <- intersect(res_enrich@result[["ID"]], id_use[[unique(res_enrich@result$Groups)]])
+          geneSetID_use <- intersect(
+            res_enrich@result[["ID"]],
+            id_use[[unique(res_enrich@result$Groups)]]
+          )
         } else {
           geneSetID_use <- id_use
         }
@@ -14154,14 +22446,35 @@ GSEAPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilcox", re
       )
       df[["metric"]] <- -log10(df[[metric]])
       df[["Description"]] <- capitalize(df[["Description"]])
-      df[["Description"]] <- str_wrap(df[["Description"]], width = character_width)
-      df[["Description"]] <- paste0(df[["Description"]], "\n(NES=", round(df[["NES"]], 3), ", ", metric, "=", format(df[[metric]], digits = 3, scientific = TRUE), ", ", df[["p.sig"]], ")")
-      df[["Description"]] <- factor(df[["Description"]], levels = unique(df[["Description"]]))
+      df[["Description"]] <- str_wrap(
+        df[["Description"]],
+        width = character_width
+      )
+      df[["Description"]] <- paste0(
+        df[["Description"]],
+        "\n(NES=",
+        round(df[["NES"]], 3),
+        ", ",
+        metric,
+        "=",
+        format(df[[metric]], digits = 3, scientific = TRUE),
+        ", ",
+        df[["p.sig"]],
+        ")"
+      )
+      df[["Description"]] <- factor(
+        df[["Description"]],
+        levels = unique(df[["Description"]])
+      )
       df[["geneID"]] <- strsplit(df[["core_enrichment"]], "/")
       df_unnest <- unnest(df, cols = "geneID")
 
       nodes <- rbind(
-        data.frame("ID" = df[["Description"]], class = "term", metric = df[["metric"]]),
+        data.frame(
+          "ID" = df[["Description"]],
+          class = "term",
+          metric = df[["metric"]]
+        ),
         data.frame("ID" = unique(df_unnest$geneID), class = "gene", metric = 0)
       )
       nodes$Database <- df$Database[1]
@@ -14169,9 +22482,14 @@ GSEAPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilcox", re
       edges <- as.data.frame(df_unnest[, c("Description", "geneID")])
       colnames(edges) <- c("from", "to")
       edges[["weight"]] <- 1
-      graph <- graph_from_data_frame(d = edges, vertices = nodes, directed = FALSE)
+      graph <- graph_from_data_frame(
+        d = edges,
+        vertices = nodes,
+        directed = FALSE
+      )
       if (network_layout %in% c("circle", "tree", "grid")) {
-        layout <- switch(network_layout,
+        layout <- switch(
+          network_layout,
           "circle" = layout_in_circle(graph),
           "tree" = layout_as_tree(graph),
           "grid" = layout_on_grid(graph)
@@ -14186,8 +22504,12 @@ GSEAPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilcox", re
         width <- nchar(df_nodes$name)
         width[df_nodes$class == "term"] <- 8
         layout <- adjustlayout(
-          graph = graph, layout = layout, width = width, height = 2,
-          scale = network_adjscale, iter = network_adjiter
+          graph = graph,
+          layout = layout,
+          width = width,
+          height = 2,
+          scale = network_adjscale,
+          iter = network_adjiter
         )
       }
       df_nodes[["dim1"]] <- layout[, 1]
@@ -14199,41 +22521,115 @@ GSEAPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilcox", re
       df_edges[["to_dim1"]] <- df_nodes[df_edges[["to"]], "dim1"]
       df_edges[["to_dim2"]] <- df_nodes[df_edges[["to"]], "dim2"]
 
-      colors <- palette_scp(levels(df[["Description"]]), palette = palette, palcolor = palcolor)
+      colors <- palette_scp(
+        levels(df[["Description"]]),
+        palette = palette,
+        palcolor = palcolor
+      )
       df_edges[["color"]] <- colors[df_edges$from]
-      node_colors <- aggregate(df_unnest$Description, by = list(df_unnest$geneID), FUN = function(x) blendcolors(colors = colors[x], mode = network_blendmode))
+      node_colors <- aggregate(
+        df_unnest$Description,
+        by = list(df_unnest$geneID),
+        FUN = function(x) {
+          blendcolors(colors = colors[x], mode = network_blendmode)
+        }
+      )
       colors <- c(colors, setNames(node_colors[, 2], node_colors[, 1]))
-      label_colors <- ifelse(colSums(col2rgb(colors)) > 255 * 2, "black", "white")
+      label_colors <- ifelse(
+        colSums(col2rgb(colors)) > 255 * 2,
+        "black",
+        "white"
+      )
       df_nodes[["color"]] <- colors[df_nodes$name]
       df_nodes[["label_color"]] <- label_colors[df_nodes$name]
       df_nodes[["label"]] <- NA
-      df_nodes[levels(df[["Description"]]), "label"] <- seq_len(nlevels(df[["Description"]]))
+      df_nodes[levels(df[["Description"]]), "label"] <- seq_len(nlevels(df[[
+        "Description"
+      ]]))
 
       draw_key_cust <- function(data, params, size) {
         data_text <- data
-        data_text$label <- which(levels(df[["Description"]]) %in% names(colors)[colors == data_text$fill])
+        data_text$label <- which(
+          levels(df[["Description"]]) %in%
+            names(colors)[colors == data_text$fill]
+        )
         data_text$colour <- "black"
         data_text$alpha <- 1
         data_text$size <- 11 / .pt
         grobTree(
           draw_key_point(data, list(color = "white", shape = 21)),
-          ggrepel:::shadowtextGrob(label = data_text$label, bg.colour = "black", bg.r = 0.1, gp = gpar(col = "white", fontface = "bold"))
+          ggrepel:::shadowtextGrob(
+            label = data_text$label,
+            bg.colour = "black",
+            bg.r = 0.1,
+            gp = gpar(col = "white", fontface = "bold")
+          )
         )
       }
 
       p <- ggplot() +
-        geom_segment(data = df_edges, aes(x = from_dim1, y = from_dim2, xend = to_dim1, yend = to_dim2, color = color), alpha = 1, lineend = "round", show.legend = FALSE) +
-        geom_label(data = df_nodes[df_nodes$class == "gene", ], aes(x = dim1, y = dim2, label = name, fill = color, color = label_color), size = 3, show.legend = FALSE) +
-        geom_point(data = df_nodes[df_nodes$class == "term", ], aes(x = dim1, y = dim2), size = 8, color = "black", fill = "black", stroke = 1, shape = 21, show.legend = FALSE) +
-        geom_point(data = df_nodes[df_nodes$class == "term", ], aes(x = dim1, y = dim2, fill = color), size = 7, color = "white", stroke = 1, shape = 21, key_glyph = draw_key_cust) +
+        geom_segment(
+          data = df_edges,
+          aes(
+            x = from_dim1,
+            y = from_dim2,
+            xend = to_dim1,
+            yend = to_dim2,
+            color = color
+          ),
+          alpha = 1,
+          lineend = "round",
+          show.legend = FALSE
+        ) +
+        geom_label(
+          data = df_nodes[df_nodes$class == "gene", ],
+          aes(
+            x = dim1,
+            y = dim2,
+            label = name,
+            fill = color,
+            color = label_color
+          ),
+          size = 3,
+          show.legend = FALSE
+        ) +
+        geom_point(
+          data = df_nodes[df_nodes$class == "term", ],
+          aes(x = dim1, y = dim2),
+          size = 8,
+          color = "black",
+          fill = "black",
+          stroke = 1,
+          shape = 21,
+          show.legend = FALSE
+        ) +
+        geom_point(
+          data = df_nodes[df_nodes$class == "term", ],
+          aes(x = dim1, y = dim2, fill = color),
+          size = 7,
+          color = "white",
+          stroke = 1,
+          shape = 21,
+          key_glyph = draw_key_cust
+        ) +
         geom_text_repel(
-          data = df_nodes[df_nodes$class == "term", ], aes(x = dim1, y = dim2, label = label),
-          fontface = "bold", min.segment.length = 0, segment.color = "black",
-          point.size = NA, max.overlaps = 100, force = 0, color = "white", bg.color = "black", bg.r = 0.1, size = network_labelsize
+          data = df_nodes[df_nodes$class == "term", ],
+          aes(x = dim1, y = dim2, label = label),
+          fontface = "bold",
+          min.segment.length = 0,
+          segment.color = "black",
+          point.size = NA,
+          max.overlaps = 100,
+          force = 0,
+          color = "white",
+          bg.color = "black",
+          bg.r = 0.1,
+          size = network_labelsize
         ) +
         scale_color_identity(guide = "none") +
         scale_fill_identity(
-          name = "Term:", guide = "legend",
+          name = "Term:",
+          guide = "legend",
           labels = levels(df[["Description"]]),
           breaks = colors[levels(df[["Description"]])]
         ) +
@@ -14253,13 +22649,36 @@ GSEAPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilcox", re
     for (nm in names(res)) {
       res_enrich <- res[[nm]]
       if (is.null(id_use)) {
-        geneSetID_filter <- res_enrich@result[res_enrich@result[[metric]] < metric_value, , drop = FALSE]
-        geneSetID_filter <- geneSetID_filter[order(geneSetID_filter[[metric]]), , drop = FALSE]
-        geneSetID_up <- geneSetID_filter[geneSetID_filter[["NES"]] > 0, , drop = FALSE]
-        geneSetID_up <- geneSetID_up[head(order(geneSetID_up[[metric]]), topTerm), "ID"]
-        geneSetID_down <- geneSetID_filter[geneSetID_filter[["NES"]] < 0, , drop = FALSE]
-        geneSetID_down <- geneSetID_down[head(order(geneSetID_down[[metric]]), topTerm), "ID"]
-        geneSetID_use <- switch(direction,
+        geneSetID_filter <- res_enrich@result[
+          res_enrich@result[[metric]] < metric_value,
+          ,
+          drop = FALSE
+        ]
+        geneSetID_filter <- geneSetID_filter[
+          order(geneSetID_filter[[metric]]),
+          ,
+          drop = FALSE
+        ]
+        geneSetID_up <- geneSetID_filter[
+          geneSetID_filter[["NES"]] > 0,
+          ,
+          drop = FALSE
+        ]
+        geneSetID_up <- geneSetID_up[
+          head(order(geneSetID_up[[metric]]), topTerm),
+          "ID"
+        ]
+        geneSetID_down <- geneSetID_filter[
+          geneSetID_filter[["NES"]] < 0,
+          ,
+          drop = FALSE
+        ]
+        geneSetID_down <- geneSetID_down[
+          head(order(geneSetID_down[[metric]]), topTerm),
+          "ID"
+        ]
+        geneSetID_use <- switch(
+          direction,
           "pos" = unique(head(geneSetID_up, topTerm)),
           "neg" = unique(head(geneSetID_down, topTerm)),
           "both" = unique(head(
@@ -14272,7 +22691,10 @@ GSEAPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilcox", re
         )
       } else {
         if (is.list(id_use)) {
-          geneSetID_use <- intersect(res_enrich@result[["ID"]], id_use[[unique(res_enrich@result$Groups)]])
+          geneSetID_use <- intersect(
+            res_enrich@result[["ID"]],
+            id_use[[unique(res_enrich@result$Groups)]]
+          )
         } else {
           geneSetID_use <- id_use
         }
@@ -14284,8 +22706,14 @@ GSEAPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilcox", re
       df <- res_enrich[geneSetID_use, , drop = FALSE]
       df[["metric"]] <- -log10(df[[metric]])
       df[["Description"]] <- capitalize(df[["Description"]])
-      df[["Description"]] <- str_wrap(df[["Description"]], width = character_width)
-      df[["Description"]] <- factor(df[["Description"]], levels = unique(df[["Description"]]))
+      df[["Description"]] <- str_wrap(
+        df[["Description"]],
+        width = character_width
+      )
+      df[["Description"]] <- factor(
+        df[["Description"]],
+        levels = unique(df[["Description"]])
+      )
       df[["Direction"]] <- ifelse(df[["NES"]] > 0, "Pos", "Neg")
       df[["Direction"]] <- factor(df[["Direction"]], levels = c("Pos", "Neg"))
       df[["geneID"]] <- strsplit(df[["core_enrichment"]], "/")
@@ -14295,11 +22723,20 @@ GSEAPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilcox", re
       nodes <- df
       edges <- as.data.frame(t(combn(nodes$ID, 2)))
       colnames(edges) <- c("from", "to")
-      edges[["weight"]] <- mapply(function(x, y) length(intersect(df[[x, "geneID"]], df[[y, "geneID"]])), edges$from, edges$to)
+      edges[["weight"]] <- mapply(
+        function(x, y) length(intersect(df[[x, "geneID"]], df[[y, "geneID"]])),
+        edges$from,
+        edges$to
+      )
       edges <- edges[edges[["weight"]] > 0, , drop = FALSE]
-      graph <- graph_from_data_frame(d = edges, vertices = nodes, directed = FALSE)
+      graph <- graph_from_data_frame(
+        d = edges,
+        vertices = nodes,
+        directed = FALSE
+      )
       if (enrichmap_layout %in% c("circle", "tree", "grid")) {
-        layout <- switch(enrichmap_layout,
+        layout <- switch(
+          enrichmap_layout,
           "circle" = layout_in_circle(graph),
           "tree" = layout_as_tree(graph),
           "grid" = layout_on_grid(graph)
@@ -14313,11 +22750,20 @@ GSEAPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilcox", re
       df_nodes <- df_graph$vertices
       df_nodes[["dim1"]] <- layout[, 1]
       df_nodes[["dim2"]] <- layout[, 2]
-      df_nodes[["clusters"]] <- factor(paste0("C", clusters$membership), paste0("C", unique(sort(clusters$membership))))
+      df_nodes[["clusters"]] <- factor(
+        paste0("C", clusters$membership),
+        paste0("C", unique(sort(clusters$membership)))
+      )
 
       if (isTRUE(enrichmap_show_keyword)) {
         df_keyword1 <- df_nodes %>%
-          mutate(keyword = strsplit(tolower(as.character(.data[["Description"]])), "\\s|\\n", perl = TRUE)) %>%
+          mutate(
+            keyword = strsplit(
+              tolower(as.character(.data[["Description"]])),
+              "\\s|\\n",
+              perl = TRUE
+            )
+          ) %>%
           unnest(cols = "keyword") %>%
           group_by(.data[["keyword"]], Database, Groups, clusters) %>%
           reframe(
@@ -14338,11 +22784,21 @@ GSEAPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilcox", re
           reframe(keyword = paste0(.data[["keyword"]], collapse = " ")) %>%
           as.data.frame()
         rownames(df_keyword1) <- as.character(df_keyword1[["clusters"]])
-        df_keyword1[["keyword"]] <- str_wrap(df_keyword1[["keyword"]], width = character_width)
-        df_keyword1[["label"]] <- paste0(df_keyword1[["clusters"]], ":\n", df_keyword1[["keyword"]])
+        df_keyword1[["keyword"]] <- str_wrap(
+          df_keyword1[["keyword"]],
+          width = character_width
+        )
+        df_keyword1[["label"]] <- paste0(
+          df_keyword1[["clusters"]],
+          ":\n",
+          df_keyword1[["keyword"]]
+        )
       } else {
         if (enrichmap_label == "term") {
-          df_nodes[["Description"]] <- str_wrap(df_nodes[["Description"]], width = character_width)
+          df_nodes[["Description"]] <- str_wrap(
+            df_nodes[["Description"]],
+            width = character_width
+          )
         }
         df_keyword1 <- df_nodes %>%
           group_by(Database, Groups, clusters) %>%
@@ -14354,7 +22810,11 @@ GSEAPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilcox", re
           reframe(keyword = paste0(.data[["keyword"]], collapse = "\n")) %>%
           as.data.frame()
         rownames(df_keyword1) <- as.character(df_keyword1[["clusters"]])
-        df_keyword1[["label"]] <- paste0(df_keyword1[["clusters"]], ":\n", df_keyword1[["keyword"]])
+        df_keyword1[["label"]] <- paste0(
+          df_keyword1[["clusters"]],
+          ":\n",
+          df_keyword1[["keyword"]]
+        )
       }
 
       df_keyword2 <- df_nodes %>%
@@ -14376,11 +22836,24 @@ GSEAPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilcox", re
         reframe(keyword = paste0(.data[["keyword"]], collapse = " ")) %>%
         as.data.frame()
       rownames(df_keyword2) <- as.character(df_keyword2[["clusters"]])
-      df_keyword2[["keyword"]] <- str_wrap(df_keyword2[["keyword"]], width = character_width)
-      df_keyword2[["label"]] <- paste0(df_keyword2[["clusters"]], ":\n", df_keyword2[["keyword"]])
+      df_keyword2[["keyword"]] <- str_wrap(
+        df_keyword2[["keyword"]],
+        width = character_width
+      )
+      df_keyword2[["label"]] <- paste0(
+        df_keyword2[["clusters"]],
+        ":\n",
+        df_keyword2[["keyword"]]
+      )
 
-      df_nodes[["keyword1"]] <- df_keyword1[as.character(df_nodes$clusters), "keyword"]
-      df_nodes[["keyword2"]] <- df_keyword2[as.character(df_nodes$clusters), "keyword"]
+      df_nodes[["keyword1"]] <- df_keyword1[
+        as.character(df_nodes$clusters),
+        "keyword"
+      ]
+      df_nodes[["keyword2"]] <- df_keyword2[
+        as.character(df_nodes$clusters),
+        "keyword"
+      ]
 
       df_edges <- df_graph$edges
       df_edges[["from_dim1"]] <- df_nodes[df_edges[["from"]], "dim1"]
@@ -14392,14 +22865,20 @@ GSEAPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilcox", re
         check_R("concaveman")
       }
       mark_layer <- do.call(
-        switch(enrichmap_mark,
+        switch(
+          enrichmap_mark,
           "ellipse" = "geom_mark_ellipse",
           "hull" = "geom_mark_hull"
         ),
         list(
-          data = df_nodes, aes(
-            x = dim1, y = dim2, color = clusters, fill = clusters,
-            label = clusters, description = if (enrichmap_label == "term") keyword1 else keyword2
+          data = df_nodes,
+          aes(
+            x = dim1,
+            y = dim2,
+            color = clusters,
+            fill = clusters,
+            label = clusters,
+            description = if (enrichmap_label == "term") keyword1 else keyword2
           ),
           expand = unit(3, "mm"),
           alpha = 0.1,
@@ -14415,27 +22894,80 @@ GSEAPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilcox", re
 
       p <- ggplot() +
         mark_layer +
-        geom_segment(data = df_edges, aes(x = from_dim1, y = from_dim2, xend = to_dim1, yend = to_dim2, linewidth = weight), alpha = 0.1, lineend = "round") +
-        geom_point(data = df_nodes, aes(x = dim1, y = dim2, size = Count, fill = clusters), color = "black", shape = 21) +
+        geom_segment(
+          data = df_edges,
+          aes(
+            x = from_dim1,
+            y = from_dim2,
+            xend = to_dim1,
+            yend = to_dim2,
+            linewidth = weight
+          ),
+          alpha = 0.1,
+          lineend = "round"
+        ) +
+        geom_point(
+          data = df_nodes,
+          aes(x = dim1, y = dim2, size = Count, fill = clusters),
+          color = "black",
+          shape = 21
+        ) +
         labs(x = "", y = "") +
-        scale_size(name = "Count", range = c(2, 6), scales::breaks_extended(n = 4)) +
-        guides(size = guide_legend(override.aes = list(fill = "grey30", shape = 21), order = 1)) +
-        scale_linewidth(name = "Intersection", range = c(0.3, 3), scales::breaks_extended(n = 4)) +
-        guides(linewidth = guide_legend(override.aes = list(alpha = 1, color = "grey"), order = 2)) +
+        scale_size(
+          name = "Count",
+          range = c(2, 6),
+          scales::breaks_extended(n = 4)
+        ) +
+        guides(
+          size = guide_legend(
+            override.aes = list(fill = "grey30", shape = 21),
+            order = 1
+          )
+        ) +
+        scale_linewidth(
+          name = "Intersection",
+          range = c(0.3, 3),
+          scales::breaks_extended(n = 4)
+        ) +
+        guides(
+          linewidth = guide_legend(
+            override.aes = list(alpha = 1, color = "grey"),
+            order = 2
+          )
+        ) +
         scale_fill_manual(
-          name = switch(enrichmap_label,
+          name = switch(
+            enrichmap_label,
             "term" = "Feature:",
             "feature" = "Term:"
           ),
-          values = palette_scp(levels(df_nodes[["clusters"]]), palette = palette, palcolor = palcolor),
-          labels = if (enrichmap_label == "term") df_keyword2[levels(df_nodes[["clusters"]]), "label"] else df_keyword1[levels(df_nodes[["clusters"]]), "label"],
+          values = palette_scp(
+            levels(df_nodes[["clusters"]]),
+            palette = palette,
+            palcolor = palcolor
+          ),
+          labels = if (enrichmap_label == "term") {
+            df_keyword2[levels(df_nodes[["clusters"]]), "label"]
+          } else {
+            df_keyword1[levels(df_nodes[["clusters"]]), "label"]
+          },
           na.value = "grey80",
           aesthetics = c("colour", "fill")
         ) +
-        guides(fill = guide_legend(override.aes = list(alpha = 1, color = "black", shape = NA), byrow = TRUE, order = 3)) +
+        guides(
+          fill = guide_legend(
+            override.aes = list(alpha = 1, color = "black", shape = NA),
+            byrow = TRUE,
+            order = 3
+          )
+        ) +
         guides(color = guide_none()) +
-        scale_x_continuous(expand = expansion(c(enrichmap_expand[1], enrichmap_expand[1]), 0)) +
-        scale_y_continuous(expand = expansion(c(enrichmap_expand[2], enrichmap_expand[2]), 0)) +
+        scale_x_continuous(
+          expand = expansion(c(enrichmap_expand[1], enrichmap_expand[1]), 0)
+        ) +
+        scale_y_continuous(
+          expand = expansion(c(enrichmap_expand[2], enrichmap_expand[2]), 0)
+        ) +
         facet_grid(Database ~ Groups, scales = "free") +
         do.call(theme_use, theme_args) +
         theme(
@@ -14452,18 +22984,30 @@ GSEAPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilcox", re
     for (nm in names(res)) {
       res_enrich <- res[[nm]]
       if (is.null(id_use)) {
-        geneSetID_filter <- res_enrich@result[res_enrich@result[[metric]] < metric_value, , drop = FALSE]
-        geneSetID_filter <- geneSetID_filter[order(geneSetID_filter[[metric]]), , drop = FALSE]
+        geneSetID_filter <- res_enrich@result[
+          res_enrich@result[[metric]] < metric_value,
+          ,
+          drop = FALSE
+        ]
+        geneSetID_filter <- geneSetID_filter[
+          order(geneSetID_filter[[metric]]),
+          ,
+          drop = FALSE
+        ]
         geneSetID_up <- geneSetID_filter[geneSetID_filter[["NES"]] > 0, "ID"]
         geneSetID_down <- geneSetID_filter[geneSetID_filter[["NES"]] < 0, "ID"]
-        geneSetID_use <- switch(direction,
+        geneSetID_use <- switch(
+          direction,
           "pos" = unique(geneSetID_up),
           "neg" = unique(geneSetID_down),
           "both" = unique(c(geneSetID_up, geneSetID_down))
         )
       } else {
         if (is.list(id_use)) {
-          geneSetID_use <- intersect(res_enrich@result[["ID"]], id_use[[unique(res_enrich@result$Groups)]])
+          geneSetID_use <- intersect(
+            res_enrich@result[["ID"]],
+            id_use[[unique(res_enrich@result$Groups)]]
+          )
         } else {
           geneSetID_use <- id_use
         }
@@ -14480,7 +23024,9 @@ GSEAPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilcox", re
         for (i in seq_along(df_groups)) {
           df_sub <- df_groups[[i]]
           if (all(df_sub$Database %in% c("GO", "GO_BP", "GO_CC", "GO_MF"))) {
-            df0 <- simplifyEnrichment::keyword_enrichment_from_GO(df_sub[["ID"]])
+            df0 <- simplifyEnrichment::keyword_enrichment_from_GO(df_sub[[
+              "ID"
+            ]])
             if (nrow(df0 > 0)) {
               df_sub <- df0 %>%
                 reframe(
@@ -14492,17 +23038,31 @@ GSEAPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilcox", re
                 ) %>%
                 filter(!grepl(pattern = "\\[.*\\]", x = .data[["keyword"]])) %>%
                 filter(nchar(.data[["keyword"]]) >= 1) %>%
-                filter(!tolower(.data[["keyword"]]) %in% tolower(words_excluded)) %>%
+                filter(
+                  !tolower(.data[["keyword"]]) %in% tolower(words_excluded)
+                ) %>%
                 distinct() %>%
-                mutate(angle = 90 * sample(c(0, 1), n(), replace = TRUE, prob = c(60, 40))) %>%
+                mutate(
+                  angle = 90 *
+                    sample(c(0, 1), n(), replace = TRUE, prob = c(60, 40))
+                ) %>%
                 as.data.frame()
-              df_sub <- df_sub[head(order(df_sub[["score"]], decreasing = TRUE), topWord), , drop = FALSE]
+              df_sub <- df_sub[
+                head(order(df_sub[["score"]], decreasing = TRUE), topWord),
+                ,
+                drop = FALSE
+              ]
             } else {
               df_sub <- NULL
             }
           } else {
             df_sub <- df_sub %>%
-              mutate(keyword = strsplit(tolower(as.character(.data[["Description"]])), " ")) %>%
+              mutate(
+                keyword = strsplit(
+                  tolower(as.character(.data[["Description"]])),
+                  " "
+                )
+              ) %>%
               unnest(cols = "keyword") %>%
               group_by(.data[["keyword"]], Database, Groups) %>%
               reframe(
@@ -14515,18 +23075,29 @@ GSEAPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilcox", re
               ) %>%
               filter(!grepl(pattern = "\\[.*\\]", x = .data[["keyword"]])) %>%
               filter(nchar(.data[["keyword"]]) >= 1) %>%
-              filter(!tolower(.data[["keyword"]]) %in% tolower(words_excluded)) %>%
+              filter(
+                !tolower(.data[["keyword"]]) %in% tolower(words_excluded)
+              ) %>%
               distinct() %>%
-              mutate(angle = 90 * sample(c(0, 1), n(), replace = TRUE, prob = c(60, 40))) %>%
+              mutate(
+                angle = 90 *
+                  sample(c(0, 1), n(), replace = TRUE, prob = c(60, 40))
+              ) %>%
               as.data.frame()
-            df_sub <- df_sub[head(order(df_sub[["score"]], decreasing = TRUE), topWord), , drop = FALSE]
+            df_sub <- df_sub[
+              head(order(df_sub[["score"]], decreasing = TRUE), topWord),
+              ,
+              drop = FALSE
+            ]
           }
           df_groups[[i]] <- df_sub
         }
         df <- do.call(rbind, df_groups)
       } else {
         df <- df %>%
-          mutate(keyword = strsplit(as.character(.data[["core_enrichment"]]), "/")) %>%
+          mutate(
+            keyword = strsplit(as.character(.data[["core_enrichment"]]), "/")
+          ) %>%
           unnest(cols = "keyword") %>%
           group_by(.data[["keyword"]], Database, Groups) %>%
           reframe(
@@ -14538,20 +23109,69 @@ GSEAPlot <- function(srt, db = "GO_BP", group_by = NULL, test.use = "wilcox", re
             .groups = "keep"
           ) %>%
           distinct() %>%
-          mutate(angle = 90 * sample(c(0, 1), n(), replace = TRUE, prob = c(60, 40))) %>%
+          mutate(
+            angle = 90 * sample(c(0, 1), n(), replace = TRUE, prob = c(60, 40))
+          ) %>%
           as.data.frame()
-        df <- df[head(order(df[["score"]], decreasing = TRUE), topWord), , drop = FALSE]
+        df <- df[
+          head(order(df[["score"]], decreasing = TRUE), topWord),
+          ,
+          drop = FALSE
+        ]
       }
-      colors <- palette_scp(df[["score"]], type = "continuous", palette = palette, palcolor = palcolor, matched = FALSE)
-      colors_value <- seq(min(df[["score"]], na.rm = TRUE), quantile(df[["score"]], 0.99, na.rm = TRUE) + 0.001, length.out = 100)
-      p <- ggplot(df, aes(label = .data[["keyword"]], size = .data[["count"]], color = .data[["score"]], angle = .data[["angle"]])) +
-        ggwordcloud::geom_text_wordcloud(rm_outside = TRUE, eccentricity = 1, shape = "square", show.legend = TRUE, grid_margin = 3) +
-        scale_color_gradientn(
-          name = "Score:", colours = colors, values = rescale(colors_value),
-          guide = guide_colorbar(frame.colour = "black", ticks.colour = "black", title.hjust = 0)
+      colors <- palette_scp(
+        df[["score"]],
+        type = "continuous",
+        palette = palette,
+        palcolor = palcolor,
+        matched = FALSE
+      )
+      colors_value <- seq(
+        min(df[["score"]], na.rm = TRUE),
+        quantile(df[["score"]], 0.99, na.rm = TRUE) + 0.001,
+        length.out = 100
+      )
+      p <- ggplot(
+        df,
+        aes(
+          label = .data[["keyword"]],
+          size = .data[["count"]],
+          color = .data[["score"]],
+          angle = .data[["angle"]]
+        )
+      ) +
+        ggwordcloud::geom_text_wordcloud(
+          rm_outside = TRUE,
+          eccentricity = 1,
+          shape = "square",
+          show.legend = TRUE,
+          grid_margin = 3
         ) +
-        scale_size(name = "Count", range = word_size, breaks = ceiling(seq(min(df[["count"]], na.rm = TRUE), max(df[["count"]], na.rm = TRUE), length.out = 3))) +
-        guides(size = guide_legend(override.aes = list(colour = "black", label = "G"), order = 1)) +
+        scale_color_gradientn(
+          name = "Score:",
+          colours = colors,
+          values = rescale(colors_value),
+          guide = guide_colorbar(
+            frame.colour = "black",
+            ticks.colour = "black",
+            title.hjust = 0
+          )
+        ) +
+        scale_size(
+          name = "Count",
+          range = word_size,
+          breaks = ceiling(seq(
+            min(df[["count"]], na.rm = TRUE),
+            max(df[["count"]], na.rm = TRUE),
+            length.out = 3
+          ))
+        ) +
+        guides(
+          size = guide_legend(
+            override.aes = list(colour = "black", label = "G"),
+            order = 1
+          )
+        ) +
         facet_grid(Database ~ Groups, scales = "free") +
         coord_flip() +
         do.call(theme_use, theme_args) +
@@ -14621,8 +23241,10 @@ gseaScores <- function(geneList, geneSet, exponent = 1) {
     ES <- min.ES
   }
   df <- data.frame(
-    x = seq_along(runningES), runningScore = runningES,
-    position = as.integer(hits), gene = names(geneList)
+    x = seq_along(runningES),
+    runningScore = runningES,
+    position = as.integer(hits),
+    gene = names(geneList)
   )
   return(df)
 }
@@ -14633,8 +23255,15 @@ gseaScores <- function(geneList, geneSet, exponent = 1) {
 #' @importFrom utils modifyList
 #' @importFrom stats na.omit
 #' @importFrom BiocParallel bplapply
-build_patchwork <- function(x, guides = "auto", BPPARAM = BiocParallel::SerialParam()) {
-  x$layout <- modifyList(patchwork:::default_layout, x$layout[!vapply(x$layout, is.null, logical(1))])
+build_patchwork <- function(
+  x,
+  guides = "auto",
+  BPPARAM = BiocParallel::SerialParam()
+) {
+  x$layout <- modifyList(
+    patchwork:::default_layout,
+    x$layout[!vapply(x$layout, is.null, logical(1))]
+  )
 
   guides <- if (guides == "collect" && x$layout$guides != "keep") {
     "collect"
@@ -14642,20 +23271,37 @@ build_patchwork <- function(x, guides = "auto", BPPARAM = BiocParallel::SerialPa
     x$layout$guides
   }
   # bpprogressbar(BPPARAM) <- TRUE
-  gt <- bplapply(x$plots, patchwork:::plot_table, guides = guides, BPPARAM = BPPARAM)
+  gt <- bplapply(
+    x$plots,
+    patchwork:::plot_table,
+    guides = guides,
+    BPPARAM = BPPARAM
+  )
   fixed_asp <- vapply(gt, function(x) isTRUE(x$respect), logical(1))
   guide_grobs <- unlist(lapply(gt, `[[`, "collected_guides"), recursive = FALSE)
   gt <- bplapply(gt, patchwork:::simplify_gt, BPPARAM = BPPARAM)
   gt <- patchwork:::add_insets(gt)
   if (is.null(x$layout$design)) {
-    if (is.null(x$layout$ncol) && !is.null(x$layout$widths) && length(x$layout$widths) > 1) {
+    if (
+      is.null(x$layout$ncol) &&
+        !is.null(x$layout$widths) &&
+        length(x$layout$widths) > 1
+    ) {
       x$layout$ncol <- length(x$layout$widths)
     }
-    if (is.null(x$layout$nrow) && !is.null(x$layout$heights) && length(x$layout$heights) > 1) {
+    if (
+      is.null(x$layout$nrow) &&
+        !is.null(x$layout$heights) &&
+        length(x$layout$heights) > 1
+    ) {
       x$layout$nrow <- length(x$layout$heights)
     }
     dims <- wrap_dims(length(gt), nrow = x$layout$nrow, ncol = x$layout$ncol)
-    x$layout$design <- patchwork:::create_design(dims[2], dims[1], x$layout$byrow)
+    x$layout$design <- patchwork:::create_design(
+      dims[2],
+      dims[1],
+      x$layout$byrow
+    )
   } else {
     dims <- c(
       max(x$layout$design$b),
@@ -14674,29 +23320,63 @@ build_patchwork <- function(x, guides = "auto", BPPARAM = BiocParallel::SerialPa
   )
   design <- as.data.frame(unclass(x$layout$design))
   if (nrow(design) < length(gt)) {
-    warning("Too few patch areas to hold all plots. Dropping plots", call. = FALSE)
+    warning(
+      "Too few patch areas to hold all plots. Dropping plots",
+      call. = FALSE
+    )
     gt <- gt[seq_len(nrow(design))]
     fixed_asp <- fixed_asp[seq_len(nrow(design))]
   } else {
     design <- design[seq_along(gt), ]
   }
-  if (any(design$t < 1)) design$t[design$t < 1] <- 1
-  if (any(design$l < 1)) design$l[design$l < 1] <- 1
-  if (any(design$b > dims[1])) design$b[design$b > dims[1]] <- dims[1]
-  if (any(design$r > dims[2])) design$r[design$r > dims[2]] <- dims[2]
+  if (any(design$t < 1)) {
+    design$t[design$t < 1] <- 1
+  }
+  if (any(design$l < 1)) {
+    design$l[design$l < 1] <- 1
+  }
+  if (any(design$b > dims[1])) {
+    design$b[design$b > dims[1]] <- dims[1]
+  }
+  if (any(design$r > dims[2])) {
+    design$r[design$r > dims[2]] <- dims[2]
+  }
   max_z <- lapply(gt, function(x) max(x$layout$z))
   max_z <- c(0, cumsum(max_z))
-  gt_new$layout <- do.call(rbind, lapply(seq_along(gt), function(i) {
-    loc <- design[i, ]
-    lay <- gt[[i]]$layout
-    lay$name <- paste0(lay$name, "-", i)
-    lay$t <- lay$t + ifelse(lay$t <= PANEL_ROW, (loc$t - 1) * TABLE_ROWS, (loc$b - 1) * TABLE_ROWS)
-    lay$l <- lay$l + ifelse(lay$l <= PANEL_COL, (loc$l - 1) * TABLE_COLS, (loc$r - 1) * TABLE_COLS)
-    lay$b <- lay$b + ifelse(lay$b < PANEL_ROW, (loc$t - 1) * TABLE_ROWS, (loc$b - 1) * TABLE_ROWS)
-    lay$r <- lay$r + ifelse(lay$r < PANEL_COL, (loc$l - 1) * TABLE_COLS, (loc$r - 1) * TABLE_COLS)
-    lay$z <- lay$z + max_z[i]
-    lay
-  }))
+  gt_new$layout <- do.call(
+    rbind,
+    lapply(seq_along(gt), function(i) {
+      loc <- design[i, ]
+      lay <- gt[[i]]$layout
+      lay$name <- paste0(lay$name, "-", i)
+      lay$t <- lay$t +
+        ifelse(
+          lay$t <= PANEL_ROW,
+          (loc$t - 1) * TABLE_ROWS,
+          (loc$b - 1) * TABLE_ROWS
+        )
+      lay$l <- lay$l +
+        ifelse(
+          lay$l <= PANEL_COL,
+          (loc$l - 1) * TABLE_COLS,
+          (loc$r - 1) * TABLE_COLS
+        )
+      lay$b <- lay$b +
+        ifelse(
+          lay$b < PANEL_ROW,
+          (loc$t - 1) * TABLE_ROWS,
+          (loc$b - 1) * TABLE_ROWS
+        )
+      lay$r <- lay$r +
+        ifelse(
+          lay$r < PANEL_COL,
+          (loc$l - 1) * TABLE_COLS,
+          (loc$r - 1) * TABLE_COLS
+        )
+      lay$z <- lay$z + max_z[i]
+      lay
+    })
+  )
   table_dimensions <- patchwork:::table_dims(
     lapply(gt, `[[`, "widths"),
     lapply(gt, `[[`, "heights"),
@@ -14704,12 +23384,24 @@ build_patchwork <- function(x, guides = "auto", BPPARAM = BiocParallel::SerialPa
     dims[2],
     dims[1]
   )
-  gt_new$grobs <- patchwork:::set_grob_sizes(gt, table_dimensions$widths, table_dimensions$heights, design)
+  gt_new$grobs <- patchwork:::set_grob_sizes(
+    gt,
+    table_dimensions$widths,
+    table_dimensions$heights,
+    design
+  )
   gt_new$widths <- table_dimensions$widths
   gt_new$heights <- table_dimensions$heights
   widths <- rep(x$layout$widths, length.out = dims[2])
   heights <- rep(x$layout$heights, length.out = dims[1])
-  gt_new <- patchwork:::set_panel_dimensions(gt_new, gt, widths, heights, fixed_asp, design)
+  gt_new <- patchwork:::set_panel_dimensions(
+    gt_new,
+    gt,
+    widths,
+    heights,
+    fixed_asp,
+    design
+  )
   if (x$layout$guides == "collect") {
     guide_grobs <- patchwork:::collapse_guides(guide_grobs)
     if (length(guide_grobs) != 0) {
@@ -14730,8 +23422,17 @@ build_patchwork <- function(x, guides = "auto", BPPARAM = BiocParallel::SerialPa
 
 #' @importFrom utils modifyList
 patchworkGrob <- function(x, BPPARAM = BiocParallel::SerialParam(), ...) {
-  annotation <- modifyList(patchwork:::default_annotation, x$patches$annotation[!vapply(x$patches$annotation, is.null, logical(1))])
-  x <- patchwork:::recurse_tags(x, annotation$tag_levels, annotation$tag_prefix, annotation$tag_suffix, annotation$tag_sep)$patches
+  annotation <- modifyList(
+    patchwork:::default_annotation,
+    x$patches$annotation[!vapply(x$patches$annotation, is.null, logical(1))]
+  )
+  x <- patchwork:::recurse_tags(
+    x,
+    annotation$tag_levels,
+    annotation$tag_prefix,
+    annotation$tag_suffix,
+    annotation$tag_sep
+  )$patches
   plot <- patchwork:::get_patches(x)
   gtable <- build_patchwork(plot, BPPARAM = BPPARAM)
   gtable <- patchwork:::annotate_table(gtable, annotation)
@@ -14749,7 +23450,11 @@ as_grob <- function(plot, ...) {
   } else if (inherits(plot, "ggplot")) {
     ggplotGrob(plot)
   } else {
-    warning("Cannot convert object of class ", paste0(class(plot), collapse = ","), " into a grob.")
+    warning(
+      "Cannot convert object of class ",
+      paste0(class(plot), collapse = ","),
+      " into a grob."
+    )
   }
 }
 
@@ -14786,7 +23491,13 @@ get_legend <- function(plot) {
 
 #' @importFrom grid is.grob grobWidth grobHeight
 #' @importFrom gtable is.gtable gtable_add_rows gtable_add_cols gtable_add_grob
-add_grob <- function(gtable, grob, position = c("top", "bottom", "left", "right", "none"), space = NULL, clip = "on") {
+add_grob <- function(
+  gtable,
+  grob,
+  position = c("top", "bottom", "left", "right", "none"),
+  space = NULL,
+  clip = "on"
+) {
   position <- match.arg(position)
   if (position == "none" || is.null(grob)) {
     return(gtable)
@@ -14810,19 +23521,49 @@ add_grob <- function(gtable, grob, position = c("top", "bottom", "left", "right"
 
   if (position == "top") {
     gtable <- gtable_add_rows(gtable, space, 0)
-    gtable <- gtable_add_grob(gtable, grob, t = 1, l = mean(gtable$layout[grepl(pattern = "panel", x = gtable$layout$name), "l"]), clip = clip)
+    gtable <- gtable_add_grob(
+      gtable,
+      grob,
+      t = 1,
+      l = mean(gtable$layout[
+        grepl(pattern = "panel", x = gtable$layout$name),
+        "l"
+      ]),
+      clip = clip
+    )
   }
   if (position == "bottom") {
     gtable <- gtable_add_rows(gtable, space, -1)
-    gtable <- gtable_add_grob(gtable, grob, t = dim(gtable)[1], l = mean(gtable$layout[grepl(pattern = "panel", x = gtable$layout$name), "l"]), clip = clip)
+    gtable <- gtable_add_grob(
+      gtable,
+      grob,
+      t = dim(gtable)[1],
+      l = mean(gtable$layout[
+        grepl(pattern = "panel", x = gtable$layout$name),
+        "l"
+      ]),
+      clip = clip
+    )
   }
   if (position == "left") {
     gtable <- gtable_add_cols(gtable, space, 0)
-    gtable <- gtable_add_grob(gtable, grob, t = mean(gtable$layout[grep("panel", gtable$layout$name), "t"]), l = 1, clip = clip)
+    gtable <- gtable_add_grob(
+      gtable,
+      grob,
+      t = mean(gtable$layout[grep("panel", gtable$layout$name), "t"]),
+      l = 1,
+      clip = clip
+    )
   }
   if (position == "right") {
     gtable <- gtable_add_cols(gtable, space, -1)
-    gtable <- gtable_add_grob(gtable, grob, t = mean(gtable$layout[grep("panel", gtable$layout$name), "t"]), l = dim(gtable)[2], clip = clip)
+    gtable <- gtable_add_grob(
+      gtable,
+      grob,
+      t = mean(gtable$layout[grep("panel", gtable$layout$name), "t"]),
+      l = dim(gtable)[2],
+      clip = clip
+    )
   }
   return(gtable)
 }
